@@ -1,0 +1,2190 @@
+[
+  {
+    "path": "src/main/java/duke/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public static final int MAX_NUMBER_OF_TASK \u003d 100;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printWelcomeMessage();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String command;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        Task[] tasks \u003d new Task[MAX_NUMBER_OF_TASK];"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        boolean isFinished \u003d false;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        Scanner input \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        while (!isFinished \u0026\u0026 input.hasNextLine()) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            command \u003d input.nextLine();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printSingleLine();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            if (command.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                printGoodbyeMessage();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                isFinished \u003d true;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            } else if (command.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                printListOfTask(tasks);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                updateListOfTask(command, tasks);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String logo \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"Hello from\\n\" + logo);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"Hello! I\u0027m duke.Duke\");"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"How can I help you?\");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"Bye. See you soon!\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printListOfTask(Task[] tasks) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        if (Task.getNumberOfTask() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            System.out.println(\"Wow! I see that your list is empty\");"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            System.out.println(\"Here are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            for (int i \u003d 0; i \u003c Task.getNumberOfTask(); i++) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                System.out.println((i + 1) + \".\" + tasks[(i + 1)].toString());"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printDetailsOfAddedTask(Task newTask) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"One more thing you got to do. Press on!\");"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(newTask.toString());"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"Now you have \" + Task.getNumberOfTask() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void updateTaskAsComplete(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        int taskNumber \u003d Integer.parseInt(description);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        tasks[taskNumber].markAsDone();"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printDetailsOfCompletedTask(tasks[taskNumber]);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printDetailsOfCompletedTask(Task task) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"Nice. One more down!\");"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(task.toString());"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void updateListOfTask(String command, Task[] tasks) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        int indexToSplit \u003d command.indexOf(\u0027 \u0027);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        if (indexToSplit \u003d\u003d -1) {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printInvalidTaskMessage();"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            String typeOfTask \u003d command.substring(0, indexToSplit);"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            String description \u003d command.substring(indexToSplit);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            description \u003d description.trim();"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            determineTypeOfTask(tasks, typeOfTask, description);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void determineTypeOfTask(Task[] tasks, String typeOfTask, String description) {"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        switch (typeOfTask) {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        case \"todo\":"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            createTodoTask(tasks, description);"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        case \"deadline\":"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            checkValidityOfDeadline(tasks, description);"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        case \"event\":"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            checkValidityOfEvent(tasks, description);"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        case \"done\":"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            checkValidityOfCompletedTask(tasks, description);"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printInvalidTaskMessage();"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void checkValidityOfDeadline(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            createDeadlineTask(tasks, description);"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            System.out.println(\"You need to let me know\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                    + \"\\\"deadline \u003ctask name\u003e /by \u003cdeadline details\u003e\\\"\");"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printSingleLine();"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void checkValidityOfEvent(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            createEventTask(tasks, description);"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            System.out.println(\"You need to let me know\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                    + \"\\\"event \u003ctask name\u003e /at \u003cevent details\u003e\\\"\");"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printSingleLine();"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void checkValidityOfCompletedTask(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            updateTaskAsComplete(tasks, description);"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e) {"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            System.out.println(\"I see no such task number. You\u0027re making me confused!\");"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            printSingleLine();"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void createTodoTask(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        Task newTask \u003d new ToDo(description);"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        tasks[Task.getNumberOfTask()] \u003d newTask;"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printDetailsOfAddedTask(newTask);"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void createDeadlineTask(Task[] tasks, String description) throws DukeException {"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        if (!description.contains(\"/by\")) {"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String[] deadlineDetails \u003d description.split(\"/by\");"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String deadline \u003d deadlineDetails[1].trim();"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        Task newTask \u003d new Deadline(deadlineDetails[0], deadline);"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        tasks[Task.getNumberOfTask()] \u003d newTask;"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printDetailsOfAddedTask(newTask);"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void createEventTask(Task[] tasks, String description) throws DukeException {"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        if (!description.contains(\"/at\")) {"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String[] eventDetails \u003d description.split(\"/at\");"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        String eventDateTime \u003d eventDetails[1].trim();"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        Task newTask \u003d new Event(eventDetails[0], eventDateTime);"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        tasks[Task.getNumberOfTask()] \u003d newTask;"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printDetailsOfAddedTask(newTask);"
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printInvalidTaskMessage() {"
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"I\u0027m sorry I don\u0027t understand you.\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "                + \"Would you like to tell me again?\");"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        printSingleLine();"
+      },
+      {
+        "lineNumber": 177,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 178,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 179,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static void printSingleLine() {"
+      },
+      {
+        "lineNumber": 180,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        System.out.println(\"_____________________________________________\");"
+      },
+      {
+        "lineNumber": 181,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 182,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 178,
+      "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/DukeException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "public class DukeException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String typeOfTask;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String deadline;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public Deadline(String description, String deadline) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        this.deadline \u003d deadline;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        typeOfTask \u003d \"D\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        return \"[\" + typeOfTask + \"]\" + super.toString() + \"(by: \" + deadline + \")\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String typeOfTask;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String eventDateTime;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public Event(String description, String eventDateTime) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        this.eventDateTime \u003d eventDateTime;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        typeOfTask \u003d \"E\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        return \"[\" + typeOfTask + \"]\" + super.toString() + \"(at: \" + eventDateTime + \")\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private static int numberOfTask \u003d 0;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String description;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private boolean isDone;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        isDone \u003d false;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        numberOfTask++;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        if (isDone) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            return \"\\u2713\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "            return \"\\u2718\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public static int getNumberOfTask() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        return numberOfTask;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        return \"[\" + getStatusIcon() + \"] \" + description;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 35
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/ToDo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    private String typeOfTask;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public ToDo(String description) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        typeOfTask \u003d \"T\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "        return \"[\" + typeOfTask + \"]\" + super.toString();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 15
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "todo borrow book"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "deadline return book /by Sunday"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "event project meeting /at Mon 2-4pm"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "deadline do homework /by no idea :-p"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "done 2"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "done 4"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 10
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.bat",
+    "fileType": "bat",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "@ECHO OFF"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if not exist ..\\bin mkdir ..\\bin"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM delete output from previous run"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "del ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compile the code into the bin folder"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "javac -cp ..\\src\\main\\java -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\*.java ..\\src\\main\\java\\duke\\task\\*.java ..\\src\\main\\java\\duke\\exception\\*.java"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "IF ERRORLEVEL 1 ("
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo ********** BUILD FAILURE **********"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit /b 1"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ")"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM no error here, errorlevel \u003d\u003d 0"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yuen-sihao"
+        },
+        "content": "java -Dfile.encoding\u003dUTF-8 -cp ..\\bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compare the output to the expected output"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "FC ACTUAL.TXT EXPECTED.TXT"
+      }
+    ],
+    "authorContributionMap": {
+      "yuen-sihao": 2,
+      "-": 19
+    }
+  }
+]

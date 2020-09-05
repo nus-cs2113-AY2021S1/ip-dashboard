@@ -1,0 +1,1544 @@
+[
+  {
+    "path": "src/main/java/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    private String dateBy;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public Deadline(String[] descriptionWithTime) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        super(descriptionWithTime[0]);"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        this.dateBy \u003d descriptionWithTime[1];"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public String getFullTask() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String dueDate \u003d \" (by: \" + dateBy + \")\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        return String.format(\"[D]%s%s\", super.getFullTask(), dueDate);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 14
+    }
+  },
+  {
+    "path": "src/main/java/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String FRONT_SPACING \u003d \" \";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String NEW_LINE \u003d \"\\n\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String TOP_LINE \u003d \"____________________________________________________________\\n\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String BOTTOM_LINE \u003d \"\\n____________________________________________________________\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String LIST_HEADER \u003d FRONT_SPACING + \"Here are the tasks in your list:\\n\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String INVALID_TASK \u003d FRONT_SPACING + \"Invalid task to insert\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String TASK_HEADER \u003d FRONT_SPACING + \"Got it. I\u0027ve added this task: \\n\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String TASK_FOOTER_FIRST_PART \u003d FRONT_SPACING + \"Now you have \";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String TASK_FOOTER_SECOND_PART \u003d \" tasks in the list.\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String INVALID_TASK_NUMBER \u003d \"Invalid task number\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String MARKED_DONE_HEADER \u003d \"Nice! I\u0027ve marked this task as done:\\n\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String GREETING_HEADER_TOP \u003d FRONT_SPACING + \"Hello! I\u0027m Duke\\n\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String GREETING_HEADER_BOTTOM \u003d FRONT_SPACING + \"What can I do for you?\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static final String BYE_HEADER \u003d FRONT_SPACING + \"Bye Bye! Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static ArrayList\u003cTask\u003e allActions \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     * Printing information within bounding lines"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static void printWithLines(String stringToPrint) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String finalString \u003d TOP_LINE + stringToPrint + BOTTOM_LINE;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        System.out.println(finalString);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     * Listing all stored actions"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static void listAllActions() {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String fullList \u003d LIST_HEADER;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        for (int i \u003d 0; i \u003c allActions.size(); i++) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            fullList +\u003d String.format(\"%s%s.%s\", FRONT_SPACING, (i + 1), allActions.get(i).getFullTask());"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            if (i !\u003d allActions.size() - 1) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                fullList +\u003d NEW_LINE;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        printWithLines(fullList);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     * Storing new action into Array List"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static void addAction(String command, String userInput) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        int firstSpaceIndex \u003d userInput.indexOf(\" \");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String description \u003d userInput.substring(firstSpaceIndex + 1);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        Task newTask \u003d new Task(userInput);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        if (command.equals(\"todo\")) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            newTask \u003d new Todo(description);"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        } else if (command.equals(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            String[] details \u003d description.split(\" /by \");"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            newTask \u003d new Deadline(details);"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        } else if (command.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            String[] details \u003d description.split(\" /at \");"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            newTask \u003d new Event(details);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        allActions.add(newTask);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String taskConfirmation \u003d newTask.getFullTask();"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        if (taskConfirmation.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            printWithLines(INVALID_TASK);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            printWithLines(TASK_HEADER"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                    + FRONT_SPACING + FRONT_SPACING + taskConfirmation + NEW_LINE"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                    + TASK_FOOTER_FIRST_PART + allActions.size() + TASK_FOOTER_SECOND_PART);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     * Update task if the value being entered is valid"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public static void updateIsDone(int numberToUpdate) {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        if (numberToUpdate \u003e allActions.size() || numberToUpdate \u003c 1) {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            printWithLines(INVALID_TASK_NUMBER);"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            allActions.get(numberToUpdate - 1).setIsDone(true);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            printWithLines(MARKED_DONE_HEADER"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                    + FRONT_SPACING + allActions.get(numberToUpdate - 1).getFullTask());"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        printWithLines(GREETING_HEADER_TOP + GREETING_HEADER_BOTTOM);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        Scanner scanner \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String input \u003d scanner.nextLine();"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String inputInLowerCase \u003d input.toLowerCase();"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        while (!inputInLowerCase.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            String[] inputs \u003d inputInLowerCase.split(\" \");"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            if (inputs[0].equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                listAllActions();"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            } else if (inputs[0].equals(\"done\")) {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                updateIsDone(Integer.parseInt(inputs[1]));"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "                addAction(inputs[0], input);"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            input \u003d scanner.nextLine();"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "            inputInLowerCase \u003d input.toLowerCase();"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        printWithLines(BYE_HEADER);"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 109,
+      "-": 6
+    }
+  },
+  {
+    "path": "src/main/java/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    private String dateAt;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public Event(String[] descriptionWithTime) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        super(descriptionWithTime[0]);"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        this.dateAt \u003d descriptionWithTime[1];"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public String getFullTask() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String eventDate \u003d \" (at: \" + dateAt + \")\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        return String.format(\"[E]%s%s\", super.getFullTask(), eventDate);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 14
+    }
+  },
+  {
+    "path": "src/main/java/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    private String taskDescription;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    private boolean isDone;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public Task(String taskDescription) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        this.taskDescription \u003d taskDescription;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public void setIsDone(boolean newIsDone) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        this.isDone \u003d newIsDone;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public String getFullTask() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        /** For automated testing, replace isDoneSymbol with the following line,"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "         * String isDoneSymbol \u003d isDone ? \"✓\" : \"✗\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "         *"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "         * For production, replace isDoneSymbol with the following line,"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "         * String isDoneSymbol \u003d isDone ? \"\\u2713\" : \"\\u2717\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "         */"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        String isDoneSymbol \u003d isDone ? \"✓\" : \"✗\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        return String.format(\"[%s] %s\", isDoneSymbol, taskDescription);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 25
+    }
+  },
+  {
+    "path": "src/main/java/Todo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "public class Todo extends Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public Todo(String taskDescription) {"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        super(taskDescription);"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    public String getFullTask() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "        return String.format(\"[T]%s\", super.getFullTask());"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 10
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "todo borrow book"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "deadline return book /by Sunday"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "event project meeting /at Mon 2-4pm"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "done 1"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 7
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.bat",
+    "fileType": "bat",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "@ECHO OFF"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if not exist ..\\bin mkdir ..\\bin"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM delete output from previous run"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "del ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compile the code into the bin folder"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "javac  -cp ..\\bin -Xlint:none -d ..\\bin ..\\src\\main\\java\\Task.java"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "javac  -cp ..\\bin -Xlint:none -d ..\\bin ..\\src\\main\\java\\Deadline.java"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "javac  -cp ..\\bin -Xlint:none -d ..\\bin ..\\src\\main\\java\\Event.java"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "javac  -cp ..\\bin -Xlint:none -d ..\\bin ..\\src\\main\\java\\Todo.java"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": "javac  -cp ..\\bin -Xlint:none -d ..\\bin ..\\src\\main\\java\\Duke.java"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Khenus"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "IF ERRORLEVEL 1 ("
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo ********** BUILD FAILURE **********"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit /b 1"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ")"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM no error here, errorlevel \u003d\u003d 0"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ..\\bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compare the output to the expected output"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "FC ACTUAL.TXT EXPECTED.TXT"
+      }
+    ],
+    "authorContributionMap": {
+      "Khenus": 6,
+      "-": 20
+    }
+  }
+]

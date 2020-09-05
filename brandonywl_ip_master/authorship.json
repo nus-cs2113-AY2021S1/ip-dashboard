@@ -1,0 +1,2636 @@
+[
+  {
+    "path": "src/main/java/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Deadline task which inherits from Task."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Adds the ability to have a deadline (by)."
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    protected String deadline;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Deadline(String job, String deadline) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        super(job);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        this.deadline \u003d deadline;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return String.format(\"[D][%s] %s (by: %s)\", status, job, deadline);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 19
+    }
+  },
+  {
+    "path": "src/main/java/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Main class that runs the chat bot. Tasks are managed by the TaskManager"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Duke provides the extraction of action words, descriptions and due dates"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Duke also provides methods to print useful messages"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String EXIT_COMMAND \u003d \"BYE\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String LIST_COMMAND \u003d \"LIST\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String COMPLETE_COMMAND \u003d \"DONE\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String TODO_COMMAND \u003d \"TODO\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String DEADLINE_COMMAND \u003d \"DEADLINE\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String EVENT_COMMAND \u003d \"EVENT\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String LOGO \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String DEADLINE_PREFIX \u003d \"/by\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static final String EVENT_PREFIX \u003d \"/at\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        // Startup and Initializations"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        Scanner sc \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String currentUserInput \u003d \"\";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        TaskManager taskManager \u003d new TaskManager();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String actionWord;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String description;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String timing;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        int timingIndex;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        int descriptionIndex;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        // Introduce the bot after startup"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printIntroduction(LOGO);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        while (!currentUserInput.equalsIgnoreCase(EXIT_COMMAND)) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            currentUserInput \u003d sc.nextLine();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            // actionWord will always be the first word in the sentence"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            actionWord \u003d currentUserInput.toUpperCase().split(\" \")[0];"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            // Find the first \" \". If it does not exist, the command would not use the index anyway. If it does"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            // + 1 to remove the space and get the first index of the description."
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            descriptionIndex \u003d currentUserInput.indexOf(\" \") + 1;"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            String[] outputMessages;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            switch (actionWord) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case EXIT_COMMAND:"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case LIST_COMMAND:"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printTasks(taskManager);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case COMPLETE_COMMAND:"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                // Number of task will be after done. Hence index is 1."
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                int index \u003d Integer.parseInt(currentUserInput.split(\" \")[1]);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                taskManager.completeTask(index);"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                Task tempTask \u003d taskManager.tasks[index - 1];"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                outputMessages \u003d new String[]{"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                        \"Nice! I\u0027ve marked this task as done:\","
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                        \"\\t\" + tempTask.toString()};"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printMessage(outputMessages);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case TODO_COMMAND:"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                description \u003d currentUserInput.substring(descriptionIndex);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                taskManager.addTask(description);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                outputMessages \u003d generateAddTaskMessages(taskManager);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printMessage(outputMessages);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case DEADLINE_COMMAND:"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                timingIndex \u003d currentUserInput.lastIndexOf(DEADLINE_PREFIX);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                description \u003d currentUserInput.substring(descriptionIndex, timingIndex);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                // Remove \"/by \" by adding 4 to the starting index"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                timing \u003d currentUserInput.substring(timingIndex + 4);"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                taskManager.addDeadline(description, timing);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                outputMessages \u003d generateAddTaskMessages(taskManager);"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printMessage(outputMessages);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            case EVENT_COMMAND:"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                timingIndex \u003d currentUserInput.lastIndexOf(EVENT_PREFIX);"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                description \u003d currentUserInput.substring(descriptionIndex, timingIndex);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                // Remove \"/at \" by adding 3 to the starting index"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                timing \u003d currentUserInput.substring(timingIndex + 4);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                taskManager.addEvent(description, timing);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                outputMessages \u003d generateAddTaskMessages(taskManager);"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printMessage(outputMessages);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            default:"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                printMessage(\"Unknown Command! Try again!\");"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printExitMessage();"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * Generates a standard message to print when a new task is added. Retrieves the last task and prints it\u0027s"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * information."
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @param taskManager TaskManager Object."
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @return Returns a standard String Array to be printed."
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static String[] generateAddTaskMessages(TaskManager taskManager) {"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        Task latestTask \u003d taskManager.getLatestTask();"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return new String[]{"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                \"Got it. I\u0027ve added this task:\","
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                \"\\t\" + latestTask.toString(),"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "                String.format(\"Now you have %d tasks in the list.\", taskManager.getNumberOfTasks())"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        };"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * Prints a line to isolate Duke\u0027s replies."
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printDivider() {"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String s \u003d \"------------------------------------------------\";"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        System.out.println(s);"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * Prints the introduction given a text-based logo."
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @param logo String that represents the logo of the chat-bot."
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printIntroduction(String logo) {"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        System.out.println(\"Hello I\u0027m \\n\" + logo);"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        System.out.println(\"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * Prints an exit message."
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printExitMessage() {"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printMessage(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * General purpose method to print a string between two dividers."
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @param message Message to be printed."
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printMessage(String message) {"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        System.out.println(message);"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * General purpose method to print multiple strings between two dividers."
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @param messages An array of messages to be printed"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printMessage(String[] messages) {"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        for (String message : messages) {"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            System.out.println(message);"
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * Method to print all tasks stored inside the Task Manager"
+      },
+      {
+        "lineNumber": 177,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 178,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     * @param taskManager TaskManager Object used to retrieve a list of all tasks as well as number of tasks."
+      },
+      {
+        "lineNumber": 179,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 180,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public static void printTasks(TaskManager taskManager) {"
+      },
+      {
+        "lineNumber": 181,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        Task[] tasks \u003d taskManager.getTasks();"
+      },
+      {
+        "lineNumber": 182,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        int numOfTasks \u003d taskManager.getNumberOfTasks();"
+      },
+      {
+        "lineNumber": 183,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        String[] messages \u003d new String[numOfTasks];"
+      },
+      {
+        "lineNumber": 184,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 185,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        if (numOfTasks \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 186,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            System.out.println();"
+      },
+      {
+        "lineNumber": 187,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 188,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        for (int i \u003d 0; i \u003c numOfTasks; i++) {"
+      },
+      {
+        "lineNumber": 189,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            String outputMessage \u003d String.format(\"%d.\\t%s\", i + 1, tasks[i].toString());"
+      },
+      {
+        "lineNumber": 190,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            messages[i] \u003d outputMessage;"
+      },
+      {
+        "lineNumber": 191,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 192,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        printMessage(messages);"
+      },
+      {
+        "lineNumber": 193,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 194,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 185,
+      "-": 9
+    }
+  },
+  {
+    "path": "src/main/java/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Event task which inherits from Task."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Adds the ability to have a timing (at)."
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    String at;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Event(String job, String at) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        super(job);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        this.at \u003d at;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return String.format(\"[E][%s] %s (at: %s)\", status, job, at);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 17
+    }
+  },
+  {
+    "path": "src/main/java/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " * Task Class used to hold the job description as well as the status of the job."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    String job;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    String status;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Task(String job) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        this.job \u003d job;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        incomplete();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    // Unicode representation of a tick"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void complete() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        this.status \u003d \"\\u2713\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    // Unicode representation of a cross"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void incomplete() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        this.status \u003d \"\\u2717\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return String.format(\"[T][%s] %s\", status, job);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 26
+    }
+  },
+  {
+    "path": "src/main/java/TaskManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "public class TaskManager {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    private int taskLimit \u003d 100;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Task[] tasks \u003d new Task[taskLimit];"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public int numberOfTasks \u003d 0;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Task[] getTasks() {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public Task getLatestTask() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return tasks[getNumberOfTasks() - 1];"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public int getNumberOfTasks() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return numberOfTasks;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void addNumberOfTask() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        numberOfTasks +\u003d 1;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void addTask(String task) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        if (isUnderLimit()) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            Task newTask \u003d new Task(task);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            tasks[getNumberOfTasks()] \u003d newTask;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            addNumberOfTask();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            System.out.println(\"Error. Maximum number of tasks hit!\");"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void addDeadline(String task, String deadline) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        if (isUnderLimit()) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            Deadline newDeadline \u003d new Deadline(task, deadline);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            tasks[getNumberOfTasks()] \u003d newDeadline;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            addNumberOfTask();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            System.out.println(\"Error. Maximum number of tasks hit!\");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void addEvent(String task, String startTime) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        if (isUnderLimit()) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            Event newEvent \u003d new Event(task, startTime);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            tasks[getNumberOfTasks()] \u003d newEvent;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            addNumberOfTask();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "            System.out.println(\"Error. Maximum number of tasks hit!\");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public boolean isUnderLimit() {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        return getNumberOfTasks() \u003c taskLimit;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    public void completeTask(int userStipulatedIndex) {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        int index \u003d userStipulatedIndex - 1;"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "        tasks[index].complete();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 62
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "todo read book"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "deadline return book /by June 6th"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "event project meeting /at Aug 6th 2-4pm"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "todo join sports club"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "done 1"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "done 4"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "todo borrow book"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "deadline return book /by Sunday"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "event project meeting /at Mon 2-4pm"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 11
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.sh",
+    "fileType": "sh",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "#!/usr/bin/env bash"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ ! -d \"../bin\" ]"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    mkdir ../bin"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# delete output from previous run"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ -e \"./ACTUAL.TXT\" ]"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    rm ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compile the code into the bin folder, terminates if error occurred"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "brandonywl"
+        },
+        "content": "if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/Duke.java ../src/main/java/TaskManager.java ../src/main/java/Task.java ../src/main/java/Deadline.java ../src/main/java/Event.java"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"********** BUILD FAILURE **********\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ../bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# convert to UNIX format"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "cp EXPECTED.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compare the output to the expected output"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "diff ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ $? -eq 0 ]"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: PASSED\""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 0"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "else"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: FAILED\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      }
+    ],
+    "authorContributionMap": {
+      "brandonywl": 1,
+      "-": 37
+    }
+  }
+]

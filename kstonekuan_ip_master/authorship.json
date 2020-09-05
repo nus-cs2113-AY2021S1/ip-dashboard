@@ -1,0 +1,3191 @@
+[
+  {
+    "path": "src/main/java/duke/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.textmanager.ErrorTextManager;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.textmanager.TextManager;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int TASK_CAPACITY \u003d 100;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_RAW_INDEX_COMMAND \u003d 0;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_RAW_INDEX_DESC \u003d 1;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_DEADLINE_INDEX_DESC \u003d 0;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_DEADLINE_INDEX_BY \u003d 1;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_EVENT_INDEX_DESC \u003d 0;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final int INPUT_EVENT_INDEX_AT \u003d 1;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String INPUT_DELIMITER \u003d \" \";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        String inputMessage;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        Task[] tasks \u003d new Task[TASK_CAPACITY];"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        boolean isNotBye \u003d true;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        // Greet upon starting"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        TextManager.printGreetMessage();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        // Loop until the user inputs \"bye\""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        while (isNotBye) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            inputMessage \u003d TextManager.getUserInput();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            isNotBye \u003d processInputMessage(inputMessage, tasks);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        // Exit the program"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        TextManager.printExitMessage();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static boolean processInputMessage(String inputMessage, Task[] tasks) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        String command \u003d \"\";"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        String description \u003d \"\";"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String[] inputWords \u003d inputMessage.split(INPUT_DELIMITER);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            command \u003d inputWords[INPUT_RAW_INDEX_COMMAND];"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            description \u003d getDescription(inputWords);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            return processCommand(tasks, command, description);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (IndexOutOfBoundsException | DukeException e) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_NOT_COMMAND);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return true; // Still has not exited so return true"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static boolean processCommand(Task[] tasks, String command, String description) throws DukeException {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        switch (command) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_BYE:"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            return false; // Return false immediately to end the loop"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_LIST:"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            TextManager.printTaskList(tasks);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_DONE:"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            markTaskAsDone(tasks, description);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_TODO:"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            addToDoToTasks(tasks, description);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_DEADLINE:"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            addDeadlineToTasks(tasks, description);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        case TextManager.COMMAND_EVENT:"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            addEventToTasks(tasks, description);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return true; // Still has not exited so return true"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static int getLastTaskIndex() {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return Task.getTaskCount() - 1;"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static void addEventToTasks(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            if (description.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                throw new DukeException();"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String[] eventInputs \u003d description.split(TextManager.COMMAND_EVENT_AT_SEPARATOR);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String eventDescription \u003d eventInputs[INPUT_EVENT_INDEX_DESC];"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String eventAtMessage \u003d eventInputs[INPUT_EVENT_INDEX_AT];"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            tasks[Task.getTaskCount()] \u003d new Event(eventDescription, eventAtMessage);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            TextManager.printAddTask(tasks[getLastTaskIndex()]);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_EVENT);"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_EVENT_AT);"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static void addDeadlineToTasks(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            if (description.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                throw new DukeException();"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String[] deadlineInputs \u003d description.split(TextManager.COMMAND_DEADLINE_BY_SEPARATOR);"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String deadlineDescription \u003d deadlineInputs[INPUT_DEADLINE_INDEX_DESC];"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String doByMessage \u003d deadlineInputs[INPUT_DEADLINE_INDEX_BY];"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            tasks[Task.getTaskCount()] \u003d new Deadline(deadlineDescription, doByMessage);"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            TextManager.printAddTask(tasks[getLastTaskIndex()]);"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_DEADLINE);"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_DEADLINE_BY);"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static void addToDoToTasks(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            if (description.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                throw new DukeException();"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            tasks[Task.getTaskCount()] \u003d new ToDo(description);"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            TextManager.printAddTask(tasks[getLastTaskIndex()]);"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_TODO);"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static void markTaskAsDone(Task[] tasks, String description) {"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            if (description.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                throw new DukeException();"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            int taskDoneIndex \u003d Integer.parseInt(description) - 1;"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            tasks[taskDoneIndex].markAsDone();"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            TextManager.printDoneTask(tasks[taskDoneIndex]);"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_DONE_NOT_NUMBER);"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_DESCRIPTION_DONE);"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static String getDescription(String[] inputWords) {"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        if (inputWords.length \u003e INPUT_RAW_INDEX_DESC) {"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String description \u003d inputWords[INPUT_RAW_INDEX_DESC];"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            for (int i \u003d 2; i \u003c inputWords.length; i++) {"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                description \u003d String.join(INPUT_DELIMITER, description, inputWords[i]);"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            return description;"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            return \"\";"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 164,
+      "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/DukeException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class DukeException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    // Represent exceptions specific to duke.Duke."
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class Deadline extends Task{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String DEADLINE_ICON \u003d \"[D]\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private String doByMessage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public Deadline(String description, String doByMessage) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        this.doByMessage \u003d doByMessage;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return DEADLINE_ICON + super.toString() + \" (by: \" + doByMessage + \")\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 16
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class Event extends Task{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String EVENT_ICON \u003d \"[E]\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private String eventAtMessage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public Event(String description, String eventAtMessage) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        this.eventAtMessage \u003d eventAtMessage;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return EVENT_ICON + super.toString() + \" (at: \" + eventAtMessage + \")\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 16
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    protected static int taskCount \u003d 0;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        taskCount++;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return (isDone ? \"[\\u2713]\" : \"[\\u2718]\"); //return tick or X symbols"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return getStatusIcon() + \" \" + description;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static int getTaskCount() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return taskCount;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/ToDo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String TODO_ICON \u003d \"[T]\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public ToDo(String description) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return TODO_ICON + super.toString();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/textmanager/ErrorTextManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.textmanager;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class ErrorTextManager extends TextManager {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String ERROR_PREFIX \u003d \"\\u2639 OOPS!!! \";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_NOT_COMMAND \u003d \"I\u0027m sorry, but I don\u0027t know what that means :-(.\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_TODO \u003d \"The description of a todo cannot be empty.\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_DEADLINE \u003d \"The description of a deadline cannot be empty.\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_DEADLINE_BY \u003d \"The description of a deadline must have /by (by).\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_EVENT \u003d \"The description of an event cannot be empty.\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_EVENT_AT \u003d \"The description of an event must have /at (at).\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_NO_TASKS \u003d \"You have no tasks in your list.\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_DONE \u003d \"The task to be done cannot be empty.\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String ERROR_DESCRIPTION_DONE_NOT_NUMBER \u003d \"Please select the task by number.\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public ErrorTextManager() {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        super();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printErrorMessage(String errorMessage) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        printMessage(ERROR_PREFIX + errorMessage);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/textmanager/TextManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "package duke.textmanager;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "public class TextManager {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final Scanner SCANNER \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String LOGO_DUKE \u003d \" ____        _\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\" + System.lineSeparator();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String HORIZONTAL_LINE \u003d \"____________________________________________________________\""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + System.lineSeparator();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_GREET \u003d \"Hello! I\u0027m Duke\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            + \"What can I do for you?\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_EXIT \u003d \"Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_ADDED \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_COUNT_PREFIX \u003d \"Now you have \";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_COUNT_SUFFIX \u003d \" tasks in the list.\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_DONE \u003d \"Nice! I\u0027ve marked this task as done:\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_LIST \u003d \"Here are the tasks in your list:\";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_TASK_LIST_SEPARATOR \u003d \".\";"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    private static final String MESSAGE_SPACING \u003d \"  \";"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_BYE \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_LIST \u003d \"list\";"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_DONE \u003d \"done\";"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_TODO \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_DEADLINE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_DEADLINE_BY_SEPARATOR \u003d \" /by \";"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_EVENT \u003d \"event\";"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static final String COMMAND_EVENT_AT_SEPARATOR \u003d \" /at \";"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public TextManager() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static String getUserInput() {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        return SCANNER.nextLine();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    // Wraps message with lines and print"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    protected static void printMessage(String message) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        if (message \u003d\u003d null) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        System.out.println(HORIZONTAL_LINE + message + System.lineSeparator() + HORIZONTAL_LINE);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    // Prints the greeting message"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printGreetMessage() {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        System.out.println(LOGO_DUKE);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        printMessage(MESSAGE_GREET);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    // Prints the exit message"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printExitMessage() {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        printMessage(MESSAGE_EXIT);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printAddTask(Task task) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        printMessage(MESSAGE_TASK_ADDED + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                + MESSAGE_SPACING + task + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                + MESSAGE_TASK_COUNT_PREFIX + Task.getTaskCount() + MESSAGE_TASK_COUNT_SUFFIX);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printDoneTask(Task task) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        printMessage(MESSAGE_TASK_DONE + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                + MESSAGE_SPACING + task);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    public static void printTaskList(Task[] tasks) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            if (Task.getTaskCount() \u003c\u003d 0) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                throw new DukeException();"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            String taskList \u003d MESSAGE_TASK_LIST;"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            for (int i \u003d 0; i \u003c Task.getTaskCount(); i++) {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "                taskList +\u003d System.lineSeparator() + (i + 1) + MESSAGE_TASK_LIST_SEPARATOR + tasks[i];"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            printMessage(taskList);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "            ErrorTextManager.printErrorMessage(ErrorTextManager.ERROR_NO_TASKS);"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 89
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "todo"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "todo borrow book"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "deadline"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "deadline return book"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "deadline return book /by Sunday"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "event"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "event project meeting"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "event project meeting /at Mon 2-4pm"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "deadline do homework /by no idea :-p"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "done"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "done borrow book"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "done 1"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "done 2"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "blah"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 21
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.bat",
+    "fileType": "bat",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "@ECHO OFF"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if not exist ..\\bin mkdir ..\\bin"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM delete output from previous run"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "del ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compile the code into the bin folder"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ../src/main/java/duke/*.java ../src/main/java/duke/task/*.java ../src/main/java/duke/textmanager/*.java"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "IF ERRORLEVEL 1 ("
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo ********** BUILD FAILURE **********"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit /b 1"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ")"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM no error here, errorlevel \u003d\u003d 0"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "java -Dfile.encoding\u003dUTF-8 -classpath ..\\bin duke.Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compare the output to the expected output"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "FC ACTUAL.TXT EXPECTED.TXT"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 2,
+      "-": 19
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.sh",
+    "fileType": "sh",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "#!/usr/bin/env bash"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ ! -d \"../bin\" ]"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    mkdir ../bin"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# delete output from previous run"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ -e \"./ACTUAL.TXT\" ]"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    rm ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compile the code into the bin folder, terminates if error occurred"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/duke/*.java ../src/main/java/duke/task/*.java ../src/main/java/duke/textmanager/*.java"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"********** BUILD FAILURE **********\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "kstonekuan"
+        },
+        "content": "java -Dfile.encoding\u003dUTF-8 -classpath ../bin duke.Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# convert to UNIX format"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "cp EXPECTED.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compare the output to the expected output"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "diff ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ $? -eq 0 ]"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: PASSED\""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 0"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "else"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: FAILED\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      }
+    ],
+    "authorContributionMap": {
+      "kstonekuan": 2,
+      "-": 36
+    }
+  }
+]

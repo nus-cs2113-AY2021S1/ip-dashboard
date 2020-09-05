@@ -1,0 +1,1943 @@
+[
+  {
+    "path": "src/main/java/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "import Task.Deadline;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "import Task.Event;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "import Task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "import Task.Todo;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String REGEX_NUM \u003d \"\\\\d+\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final int TASKS_CAPACITY \u003d 100;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String AT_ARGUMENT \u003d \"/at \";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String BY_ARGUMENT \u003d \"/by \";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String BYE_COMMAND \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String DONE_COMMAND \u003d \"done\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String LIST_COMMAND \u003d \"list\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String EVENT_COMMAND \u003d \"event \";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String DEADLINE_COMMAND \u003d \"deadline \";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String TODO_COMMAND \u003d \"todo \";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static final String PROMPT \u003d \"\u003e \";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static int taskCount \u003d 0;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static Task[] tasks \u003d new Task[TASKS_CAPACITY];"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static void printPrompt() {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        System.out.print(PROMPT);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static void printResponse(String response) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        System.out.printf(\"  %s\\n\", response);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static void printTasks() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        if (taskCount \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            printResponse(\"There are currently no tasks in your list.\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        printResponse(\"Here are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        for (int i \u003d 0; i \u003c taskCount; ++i) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            printResponse(String.format(\"%d. %s\", i + 1, tasks[i]));"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static void markTaskDone(String cmd) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String[] words \u003d cmd.split(\" \");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        if (words.length \u003e 1 \u0026\u0026 words[1].matches(REGEX_NUM)) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            int index \u003d Integer.parseInt(words[1]);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            if (index \u003c\u003d taskCount \u0026\u0026 index \u003e 0) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                tasks[index - 1].markAsDone();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                printResponse(\"Ok! I\u0027ve marked this task as done:\");"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                printResponse(String.format(\"  %s\", tasks[index - 1]));"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            } else System.out.printf(\"Error: Task %d does not exist\", index);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            printResponse(\"Usage: done [task index]\");"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            printResponse(\"Example: done 1\");"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static Todo parseTodoCommand(String cmd) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        int descriptionIndex \u003d TODO_COMMAND.length();"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String description \u003d cmd.substring(descriptionIndex);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return new Todo(description);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static Deadline parseDeadlineCommand(String cmd) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        int descriptionIndex \u003d DEADLINE_COMMAND.length();"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        int dateIndex \u003d cmd.indexOf(BY_ARGUMENT);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String description \u003d cmd.substring(descriptionIndex, dateIndex - 1);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String date \u003d cmd.substring(dateIndex + BY_ARGUMENT.length());"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return new Deadline(description, date);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static Event parseEventCommand(String cmd) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        int descriptionIndex \u003d EVENT_COMMAND.length();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        int dateIndex \u003d cmd.indexOf(AT_ARGUMENT);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String description \u003d cmd.substring(descriptionIndex, dateIndex - 1);"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String date \u003d cmd.substring(dateIndex + AT_ARGUMENT.length());"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return new Event(description, date);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static Task parseTaskCommand(String cmd) {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        if (cmd.startsWith(TODO_COMMAND)) {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            return parseTodoCommand(cmd);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        } else if (cmd.startsWith(DEADLINE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            return parseDeadlineCommand(cmd);"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        } else if (cmd.startsWith(EVENT_COMMAND)) {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            return parseEventCommand(cmd);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return new Task(cmd);"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private static void addTask(Task task) {"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        printResponse(String.format(\"Added: %s\", task));"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        tasks[taskCount++] \u003d task;"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        printResponse("
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                String.format("
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        \"You now have %d task%s in your list.\","
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        taskCount, (taskCount \u003d\u003d 1 ? \"\" : \"s\")));"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        String logo \u003d"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                \"\""
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"                 _______\\n\""
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"               _/       \\\\_\\n\""
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"              / |       | \\\\\\n\""
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"             /  |__   __|  \\\\\\n\""
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"            |__/((o| |o))\\\\__|\\n\""
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"            |      | |      |\\n\""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"            |\\\\     |_|     /|\\n\""
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"            | \\\\           / |\\n\""
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"             \\\\| /  ___  \\\\ |/\\n\""
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"              \\\\ | / _ \\\\ | /\\n\""
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"               \\\\_________/\\n\""
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"                _|_____|_\\n\""
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"           ____|_________|____\\n\""
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                        + \"          /                   \\\\\\n\";"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        System.out.println(logo);"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        System.out.println(\"Hello. What can I do for you?\");"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        while (true) {"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            printPrompt();"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            String cmd \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            if (cmd.equals(BYE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                printResponse(\"Bye. See you next time.\");"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            } else if (cmd.equals(LIST_COMMAND)) {"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                printTasks();"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            } else if (cmd.startsWith(DONE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                markTaskDone(cmd);"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "                addTask(parseTaskCommand(cmd));"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "            System.out.println(\"\");"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        in.close();"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 145,
+      "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/Task/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "package Task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private String date;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public Deadline(String description, String date) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        this.date \u003d date;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return String.format(\"[D]%s (by: %s)\", super.toString(), date);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 15
+    }
+  },
+  {
+    "path": "src/main/java/Task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "package Task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    private String date;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public Event(String description, String date) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        this.date \u003d date;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return String.format(\"[E]%s (at: %s)\", super.toString(), date);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 15
+    }
+  },
+  {
+    "path": "src/main/java/Task/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "package Task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); // return tick or X symbols"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return String.format(\"[%s] %s\", getStatusIcon(), description);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 27
+    }
+  },
+  {
+    "path": "src/main/java/Task/Todo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "package Task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "public class Todo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public Todo(String description) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "        return String.format(\"[T]%s\", super.toString());"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 12
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "todo borrow book"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "event lecture /at tomorrow 8am"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "deadline tutorial /by i dont know"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done 1"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done 2"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done 3"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done -1"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "done 4"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "daniellimws": 12
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.sh",
+    "fileType": "sh",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "#!/usr/bin/env bash"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ ! -d \"../bin\" ]"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    mkdir ../bin"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# delete output from previous run"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ -e \"./ACTUAL.TXT\" ]"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    rm ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compile the code into the bin folder, terminates if error occurred"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "daniellimws"
+        },
+        "content": "if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/Duke.java ../src/main/java/Task/*"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"********** BUILD FAILURE **********\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ../bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# convert to UNIX format"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "cp EXPECTED.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compare the output to the expected output"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "diff ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ $? -eq 0 ]"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: PASSED\""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 0"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "else"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: FAILED\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      }
+    ],
+    "authorContributionMap": {
+      "-": 37,
+      "daniellimws": 1
+    }
+  }
+]

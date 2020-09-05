@@ -1,0 +1,2812 @@
+[
+  {
+    "path": "src/main/java/CommandLib.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "import java.util.HashMap;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class CommandLib {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private final HashMap\u003cString, Command\u003e commandMap \u003d new HashMap\u003c\u003e();"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public CommandLib(){"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        // Initialise the map with all possible commands"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        MarkDone markDone \u003d new MarkDone();"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.DONE_CMD, markDone);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        AddTodo addTodo \u003d new AddTodo();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.TODO_CMD, addTodo);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        AddDeadline addDeadline \u003d new AddDeadline();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.DEADLINE_CMD, addDeadline);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        AddEvent addEvent \u003d new AddEvent();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.EVENT_CMD, addEvent);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        ListAll listAll \u003d new ListAll();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.LIST_CMD, listAll);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        PrintBye printBye \u003d new PrintBye();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.register(Constants.BYE_CMD, printBye);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public void register(String commandName, Command command) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        commandMap.put(commandName, command);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute(String cmd) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        String[] args \u003d cmd.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Command command \u003d commandMap.get(args[0]);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        if(command \u003d\u003d null){"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(\"Command is not recognised!\");"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            return 0;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        if(args.length \u003e 1) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            command.args \u003d args[1];"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return command.execute();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "abstract class Command{"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String args;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class MarkDone extends Command{"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.markDone(args);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class PrintBye extends Command{"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.printBye();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return -1;"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class ListAll extends Command{"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.listAll();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class AddTodo extends Command{"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.addToDo(args);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class AddDeadline extends Command{"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.addDeadline(args);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "class AddEvent extends Command{"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public int execute() {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Database.addEvent(args);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return 0;"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 97
+    }
+  },
+  {
+    "path": "src/main/java/Constants.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class Constants {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String DONE_CMD \u003d \"done\";"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String TODO_CMD \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String DEADLINE_CMD \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String EVENT_CMD \u003d \"event\";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String LIST_CMD \u003d \"list\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String BYE_CMD \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String BY_PARSER \u003d \" /by \";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String AT_PARSER \u003d \" /at \";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static final String SEPLINE \u003d \"------------------------------------------\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 13
+    }
+  },
+  {
+    "path": "src/main/java/Database.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class Database {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void markDone(String arg) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        try{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            int index \u003d Integer.parseInt(arg);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            taskList.get(index - 1).markAsDone();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            markDoneResponse(index);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        } catch(NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(\"The command is not recognised.\");"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e){"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(\"The index is out of range. This action is aborted.\");"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void listAll(){"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        int i \u003d 1;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        for(Task task: taskList){"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(i + \". \" + task);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            i++;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void addToDo(String args){"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Task todo \u003d new ToDo(args);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        taskList.add(todo);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        addedToListResponse(todo);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void addDeadline(String args){"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        String[] parts \u003d args.split(Constants.BY_PARSER);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Task ddl;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        try{"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            ddl \u003d new Deadline(parts[0], parts[1]);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        } catch (ArrayIndexOutOfBoundsException e){"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(\"Not provided sufficient arguments!\");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        taskList.add(ddl);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        addedToListResponse(ddl);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void addEvent(String args){"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        String[] parts \u003d args.split(Constants.AT_PARSER);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Task event;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        try{"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            event \u003d new Events(parts[0], parts[1]);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        } catch (ArrayIndexOutOfBoundsException e){"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            System.out.println(\"Not provided sufficient arguments!\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        taskList.add(event);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        addedToListResponse(event);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public static void printBye(){"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private static void markDoneResponse(int index) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(taskList.get(index - 1));"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private static void addedToListResponse(Task task){"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.print("
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "                \"Got it. I\u0027ve added this task:\\n\" +"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "                task +"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "                \"\\nNow you have \" + taskList.size() + \" tasks in the list.\\n\""
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        );"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 75
+    }
+  },
+  {
+    "path": "src/main/java/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class Deadline extends Task{"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    protected String by;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public Deadline(String description, String by) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.by \u003d by;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 13
+    }
+  },
+  {
+    "path": "src/main/java/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private static final CommandLib commandLib \u003d new CommandLib();"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printOpening();"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        while(true){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            String command \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            int result \u003d processCommand(command);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            if(result \u003d\u003d -1){"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private static void printOpening() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printLogo();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printSeperationLine();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printGreetings();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    private static void printLogo() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "        String logo \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "        System.out.println(\"Hello from\\n\" + logo);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    static int processCommand(String command){"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printSeperationLine();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        int result \u003d commandLib.execute(command);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printSeperationLine();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return result;"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    static void echo(String input){"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(input);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printSeperationLine();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    static void printGreetings(){"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(\"Hello! I\u0027m Duke\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(\"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        printSeperationLine();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    static void printSeperationLine(){"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        System.out.println(Constants.SEPLINE);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 44,
+      "-": 10
+    }
+  },
+  {
+    "path": "src/main/java/Events.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class Events extends Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    protected String at;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public Events(String description, String at) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        this.at \u003d at;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return \"[E]\" + super.toString() + \" (at: \" + at + \")\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 13
+    }
+  },
+  {
+    "path": "src/main/java/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String taskName;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public boolean isDone;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public Task(){"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        taskName \u003d \"\";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        isDone \u003d false;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public Task(String task){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        taskName \u003d task;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        isDone \u003d false;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String toString(){"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return \"[\" + (isDone ? \"\\u2713\" : \"\\u2718\") + \"] \" + taskName;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public void markAsDone(){"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 22
+    }
+  },
+  {
+    "path": "src/main/java/ToDo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public ToDo(String description) {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "        return \"[T]\" + super.toString();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 11
+    }
+  },
+  {
+    "path": "src/main/java/gui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//// This is not used so far"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//import javax.swing.*;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//import java.awt.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//class gui {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//    public static void main(String args[]) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        //Creating the Frame"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JFrame frame \u003d new JFrame(\"Chat Frame\");"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.setSize(400, 400);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        //Creating the MenuBar and adding components"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JMenuBar mb \u003d new JMenuBar();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JMenu m1 \u003d new JMenu(\"FILE\");"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JMenu m2 \u003d new JMenu(\"Help\");"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        mb.add(m1);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        mb.add(m2);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JMenuItem m11 \u003d new JMenuItem(\"Open\");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JMenuItem m22 \u003d new JMenuItem(\"Save as\");"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        m1.add(m11);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        m1.add(m22);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        //Creating the panel at bottom and adding components"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JPanel panel \u003d new JPanel(); // the panel is not visible in output"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JLabel label \u003d new JLabel(\"Enter Text\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JTextField tf \u003d new JTextField(10); // accepts upto 10 characters"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JButton send \u003d new JButton(\"Send\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JButton reset \u003d new JButton(\"Reset\");"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        panel.add(label); // Components Added using Flow Layout"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        panel.add(tf);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        panel.add(send);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        panel.add(reset);"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        // Text Area at the Center"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        JTextArea ta \u003d new JTextArea();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        //Adding Components to the frame."
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.getContentPane().add(BorderLayout.SOUTH, panel);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.getContentPane().add(BorderLayout.NORTH, mb);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.getContentPane().add(BorderLayout.CENTER, ta);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//        frame.setVisible(true);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "//}"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 43
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "todo read books"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "deadline milestone 1 video /by Friday"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "event birthday party /at 31 Aug 4pm"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "done 2"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "done 3"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "list"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 8
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.sh",
+    "fileType": "sh",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "#!/usr/bin/env bash"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ ! -d \"../bin\" ]"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    mkdir ../bin"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# delete output from previous run"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ -e \"./ACTUAL.TXT\" ]"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    rm ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compile the code into the bin folder, terminates if error occurred"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wgzesg"
+        },
+        "content": "if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/*.java"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"********** BUILD FAILURE **********\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ../bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# convert to UNIX format"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "cp EXPECTED.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compare the output to the expected output"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "diff ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ $? -eq 0 ]"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: PASSED\""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 0"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "else"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: FAILED\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      }
+    ],
+    "authorContributionMap": {
+      "wgzesg": 1,
+      "-": 37
+    }
+  }
+]
