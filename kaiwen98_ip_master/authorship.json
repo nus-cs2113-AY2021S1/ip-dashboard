@@ -788,455 +788,455 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case ECHO:"
+        "content": "        case PROMPT_INPUT:"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            output \u003d String.format(\"%s\\n\", packet.getPacketPayload());"
+        "content": "            output \u003d \"\u003e\u003e\u003e \";"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "            isDrawPartition \u003d false;"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case PROMPT_INPUT:"
+        "content": ""
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            output \u003d \"\u003e\u003e\u003e \";"
+        "content": "        case INSERT_TASK_DEADLINE:"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            isDrawPartition \u003d false;"
+        "content": "            //Fall through"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "        case INSERT_TASK_TODO:"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            //Fall through"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_DEADLINE:"
+        "content": "        case INSERT_TASK_EVENT:"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            //Fall through"
+        "content": "            /**"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_TODO:"
+        "content": "             *  The exception handling task is split into 2 types."
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            //Fall through"
+        "content": "             *  The first exception type should be detected by the command handler; If the command needs a"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_EVENT:"
+        "content": "             *  description and the input does not supply any, we throw an exception here."
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            /**"
+        "content": "             *  The second exception type is unique to what the different variants of tasks want,"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             *  The exception handling task is split into 2 types."
+        "content": "             *  so we encapsulate the task-unique exception handling within their own class."
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             *  The first exception type should be detected by the command handler; If the command needs a"
+        "content": "             */"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             *  description and the input does not supply any, we throw an exception here."
+        "content": "            label: try {"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             *  The second exception type is unique to what the different variants of tasks want,"
+        "content": "                validatePayload(packet);"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             *  so we encapsulate the task-unique exception handling within their own class."
+        "content": "                Task inputEvent \u003d generateTask(command, packet);"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "             */"
+        "content": "                err \u003d list.addTask(inputEvent);"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            label: try {"
+        "content": "                if (err !\u003d Constants.Error.NO_ERROR) {"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                validatePayload(packet);"
+        "content": "                    break label;"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                Task inputEvent \u003d generateTask(command, packet);"
+        "content": "                }"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                err \u003d list.addTask(inputEvent);"
+        "content": "                output \u003d UiManager.getMessageTaskAdded(inputEvent);"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                if (err !\u003d Constants.Error.NO_ERROR) {"
+        "content": "                output +\u003d UiManager.getMessageReportNumTasks(list);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    break label;"
+        "content": "            } catch (DukeException.InvalidDescription exception) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                }"
+        "content": "                customErrorMessage \u003d \"You have not entered a valid description!\\n\";"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                output \u003d UiManager.getMessageTaskAdded(inputEvent);"
+        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                output +\u003d UiManager.getMessageReportNumTasks(list);"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } catch (DukeException.InvalidDescription exception) {"
+        "content": "                if (err !\u003d Constants.Error.NO_ERROR ) {"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                customErrorMessage \u003d \"You have not entered a valid description!\\n\";"
+        "content": "                    DukeException.printErrorMessage(Constants.Error.TASK_NOT_CREATED);"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
+        "content": "                }"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } finally {"
+        "content": "            }"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                if (err !\u003d Constants.Error.NO_ERROR ) {"
+        "content": "            break;"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    DukeException.printErrorMessage(Constants.Error.TASK_NOT_CREATED);"
+        "content": ""
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                }"
+        "content": "        case SHOW_LIST:"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            }"
+        "content": "            if (list.getNumTasks() \u003d\u003d 0){"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "                DukeException.printErrorMessage(Constants.Error.NO_LIST);"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            } else {"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case SHOW_LIST:"
+        "content": "                output \u003d list.showAllTasks();"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            if (list.getNumTasks() \u003d\u003d 0){"
+        "content": "            }"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                DukeException.printErrorMessage(Constants.Error.NO_LIST);"
+        "content": "            break;"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } else {"
+        "content": ""
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                output \u003d list.showAllTasks();"
+        "content": "        case REMOVE_TASK:"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            }"
+        "content": "            // Fall through"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "        case MARK_TASK_DONE:"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            try {"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case REMOVE_TASK:"
+        "content": "                validatePayload(packet);"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            // Fall through"
+        "content": "                validateList();"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case MARK_TASK_DONE:"
+        "content": "                int index \u003d Integer.parseInt(packet.getPacketPayload().trim()) - 1;"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            try {"
+        "content": "                err \u003d handleTaskCommands(list, command, index);"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                validatePayload(packet);"
+        "content": "                System.out.println(\"lol\");"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                validateList();"
+        "content": "                Task outputTask \u003d list.getTaskByIndex(index);"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                int index \u003d Integer.parseInt(packet.getPacketPayload().trim()) - 1;"
+        "content": "                output \u003d getMessageTaskCommands(command, outputTask);"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                err \u003d handleTaskCommands(list, command, index);"
+        "content": "            } catch (IndexOutOfBoundsException exception) {"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                Task outputTask \u003d list.getTaskByIndex(index);"
+        "content": "                if (list.getNumTasks() !\u003d 1) {"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                output \u003d getMessageTaskCommands(command, outputTask);"
+        "content": "                    customErrorMessage \u003d \"Your list number ranges from 1 to\";"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } catch (IndexOutOfBoundsException exception) {"
+        "content": "                    customErrorMessage +\u003d String.format(\" %d. Please check your input list number.\\n\", list.getNumTasks());"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                if (list.getNumTasks() !\u003d 1) {"
+        "content": "                } else {"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    customErrorMessage \u003d \"Your list number ranges from 1 to\";"
+        "content": "                    customErrorMessage \u003d \"There is only 1 task in your list.\\n\";"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    customErrorMessage +\u003d String.format(\" %d. Please check your input list number.\\n\", list.getNumTasks());"
+        "content": "                }"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                } else {"
+        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    customErrorMessage \u003d \"There is only 1 task in your list.\\n\";"
+        "content": "            } catch (DukeException.InvalidDescription exception){"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                }"
+        "content": "                customErrorMessage \u003d \"You have not entered a valid task number!\\n\";"
       },
       {
         "lineNumber": 118,
@@ -1250,189 +1250,189 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } catch (DukeException.InvalidDescription exception){"
+        "content": "            } catch (DukeException.NoList exception) {"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                customErrorMessage \u003d \"You have not entered a valid task number!\\n\";"
+        "content": "                DukeException.printErrorMessage(Constants.Error.NO_LIST);"
       },
       {
         "lineNumber": 121,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
+        "content": "            } catch (NumberFormatException exception){"
       },
       {
         "lineNumber": 122,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } catch (DukeException.NoList exception) {"
+        "content": "                customErrorMessage \u003d \"Non-numeric inputs are not acceptable.\\n\";"
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                DukeException.printErrorMessage(Constants.Error.NO_LIST);"
+        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } catch (NumberFormatException exception){"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                customErrorMessage \u003d \"Non-numeric inputs are not acceptable.\\n\";"
+        "content": "                if (err !\u003d Constants.Error.NO_ERROR){"
       },
       {
         "lineNumber": 126,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                DukeException.printErrorMessage(Constants.Error.WRONG_ARGUMENTS, customErrorMessage);"
+        "content": "                    DukeException.printErrorMessage(Constants.Error.TASK_COMMAND_FAIL);"
       },
       {
         "lineNumber": 127,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            } finally {"
+        "content": "                }"
       },
       {
         "lineNumber": 128,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                if (err !\u003d Constants.Error.NO_ERROR){"
+        "content": "            }"
       },
       {
         "lineNumber": 129,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                    DukeException.printErrorMessage(Constants.Error.TASK_COMMAND_FAIL);"
+        "content": "            break;"
       },
       {
         "lineNumber": 130,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "                }"
+        "content": ""
       },
       {
         "lineNumber": 131,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            }"
+        "content": "        case SHOW_COMMANDS:"
       },
       {
         "lineNumber": 132,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "            output \u003d UiManager.MESSAGE_COMMAND_LIST;"
       },
       {
         "lineNumber": 133,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 134,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case SHOW_COMMANDS:"
+        "content": ""
       },
       {
         "lineNumber": 135,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            output \u003d UiManager.MESSAGE_COMMAND_LIST;"
+        "content": "        default:"
       },
       {
         "lineNumber": 136,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "            DukeException.printErrorMessage(Constants.Error.INVALID_COMMAND);"
       },
       {
         "lineNumber": 137,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 138,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        default:"
+        "content": "        }"
       },
       {
         "lineNumber": 139,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            DukeException.printErrorMessage(Constants.Error.INVALID_COMMAND);"
+        "content": "        System.out.print(output);"
       },
       {
         "lineNumber": 140,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "        if (isDrawPartition){"
       },
       {
         "lineNumber": 141,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "            UiManager.drawPartition();"
       },
       {
         "lineNumber": 142,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        System.out.print(output);"
+        "content": "        }"
       },
       {
         "lineNumber": 143,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        if (isDrawPartition){"
+        "content": "    }"
       },
       {
         "lineNumber": 144,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            UiManager.drawPartition();"
+        "content": "    public static void handleCommand(Constants.Command command){"
       },
       {
         "lineNumber": 145,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "        CommandHandler.handleCommand(command, null);"
       },
       {
         "lineNumber": 146,
@@ -1446,416 +1446,395 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    public static void handleCommand(Constants.Command command){"
+        "content": ""
       },
       {
         "lineNumber": 148,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        CommandHandler.handleCommand(command, null);"
+        "content": "    /**"
       },
       {
         "lineNumber": 149,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "     * Since task removal and task completion record is given a generalised treatment in handleCommand(),"
       },
       {
         "lineNumber": 150,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "     * We will use this function to output the corresponding status message."
       },
       {
         "lineNumber": 151,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    /**"
+        "content": "     * @param command command by user"
       },
       {
         "lineNumber": 152,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * Since task removal and task completion record is given a generalised treatment in handleCommand(),"
+        "content": "     * @param outputTask task to be deleted/ marked as done"
       },
       {
         "lineNumber": 153,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * We will use this function to output the corresponding status message."
+        "content": "     * @return"
       },
       {
         "lineNumber": 154,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param command command by user"
+        "content": "     */"
       },
       {
         "lineNumber": 155,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param outputTask task to be deleted/ marked as done"
+        "content": "    private static String getMessageTaskCommands(Constants.Command command, Task outputTask) {"
       },
       {
         "lineNumber": 156,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @return"
+        "content": "        switch (command){"
       },
       {
         "lineNumber": 157,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     */"
+        "content": "        case MARK_TASK_DONE:"
       },
       {
         "lineNumber": 158,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    private static String getMessageTaskCommands(Constants.Command command, Task outputTask) {"
+        "content": "            return UiManager.getMessageTaskMarkAsDone(outputTask);"
       },
       {
         "lineNumber": 159,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        switch (command){"
+        "content": "        case REMOVE_TASK:"
       },
       {
         "lineNumber": 160,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case MARK_TASK_DONE:"
+        "content": "            return UiManager.getMessageTaskRemove(outputTask);"
       },
       {
         "lineNumber": 161,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return UiManager.getMessageTaskMarkAsDone(outputTask);"
+        "content": "        default:"
       },
       {
         "lineNumber": 162,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case REMOVE_TASK:"
+        "content": "            return null;"
       },
       {
         "lineNumber": 163,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return UiManager.getMessageTaskRemove(outputTask);"
+        "content": "        }"
       },
       {
         "lineNumber": 164,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        default:"
+        "content": "    }"
       },
       {
         "lineNumber": 165,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return null;"
+        "content": ""
       },
       {
         "lineNumber": 166,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "    /**"
       },
       {
         "lineNumber": 167,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "     * Since all variants of tasks are given a generalised treatment in handleCommand(),"
       },
       {
         "lineNumber": 168,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "     * We will use this function to output the corresponding task to add to list."
       },
       {
         "lineNumber": 169,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    /**"
+        "content": "     * @param command command by user"
       },
       {
         "lineNumber": 170,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * Since all variants of tasks are given a generalised treatment in handleCommand(),"
+        "content": "     * @param packet packet that are supplying params and payload of data"
       },
       {
         "lineNumber": 171,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * We will use this function to output the corresponding task to add to list."
+        "content": "     * @return task with corresponding type"
       },
       {
         "lineNumber": 172,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param command command by user"
+        "content": "     */"
       },
       {
         "lineNumber": 173,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param packet packet that are supplying params and payload of data"
+        "content": "    private static Task generateTask(Constants.Command command, Packet packet){"
       },
       {
         "lineNumber": 174,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @return task with corresponding type"
+        "content": "        switch (command) {"
       },
       {
         "lineNumber": 175,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     */"
+        "content": "        case INSERT_TASK_DEADLINE:"
       },
       {
         "lineNumber": 176,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    private static Task generateTask(Constants.Command command, Packet packet){"
+        "content": "            return new Deadline(packet.getPacketPayload(), packet.getParamMap());"
       },
       {
         "lineNumber": 177,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        switch (command) {"
+        "content": "        case INSERT_TASK_EVENT:"
       },
       {
         "lineNumber": 178,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_DEADLINE:"
+        "content": "            return new Event(packet.getPacketPayload(), packet.getParamMap());"
       },
       {
         "lineNumber": 179,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return new Deadline(packet.getPacketPayload(), packet.getParamMap());"
+        "content": "        case INSERT_TASK_TODO:"
       },
       {
         "lineNumber": 180,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_EVENT:"
+        "content": "            return new ToDo(packet.getPacketPayload());"
       },
       {
         "lineNumber": 181,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return new Event(packet.getPacketPayload(), packet.getParamMap());"
+        "content": "        default:"
       },
       {
         "lineNumber": 182,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case INSERT_TASK_TODO:"
+        "content": "            return null;"
       },
       {
         "lineNumber": 183,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return new ToDo(packet.getPacketPayload());"
+        "content": "        }"
       },
       {
         "lineNumber": 184,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        default:"
+        "content": "    }"
       },
       {
         "lineNumber": 185,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return null;"
+        "content": ""
       },
       {
         "lineNumber": 186,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "    /**"
       },
       {
         "lineNumber": 187,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "     * Handles commands that are specific to a particular task."
       },
       {
         "lineNumber": 188,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "     * @param list lists containing the tasks"
       },
       {
         "lineNumber": 189,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    /**"
+        "content": "     * @param command command input by user"
       },
       {
         "lineNumber": 190,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * Handles commands that are specific to a particular task."
+        "content": "     * @param index index of task to be deleted/ marked as done"
       },
       {
         "lineNumber": 191,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param list lists containing the tasks"
+        "content": "     * @return error due to task commands failing if applicable"
       },
       {
         "lineNumber": 192,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param command command input by user"
+        "content": "     */"
       },
       {
         "lineNumber": 193,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param index index of task to be deleted/ marked as done"
+        "content": "    private static Constants.Error handleTaskCommands(ListTasks list, Constants.Command command, int index){"
       },
       {
         "lineNumber": 194,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @return error due to task commands failing if applicable"
+        "content": "        switch (command) {"
       },
       {
         "lineNumber": 195,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     */"
+        "content": "        case MARK_TASK_DONE:"
       },
       {
         "lineNumber": 196,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    private static Constants.Error handleTaskCommands(ListTasks list, Constants.Command command, int index){"
+        "content": "            return list.markTaskAsDone(index);"
       },
       {
         "lineNumber": 197,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        switch (command) {"
+        "content": "        case REMOVE_TASK:"
       },
       {
         "lineNumber": 198,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case MARK_TASK_DONE:"
+        "content": "            return list.removeTask(index);"
       },
       {
         "lineNumber": 199,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return list.markTaskAsDone(index);"
+        "content": "        default:"
       },
       {
         "lineNumber": 200,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case REMOVE_TASK:"
+        "content": "            return Constants.Error.OTHER_ERROR;"
       },
       {
         "lineNumber": 201,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return list.removeTask(index);"
+        "content": "        }"
       },
       {
         "lineNumber": 202,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        default:"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "kaiwen98"
-        },
-        "content": "            return Constants.Error.OTHER_ERROR;"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "kaiwen98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "kaiwen98"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 206,
+        "lineNumber": 203,
         "author": {
           "gitId": "kaiwen98"
         },
@@ -1863,7 +1842,7 @@
       }
     ],
     "authorContributionMap": {
-      "kaiwen98": 206
+      "kaiwen98": 203
     }
   },
   {
@@ -2339,94 +2318,101 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        case NO_ERROR:"
+        "content": "            break;"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            output \u003d \"\";"
+        "content": "        case NO_ERROR:"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "            output \u003d \"\";"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        default:"
+        "content": "            break;"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            // Fall through"
+        "content": "        default:"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            break;"
+        "content": "            // Fall through"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "            break;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        System.out.print(output + customErrorMessage);"
+        "content": "        }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "        System.out.print(output + customErrorMessage);"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    public static void printErrorMessage(Constants.Error error){"
+        "content": ""
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        printErrorMessage(error, \"\");"
+        "content": "    public static void printErrorMessage(Constants.Error error){"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "        printErrorMessage(error, \"\");"
       },
       {
         "lineNumber": 44,
+        "author": {
+          "gitId": "kaiwen98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
         "author": {
           "gitId": "kaiwen98"
         },
@@ -2434,7 +2420,7 @@
       }
     ],
     "authorContributionMap": {
-      "kaiwen98": 44
+      "kaiwen98": 45
     }
   },
   {
@@ -3710,213 +3696,220 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        if (taskIndex \u003c 0 || taskIndex \u003e this.numTasks -1){"
+        "content": "        if (taskIndex \u003c\u003d 0 || taskIndex \u003e this.numTasks -1){"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return Constants.Error.WRONG_ARGUMENTS;"
+        "content": "            System.out.println(\"haha\");"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        } else{"
+        "content": "            return Constants.Error.WRONG_ARGUMENTS;"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            this.tasks.get(taskIndex).setIsDone(true);"
+        "content": "        } else{"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            return Constants.Error.NO_ERROR;"
+        "content": "            this.tasks.get(taskIndex).setIsDone(true);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "            return Constants.Error.NO_ERROR;"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    /**"
+        "content": ""
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * Removes task from list"
+        "content": "    /**"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @param taskIndex index of task"
+        "content": "     * Removes task from list"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @return error where applicable"
+        "content": "     * @param taskIndex index of task"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     */"
+        "content": "     * @return error where applicable"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    public Constants.Error removeTask(int taskIndex){"
+        "content": "     */"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        this.tasks.remove(taskIndex);"
+        "content": "    public Constants.Error removeTask(int taskIndex){"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        this.numTasks--;"
+        "content": "        this.tasks.remove(taskIndex);"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        return Constants.Error.NO_ERROR;"
+        "content": "        this.numTasks--;"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "        return Constants.Error.NO_ERROR;"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    /**"
+        "content": ""
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * Prints the contents of the list, displaying also its number and whether it is completed."
+        "content": "    /**"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     * @return String representing the contents of the list"
+        "content": "     * Prints the contents of the list, displaying also its number and whether it is completed."
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "     */"
+        "content": "     * @return String representing the contents of the list"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    public String showAllTasks(){"
+        "content": "     */"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        String output \u003d \"\";"
+        "content": "    public String showAllTasks(){"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        for (int i \u003d 0; i \u003c this.numTasks; i++){"
+        "content": "        String output \u003d \"\";"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "            output +\u003d String.format(\"%d.%s\\n\", i+1, this.tasks.get(i));"
+        "content": "        for (int i \u003d 0; i \u003c this.numTasks; i++){"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        }"
+        "content": "            output +\u003d String.format(\"%d.%s\\n\", i+1, this.tasks.get(i));"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        return output;"
+        "content": "        }"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": "        return output;"
       },
       {
         "lineNumber": 83,
+        "author": {
+          "gitId": "kaiwen98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 84,
         "author": {
           "gitId": "kaiwen98"
         },
@@ -3924,7 +3917,7 @@
       }
     ],
     "authorContributionMap": {
-      "kaiwen98": 83
+      "kaiwen98": 84
     }
   },
   {
@@ -6053,59 +6046,45 @@
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        System.out.println(\"todo\");"
+        "content": "    }"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    @Override"
+        "content": "    protected Constants.Error handleParams(String paramType){"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "    protected Constants.Error handleParams(String paramType){"
+        "content": "        return Constants.Error.NO_ERROR;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "kaiwen98"
         },
-        "content": "        return Constants.Error.NO_ERROR;"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "kaiwen98"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "kaiwen98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 20,
+        "lineNumber": 18,
         "author": {
           "gitId": "kaiwen98"
         },
@@ -6113,7 +6092,7 @@
       }
     ],
     "authorContributionMap": {
-      "kaiwen98": 20
+      "kaiwen98": 18
     }
   },
   {
