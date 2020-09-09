@@ -353,7 +353,7 @@
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "        String userResponse;"
+        "content": "        String command;"
       },
       {
         "lineNumber": 37,
@@ -374,14 +374,14 @@
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            userResponse \u003d in.nextLine();"
+        "content": "            command \u003d in.nextLine();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            if (userResponse.equals(\"bye\")) break;"
+        "content": "            if (command.equals(\"bye\")) break;"
       },
       {
         "lineNumber": 41,
@@ -395,353 +395,542 @@
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            if (userResponse.equals(\"list\")) {"
+        "content": "            try {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                int size \u003d list.size();"
+        "content": "                if (command.equals(\"list\")) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                if (size \u003d\u003d 0) {"
+        "content": "                    int size \u003d list.size();"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.println(\"You have nothing on your list! Why not add one :D\");"
+        "content": "                    if (size \u003d\u003d 0) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                } else {"
+        "content": "                        System.out.println(\"You have nothing on your list! Why not add one :D\");"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.printf(\"Here %s the %s in your list:%n\", size \u003e 1 ? \"are\" : \"is\", size \u003e 1 ? \"tasks\" :"
+        "content": "                    } else {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                            \"task\");"
+        "content": "                        String listPlurality \u003d size \u003e 1 ? \"are\" : \"is\";"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    for (int i \u003d 0; i \u003c list.size(); i++) {"
+        "content": "                        String taskPlurality \u003d size \u003e 1 ? \"tasks\" : \"task\";"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                        System.out.println((i + 1) + \".\" + list.get(i).getTask());"
+        "content": "                        System.out.printf(\"Here %s the %s in your list:%n\", listPlurality, taskPlurality);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    }"
+        "content": "                        for (int i \u003d 0; i \u003c list.size(); i++) {"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                }"
+        "content": "                            System.out.println((i + 1) + \".\" + list.get(i).getTask());"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            } else if (userResponse.startsWith(\"done\")) {"
+        "content": "                        }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                int taskIdentifier \u003d Integer.parseInt(userResponse.split(\" \")[1]);"
+        "content": "                    }"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                if (taskIdentifier \u003e 0 \u0026\u0026 taskIdentifier \u003c\u003d list.size()) {"
+        "content": "                } else if (command.startsWith(\"done\")) {"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    list.get(taskIdentifier - 1).markAsDone();"
+        "content": "                    int taskIdentifier;"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.println(\"Okay! I\u0027ve marked this task as done: Keep on going!\");"
+        "content": "                    try {"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.println(list.get(taskIdentifier - 1).getTask());"
+        "content": "                        taskIdentifier \u003d Integer.parseInt(command.split(\" \")[1]);"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                } else {"
+        "content": "                        if (taskIdentifier \u003e 0 \u0026\u0026 taskIdentifier \u003c\u003d list.size()) {"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.println(\"Sorry, I can\u0027t find the task :(\");"
+        "content": "                            list.get(taskIdentifier - 1).markAsDone();"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                }"
+        "content": "                            System.out.println(\"Okay! I\u0027ve marked this task as done: Keep on going!\");"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            } else {"
+        "content": "                            System.out.println(list.get(taskIdentifier - 1).getTask());"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                if (userResponse.startsWith(\"todo\")) {"
+        "content": "                        } else {"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    // e.g. : todo finish ip"
+        "content": "                            System.out.println(\"Sorry, I can\u0027t find the task :(\");"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String description \u003d userResponse.split(\" \", 2)[1];"
+        "content": "                        }"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    list.add(new ToDo(description));"
+        "content": "                    } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                } else if (userResponse.startsWith(\"deadline\")) {"
+        "content": "                        System.out.println(\"\u003e.\u003c The task identifier supposed to be number! Here is the correct format\" +"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    // e.g. : deadline finish ip /by tomorrow"
+        "content": "                                \" \\\"done \u003cnumber\u003e\\\"\");"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String parsedResponse \u003d userResponse.split(\" \", 2)[1];"
+        "content": "                    } catch (ArrayIndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String description \u003d parsedResponse.split(\" /by \")[0];"
+        "content": "                        System.out.println(\"\u003e.\u003c You can\u0027t leave the task identifier empty! The format supposed to \" +"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String date \u003d parsedResponse.split(\" /by \")[1];"
+        "content": "                                \"be \\\"done \u003cnumber\u003e\\\"\");"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    list.add(new Deadline(description, date));"
+        "content": "                    }"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                } else if (userResponse.startsWith(\"event\")) {"
+        "content": "                } else {"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    // e.g. : event tp meeting /at monday, 7pm-8pm"
+        "content": "                    if (command.startsWith(\"todo\")) {"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String parsedResponse \u003d userResponse.split(\" \", 2)[1];"
+        "content": "                        // e.g. : todo finish ip"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String description \u003d parsedResponse.split(\" /at \")[0];"
+        "content": "                        try {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    String date \u003d parsedResponse.split(\" /at \")[1];"
+        "content": "                            String description \u003d command.split(\" \", 2)[1];"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    list.add(new Event(description, date));"
+        "content": "                            list.add(new ToDo(description));"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                } else {"
+        "content": "                        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    System.out.println(\"Unknown error!\");"
+        "content": "                            throw new EmptyArgumentException();"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                    continue;"
+        "content": "                        }"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                }"
+        "content": "                    } else if (command.startsWith(\"deadline\")) {"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                int size \u003d list.size();"
+        "content": "                        // e.g. : deadline finish ip /by tomorrow"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                System.out.println(\"Got it. I\u0027ve added this task:\");"
+        "content": "                        try {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                System.out.println(list.get(size - 1).getTask());"
+        "content": "                            String parsedResponse \u003d command.split(\" \", 2)[1];"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "                System.out.printf(\"Now you have %d %s in the list.%n\", size, size \u003e 1 ? \"tasks\" : \"task\");"
+        "content": "                            String description \u003d parsedResponse.split(\" /by \")[0];"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            }"
+        "content": "                            String date \u003d parsedResponse.split(\" /by \")[1];"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "            printHorizontalLine();"
+        "content": "                            list.add(new Deadline(description, date));"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "        }"
+        "content": "                        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "felixhalim"
         },
-        "content": "        printFarewells();"
+        "content": "                            throw new EmptyArgumentException();"
       },
       {
         "lineNumber": 91,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        }"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    } else if (command.startsWith(\"event\")) {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        // e.g. : event tp meeting /at monday, 7pm-8pm"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        try {"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                            String parsedResponse \u003d command.split(\" \", 2)[1];"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                            String description \u003d parsedResponse.split(\" /at \")[0];"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                            String date \u003d parsedResponse.split(\" /at \")[1];"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                            list.add(new Event(description, date));"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                            throw new EmptyArgumentException();"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    } else {"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                        throw new IllegalCommandException();"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    int size \u003d list.size();"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    System.out.println(\"Got it. I\u0027ve added this task:\");"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    System.out.println(list.get(size - 1).getTask());"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                    System.out.printf(\"Now you have %d %s in the list.%n\", size, size \u003e 1 ? \"tasks\" : \"task\");"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "            } catch (IllegalCommandException e) {"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                System.out.println(\"Oops, I don\u0027t understand your command :(\");"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "            } catch (EmptyArgumentException e) {"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "                System.out.println(\"\u003e.\u003c Ouch! Please check your argument\");"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "            printHorizontalLine();"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "        printFarewells();"
+      },
+      {
+        "lineNumber": 118,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 92,
+        "lineNumber": 119,
         "author": {
           "gitId": "-"
         },
@@ -749,8 +938,31 @@
       }
     ],
     "authorContributionMap": {
-      "felixhalim": 82,
+      "felixhalim": 109,
       "-": 10
+    }
+  },
+  {
+    "path": "src/main/java/EmptyArgumentException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "public class EmptyArgumentException extends Exception {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "felixhalim": 2
     }
   },
   {
@@ -851,6 +1063,29 @@
     ],
     "authorContributionMap": {
       "felixhalim": 13
+    }
+  },
+  {
+    "path": "src/main/java/IllegalCommandException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "public class IllegalCommandException extends Exception {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "felixhalim": 2
     }
   },
   {
@@ -1147,10 +1382,52 @@
           "gitId": "felixhalim"
         },
         "content": "list"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "felix"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "done z"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "done"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "todo"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "event"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "felixhalim"
+        },
+        "content": "deadline"
       }
     ],
     "authorContributionMap": {
-      "felixhalim": 8
+      "felixhalim": 14
     }
   },
   {
