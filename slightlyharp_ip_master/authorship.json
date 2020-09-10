@@ -29,7 +29,7 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public Deadlines(String command) {"
+        "content": "    public Deadlines(String command) throws EmptyTaskException{"
       },
       {
         "lineNumber": 5,
@@ -64,115 +64,143 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public static String getTask(String command){"
+        "content": "    public static String getTask(String command) throws EmptyTaskException{"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int spaceIndex \u003d command.indexOf(\" \");"
+        "content": "        if(((command.replace(\"deadline\", \"\")).replace(\" \", \"\")).isEmpty()) {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int slashIndex \u003d command.indexOf(\"/\");"
+        "content": "            throw new EmptyTaskException(\"deadline\");"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        return command.substring(spaceIndex, slashIndex-1);"
+        "content": "        }else {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": "            int spaceIndex \u003d command.indexOf(\" \");"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": ""
+        "content": "            int slashIndex \u003d command.indexOf(\"/\");"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public static String getDeadline(String command){"
+        "content": "            return command.substring(spaceIndex + 1, slashIndex - 1);"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int byIndex \u003d command.indexOf(\"/by\");"
+        "content": "        }"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        return command.substring(byIndex + 4, command.length());"
+        "content": "    }"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": ""
+        "content": "    public static String getDeadline(String command){"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    @Override"
+        "content": "        int byIndex \u003d command.indexOf(\"/by\");"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public void printTask() {"
+        "content": "        return command.substring(byIndex + 4, command.length());"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        super.printTask();"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        System.out.print(\" (by: \" + deadline + \")\");"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 25,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    public void printTask() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        super.printTask();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        System.out.print(\" (by: \" + deadline + \")\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
         "author": {
           "gitId": "slightlyharp"
         },
@@ -180,7 +208,7 @@
       }
     ],
     "authorContributionMap": {
-      "slightlyharp": 25
+      "slightlyharp": 29
     }
   },
   {
@@ -493,129 +521,185 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                if(command.contains(\"todo\")) {"
+        "content": "                try {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                    commandList[taskCount] \u003d new ToDos(command);"
+        "content": "                    if (command.contains(\"todo\")) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                }else if(command.contains(\"deadline\")){"
+        "content": "                        commandList[taskCount] \u003d new ToDos(command);"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                    commandList[taskCount] \u003d new Deadlines(command);"
+        "content": "                    } else if (command.contains(\"deadline\")) {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                }else if(command.contains(\"event\")){"
+        "content": "                        commandList[taskCount] \u003d new Deadlines(command);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                    commandList[taskCount] \u003d new Events(command);"
+        "content": "                    } else if (command.contains(\"event\")) {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                }"
+        "content": "                        commandList[taskCount] \u003d new Events(command);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                System.out.println(line + spaces + \"Got it. I\u0027ve added this task:\");"
+        "content": "                    }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                System.out.print(spaces + spaces);"
+        "content": "                    System.out.println(line + spaces + \"Got it. I\u0027ve added this task:\");"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                commandList[taskCount].printTask();"
+        "content": "                    System.out.print(spaces + spaces);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                System.out.println(\"\\n\" + spaces + \"Now you have \" + (taskCount+1)"
+        "content": "                    commandList[taskCount].printTask();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                        + \" tasks in the list.\\n\" + line);"
+        "content": "                    System.out.println(\"\\n\" + spaces + \"Now you have \" + (taskCount + 1)"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                taskCount ++;"
+        "content": "                            + \" tasks in the list.\\n\" + line);"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "            }else{"
+        "content": "                    taskCount++;"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "                System.out.println(\"Invalid Command\");"
+        "content": "                }"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "            }"
+        "content": "                catch (StringIndexOutOfBoundsException e){"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        }"
+        "content": "                    System.out.println(line + spaces + \"☹ OOPS!!! The description do not fulfil the specific task requirement.\\n\" + line);"
       },
       {
         "lineNumber": 61,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "                catch (EmptyTaskException e){"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "                    System.out.println(line + spaces + \"☹ OOPS!!! The description of a \" + e.taskType + \" cannot be empty.\\n\" + line);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "            }else {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "                System.out.println(line + spaces + \"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\\n\" + line);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 69,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 62,
+        "lineNumber": 70,
         "author": {
           "gitId": "-"
         },
@@ -623,8 +707,73 @@
       }
     ],
     "authorContributionMap": {
-      "slightlyharp": 53,
+      "slightlyharp": 61,
       "-": 9
+    }
+  },
+  {
+    "path": "src/main/java/EmptyTaskException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "public class EmptyTaskException extends Exception {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    public String taskType;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    EmptyTaskException(String taskType){"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        this.taskType \u003d taskType;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "slightlyharp": 8
     }
   },
   {
@@ -657,7 +806,7 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public Events(String command) {"
+        "content": "    public Events(String command) throws EmptyTaskException {"
       },
       {
         "lineNumber": 5,
@@ -692,115 +841,143 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public static String getTask(String command){"
+        "content": "    public static String getTask(String command) throws EmptyTaskException{"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int spaceIndex \u003d command.indexOf(\" \");"
+        "content": "        if ((( command.replace(\"event\", \"\")).replace(\" \", \"\")).isEmpty()){"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int slashIndex \u003d command.indexOf(\"/\");"
+        "content": "            throw new EmptyTaskException(\"event\");"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        return command.substring(spaceIndex, slashIndex-1);"
+        "content": "        }else {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": "            int spaceIndex \u003d command.indexOf(\" \");"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": ""
+        "content": "            int slashIndex \u003d command.indexOf(\"/\");"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public static String getTime(String command){"
+        "content": "            return command.substring(spaceIndex, slashIndex - 1);"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int atIndex \u003d command.indexOf(\"/at\");"
+        "content": "        }"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        return command.substring(atIndex + 4, command.length());"
+        "content": "    }"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": ""
+        "content": "    public static String getTime(String command){"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    @Override"
+        "content": "        int atIndex \u003d command.indexOf(\"/at\");"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public void printTask() {"
+        "content": "        return command.substring(atIndex + 4, command.length());"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        super.printTask();"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        System.out.print(\" (at: \" + time + \")\");"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 25,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    public void printTask() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        super.printTask();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        System.out.print(\" (at: \" + time + \")\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
         "author": {
           "gitId": "slightlyharp"
         },
@@ -808,7 +985,7 @@
       }
     ],
     "authorContributionMap": {
-      "slightlyharp": 25
+      "slightlyharp": 29
     }
   },
   {
@@ -841,7 +1018,7 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    private final TaskType taskType;"
+        "content": "    private TaskType taskType;"
       },
       {
         "lineNumber": 5,
@@ -862,21 +1039,21 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        this.task \u003d task;"
+        "content": "            this.task \u003d task;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": "            this.isDone \u003d false;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        this.taskType \u003d taskType;"
+        "content": "            this.taskType \u003d taskType;"
       },
       {
         "lineNumber": 10,
@@ -1041,7 +1218,7 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public ToDos(String command) {"
+        "content": "    public ToDos(String command) throws EmptyTaskException {"
       },
       {
         "lineNumber": 3,
@@ -1069,39 +1246,74 @@
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    public static String getTask(String command){"
+        "content": "    public static String getTask(String command) throws EmptyTaskException {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        int spaceIndex \u003d command.indexOf(\" \");"
+        "content": "        if ((( command.replace(\"todo\", \"\")).replace(\" \", \"\")).isEmpty()){"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "        return command.substring(spaceIndex, command.length());"
+        "content": "            throw new EmptyTaskException(\"todo\");"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "slightlyharp"
         },
-        "content": "    }"
+        "content": "        } else{"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "slightlyharp"
         },
+        "content": "            int spaceIndex \u003d command.indexOf(\" \");"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "            return command.substring(spaceIndex + 1, command.length());"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "slightlyharp"
+        },
         "content": "}"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "slightlyharp"
+        },
+        "content": ""
       }
     ],
     "authorContributionMap": {
-      "slightlyharp": 10
+      "slightlyharp": 15
     }
   },
   {

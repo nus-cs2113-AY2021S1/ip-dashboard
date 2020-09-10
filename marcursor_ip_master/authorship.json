@@ -1,6 +1,6 @@
 [
   {
-    "path": "src/main/java/Deadline.java",
+    "path": "src/main/java/duke/Duke.java",
     "fileType": "java",
     "lines": [
       {
@@ -8,163 +8,63 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "package duke;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    protected String by;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "import duke.exception.InvalidCommandException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public Deadline(String description, String by) {"
+        "content": "import duke.exception.MissingDescriptionOrDateException;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        super(description);"
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        this.by \u003d by;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "marcursor"
-        },
         "content": ""
       },
       {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "        return \"  [D]\" + super.toString() + \"(by: \" + by + \")\";"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "marcursor": 13
-    }
-  },
-  {
-    "path": "src/main/java/Duke.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
+        "lineNumber": 7,
         "author": {
           "gitId": "marcursor"
         },
         "content": "import java.util.Scanner;"
       },
       {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "public class Duke {"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    // constant for number of maximum tasks"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": "    public static final int MAXIMUM_TASKS \u003d 100;"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "marcursor"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
         "lineNumber": 8,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        String userInput;"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
+        "content": ""
       },
       {
         "lineNumber": 10,
@@ -176,16 +76,509 @@
       {
         "lineNumber": 11,
         "author": {
-          "gitId": "marcursor"
+          "gitId": "-"
         },
-        "content": "        Task[] taskList \u003d new Task[MAXIMUM_TASKS];"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        int taskCount \u003d 0;"
+        "content": "    private static TaskManager taskManager \u003d new TaskManager();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        printWelcomeMessage();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        handleUserInput();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        printGoodbyeMessage();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public static void printWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Botty McBotface, at your service.\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Your wish is my command.\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public static void handleUserInput() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        String userInput;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        String[] processedInput;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003cTask\u003e();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        while (taskManager.getIsRunning()) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            userInput \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "                processedInput \u003d taskManager.processInput(userInput);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "                taskManager.runCommand(processedInput, taskList);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            } catch (InvalidCommandException e) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "                printInvalidCommandMessage();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            } catch (MissingDescriptionOrDateException e) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "                printMissingDescriptionOrDateMessage();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public static void printInvalidCommandMessage() {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"My humblest apologies, I do not know what that means.\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public static void printMissingDescriptionOrDateMessage() {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Excuse me sir, but you seem to have excluded the description or date.\");"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public static void printGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Very well. Goodbye.\");"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 65,
+      "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.InvalidCommandException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDateException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDescriptionException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDescriptionOrDateException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 13,
@@ -199,413 +592,413 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        printWelcomeMessage();"
+        "content": "public class TaskManager {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "    private boolean isRunning;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        while (true) {"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            // take in user input from command line"
+        "content": "    public TaskManager() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            userInput \u003d in.nextLine();"
+        "content": "        this.isRunning \u003d true;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            if (userInput.equals(\"bye\")) {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // if command \"bye\" is entered, stop asking for commands and exit"
+        "content": "    public boolean getIsRunning() {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                break;"
+        "content": "        return isRunning;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            } else if (userInput.equals(\"list\")) {"
+        "content": "    }"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // prints the task list if command \"list\" is given"
+        "content": ""
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                printTaskList(taskList, taskCount);"
+        "content": "    private void setIsRunning(boolean status) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            } else if (userInput.contains(\"done\")) {"
+        "content": "        isRunning \u003d status;"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // if input contains \"done\", find the corresponding task and update its status in the list"
+        "content": "    }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int donePosition \u003d userInput.indexOf(\"done\");"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int doneTaskIndex \u003d Integer.parseInt(userInput.substring(donePosition + 5));"
+        "content": "    public String[] processInput(String userInput) {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                if (doneTaskIndex \u003e taskCount) {"
+        "content": "        return userInput.split(\" \",2);"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                    // if task indicated exceeds current task list, indicate an error"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                    printInvalidTaskDoneMessage();"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                    continue;"
+        "content": "    public void runCommand(String[] inputStringArray, ArrayList\u003cTask\u003e taskList) throws InvalidCommandException, MissingDescriptionOrDateException {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                }"
+        "content": "        String commandType \u003d inputStringArray[0].toLowerCase();"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                Task doneTask \u003d taskList[doneTaskIndex - 1];"
+        "content": "        String commandDescription \u003d \"\";"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                doneTask.markAsDone();"
+        "content": "        Task newTaskToAdd;"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        int arraySize \u003d taskList.size();"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                printTaskCompletedMessage(doneTask);"
+        "content": ""
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            } else if (userInput.contains(\"todo\")) {"
+        "content": "        if (inputStringArray.length \u003e 1) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // adds input as a \"Todo\" task to the task list"
+        "content": "            commandDescription \u003d inputStringArray[1];"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int todoPosition \u003d userInput.indexOf(\"todo\");"
+        "content": "        }"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                String todoTask \u003d userInput.substring(todoPosition + 5);"
+        "content": ""
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                Task newTaskToAdd \u003d new Todo(todoTask);"
+        "content": "        switch (commandType) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        case \"bye\":"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskList[taskCount] \u003d newTaskToAdd;"
+        "content": "            // exit program"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskCount++;"
+        "content": "            exitProgram();"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                printTaskAddedMessage(taskCount, newTaskToAdd);"
+        "content": "        case \"todo\":"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            } else if (userInput.contains(\"deadline\")) {"
+        "content": "            // add a todo task"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // adds input as a \"Deadline\" task to the task list"
+        "content": "            try {"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int deadlinePosition \u003d userInput.indexOf(\"deadline\");"
+        "content": "                newTaskToAdd \u003d new Todo(commandDescription);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int byPosition \u003d userInput.indexOf(\"/by\");"
+        "content": "                addTaskToList(taskList, newTaskToAdd);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                String deadlineTask \u003d userInput.substring(deadlinePosition + 9, byPosition);"
+        "content": "            } catch (MissingDescriptionException e) {"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                String deadline \u003d userInput.substring(byPosition + 4);"
+        "content": "                printMissingTodoDescriptionMessage();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                Task newTaskToAdd \u003d new Deadline(deadlineTask, deadline);"
+        "content": "            }"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskList[taskCount] \u003d newTaskToAdd;"
+        "content": "        case \"deadline\":"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskCount++;"
+        "content": "            // add a deadline task"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            String[] deadlineString \u003d commandDescription.split(\"/by\");"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                printTaskAddedMessage(taskCount, newTaskToAdd);"
+        "content": "            if (deadlineString.length \u003c 2 ) {"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            } else if (userInput.contains(\"event\")) {"
+        "content": "                throw new MissingDescriptionOrDateException();"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                // adds input as an \"Event\" task to the task list"
+        "content": "            }"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int eventPosition \u003d userInput.indexOf(\"event\");"
+        "content": "            String deadlineTask \u003d deadlineString[0];"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                int atPosition \u003d userInput.indexOf(\"/at\");"
+        "content": "            String deadlineDate \u003d deadlineString[1];"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                String eventTask \u003d userInput.substring(eventPosition + 6, atPosition);"
+        "content": ""
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                String eventDate \u003d userInput.substring(atPosition + 4);"
+        "content": "            try {"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                Task newTaskToAdd \u003d new Event(eventTask, eventDate);"
+        "content": "                newTaskToAdd \u003d new Deadline(deadlineTask, deadlineDate);"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "                addTaskToList(taskList, newTaskToAdd);"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskList[taskCount] \u003d newTaskToAdd;"
+        "content": "            } catch (MissingDescriptionException e) {"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                taskCount++;"
+        "content": "                printMissingDeadlineDescriptionMessage();"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            } catch (MissingDateException e) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "                printTaskAddedMessage(taskCount, newTaskToAdd);"
+        "content": "                printMissingDeadlineDateMessage();"
       },
       {
         "lineNumber": 73,
@@ -619,147 +1012,147 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        }"
+        "content": "            break;"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        case \"event\":"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        printGoodbyeMessage();"
+        "content": "            // add an event task"
       },
       {
         "lineNumber": 77,
         "author": {
-          "gitId": "-"
+          "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "            String[] eventString \u003d commandDescription.split(\"/at\");"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            if (eventString.length \u003c 2 ) {"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printWelcomeMessage() {"
+        "content": "                throw new MissingDescriptionOrDateException();"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            }"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"Botty McBotface, at your service.\");"
+        "content": "            String eventTask \u003d eventString[0];"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"Your wish is my command.\");"
+        "content": "            String eventDate \u003d eventString[1];"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": ""
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "            try {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "                newTaskToAdd \u003d new Event(eventTask, eventDate);"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printTaskList(Task[] taskList, int taskCount) {"
+        "content": "                addTaskToList(taskList, newTaskToAdd);"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            } catch (MissingDateException e) {"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.printf(\"Here is your list of %s:%n\", (taskCount \u003d\u003d 1) ? \"task\":\"tasks\");"
+        "content": "                printMissingEventDescriptionMessage();"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        for (int i \u003d 0; i \u003c taskCount; i++) {"
+        "content": "            } catch (MissingDescriptionException e) {"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            System.out.print((i+1) + \".\");"
+        "content": "                printMissingEventDateMessage();"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "            System.out.println(taskList[i]);"
+        "content": "            }"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        }"
+        "content": "            break;"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "        case \"done\":"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "            int doneTaskIndex \u003d Integer.parseInt(commandDescription) - 1;"
       },
       {
         "lineNumber": 95,
@@ -773,140 +1166,140 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printInvalidTaskDoneMessage() {"
+        "content": "            Task doneTask \u003d taskList.get(doneTaskIndex);"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            doneTask.markAsDone();"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"That task is not on the list.\");"
+        "content": "            printTaskCompletedMessage(doneTask);"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            break;"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "        case \"list\":"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "            // list the current tasks"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printTaskCompletedMessage(Task doneTask) {"
+        "content": "            printList(taskList, arraySize);"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            break;"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"I have noted the completion of this task: \");"
+        "content": "        default:"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.printf(\"  [%s] %s%n\", doneTask.getStatusIcon(), doneTask.description);"
+        "content": "            // unknown command error"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "            throw new InvalidCommandException();"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printTaskAddedMessage(int taskCount, Task newTaskToAdd) {"
+        "content": ""
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "    public void exitProgram() {"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"I have added the following to your list of tasks:\");"
+        "content": "        setIsRunning(false);"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(newTaskToAdd);"
+        "content": "    }"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.printf(\"You now have %d %s in the list.%n\", taskCount, (taskCount \u003d\u003d 1) ? \"task\":\"tasks\");"
+        "content": ""
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "    public void addTaskToList(ArrayList\u003cTask\u003e taskList, Task newTaskToAdd) {"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "        int arraySize;"
       },
       {
         "lineNumber": 116,
@@ -920,65 +1313,428 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public static void printGoodbyeMessage() {"
+        "content": "        taskList.add(newTaskToAdd);"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "        arraySize \u003d taskList.size();"
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"Very well. Goodbye.\");"
+        "content": "        printTaskAddedMessage(arraySize, newTaskToAdd);"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "    }"
       },
       {
         "lineNumber": 121,
         "author": {
-          "gitId": "-"
+          "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 122,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "    public void printList(ArrayList\u003cTask\u003e taskList, int arraySize) {"
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        System.out.println(\"____________________________________________________________\");"
       },
       {
         "lineNumber": 124,
         "author": {
-          "gitId": "-"
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Here is your list of tasks:\");"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        for (int i \u003d 0; i \u003c arraySize; i++) {"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            System.out.print((i+1) + \".\");"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            System.out.println(taskList.get(i));"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printTaskAddedMessage(int arraySize, Task newTaskToAdd) {"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"I have added the following to your list of tasks:\");"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(newTaskToAdd);"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.printf(\"You now have %d %s in the list.%n\", arraySize, (arraySize \u003d\u003d 1) ? \"task\":\"tasks\");"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printTaskCompletedMessage(Task doneTask) {"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"I have noted the completion of this task: \");"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.printf(\"  [%s] %s%n\", doneTask.getStatusIcon(), doneTask.description);"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printMissingTodoDescriptionMessage() {"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Pardon me, but the description of a todo task cannot be empty.\");"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printMissingDeadlineDescriptionMessage() {"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Pardon me, but the description of a deadline task cannot be empty.\");"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printMissingDeadlineDateMessage() {"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"My humblest apologies, but there is no date for the deadline.\");"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printMissingEventDescriptionMessage() {"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"My humblest apologies, but the event is missing a date.\");"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public void printMissingEventDateMessage() {"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"Pardon me, but the description of an event cannot be empty.\");"
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        System.out.println(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "marcursor"
         },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "marcursor": 119,
-      "-": 5
+      "marcursor": 176
     }
   },
   {
-    "path": "src/main/java/Event.java",
+    "path": "src/main/java/duke/exception/InvalidCommandException.java",
     "fileType": "java",
     "lines": [
       {
@@ -986,49 +1742,381 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "public class Event extends Task {"
+        "content": "package duke.exception;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    protected String at;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "public class InvalidCommandException extends Exception {"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public Event(String description, String at) {"
+        "content": ""
       },
       {
         "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/MissingDateException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "public class MissingDateException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/MissingDescriptionException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "public class MissingDescriptionException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/MissingDescriptionOrDateException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "public class MissingDescriptionOrDateException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDateException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDescriptionException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    protected String by;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public Deadline(String description, String by) throws MissingDescriptionException, MissingDateException {"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "marcursor"
         },
         "content": "        super(description);"
       },
       {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        if (by.isBlank()) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "            throw new MissingDateException();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        this.by \u003d by;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        return \"  [D]\" + super.toString() + \"(by: \" + by + \")\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "marcursor": 21
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDateException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "import duke.exception.MissingDescriptionException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
         "lineNumber": 6,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        this.at \u003d at;"
+        "content": "public class Event extends Task {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "    protected String at;"
       },
       {
         "lineNumber": 8,
@@ -1042,31 +2130,87 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    @Override"
+        "content": "    public Event(String description, String at) throws MissingDateException, MissingDescriptionException {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public String toString() {"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        return \"  [E]\" + super.toString() + \"(at: \" + at + \")\";"
+        "content": "        if (at.isBlank()) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "            throw new MissingDateException();"
       },
       {
         "lineNumber": 13,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        this.at \u003d at;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        return \"  [E]\" + super.toString() + \"(at: \" + at + \")\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
         "author": {
           "gitId": "marcursor"
         },
@@ -1074,11 +2218,11 @@
       }
     ],
     "authorContributionMap": {
-      "marcursor": 13
+      "marcursor": 21
     }
   },
   {
-    "path": "src/main/java/Task.java",
+    "path": "src/main/java/duke/task/Task.java",
     "fileType": "java",
     "lines": [
       {
@@ -1086,21 +2230,21 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "public class Task {"
+        "content": "package duke.task;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    protected String description;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    protected boolean isDone;"
+        "content": "import duke.exception.MissingDescriptionException;"
       },
       {
         "lineNumber": 4,
@@ -1114,28 +2258,28 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public Task(String description) {"
+        "content": "public class Task {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        this.description \u003d description;"
+        "content": "    public String description;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": "    public boolean isDone;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 9,
@@ -1149,42 +2293,42 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": "    public Task(String description) throws MissingDescriptionException {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+        "content": "        if (description.isBlank()) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "            throw new MissingDescriptionException();"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public void markAsDone() {"
+        "content": "        this.description \u003d description;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "        this.isDone \u003d false;"
       },
       {
         "lineNumber": 16,
@@ -1205,45 +2349,94 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    @Override"
+        "content": "    public String getStatusIcon() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public String toString() {"
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        String message \u003d (String.format(\"[%s] %s\", getStatusIcon(), description));"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        return message;"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": "    public void markAsDone() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "        this.isDone \u003d true;"
       },
       {
         "lineNumber": 24,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        return (String.format(\"[%s] %s\", getStatusIcon(), description));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
         "author": {
           "gitId": "marcursor"
         },
@@ -1251,11 +2444,11 @@
       }
     ],
     "authorContributionMap": {
-      "marcursor": 24
+      "marcursor": 31
     }
   },
   {
-    "path": "src/main/java/Todo.java",
+    "path": "src/main/java/duke/task/Todo.java",
     "fileType": "java",
     "lines": [
       {
@@ -1263,66 +2456,94 @@
         "author": {
           "gitId": "marcursor"
         },
-        "content": "public class Todo extends Task {"
+        "content": "package duke.task;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public Todo(String description) {"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        super(description);"
+        "content": "import duke.exception.MissingDescriptionException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "marcursor"
         },
-        "content": ""
+        "content": "public class Todo extends Task {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    @Override"
+        "content": "    public Todo(String description) throws MissingDescriptionException {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    public String toString() {"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "        return \"  [T]\" + super.toString();"
+        "content": "    }"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "marcursor"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 10,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "        return \"  [T]\" + super.toString();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "marcursor"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
         "author": {
           "gitId": "marcursor"
         },
@@ -1330,7 +2551,7 @@
       }
     ],
     "authorContributionMap": {
-      "marcursor": 10
+      "marcursor": 14
     }
   },
   {

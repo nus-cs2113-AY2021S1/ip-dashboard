@@ -1,6 +1,6 @@
 [
   {
-    "path": "src/main/java/Deadline.java",
+    "path": "src/main/java/duke/Duke.java",
     "fileType": "java",
     "lines": [
       {
@@ -8,42 +8,695 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "public class Deadline extends Task{"
+        "content": "package duke;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String by;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "import duke.definitions.CommandPacket;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public Deadline(String taskName, String deadline) {"
+        "content": "import duke.exceptions.EmptyContentException;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        super(taskName);"
+        "content": "import duke.exceptions.InvalidParamArgument;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        by \u003d deadline;"
+        "content": "import duke.handlers.CommandHandler;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.handlers.InputParser;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.printers.Cliui;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.tasktypes.Task;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        Task[] tasks \u003d new Task[100];"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        //Task count is wrapped in an array, so that the same variable is"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        //accessed and modified in all called methods;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        int[] taskCountWrapper \u003d {0};"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String input;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        Cliui.printGreeting();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        input \u003d in.nextLine().strip();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        while(!(input.equals(\"bye\"))) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                CommandPacket packet \u003d new InputParser(input).parseInput();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                CommandHandler.handleCommand(packet, tasks, taskCountWrapper);"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            } catch (IllegalStateException | InvalidParamArgument | EmptyContentException e) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                Cliui.printError(e);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            input \u003d in.nextLine().strip();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        Cliui.printGoodbye();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "-": 4,
+      "Artemis-Hunt": 37
+    }
+  },
+  {
+    "path": "src/main/java/duke/definitions/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.definitions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public enum Command{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    PRINT_LIST,"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    ADD_TODO,"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    ADD_DEADLINE,"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    ADD_EVENT,"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    MARK_AS_DONE,"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    INVALID"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 11
+    }
+  },
+  {
+    "path": "src/main/java/duke/definitions/CommandPacket.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.definitions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import java.util.HashMap;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class CommandPacket {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public Command commandType;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String commandContent;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public HashMap\u003cString, String\u003e params;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public CommandPacket(Command commandType, String commandContent, HashMap\u003cString, String\u003e params) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.commandType \u003d commandType;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.commandContent \u003d commandContent;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.params \u003d params;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String stringToPrint \u003d String.format(\"Definitions.Command: %s, command title: %s%nParams:%n\", commandType, commandContent);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        for(String key: params.keySet()) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            stringToPrint \u003d stringToPrint + String.format(\"%s: %s%n\", key, params.get(key));"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return stringToPrint;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 24
+    }
+  },
+  {
+    "path": "src/main/java/duke/definitions/Constants.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.definitions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public final class Constants {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    private Constants() {}"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    //General"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static final int LENGTH_OF_SPACE \u003d 1;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    //Params parser"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static final String PARAM_SEPARATOR \u003d \" /\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static final int LENGTH_OF_PARAM_SEPARATOR \u003d 2;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static final int INDEX_IF_PARAM_NOT_FOUND \u003d 1;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 12
+    }
+  },
+  {
+    "path": "src/main/java/duke/exceptions/EmptyContentException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class EmptyContentException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public EmptyContentException(String command) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        super(\"The title of a \" + command + \" cannot be empty\");"
       },
       {
         "lineNumber": 7,
@@ -57,21 +710,86 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 8
+    }
+  },
+  {
+    "path": "src/main/java/duke/exceptions/InvalidParamArgument.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
         "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class InvalidParamArgument extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public InvalidParamArgument() {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        super(\"No param argument provided!\");"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public InvalidParamArgument(String paramType, String paramArgument) {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String toString() {"
+        "content": "        super(\"Invalid param argument \" + paramArgument + \" for param type \""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
+        "content": "                + paramType);"
       },
       {
         "lineNumber": 11,
@@ -93,7 +811,7 @@
     }
   },
   {
-    "path": "src/main/java/Duke.java",
+    "path": "src/main/java/duke/exceptions/InvalidParamType.java",
     "fileType": "java",
     "lines": [
       {
@@ -101,266 +819,648 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "import java.util.Scanner;"
+        "content": "package duke.exceptions;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "import java.util.Arrays;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "public class InvalidParamType extends Exception {"
       },
       {
         "lineNumber": 4,
         "author": {
-          "gitId": "-"
+          "gitId": "Artemis-Hunt"
         },
-        "content": "public class Duke {"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public static void printSeparator() {"
+        "content": "    public InvalidParamType(String paramType) {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String separator \u003d \"------------------------------------------\";"
+        "content": "        super(\"Invalid param type \" + paramType);"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        System.out.println(separator);"
+        "content": "    }"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 8
+    }
+  },
+  {
+    "path": "src/main/java/duke/handlers/CommandHandler.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.handlers;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.definitions.CommandPacket;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.tasktypes.*;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.printers.Cliui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public final class CommandHandler {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "    public static void handleCommand(CommandPacket command, Task[] tasks, int[] taskCountWrapper) {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public static void printTaskList(Task[] array, int length) {"
+        "content": "        Task item;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
+        "content": "        switch(command.commandType) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        for(int i \u003d 1; i \u003c\u003d length; i++) {"
+        "content": "        //No new items added"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            Task item \u003d array[i - 1];"
+        "content": "        case PRINT_LIST:"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            System.out.println(i + \".\" + item);"
+        "content": "            Cliui.printTaskList(tasks, taskCountWrapper[0]);"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        }"
+        "content": "            return;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "        case INVALID:"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "            Cliui.printInvalid();;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "            return;"
       },
       {
         "lineNumber": 19,
         "author": {
-          "gitId": "-"
+          "gitId": "Artemis-Hunt"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "        case MARK_AS_DONE:"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String greet \u003d \" Hello! I\u0027m Duke\";"
+        "content": "            int indexOfTask \u003d Integer.parseInt(command.commandContent) - 1;"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String prompt \u003d \" What can I do for you?\";"
+        "content": "            item \u003d tasks[indexOfTask];"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String goodbye \u003d \" Bye. Hope to see you again soon!\";"
+        "content": "            item.setDone();"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "            Cliui.printTaskDone(item);"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        Task[] tasks \u003d new Task[100];"
+        "content": "            return;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        int taskCount \u003d 0;"
+        "content": ""
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "        //New items added"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String input;"
+        "content": "        case ADD_TODO:"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
+        "content": "            item \u003d new ToDo(command.commandContent);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "            break;"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        printSeparator();"
+        "content": "        case ADD_DEADLINE:"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        System.out.println(greet);"
+        "content": "            String by \u003d command.params.get(\"by\");"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        System.out.println(prompt);"
+        "content": "            item \u003d new Deadline(command.commandContent, by);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        printSeparator();"
+        "content": "            break;"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "        case ADD_EVENT:"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        input \u003d in.nextLine();"
+        "content": "            String at \u003d command.params.get(\"at\");"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String command;"
+        "content": "            item \u003d new Event(command.commandContent, at);"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        String commandParams;"
+        "content": "            break;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        int indexOfFirstBlank;"
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            throw new IllegalStateException(\"Unexpected commandType: \" + command.commandType);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        tasks[taskCountWrapper[0]++] \u003d item;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        Cliui.printTaskAdded(item, taskCountWrapper[0]);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 44
+    }
+  },
+  {
+    "path": "src/main/java/duke/handlers/InputParser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.handlers;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.definitions.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.exceptions.EmptyContentException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.exceptions.InvalidParamArgument;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import java.util.HashMap;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public final class InputParser {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    private String input;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public InputParser(String input) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.input \u003d input;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public CommandPacket parseInput() throws InvalidParamArgument, EmptyContentException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String commandContent \u003d \"\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String restOfCommand;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        CommandPacket packet;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        HashMap\u003cString, String\u003e params \u003d new HashMap\u003c\u003e();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        boolean paramsExist \u003d false;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        boolean commandContentExist \u003d false;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String[] buffer \u003d input.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        String commandString \u003d buffer[0];"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        commandContentExist \u003d buffer.length \u003e 1 \u0026\u0026 !buffer[1].startsWith(\"/\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        /*"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        * Start of input parsing:"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        * parse input into command, commandContent, and params, if any"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        */"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        if(commandContentExist) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            restOfCommand \u003d buffer[1];"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            buffer \u003d restOfCommand.split(\"/\", 2);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            commandContent \u003d buffer[0];"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            paramsExist \u003d buffer.length \u003e 1;"
       },
       {
         "lineNumber": 39,
@@ -374,42 +1474,42 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        while (!(input.equals(\"bye\"))){"
+        "content": "        }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            System.out.println(\"Command is: \" + input);"
+        "content": ""
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            indexOfFirstBlank \u003d input.indexOf(\" \");"
+        "content": "        if(paramsExist) {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            command \u003d input;"
+        "content": "            String paramSubstring \u003d buffer[1];"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "            params \u003d new ParamsParser(paramSubstring).parseParams();"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            printSeparator();"
+        "content": "        }"
       },
       {
         "lineNumber": 46,
@@ -423,415 +1523,337 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            if(input.equals(\"list\")) {"
+        "content": "        //Returns packet for commands with content e.g. todo"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                printTaskList(tasks, taskCount);"
+        "content": "        switch(commandString) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            }"
+        "content": "        case \"list\":"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            else if(indexOfFirstBlank !\u003d -1) {"
+        "content": "            Command commandType \u003d commandContentExist ? Command.INVALID : Command.PRINT_LIST;"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                command \u003d input.substring(0, indexOfFirstBlank);"
+        "content": "            packet \u003d new CommandPacket(commandType, commandContent, params);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                commandParams \u003d input.substring(indexOfFirstBlank + 1);"
+        "content": "            return packet;"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                Task item;"
+        "content": "        case \"todo\":"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                if (command.equals(\"done\")) {"
+        "content": "            packet \u003d new CommandPacket(Command.ADD_TODO, commandContent, params);"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item \u003d tasks[Integer.parseInt(commandParams) - 1];"
+        "content": "            break;"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item.setDone();"
+        "content": "        case \"deadline\":"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
+        "content": "            packet \u003d new CommandPacket(Command.ADD_DEADLINE, commandContent, params);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\" \" + item);"
+        "content": "            break;"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                } else if (command.equals(\"todo\")) {"
+        "content": "        case \"event\":"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item \u003d new ToDo(commandParams);"
+        "content": "            packet \u003d new CommandPacket(Command.ADD_EVENT, commandContent, params);"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Got it. I\u0027ve added this task:\");"
+        "content": "            break;"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\" \" + item);"
+        "content": "        case \"done\":"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Now you have \" + (taskCount + 1) + \" tasks in the list.\");"
+        "content": "            packet \u003d new CommandPacket(Command.MARK_AS_DONE, commandContent, params);"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    tasks[taskCount] \u003d item;"
+        "content": "            break;"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    taskCount++;"
+        "content": "        default:"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                } else if (command.equals(\"deadline\")) {"
+        "content": "            packet \u003d new CommandPacket(Command.INVALID, commandContent, params);"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    int indexOfBy \u003d commandParams.indexOf(\"/by\");"
+        "content": "        }"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    String taskName \u003d commandParams.substring(0, indexOfBy);"
+        "content": ""
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    String deadline \u003d commandParams.substring(indexOfBy + 4);"
+        "content": "        if(commandContent.equals(\"\")) {"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item \u003d new Deadline(taskName, deadline);"
+        "content": "            throw new EmptyContentException(commandString);"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Got it. I\u0027ve added this task:\");"
+        "content": "        }"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\" \" + item);"
+        "content": ""
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Now you have \" + (taskCount + 1) + \" tasks in the list.\");"
+        "content": "        return packet;"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    tasks[taskCount] \u003d item;"
+        "content": "    }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    taskCount++;"
+        "content": ""
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                } else if (command.equals(\"event\")) {"
+        "content": "    private String extractCommandContent(String restOfCommand, boolean paramsExist, int indexOfParamStart) {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    int indexOfAt \u003d commandParams.indexOf(\"/at\");"
+        "content": "        if(paramsExist) {"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    String taskName \u003d commandParams.substring(0, indexOfAt);"
+        "content": "            return restOfCommand.substring(0, indexOfParamStart);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    String deadline \u003d commandParams.substring(indexOfAt + 4);"
+        "content": "        }"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item \u003d new Event(taskName, deadline);"
+        "content": ""
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Got it. I\u0027ve added this task:\");"
+        "content": "        return restOfCommand;"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\" \" + item);"
+        "content": "    }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"Now you have \" + (taskCount + 1) + \" tasks in the list.\");"
+        "content": ""
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    tasks[taskCount] \u003d item;"
+        "content": "    private Command handleCommandWithoutContent(String commandString) {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    taskCount++;"
+        "content": "        if(!commandString.equals(input)) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                }"
+        "content": "            return Command.INVALID;"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                else {"
+        "content": "        }"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    System.out.println(\"added: \" + input);"
+        "content": "        switch(commandString) {"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    item \u003d new Task(input);"
+        "content": "        case \"list\": return Command.PRINT_LIST;"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    tasks[taskCount] \u003d item;"
+        "content": "        default: return Command.INVALID;"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                    taskCount++;"
+        "content": "        }"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "                }"
+        "content": "    }"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "            printSeparator();"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "            input \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        printSeparator();"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        System.out.println(goodbye);"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        printSeparator();"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "-"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "-": 4,
-      "Artemis-Hunt": 100
+      "Artemis-Hunt": 93
     }
   },
   {
-    "path": "src/main/java/Event.java",
+    "path": "src/main/java/duke/handlers/ParamsParser.java",
     "fileType": "java",
     "lines": [
       {
@@ -839,7 +1861,7 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "public class Event extends Task{"
+        "content": "package duke.handlers;"
       },
       {
         "lineNumber": 2,
@@ -853,70 +1875,70 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String startAndEnd;"
+        "content": "import duke.definitions.Constants;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "import duke.exceptions.InvalidParamArgument;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public Event(String taskName, String startAndEnd) {"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        super(taskName);"
+        "content": "import java.util.HashMap;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        this.startAndEnd \u003d startAndEnd;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "public class ParamsParser {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "    protected String paramSubstring;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String toString() {"
+        "content": "    public ParamsParser(String paramSubstring) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        return \"[E]\" + super.toString() + \" (at: \" + startAndEnd + \")\";"
+        "content": "        this.paramSubstring \u003d paramSubstring;"
       },
       {
         "lineNumber": 13,
@@ -937,156 +1959,1163 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "Artemis-Hunt": 15
-    }
-  },
-  {
-    "path": "src/main/java/Task.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "public class Task {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    private String taskName;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    private boolean isDone;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    public Task(String taskName) {"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        this.taskName \u003d taskName;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        isDone \u003d false;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    public void setDone() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        isDone \u003d true;"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "    public String getDoneStatusSymbol() {"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "Artemis-Hunt"
-        },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\");"
+        "content": "    public HashMap\u003cString, String\u003e parseParams() throws InvalidParamArgument {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "        HashMap\u003cString, String\u003e params \u003d new HashMap\u003c\u003e();"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "        String[] buffer;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    @Override"
+        "content": "        boolean shouldContinueParsing \u003d true;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String toString() {"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        return (\"[\" + (isDone ? \"\\u2713\" : \"\\u2718\") + \"]\" + \" \" + taskName);"
+        "content": "        do {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            buffer \u003d paramSubstring.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            String paramType \u003d buffer[0];"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            boolean paramArgumentExist \u003d buffer.length \u003e 1;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            if(!paramArgumentExist) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                throw new InvalidParamArgument();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            paramSubstring \u003d buffer[1];"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            buffer \u003d paramSubstring.split(Constants.PARAM_SEPARATOR, 2);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            String paramArgument \u003d buffer[0];"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            boolean nextParamExist \u003d buffer.length \u003e 1;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            if(nextParamExist) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                paramSubstring \u003d buffer[1];"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            else {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "                shouldContinueParsing \u003d false;"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            //todo: Error handling - what if no argument provided for param"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            params.put(paramType, paramArgument);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        } while(shouldContinueParsing);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return params;"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 46
+    }
+  },
+  {
+    "path": "src/main/java/duke/printers/Cliui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.printers;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.definitions.CommandPacket;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "import duke.tasktypes.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class Cliui {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String separator \u003d \"------------------------------------------\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String indent \u003d \" \";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String greet \u003d \" Hello! I\u0027m duke.Duke\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String prompt \u003d \" What can I do for you?\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String taskAdded \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String taskDone \u003d \"Nice! I\u0027ve marked this task as done:\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    static String goodbye \u003d \" Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printSeparator() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(separator);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printGreeting() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(greet);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(prompt);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printGoodbye() {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(goodbye);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printTaskAdded(Task task, int numOfTasks) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(taskAdded);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(indent + task);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"Now you have \" + numOfTasks + \" tasks in the list\");"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printTaskDone(Task task) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(taskDone);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(indent + task);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printTaskList(Task[] array, int length) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"Here are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        for(int i \u003d 1; i \u003c\u003d length; i++) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            Task item \u003d array[i - 1];"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "            System.out.println(i + \".\" + item);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printInvalid() {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"Invalid command!\");"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printError(Exception error) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"Error: \" + error.getMessage());"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        printSeparator();"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printPacket(CommandPacket packet) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"--- Command packet ---\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(packet);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"-----------------------\");"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public static void printInput(String input) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        System.out.println(\"Raw input is:__\" + input + \"__\");"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 78
+    }
+  },
+  {
+    "path": "src/main/java/duke/tasktypes/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.tasktypes;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class Deadline extends Task{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    protected String by;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public Deadline(String taskName, String deadline) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        super(taskName);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        by \u003d deadline;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/tasktypes/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.tasktypes;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public class Event extends Task{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    protected String startAndEnd;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public Event(String taskName, String startAndEnd) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        super(taskName);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.startAndEnd \u003d startAndEnd;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return \"[E]\" + super.toString() + \" (at: \" + startAndEnd + \")\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Artemis-Hunt": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/tasktypes/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "package duke.tasktypes;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "public abstract class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    protected String taskName;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public Task(String taskName) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        this.taskName \u003d taskName;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        isDone \u003d false;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public void setDone() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String getDoneStatusSymbol() {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    public String getTaskName() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return taskName;"
       },
       {
         "lineNumber": 21,
@@ -1107,24 +3136,38 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String getTaskName() {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        return taskName;"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "        return (\"[\" + (isDone ? \"\\u2713\" : \"\\u2718\") + \"]\" + \" \" + taskName);"
       },
       {
         "lineNumber": 26,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
         "author": {
           "gitId": "Artemis-Hunt"
         },
@@ -1132,11 +3175,11 @@
       }
     ],
     "authorContributionMap": {
-      "Artemis-Hunt": 26
+      "Artemis-Hunt": 28
     }
   },
   {
-    "path": "src/main/java/ToDo.java",
+    "path": "src/main/java/duke/tasktypes/ToDo.java",
     "fileType": "java",
     "lines": [
       {
@@ -1144,7 +3187,7 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "public class ToDo extends Task {"
+        "content": "package duke.tasktypes;"
       },
       {
         "lineNumber": 2,
@@ -1158,59 +3201,73 @@
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public ToDo(String taskName) {"
+        "content": "public class ToDo extends Task {"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        super(taskName);"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "    public ToDo(String taskName) {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": ""
+        "content": "        super(taskName);"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    @Override"
+        "content": "    }"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    public String toString() {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "        return \"[T]\" + super.toString();"
+        "content": "    @Override"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Artemis-Hunt"
         },
-        "content": "    }"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 11,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "        return \"[T]\" + super.toString();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Artemis-Hunt"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
         "author": {
           "gitId": "Artemis-Hunt"
         },
@@ -1218,7 +3275,7 @@
       }
     ],
     "authorContributionMap": {
-      "Artemis-Hunt": 11
+      "Artemis-Hunt": 13
     }
   }
 ]
