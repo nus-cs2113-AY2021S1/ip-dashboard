@@ -220,175 +220,175 @@
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "    public static void addTask(String command) {"
+        "content": "    public static boolean checkCommand(String[] task) {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        String[] task \u003d command.split(\" \", 2);"
+        "content": "        boolean checkTask \u003d false;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        String type \u003d task[0];"
+        "content": "        boolean checkDescription \u003d false;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        int index \u003d task[1].indexOf(\"/\");"
+        "content": "        if (task[0].equals(\"todo\")) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        String description \u003d task[1];"
+        "content": "            checkTask \u003d true;"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        String date \u003d null;"
+        "content": "        } else if (task[0].equals(\"deadline\")) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": ""
+        "content": "            checkTask \u003d true;"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        if (index !\u003d -1) {"
+        "content": "        } else if (task[0].equals(\"event\")) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "            description \u003d task[1].substring(0, index-1);"
+        "content": "            checkTask \u003d true;"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "            date \u003d task[1].substring(index+4);"
+        "content": "        }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": ""
+        "content": "        if (!checkTask) {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        System.out.println(\"     Got it. I\u0027ve added this task: \");"
+        "content": "            System.out.println(\"     Oops! I\u0027m sorry, but I don\u0027t know what that means. :(\");"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": ""
+        "content": "            return false;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        switch(type) {"
+        "content": "        }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "            case \"todo\":"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                tasks[taskCounter] \u003d new Todo(description);"
+        "content": "        if (task.length\u003d\u003d2) {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                break;"
+        "content": "            checkDescription \u003d true;"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "            case \"deadline\":"
+        "content": "        } else {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                tasks[taskCounter] \u003d new Deadline(description, date);"
+        "content": "            System.out.println(\"     Oops! The description of \" + task[0] + \" cannot be empty.\");"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                break;"
+        "content": "            return false;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "            case \"event\":"
+        "content": "        }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                tasks[taskCounter] \u003d new Event(description, date);"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "                break;"
+        "content": "        return checkDescription;"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 42,
@@ -402,290 +402,507 @@
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        System.out.println(\"      \" + tasks[taskCounter]);"
+        "content": "    public static void addTask(String command) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        taskCounter++;"
+        "content": "        String[] task \u003d command.split(\" \", 2);"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        System.out.println(\"     Now you have \" + taskCounter + (taskCounter\u003d\u003d1 ? \" task\" : \" tasks\") + \" in the list. \");"
+        "content": ""
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "    }"
+        "content": "        if (!checkCommand(task)) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": ""
+        "content": "            return;"
       },
       {
         "lineNumber": 48,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        String logo \u003d \" ____        _        \\n\""
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        System.out.println(\"Hello from\\n\" + logo);"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        System.out.println(\"     Hello! I\u0027m Duke\");"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        System.out.println(\"     What can I do for you?\");"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        printHorizontalLine();"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        // command loop"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        String command \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "        while (!command.equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            printHorizontalLine();"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            if (command.equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "                printTasks(taskCounter, tasks);"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            } else if (command.contains(\"done\")) {"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "                // assume that task index is keyed in last"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "                int taskIndex \u003d Integer.parseInt(command.substring(command.length()-1)) - 1;"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "                tasks[taskIndex].markAsDone();"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "                addTask(command);"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            printHorizontalLine();"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "jiaaaqi"
-        },
-        "content": "            command \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 78,
         "author": {
           "gitId": "jiaaaqi"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 79,
+        "lineNumber": 49,
         "author": {
           "gitId": "jiaaaqi"
         },
         "content": ""
       },
       {
-        "lineNumber": 80,
+        "lineNumber": 50,
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        printHorizontalLine();"
+        "content": "        String type \u003d task[0];"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        int index \u003d task[1].indexOf(\"/\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        String description \u003d task[1];"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        String date \u003d null;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        if (index !\u003d -1) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            description \u003d task[1].substring(0, index-1);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            date \u003d task[1].substring(index+4);"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"     Got it. I\u0027ve added this task:\");"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        switch(type) {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            case \"todo\":"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                tasks[taskCounter] \u003d new Todo(description);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            case \"deadline\":"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                tasks[taskCounter] \u003d new Deadline(description, date);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            case \"event\":"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                tasks[taskCounter] \u003d new Event(description, date);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"      \" + tasks[taskCounter]);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        taskCounter++;"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"     Now you have \" + taskCounter + (taskCounter\u003c\u003d1 ? \" task\" : \" tasks\") + \" in the list.\");"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "        String logo \u003d \" ____        _        \\n\""
       },
       {
         "lineNumber": 81,
         "author": {
-          "gitId": "jiaaaqi"
+          "gitId": "-"
         },
-        "content": "        System.out.println(\"     Bye. Hope to see you again soon!\");"
+        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
       },
       {
         "lineNumber": 82,
         "author": {
-          "gitId": "jiaaaqi"
+          "gitId": "-"
         },
-        "content": "        printHorizontalLine();"
+        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "-"
         },
-        "content": "    }"
+        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
       },
       {
         "lineNumber": 84,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "        System.out.println(\"Hello from\\n\" + logo);"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"     Hello! I\u0027m Duke\");"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"     What can I do for you?\");"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        // command loop"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        String command \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        while (!command.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            printHorizontalLine();"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            if (command.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                printTasks(taskCounter, tasks);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            } else if (command.contains(\"done\")) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                // assume that task index is keyed in last"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                int taskIndex \u003d Integer.parseInt(command.substring(command.length()-1)) - 1;"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                tasks[taskIndex].markAsDone();"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "                addTask(command);"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            printHorizontalLine();"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "            command \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        System.out.println(\"     Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 115,
         "author": {
           "gitId": "-"
         },
@@ -694,7 +911,7 @@
     ],
     "authorContributionMap": {
       "-": 10,
-      "jiaaaqi": 74
+      "jiaaaqi": 105
     }
   },
   {
@@ -911,7 +1128,7 @@
         "author": {
           "gitId": "jiaaaqi"
         },
-        "content": "        System.out.println(\"     Nice! I\u0027ve marked this task as done: \");"
+        "content": "        System.out.println(\"     Nice! I\u0027ve marked this task as done:\");"
       },
       {
         "lineNumber": 17,
@@ -1079,6 +1296,333 @@
     ],
     "authorContributionMap": {
       "jiaaaqi": 10
+    }
+  },
+  {
+    "path": "text-ui-test/input.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "deadline assignment /by tue"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "event presentation /on fri"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "todo buy bread"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "done 1"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "bye"
+      }
+    ],
+    "authorContributionMap": {
+      "jiaaaqi": 6
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.sh",
+    "fileType": "sh",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "#!/usr/bin/env bash"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ ! -d \"../bin\" ]"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    mkdir ../bin"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# delete output from previous run"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ -e \"./ACTUAL.TXT\" ]"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    rm ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compile the code into the bin folder, terminates if error occurred"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jiaaaqi"
+        },
+        "content": "if ! javac -cp ../src -Xlint:none -d ../bin ../src/main/java/*.java"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"********** BUILD FAILURE **********\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ../bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# convert to UNIX format"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "cp EXPECTED.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "# compare the output to the expected output"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "diff ACTUAL.TXT EXPECTED-UNIX.TXT"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if [ $? -eq 0 ]"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "then"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: PASSED\""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 0"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "else"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo \"Test result: FAILED\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit 1"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "fi"
+      }
+    ],
+    "authorContributionMap": {
+      "-": 37,
+      "jiaaaqi": 1
     }
   }
 ]
