@@ -240,21 +240,150 @@
             }
           }
         ]
+      },
+      {
+        "date": "2020-09-12",
+        "commitResults": [
+          {
+            "hash": "70f3ee3c5df834cbee8e738e07abb5cdcd2e926d",
+            "messageTitle": "Add command delete to command class",
+            "messageBody": "The command class does not support deleting tasks.\n\nLets add a new command enum for delete and support detecting the\ndelete command. Also moved variables taskManager, parameters and\ncommand from main method to class variable as these variables\nare scoped under the entire class.\n",
+            "fileTypesAndContributionMap": {
+              "java": {
+                "insertions": 15,
+                "deletions": 6
+              }
+            }
+          },
+          {
+            "hash": "bcca017e8ebe4a036fc5f111e6222d44c2ec109f",
+            "messageTitle": "Add delete function to TaskManager",
+            "messageBody": "The TaskManager class is unable to delete tasks from the task list.\n\nLets first convert the array we have into an ArrayList and replace\nall the corresponding array methods with ArrayList methods (such as\n.get() and .add()).\nNext I added a new method, deleteTask(). I also removed exception\nwhen the ArrayList is full.\nLastly, I added an interface to the taskManager so that it knows to\noverride the public methods for better abstraction.\n",
+            "fileTypesAndContributionMap": {
+              "java": {
+                "insertions": 71,
+                "deletions": 37
+              }
+            }
+          },
+          {
+            "hash": "d28e7eb410e746be27365f21a09a1d3b97949c0a",
+            "messageTitle": "Add test for delete command",
+            "messageBody": "Added test for deleting command and added interface to list of\nclasses to compile.\nUpdated test cases.\n",
+            "fileTypesAndContributionMap": {
+              "txt": {
+                "insertions": 7,
+                "deletions": 0
+              },
+              "java": {
+                "insertions": 1,
+                "deletions": 1
+              },
+              "bat": {
+                "insertions": 4,
+                "deletions": 3
+              }
+            }
+          },
+          {
+            "hash": "4ed9b0e16261ba5f384421ddfeda0f573d040016",
+            "messageTitle": "Add ability to load data from disk",
+            "messageBody": "Data is current not saved and information will be gone once the\nprogramm exits.\n\nLets create a FileManager class that can load data from\n./data/duke.txt. The Path type is used to pass to the scanner to\nensure cross platform file paths are compatible.\n\nOnce data is retrived, we then pass it to the DataParser class to\nconvert the String text to Task Objects to be added to the\ntaskManager.\n\nI have also overloaded the Task constructor so that it can accept\nisDone boolean.\n",
+            "fileTypesAndContributionMap": {
+              "txt": {
+                "insertions": 4,
+                "deletions": 0
+              },
+              "java": {
+                "insertions": 103,
+                "deletions": 0
+              }
+            }
+          },
+          {
+            "hash": "dcf66c8f12ddc13cb15626e3440632c67d289bec",
+            "messageTitle": "Add ability to save task to hard disk",
+            "messageBody": "Currently we can only load data from our drive but unable to write\nto duke.txt.\n\nLets create a method under FileManager class to write data to\nduke.txt. We also created a FileWritable interface for the task\nclass for it to convert the object to a string to be saved.\n",
+            "fileTypesAndContributionMap": {
+              "txt": {
+                "insertions": 6,
+                "deletions": 3
+              },
+              "java": {
+                "insertions": 63,
+                "deletions": 1
+              }
+            }
+          },
+          {
+            "hash": "160956c9f6d879bdcc9d59fb1f390c1b94797702",
+            "messageTitle": "Update test for loading data",
+            "messageBody": "text-ui-test was not working properly due to the duke.txt file not\nbeing deleted after every file compare.\n\nLets remove the duke.txt file so that every new test will have an\nempty duke.txt file.\nUpdated compile files for test.\n",
+            "fileTypesAndContributionMap": {
+              "txt": {
+                "insertions": 2,
+                "deletions": 0
+              },
+              "bat": {
+                "insertions": 14,
+                "deletions": 5
+              }
+            }
+          },
+          {
+            "hash": "32f40dcbbfdc913910cd8d30c0689ff80ffece06",
+            "messageTitle": "Handle file read format error",
+            "messageBody": "The DataParser class might give errors when the format of duke.txt\nis not correct.\n\nLets handle the exception by creating FileCorruptedException to\nthrow and this is handled by the FileManager. The FileManager will\nthen delete the corrupted file and then recreate a new duke.txt.\n\nAdded a new test case to test when duke.txt is corrupted\n",
+            "fileTypesAndContributionMap": {
+              "txt": {
+                "insertions": 1,
+                "deletions": 2
+              },
+              "java": {
+                "insertions": 39,
+                "deletions": 3
+              },
+              "bat": {
+                "insertions": 8,
+                "deletions": 1
+              }
+            }
+          }
+        ]
+      },
+      {
+        "date": "2020-09-13",
+        "commitResults": [
+          {
+            "hash": "02b498491e3a0eb06a5533f46f4e2c1534330964",
+            "messageTitle": "Add ability to create data directory",
+            "messageBody": "The FileManager does not check if data directory exist and that is\ngiving the program errors.\n\nLets get the FileManager to check if data directory exist and then\ncreate the directory is it does not exist.\n\nFixed line spacing for error messages and updated the test expected\nresults.\n",
+            "tags": [
+              "A-Jar"
+            ],
+            "fileTypesAndContributionMap": {
+              "java": {
+                "insertions": 32,
+                "deletions": 9
+              }
+            }
+          }
+        ]
       }
     ]
   },
   "authorFileTypeContributionMap": {
     "AndreWongZH": {
-      "java": 458,
+      "java": 785,
       "md": 0,
       "sh": 0,
-      "bat": 22,
+      "bat": 40,
       "gradle": 0,
-      "txt": 26
+      "txt": 40
     }
   },
   "authorContributionVariance": {
-    "AndreWongZH": 21532.002
+    "AndreWongZH": 21019.727
   },
   "authorDisplayNameMap": {
     "AndreWongZH": "CS2113T-W12-4 ANDR.. HUA"
