@@ -214,7 +214,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "import duke.file.FileManager;"
+        "content": "import duke.store.Storage;"
       },
       {
         "lineNumber": 4,
@@ -627,7 +627,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    private static final FileManager FILE_MANAGER \u003d new FileManager();"
+        "content": "    private static final Storage FILE_MANAGER \u003d new Storage();"
       },
       {
         "lineNumber": 63,
@@ -2279,7 +2279,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        FILE_MANAGER.writeToFile(parseListToString(TASKS));"
+        "content": "        FILE_MANAGER.save(parseListToString(TASKS));"
       },
       {
         "lineNumber": 299,
@@ -2440,7 +2440,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        String data \u003d FILE_MANAGER.readSavedFile();"
+        "content": "        String data \u003d FILE_MANAGER.load();"
       },
       {
         "lineNumber": 322,
@@ -2794,7 +2794,7 @@
     }
   },
   {
-    "path": "src/main/java/duke/file/FileManager.java",
+    "path": "src/main/java/duke/store/Storage.java",
     "fileType": "java",
     "lines": [
       {
@@ -2802,7 +2802,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "package duke.file;"
+        "content": "package duke.store;"
       },
       {
         "lineNumber": 2,
@@ -2858,14 +2858,14 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "public class FileManager {"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    private final String HOME \u003d System.getProperty(\"user.dir\");"
+        "content": "    private final String CURRENT \u003d System.getProperty(\"user.dir\");"
       },
       {
         "lineNumber": 11,
@@ -2879,7 +2879,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    private final String DIRECTORY \u003d HOME + SEPARATOR + \"data\" + SEPARATOR;"
+        "content": "    private final String DIRECTORY \u003d SEPARATOR + \"data\" + SEPARATOR;"
       },
       {
         "lineNumber": 13,
@@ -2893,283 +2893,290 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    private final File SAVE_FILE \u003d new File(DIRECTORY + FILENAME);"
+        "content": "    private final String FILEPATH \u003d CURRENT + DIRECTORY + FILENAME;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "    private final File SAVE_FILE \u003d new File(FILEPATH);"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    public FileManager() {"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        try {"
+        "content": "    public Storage() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            if (!SAVE_FILE.getParentFile().exists()) {"
+        "content": "        try {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "                SAVE_FILE.getParentFile().mkdirs();"
+        "content": "            if (!SAVE_FILE.getParentFile().exists()) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            }"
+        "content": "                SAVE_FILE.getParentFile().mkdirs();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            if (!SAVE_FILE.exists()) {"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "                SAVE_FILE.createNewFile();"
+        "content": "            if (!SAVE_FILE.exists()) {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            }"
+        "content": "                SAVE_FILE.createNewFile();"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "            }"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            System.out.println(FILENAME + \" creation failed\");"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        }"
+        "content": "            System.out.println(FILENAME + \" creation failed\");"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    public void writeToFile(String content) {"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        try {"
+        "content": "    public void save(String content) {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            FileWriter fileWriter \u003d new FileWriter(SAVE_FILE);"
+        "content": "        try {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            fileWriter.write(content);"
+        "content": "            FileWriter fileWriter \u003d new FileWriter(SAVE_FILE);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            fileWriter.close();"
+        "content": "            fileWriter.write(content);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "            fileWriter.close();"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            System.out.println(\"Write to \" + FILENAME + \" failed.\");"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        }"
+        "content": "            System.out.println(\"Write to \" + FILENAME + \" failed.\");"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    public String readSavedFile() {"
+        "content": ""
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        String data \u003d \"\";"
+        "content": "    public String load() {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        try {"
+        "content": "        String data \u003d \"\";"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            Scanner sc \u003d new Scanner(SAVE_FILE);"
+        "content": "        try {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            while(sc.hasNextLine()) {"
+        "content": "            Scanner sc \u003d new Scanner(SAVE_FILE);"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "                data +\u003d sc.nextLine() + \"\\n\";"
+        "content": "            while(sc.hasNextLine()) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            }"
+        "content": "                data +\u003d sc.nextLine() + \"\\n\";"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            sc.close();"
+        "content": "            }"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "            sc.close();"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "            System.out.println(\"Unable to read from \" + FILENAME);"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        }"
+        "content": "            System.out.println(\"Unable to read from \" + FILENAME);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        return data;"
+        "content": ""
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    }"
+        "content": "        return data;"
       },
       {
         "lineNumber": 54,
+        "author": {
+          "gitId": "dozenmatter"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
         "author": {
           "gitId": "dozenmatter"
         },
@@ -3177,7 +3184,7 @@
       }
     ],
     "authorContributionMap": {
-      "dozenmatter": 54
+      "dozenmatter": 55
     }
   },
   {
@@ -3627,7 +3634,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "public class Task {"
+        "content": "public abstract class Task {"
       },
       {
         "lineNumber": 4,
@@ -3802,59 +3809,45 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    public char getIcon() {"
+        "content": "    public abstract char getIcon();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "        return \u0027 \u0027;"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": ""
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    @Override"
+        "content": "        return String.format(\"[%s] %s\", getStatusIcon(), description);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 34,
-        "author": {
-          "gitId": "dozenmatter"
-        },
-        "content": "        return String.format(\"[%s] %s\", getStatusIcon(), description);"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "dozenmatter"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 36,
+        "lineNumber": 34,
         "author": {
           "gitId": "dozenmatter"
         },
@@ -3862,7 +3855,7 @@
       }
     ],
     "authorContributionMap": {
-      "dozenmatter": 36
+      "dozenmatter": 34
     }
   },
   {
@@ -4221,7 +4214,7 @@
         "author": {
           "gitId": "dozenmatter"
         },
-        "content": "javac  -cp ..\\src\\main\\java -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\Duke.java ..\\src\\main\\java\\duke\\task\\*.java ..\\src\\main\\java\\duke\\file\\*.java"
+        "content": "javac  -cp ..\\src\\main\\java -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\Duke.java ..\\src\\main\\java\\duke\\task\\*.java ..\\src\\main\\java\\duke\\store\\*.java"
       },
       {
         "lineNumber": 12,
