@@ -22,28 +22,28 @@
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import duke.task.Event;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import duke.task.Task;"
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import duke.task.Todo;"
+        "content": "import java.nio.file.Paths;"
       },
       {
         "lineNumber": 7,
@@ -55,30 +55,30 @@
       {
         "lineNumber": 8,
         "author": {
-          "gitId": "CookieHoodie"
+          "gitId": "-"
         },
-        "content": "import java.io.*;"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "    private TaskList tasks;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import java.util.List;"
+        "content": "    private Storage storage;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import java.util.Scanner;"
+        "content": "    private Ui ui;"
       },
       {
         "lineNumber": 12,
@@ -92,1270 +92,227 @@
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "import java.nio.file.Paths;"
+        "content": "    public Duke(File dukeFile) {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": ""
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 15,
         "author": {
-          "gitId": "-"
+          "gitId": "CookieHoodie"
         },
-        "content": "public class Duke {"
+        "content": "        storage \u003d new Storage(dukeFile);"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "    private static List\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+        "content": "        try {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "    private static final File dukeFile \u003d Paths.get(\"data\", \"duke.txt\").toFile();"
+        "content": "            tasks \u003d new TaskList(storage.loadTasks());"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": ""
+        "content": "        } catch (DukeException de) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "    private static void listTasks() {"
+        "content": "            ui.showError(de);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "        for (int i \u003d 0; i \u003c taskList.size(); i++) {"
+        "content": "            tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            Task task \u003d taskList.get(i);"
+        "content": "        }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            System.out.println((i+1) + \". \" + task);"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "    }"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": ""
+        "content": "        ui.showWelcome();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "    private static void loadTasksFromFile() throws DukeException {"
+        "content": "        boolean shouldExit \u003d false;"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "        if (dukeFile.exists()) {"
+        "content": "        while (!shouldExit) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            FileInputStream fin \u003d null;"
+        "content": "            String userInput \u003d ui.readCommand();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            ObjectInputStream ois \u003d null;"
+        "content": "            try {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            try {"
+        "content": "                Command command \u003d Parser.parse(userInput);"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                fin \u003d new FileInputStream(dukeFile);"
+        "content": "                command.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                ois \u003d new ObjectInputStream(fin);"
+        "content": "                shouldExit \u003d command.shouldExit();"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                taskList \u003d (ArrayList\u003cTask\u003e) ois.readObject();"
+        "content": "            } catch (DukeException de) {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            } catch (IOException | ClassNotFoundException e) {"
+        "content": "                ui.showError(de);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                throw new DukeException(\"Failed to load tasks from file.\");"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "            } finally {"
+        "content": "                ui.showDivider();"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                try {"
+        "content": "            }"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                    if (fin !\u003d null) {"
+        "content": "        }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                        fin.close();"
+        "content": "    }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                    }"
+        "content": ""
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                    if (ois !\u003d null) {"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                        ois.close();"
+        "content": "        File dukeFile \u003d Paths.get(\"data\", \"duke.txt\").toFile();"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "CookieHoodie"
         },
-        "content": "                    }"
+        "content": "        new Duke(dukeFile).run();"
       },
       {
         "lineNumber": 44,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    e.printStackTrace();"
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    private static void storeTasksToFile() throws DukeException {"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        if (!dukeFile.exists()) {"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            dukeFile.getParentFile().mkdirs();  // create necessary parent directories"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        FileOutputStream fout \u003d null;"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        ObjectOutputStream oos \u003d null;"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            fout \u003d new FileOutputStream(dukeFile);"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            oos \u003d new ObjectOutputStream(fout);"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            oos.writeObject(taskList);"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            throw new DukeException(\"Failed to store tasks into file.\");"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } finally {"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                if (fout !\u003d null) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    fout.close();"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                if (oos !\u003d null) {"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    oos.close();"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                e.printStackTrace();"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    /**"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     * Get the index after commands. If the command argument is not number, exception will be thrown"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     * @param command  command along with number as the only argument"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     */"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    private static int getCommandIndex(String command) {"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        String[] tokens \u003d command.split(\" \");"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        return Integer.parseInt(tokens[1]) - 1;  // -1 to convert to array index"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    private static void markDone(int index) {"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        Task doneTask \u003d taskList.get(index);"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        doneTask.setDone(true);"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done: \");"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(doneTask);"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    private static void markDeleted(int index) {"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        Task deletedTask \u003d taskList.get(index);"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        taskList.remove(index);"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"Noted. I\u0027ve removed this task: \");"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(deletedTask);"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    /**"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     * Process user input and do corresponding task specified."
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     *"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     * @param command   the user input"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     * @return          true if the program should exit, false if otherwise"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "     */"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    private static boolean processCommand(String command) throws DukeException {"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        boolean shouldExit \u003d false;"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        boolean shouldSave \u003d true;"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        command \u003d command.strip();  // ensure commands don\u0027t get affected by extra spaces"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        if (command.equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            shouldExit \u003d true;"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            shouldSave \u003d false;"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } else if (command.equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            listTasks();"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            shouldSave \u003d false;"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } else if (command.startsWith(\"done\")) {"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            int index \u003d getCommandIndex(command);"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            markDone(index);"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } else if (command.startsWith(\"delete\")) {"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            int index \u003d getCommandIndex(command);"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            markDeleted(index);"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } else if (command.startsWith(\"todo\") || command.startsWith(\"deadline\")"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                || command.startsWith(\"event\")) {"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            String[] tokens \u003d command.split(\" \", 2);"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            Task newTask \u003d null;  // to be stored into the taskList later"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            if (tokens.length \u003c 2) {  // commands without parameters"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                throw new DukeException(\"The description of a \" + tokens[0] + \" cannot be empty.\");"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            if (tokens[0].equals(\"todo\")) {"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                newTask \u003d new Todo(tokens[1].strip());"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            } else if (tokens[0].equals(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                String[] taskAndDate \u003d tokens[1].split(\"/by\");"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                if (taskAndDate.length \u003c 2) {"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    throw new DukeException(\"/by is not specified in the deadline.\");"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                newTask \u003d new Deadline(taskAndDate[0].strip(), taskAndDate[1].strip());"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            } else if (tokens[0].equals(\"event\")) {"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                String[] taskAndDate \u003d tokens[1].split(\"/at\");"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                if (taskAndDate.length \u003c 2) {"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    throw new DukeException(\"/at is not specified in the event.\");"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                newTask \u003d new Event(taskAndDate[0].strip(), taskAndDate[1].strip());"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            System.out.println(\"Got it. I\u0027ve added this task:\");"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            // this will call the toString method of each child class"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            System.out.println(newTask);"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            taskList.add(newTask);"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } else {  // unknown commands"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            throw new DukeException(\"I\u0027m sorry, but I don\u0027t know what that means :-(\");"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        if (shouldSave) {"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            storeTasksToFile();"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        return shouldExit;"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            loadTasksFromFile();"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        } catch (DukeException de) {"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            System.out.println(de.getMessage());"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"Hello! I\u0027m Duke\");"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"What can I do for you?\");"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println();"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        String command;"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        while (true) {"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            Scanner input \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            command \u003d input.nextLine();"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                boolean shouldExit \u003d processCommand(command);"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                if (shouldExit) {"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            } catch (DukeException de) {"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "                System.out.println(de.getMessage());"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "CookieHoodie"
-        },
-        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
-      },
-      {
-        "lineNumber": 193,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 194,
+        "lineNumber": 45,
         "author": {
           "gitId": "-"
         },
@@ -1363,7 +320,7 @@
       }
     ],
     "authorContributionMap": {
-      "CookieHoodie": 191,
+      "CookieHoodie": 42,
       "-": 3
     }
   },
@@ -1479,6 +436,3644 @@
     ],
     "authorContributionMap": {
       "CookieHoodie": 15
+    }
+  },
+  {
+    "path": "src/main/java/duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public static Command parse(String userInput) throws DukeException {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        userInput \u003d userInput.strip();  // ensure commands don\u0027t get affected by extra spaces"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        if (userInput.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new ExitCommand();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new ListCommand();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"done\")) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new DoneCommand(getIndex(userInput));"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"delete\")) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new DeleteCommand(getIndex(userInput));"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"find\")) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new FindCommand(getTaskStr(userInput));"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"todo\")) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new TodoCommand(getTaskStr(userInput));"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"event\")) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String taskStr \u003d getTaskStr(userInput);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String[] details \u003d getTaskDetails(taskStr, \"/at\");"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new EventCommand(details[0], details[1]);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (userInput.startsWith(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String taskStr \u003d getTaskStr(userInput);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String[] details \u003d getTaskDetails(taskStr, \"/by\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return new DeadlineCommand(details[0], details[1]);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        // invalid command"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        throw new DukeException(\"I\u0027m sorry, but I don\u0027t know what that means :-(\");"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private static int getIndex(String userInput) throws DukeException {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String[] tokens \u003d userInput.split(\" \");"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return Integer.parseInt(tokens[1]) - 1;  // -1 to convert to array index"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } catch (IndexOutOfBoundsException | NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Please provide a valid index!\");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private static String getTaskStr(String userInput) throws DukeException {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            String[] tokens \u003d userInput.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return tokens[1].strip();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Please provide a valid task name!\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private static String[] getTaskDetails(String taskStr, String separator) throws DukeException {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        String[] tokens \u003d taskStr.split(separator, 2);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        if (tokens.length \u003c 2) {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(separator + \" must be specified in this command!\");"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else if (tokens[0].isBlank() || tokens[1].isBlank()) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Invalid task name or date.\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return tokens;"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 62
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.io.*;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.List;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final File dukeFile;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public Storage(File dukeFile) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.dukeFile \u003d dukeFile;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public List\u003cTask\u003e loadTasks() throws DukeException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        if (!dukeFile.exists()) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            tasks \u003d new ArrayList\u003c\u003e();  // to avoid null pointer exception"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            FileInputStream fin \u003d null;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            ObjectInputStream ois \u003d null;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                fin \u003d new FileInputStream(dukeFile);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                ois \u003d new ObjectInputStream(fin);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                tasks \u003d (ArrayList\u003cTask\u003e) ois.readObject();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            } catch (IOException | ClassNotFoundException e) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                throw new DukeException(\"Failed to load tasks from file.\");"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            } finally {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                try {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    if (fin !\u003d null) {"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                        fin.close();"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    if (ois !\u003d null) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                        ois.close();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    e.printStackTrace();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void storeTasks(List\u003cTask\u003e tasks) throws DukeException {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        if (!dukeFile.exists()) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            dukeFile.getParentFile().mkdirs();  // create necessary parent directories"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        FileOutputStream fout \u003d null;"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ObjectOutputStream oos \u003d null;"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            fout \u003d new FileOutputStream(dukeFile);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            oos \u003d new ObjectOutputStream(fout);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            oos.writeObject(tasks);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Failed to store tasks into file.\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } finally {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                if (fout !\u003d null) {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    fout.close();"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                if (oos !\u003d null) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                    oos.close();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                e.printStackTrace();"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 71
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.List;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private List\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public TaskList(List\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.tasks \u003d tasks;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void add(Task task) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public Task delete(int index) throws DukeException {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return tasks.remove(index);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Please provide a valid index!\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public Task markDone(int index) throws DukeException {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            Task doneTask \u003d tasks.get(index);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            doneTask.setDone(true);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            return doneTask;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            throw new DukeException(\"Please provide a valid index!\");"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * Find tasks that contain the keyword."
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param keyword keyword to search in the task names"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @return a list of tasks that contain the keyword"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public List\u003cTask\u003e find(String keyword) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        List\u003cTask\u003e matchedTasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        for (Task t : tasks) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            if (t.getName().contains(keyword)) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "                matchedTasks.add(t);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return matchedTasks;"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public int size() {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return tasks.size();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public List\u003cTask\u003e getTasks() {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 66
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.List;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showWelcome() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Hello! I\u0027m Duke\");"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showError(DukeException de) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(de.getMessage());"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showDivider() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"----------------------------------\");"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.print(\"Command: \");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Scanner input \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return input.nextLine();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showTaskAdded(TaskList taskList, Task task) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Got it. I\u0027ve added this task:\");"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        // this will call the toString method of each child class"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(task);"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showTaskDeleted(TaskList taskList, Task task) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Noted. I\u0027ve removed this task: \");"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(task);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showTaskDone(Task task) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done: \");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(task);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * Show results after finding tasks with the keyword specified."
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param tasks filtered tasks that contain the keyword"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showFoundTasks(List\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Here are the matching tasks in your list:\");"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        listTasks(tasks);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * List out the tasks given with corresponding indices"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param tasks tasks to be printed to the screen"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void listTasks(List\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        for (int i \u003d 0; i \u003c tasks.size(); i++) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            Task task \u003d tasks.get(i);"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "            System.out.println((i+1) + \". \" + task);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void showExit() {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 73
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public abstract boolean shouldExit();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 11
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeadlineCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class DeadlineCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String deadlineName;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String deadline;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public DeadlineCommand(String deadlineName, String deadline) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.deadlineName \u003d deadlineName;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.deadline \u003d deadline;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Deadline dl \u003d new Deadline(deadlineName, deadline);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        tasks.add(dl);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        storage.storeTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showTaskAdded(tasks, dl);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final int index;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public DeleteCommand(int index) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.index \u003d index;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Task deletedTask \u003d tasks.delete(index);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        storage.storeTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showTaskDeleted(tasks, deletedTask);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 27
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class DoneCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final int index;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public DoneCommand(int index) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.index \u003d index;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Task doneTask \u003d tasks.markDone(index);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        storage.storeTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showTaskDone(doneTask);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 27
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/EventCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class EventCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String eventName;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String eventTime;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public EventCommand(String eventName, String eventTime) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.eventName \u003d eventName;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.eventTime \u003d eventTime;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Event event \u003d new Event(eventName, eventTime);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        tasks.add(event);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        storage.storeTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showTaskAdded(tasks, event);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class ExitCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showExit();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return true;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/FindCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import java.util.List;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": " * Handles find command, which filters out tasks with the specified keyword."
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class FindCommand extends Command {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * Keyword to search for in the tasks."
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String keyword;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param keyword keyword to search for in the tasks"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public FindCommand(String keyword) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.keyword \u003d keyword;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * Find the tasks that contain the keyword."
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param tasks list of all the tasks"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param ui interface to print to"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     * @param storage storage to save the tasks"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        List\u003cTask\u003e matchedTasks \u003d tasks.find(keyword);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showFoundTasks(matchedTasks);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 43
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.listTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 18
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/TodoCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "public class TodoCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    private final String taskName;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public TodoCommand(String taskName) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        this.taskName \u003d taskName;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        Todo task \u003d new Todo(taskName);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        storage.storeTasks(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        ui.showTaskAdded(tasks, task);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    public boolean shouldExit() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CookieHoodie"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CookieHoodie": 28
     }
   },
   {

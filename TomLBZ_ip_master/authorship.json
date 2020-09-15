@@ -192,6 +192,1578 @@
     }
   },
   {
+    "path": "data/duke.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "[T][✓] bbdbc"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "[T][✘] cahvcbj"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 2
+    }
+  },
+  {
+    "path": "src/main/java/duke/CommandHandler.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import exceptions.EmptyCommandException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import exceptions.IllegalCommandException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import exceptions.MissingDescriptionException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import exceptions.UnknownCommandException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.Deadline;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.Event;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.Task;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.ToDo;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import messages.MessageFormat;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import messages.MessageOptions;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import messages.MessageWrapper;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "public class CommandHandler {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private final MessageFormat format;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private final MessageWrapper wrapper;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private final CommandParser parser;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String result \u003d \"\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private boolean isUpdatable \u003d false;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private final ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public CommandHandler(CommandParser parser, MessageFormat format, MessageWrapper wrapper){"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        this.format \u003d format;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        this.wrapper \u003d wrapper;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        this.parser \u003d parser;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public boolean isPendingUpdate() {"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return isUpdatable;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public void updateStatus(boolean success) {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        isUpdatable \u003d !success;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public String getCommandResult() {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return result;"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getAddedTasks() {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String[] getCommandStrings(ArrayList\u003cTask\u003e tasks){"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String[] commands \u003d new String[tasks.size()];"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        for(int i \u003d 0; i \u003c tasks.size(); i++){"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            commands[i] \u003d tasks.get(i).toString();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return commands;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private static String[] getAddTaskMessage(String description, int count) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return new String[]{"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                \"Got it. I\u0027ve added this task\","
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                description,"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                formatListCount(count)"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        };"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private static String[] getRemoveTaskMessage(String description, int count) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return new String[]{"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                \"Noted. I\u0027ve removed this task:\","
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                description,"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                formatListCount(count)"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        };"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private static String formatListCount(int count) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return \"Now you have \" + count + \" tasks in the list.\";"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private static int getListedIndex(String parameter) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (parameter.length() !\u003d 1) {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return -1;"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        char character \u003d parameter.toCharArray()[0];"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (Character.isDigit(character)) {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Integer.parseInt(parameter) - 1;"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (Character.isLetter(character)) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            character \u003d Character.toUpperCase(character);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return (int)character - Constants.LETTER_OFFSET - 1;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return -1;"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private Task getTask("
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            MessageFormat msgFormat, CommandParser cmdParser,"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            MessageWrapper msgWrapper, ArrayList\u003cTask\u003e addedTasks) {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        int index \u003d getListedIndex(cmdParser.getParameter());"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (index \u003c 0 || index \u003e\u003d addedTasks.size()) {"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            msgWrapper.show("
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    \"Index out of range.\","
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    msgFormat.getMessageOptions());"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return addedTasks.get(index);"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private void handleException(Exception e, Commands flag) {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String unknown \u003d \"x_x OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String illegal \u003d \"x_x OOPS!!! The \\\"_SIGN_\\\" parameter of the _NAME_ command is missing.\";"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String empty \u003d \"x_x OOPS!!! The parameter \\\"_SIGN_\\\" cannot be empty.\";"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String missing \u003d \"x_x OOPS!!! The description of the \\\"_NAME_\\\" command cannot be empty.\";"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (e instanceof EmptyCommandException) {"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    empty.replace(\"_SIGN_\", flag.SIGN.trim()),"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else if (e instanceof IllegalCommandException) {"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    illegal.replace(\"_SIGN_\", flag.SIGN.trim())"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                            .replace(\"_NAME_\", flag.NAME.trim()),"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else if (e instanceof MissingDescriptionException) {"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    missing.replace(\"_NAME_\",flag.NAME.trim()),"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else if (e instanceof UnknownCommandException) {"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap(unknown, format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    new String[]{\"An unknown Exception has occurred.\", e.getMessage()},"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public boolean handleCommand(String userInput) {"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            parser.parse(userInput);"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } catch (Exception e) {"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            handleException(e, parser.getFlag());"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return true; //although there is exception, still should continue."
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        Commands flag \u003d parser.getFlag();"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (flag \u003d\u003d null) {"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return true; //although no flag, still should continue."
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String doTaskPrefix \u003d \"Nice! I\u0027ve marked this task as done:\";"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String undoTaskPrefix \u003d \"Nice! I\u0027ve marked this task as undone:\";"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String cleared \u003d \"Nice! I\u0027ve cleared everything in the list.\";"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String bye \u003d \" Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        switch (flag) {"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case LIST:"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            String[] commands \u003d getCommandStrings(tasks);"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            format.addMessageOption(MessageOptions.INDEXED_NUM);"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap(commands, format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            format.removeMessageOption(MessageOptions.INDEXED_NUM);"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case BYE:"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap(bye, format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return false; //break is unreachable"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case DONE:"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Task task \u003d getTask(format, parser, wrapper, tasks);"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            if (task !\u003d null) {"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                task.markAsDone();"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        new String[]{ doTaskPrefix, task.toString()},"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case UNDONE:"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Task taskDone \u003d getTask(format, parser, wrapper, tasks);"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            if (taskDone !\u003d null) {"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                taskDone.markAsUndone();"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        new String[]{ undoTaskPrefix, taskDone.toString()},"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case DELETE:"
+      },
+      {
+        "lineNumber": 177,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Task taskToRemove \u003d getTask(format, parser, wrapper, tasks);"
+      },
+      {
+        "lineNumber": 178,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            if (taskToRemove !\u003d null) {"
+      },
+      {
+        "lineNumber": 179,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                tasks.remove(taskToRemove);"
+      },
+      {
+        "lineNumber": 180,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 181,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        getRemoveTaskMessage(taskToRemove.toString(), tasks.size()),"
+      },
+      {
+        "lineNumber": 182,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                        format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 183,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 184,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 185,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 186,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case CLEAR:"
+      },
+      {
+        "lineNumber": 187,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            tasks.clear();"
+      },
+      {
+        "lineNumber": 188,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap(cleared, format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 189,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 190,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 191,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case TODO:"
+      },
+      {
+        "lineNumber": 192,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            ToDo todo \u003d new ToDo(userInput);"
+      },
+      {
+        "lineNumber": 193,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            tasks.add(todo);"
+      },
+      {
+        "lineNumber": 194,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 195,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    getAddTaskMessage(todo.toString(), tasks.size()),"
+      },
+      {
+        "lineNumber": 196,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 197,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 198,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 199,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case DEADLINE:"
+      },
+      {
+        "lineNumber": 200,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Deadline ddl \u003d new Deadline(userInput);"
+      },
+      {
+        "lineNumber": 201,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            tasks.add(ddl);"
+      },
+      {
+        "lineNumber": 202,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 203,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    getAddTaskMessage(ddl.toString(), tasks.size()),"
+      },
+      {
+        "lineNumber": 204,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 205,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 206,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 207,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case EVENT:"
+      },
+      {
+        "lineNumber": 208,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Event event \u003d new Event(userInput);"
+      },
+      {
+        "lineNumber": 209,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            tasks.add(event);"
+      },
+      {
+        "lineNumber": 210,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            result \u003d wrapper.wrap("
+      },
+      {
+        "lineNumber": 211,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    getAddTaskMessage(event.toString(), tasks.size()),"
+      },
+      {
+        "lineNumber": 212,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    format.getMessageOptions());"
+      },
+      {
+        "lineNumber": 213,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isUpdatable \u003d true;"
+      },
+      {
+        "lineNumber": 214,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 215,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 216,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 217,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 218,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return true;"
+      },
+      {
+        "lineNumber": 219,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 220,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 220
+    }
+  },
+  {
     "path": "src/main/java/duke/CommandParser.java",
     "fileType": "java",
     "lines": [
@@ -536,7 +2108,7 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        } else if (flag.isExceptional()){"
+        "content": "        } else if (flag.equals(Commands.UNKNOWN)) {"
       },
       {
         "lineNumber": 50,
@@ -769,227 +2341,192 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    DEADLINE(\"deadline\", \"/by\"),"
+        "content": "    DELETE(\"delete\"),"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    EVENT(\"event\", \"/at\"),"
+        "content": "    CLEAR(\"clear\"),"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    UNKNOWN(\"unknown\"),"
+        "content": "    DEADLINE(\"deadline\", \"/by\"),"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    ILLEGAL(\"illegal\"),"
+        "content": "    EVENT(\"event\", \"/at\"),"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    EMPTY(\"empty\"),"
+        "content": "    UNKNOWN(\"unknown\");"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    MISSING(\"missing\");"
+        "content": ""
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "    public final String SIGN;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public final String SIGN;"
+        "content": "    public final String NAME;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public final String NAME;"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "    Commands(String name) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    Commands(String name) {"
+        "content": "        this.NAME \u003d name;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        this.NAME \u003d name;"
+        "content": "        SIGN \u003d \"\";"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        SIGN \u003d \"\";"
+        "content": "    }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "    Commands(String name, String sign){"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    Commands(String name, String sign){"
+        "content": "        this.NAME \u003d name;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        this.NAME \u003d name;"
+        "content": "        this.SIGN \u003d sign;"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        this.SIGN \u003d sign;"
+        "content": "    }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "    boolean isNeedParameter(){"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    boolean isNeedParameter(){"
+        "content": "        return this.SIGN !\u003d null \u0026\u0026 !this.SIGN.equals(Constants.ZERO_LENGTH_STRING);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        return this.SIGN !\u003d null \u0026\u0026 !this.SIGN.equals(Constants.ZERO_LENGTH_STRING);"
+        "content": "    }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "    boolean isNeedTarget(){"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    boolean isExceptional(){"
+        "content": "        return !this.equals(LIST) \u0026\u0026 !this.equals(BYE) \u0026\u0026 !this.equals(CLEAR);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        return this.equals(UNKNOWN) || this.equals(ILLEGAL) ||"
+        "content": "    }"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                this.equals(EMPTY) || this.equals(MISSING);"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "TomLBZ"
-        },
         "content": ""
       },
       {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "    boolean isNeedTarget(){"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        return !this.equals(LIST) \u0026\u0026 !this.equals(BYE) \u0026\u0026 !this.isExceptional();"
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 41,
+        "lineNumber": 36,
         "author": {
           "gitId": "TomLBZ"
         },
@@ -997,7 +2534,7 @@
       }
     ],
     "authorContributionMap": {
-      "TomLBZ": 41
+      "TomLBZ": 36
     }
   },
   {
@@ -1051,115 +2588,199 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String TODO_ICON \u003d \"[T]\";"
+        "content": "    public static final String ICON_LEFT \u003d \"[\";"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String EVENT_ICON \u003d \"[E]\";"
+        "content": "    public static final String ICON_RIGHT \u003d \"]\";"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String DDL_ICON \u003d \"[D]\";"
+        "content": "    public static final String PARAM_LEFT \u003d \"(\";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String TICK \u003d \"\\u2713\";"
+        "content": "    public static final String TODO_ICON \u003d ICON_LEFT + \"T\" + ICON_RIGHT;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String CROSS \u003d \"\\u2718\";"
+        "content": "    public static final String EVENT_ICON \u003d ICON_LEFT + \"E\" + ICON_RIGHT;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String TAB \u003d \"\\t\";"
+        "content": "    public static final String DDL_ICON \u003d ICON_LEFT + \"D\" + ICON_RIGHT;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String NEWLINE \u003d \"\\n\";"
+        "content": "    public static final String ICON_SIGNATURE \u003d ICON_RIGHT + ICON_LEFT;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String RETURN \u003d \"\\r\";"
+        "content": "    public static final String ICON_SEPARATOR \u003d ICON_RIGHT + LINE_UNIT + ICON_LEFT;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String WIN_NEWLINE \u003d RETURN + NEWLINE;"
+        "content": "    public static final String BODY_SIGNATURE \u003d ICON_RIGHT + SPACE;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final String ZERO_LENGTH_STRING \u003d \"\";"
+        "content": "    public static final String BODY_SEPARATOR \u003d ICON_RIGHT + LINE_UNIT;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int LINE_REPETITION \u003d 60;"
+        "content": "    public static final String PARAM_SIGNATURE \u003d SPACE + PARAM_LEFT;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int NO_INDENT \u003d 0;"
+        "content": "    public static final String PARAM_SEPARATOR \u003d LINE_UNIT + PARAM_LEFT;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int INDENT_1 \u003d 1;"
+        "content": "    public static final String DETAILS_SIGNATURE \u003d \": \";"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int INDENT_2 \u003d 2;"
+        "content": "    public static final String TICK \u003d \"\\u2713\";"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int INDENT_3 \u003d 3;"
+        "content": "    public static final String CROSS \u003d \"\\u2718\";"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static final int LETTER_OFFSET \u003d 64;"
+        "content": "    public static final String TAB \u003d \"\\t\";"
       },
       {
         "lineNumber": 23,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String NEWLINE \u003d \"\\n\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String RETURN \u003d \"\\r\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String WIN_NEWLINE \u003d RETURN + NEWLINE;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String ZERO_LENGTH_STRING \u003d \"\";"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String PATH \u003d \"./data\";"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final String FILENAME \u003d \"duke.txt\";"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int LINE_REPETITION \u003d 60;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int NO_INDENT \u003d 0;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int INDENT_1 \u003d 1;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int INDENT_2 \u003d 2;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int INDENT_3 \u003d 3;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public static final int LETTER_OFFSET \u003d 64;"
+      },
+      {
+        "lineNumber": 35,
         "author": {
           "gitId": "TomLBZ"
         },
@@ -1167,7 +2788,7 @@
       }
     ],
     "authorContributionMap": {
-      "TomLBZ": 23
+      "TomLBZ": 35
     }
   },
   {
@@ -1193,210 +2814,210 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import exceptions.EmptyCommandException;"
+        "content": "import io.FileLoader;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import exceptions.IllegalCommandException;"
+        "content": "import io.FileSaver;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import exceptions.MissingDescriptionException;"
+        "content": "import jobs.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import exceptions.UnknownCommandException;"
+        "content": "import messages.MessageFormat;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import jobs.Deadline;"
+        "content": "import messages.MessageOptions;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import jobs.Event;"
+        "content": "import messages.MessageWrapper;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import jobs.Task;"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import jobs.ToDo;"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "import messages.MessageFormat;"
+        "content": ""
       },
       {
         "lineNumber": 12,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "import messages.MessageOptions;"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "import messages.MessageWrapper;"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "import java.util.ArrayList;"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "import java.util.Scanner;"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 18,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
-        "lineNumber": 19,
+        "lineNumber": 13,
         "author": {
           "gitId": "TomLBZ"
         },
         "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        Scanner inputGetter \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        FileSaver fileSaver \u003d new FileSaver(Constants.PATH, Constants.FILENAME);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        FileLoader fileLoader \u003d new FileLoader(Constants.PATH, Constants.FILENAME);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        CommandParser parser \u003d new CommandParser();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        MessageFormat msgFormat \u003d new MessageFormat(new MessageOptions[]{"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    public static String[] getCommandStrings(ArrayList\u003cTask\u003e tasks){"
+        "content": "                MessageOptions.LINE_INDENT_1,"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        String[] commands \u003d new String[tasks.size()];"
+        "content": "                MessageOptions.LINE_BEFORE,"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        for(int i \u003d 0; i \u003c tasks.size(); i++){"
+        "content": "                MessageOptions.INDENTED_2,"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "            commands[i] \u003d tasks.get(i).toString();"
+        "content": "                MessageOptions.AUTO_RETURN,"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        }"
+        "content": "                MessageOptions.LINE_AFTER"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        return commands;"
+        "content": "        });"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    }"
+        "content": "        MessageWrapper msgWrapper \u003d new MessageWrapper("
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
+        "content": "                Constants.LINE_REPETITION, Constants.LINE_UNIT);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    private static String[] getAddTaskMessage(String description, int count){"
+        "content": "        CommandHandler commandHandler \u003d new CommandHandler(parser, msgFormat, msgWrapper);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "        return new String[]{"
+        "content": "        ArrayList\u003cTask\u003e addedTasks \u003d fileLoader.loadSavedTasks(commandHandler);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                \"Got it. I\u0027ve added this task\","
+        "content": "        String[] greetings \u003d new String[] {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                description,"
+        "content": "                \" Hello! I\u0027m duke.Duke\","
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                \"Now you have \" + count + \" tasks in the list.\""
+        "content": "                \" What can I do for you?\""
       },
       {
         "lineNumber": 33,
@@ -1410,927 +3031,94 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "    }"
+        "content": "        msgWrapper.show(greetings, msgFormat.getMessageOptions());"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": ""
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        MessageFormat msgFormat \u003d new MessageFormat(new MessageOptions[]{"
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                MessageOptions.LINE_INDENT_1,"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                MessageOptions.LINE_BEFORE,"
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                MessageOptions.INDENTED_2,"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                MessageOptions.AUTO_RETURN,"
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                MessageOptions.LINE_AFTER"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        });"
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        CommandParser cmdParser \u003d new CommandParser();"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        MessageWrapper msgWrapper \u003d new MessageWrapper("
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                Constants.LINE_REPETITION, Constants.LINE_UNIT);"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        Scanner inputGetter \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String[] greetings \u003d new String[] {"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                \" Hello! I\u0027m duke.Duke\","
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                \" What can I do for you?\""
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        };"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String bye \u003d \" Bye. Hope to see you again soon!\";"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String unknown \u003d \"x_x OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String illegal \u003d \"x_x OOPS!!! The \\\"_SIGN_\\\" parameter of the _NAME_ command is missing.\";"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String empty \u003d \"x_x OOPS!!! The parameter \\\"_SIGN_\\\" cannot be empty.\";"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        String missing \u003d \"x_x OOPS!!! The description of the \\\"_NAME_\\\" command cannot be empty.\";"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        msgWrapper.show(greetings, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "        ArrayList\u003cTask\u003e addedTasks \u003d new ArrayList\u003c\u003e();"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "TomLBZ"
-        },
         "content": "        boolean isRunning \u003d true;"
       },
       {
-        "lineNumber": 60,
+        "lineNumber": 36,
         "author": {
           "gitId": "TomLBZ"
         },
         "content": "        while (isRunning) {"
       },
       {
-        "lineNumber": 61,
+        "lineNumber": 37,
         "author": {
           "gitId": "TomLBZ"
         },
         "content": "            String userInput \u003d inputGetter.nextLine();"
       },
       {
-        "lineNumber": 62,
+        "lineNumber": 38,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "            Commands flag;"
+        "content": "            isRunning \u003d commandHandler.handleCommand(userInput);"
       },
       {
-        "lineNumber": 63,
+        "lineNumber": 39,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "            Commands originalFlag;"
+        "content": "            System.out.print(commandHandler.getCommandResult());"
       },
       {
-        "lineNumber": 64,
+        "lineNumber": 40,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "            try {"
+        "content": "            if (commandHandler.isPendingUpdate()) {"
       },
       {
-        "lineNumber": 65,
+        "lineNumber": 41,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                cmdParser.parse(userInput);"
+        "content": "                addedTasks \u003d commandHandler.getAddedTasks();"
       },
       {
-        "lineNumber": 66,
+        "lineNumber": 42,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                flag \u003d cmdParser.getFlag();"
+        "content": "                boolean isSaved \u003d fileSaver.save(addedTasks);"
       },
       {
-        "lineNumber": 67,
+        "lineNumber": 43,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "                originalFlag \u003d flag;"
+        "content": "                commandHandler.updateStatus(isSaved);"
       },
       {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            catch (EmptyCommandException e){"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                flag \u003d Commands.EMPTY;"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                originalFlag \u003d e.flag;"
-      },
-      {
-        "lineNumber": 72,
+        "lineNumber": 44,
         "author": {
           "gitId": "TomLBZ"
         },
         "content": "            }"
       },
       {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            catch (IllegalCommandException i){"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                flag \u003d Commands.ILLEGAL;"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                originalFlag \u003d i.flag;"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            catch (MissingDescriptionException m){"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                flag \u003d Commands.MISSING;"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                originalFlag \u003d m.flag;"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            catch (UnknownCommandException u){"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                flag \u003d Commands.UNKNOWN;"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                originalFlag \u003d flag;"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            switch (flag) {"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case LIST:"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                String[] commands \u003d getCommandStrings(addedTasks);"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgFormat.addMessageOption(MessageOptions.INDEXED_NUM);"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(commands, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgFormat.removeMessageOption(MessageOptions.INDEXED_NUM);"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case BYE:"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(bye, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                isRunning \u003d false;"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case DONE:"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                int index \u003d Integer.parseInt(cmdParser.getParameter()) - 1;"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                Task task \u003d addedTasks.get(index);"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                if (task \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                task.markAsDone();"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(new String[]{"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        \"Nice! I\u0027ve marked this task as done:\","
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        task.toString()"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                }, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case UNDONE:"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                int indexDone \u003d Integer.parseInt(cmdParser.getParameter()) - 1;"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                Task taskDone \u003d addedTasks.get(indexDone);"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                if (taskDone \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                taskDone.markAsUndone();"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(new String[]{"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        \"Nice! I\u0027ve marked this task as undone:\","
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        taskDone.toString()"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                }, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case TODO:"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                ToDo todo \u003d new ToDo(userInput);"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                addedTasks.add(todo);"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show("
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        getAddTaskMessage(todo.toString(), addedTasks.size()),"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case DEADLINE:"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                Deadline ddl \u003d new Deadline(userInput);"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                addedTasks.add(ddl);"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show("
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        getAddTaskMessage(ddl.toString(), addedTasks.size()),"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case EVENT:"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                Event event \u003d new Event(userInput);"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                addedTasks.add(event);"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show("
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        getAddTaskMessage(event.toString(), addedTasks.size()),"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case UNKNOWN:"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(unknown, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case ILLEGAL:"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                String iMessage \u003d illegal.replace("
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        \"_SIGN_\", originalFlag.SIGN.trim());"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                iMessage \u003d iMessage.replace("
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        \"_NAME_\", originalFlag.NAME.trim());"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(iMessage, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case EMPTY:"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                String eMessage \u003d empty.replace(\"_SIGN_\","
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        originalFlag.SIGN.trim());"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(eMessage, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            case MISSING:"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                String mMessage \u003d missing.replace(\"_NAME_\","
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                        originalFlag.NAME.trim());"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                msgWrapper.show(mMessage, msgFormat.getMessageOptions());"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "TomLBZ"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 164,
+        "lineNumber": 45,
         "author": {
           "gitId": "TomLBZ"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 165,
+        "lineNumber": 46,
         "author": {
-          "gitId": "-"
+          "gitId": "TomLBZ"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 166,
+        "lineNumber": 47,
         "author": {
           "gitId": "-"
         },
@@ -2338,8 +3126,8 @@
       }
     ],
     "authorContributionMap": {
-      "TomLBZ": 162,
-      "-": 4
+      "TomLBZ": 44,
+      "-": 3
     }
   },
   {
@@ -2651,6 +3439,1160 @@
     ],
     "authorContributionMap": {
       "TomLBZ": 4
+    }
+  },
+  {
+    "path": "src/main/java/io/FileLoader.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "package io;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import duke.CommandHandler;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import duke.Commands;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import duke.Constants;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.charset.StandardCharsets;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.file.Files;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.file.Paths;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "public class FileLoader extends IO {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public FileLoader(String path, String fileName) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        super(path, fileName);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public ArrayList\u003cTask\u003e loadSavedTasks(CommandHandler handler) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            if (isFileInvalid()) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                throw new IOException();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            String[] lines \u003d new String[0];"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            lines \u003d Files.readAllLines("
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    Paths.get(path + \"/\" + fileName), StandardCharsets.UTF_8).toArray(lines);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            int numberOfTasks \u003d 1; //"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            for (String line: lines) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                if (line \u003d\u003d null || line.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    continue;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                String[] commands \u003d getCommands(line, numberOfTasks);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                for (String command: commands) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    handler.handleCommand(command);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                numberOfTasks++;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return handler.getAddedTasks();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String removeBracket(String input) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String output \u003d input.trim();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        output \u003d output.substring(1, output.length() - 1);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return output;"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String getCommand(String icon, String description, String detail) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        switch (icon) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case Constants.TODO_ICON: // break is unreachable"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Commands.TODO.NAME + Constants.SPACE + description;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case Constants.EVENT_ICON: // break is unreachable"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Commands.EVENT.NAME + Constants.SPACE + description + Constants.SPACE +"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    Commands.EVENT.SIGN + Constants.SPACE + detail;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        case Constants.DDL_ICON: // break is unreachable"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Commands.DEADLINE.NAME + Constants.SPACE + description + Constants.SPACE +"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    Commands.DEADLINE.SIGN + Constants.SPACE + detail;"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return \"\"; //break is unreachable."
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String getStateCommand(String state, int index) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (state.equals(Constants.TICK)) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Commands.DONE.NAME + Constants.SPACE + index;"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else if (state.equals(Constants.CROSS)) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return Commands.UNDONE.NAME + Constants.SPACE + index;"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return \"\";"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    private String[] getCommands(String taskText, int taskIndex) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String text \u003d taskText.replace(Constants.ICON_SIGNATURE,Constants.ICON_SEPARATOR);"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        text \u003d text.replace(Constants.BODY_SIGNATURE,Constants.BODY_SEPARATOR);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String[] iconSeparated \u003d text.split(Constants.LINE_UNIT);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String icon \u003d iconSeparated[0];"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String state \u003d iconSeparated[1];"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        StringBuilder body \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        for (int i \u003d 2; i \u003c iconSeparated.length; i++) {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            body.append(iconSeparated[i]);"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String description \u003d body.toString();"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        description \u003d description.replace(Constants.PARAM_SIGNATURE,Constants.PARAM_SEPARATOR);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String[] paramSeparated \u003d description.split(Constants.LINE_UNIT);"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        description \u003d paramSeparated[0];"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        String detail \u003d \"\";"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (paramSeparated.length \u003e 1) {"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            String param \u003d removeBracket(paramSeparated[1]);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            String[] paramDetails \u003d param.split(Constants.DETAILS_SIGNATURE);"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            detail \u003d paramDetails[1].trim();"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return new String[]{"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                getCommand(icon, description, detail),"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                getStateCommand(removeBracket(state), taskIndex)};"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 98
+    }
+  },
+  {
+    "path": "src/main/java/io/FileSaver.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "package io;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import jobs.Task;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.charset.StandardCharsets;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.file.Files;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.nio.file.Paths;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "public class FileSaver extends IO{"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public FileSaver(String path, String fileName) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        super(path, fileName);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public boolean save(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            StringBuilder strBuilder \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            for (Task task: tasks) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                strBuilder.append(task.toString()).append(System.lineSeparator());"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            if (isFileInvalid()) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                throw new IOException();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            Files.writeString("
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    Paths.get(path + \"/\" + fileName),"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "                    strBuilder.toString(), StandardCharsets.UTF_8);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return true;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            return false;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 33
+    }
+  },
+  {
+    "path": "src/main/java/io/IO.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "package io;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "public class IO {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    protected String path;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    protected String fileName;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    public IO(String path, String fileName) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        this.path \u003d path;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        this.fileName \u003d fileName;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    protected boolean isFileInvalid()"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            throws IOException{"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        boolean isValidated \u003d true;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        File path \u003d new File(this.path);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (!path.exists() || !path.isDirectory()) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isValidated \u003d path.mkdirs();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        File file \u003d new File(this.path + \"/\" + this.fileName);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        if (!file.exists() || !file.isFile()) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "            isValidated \u003d isValidated \u0026\u0026 file.createNewFile();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "        return !isValidated;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 30
     }
   },
   {
@@ -4586,6 +6528,29 @@
     }
   },
   {
+    "path": "text-ui-test/data/duke.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "[T][✘] task1"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "TomLBZ"
+        },
+        "content": "[E][✘] do stuff (at:  2)"
+      }
+    ],
+    "authorContributionMap": {
+      "TomLBZ": 2
+    }
+  },
+  {
     "path": "text-ui-test/input.txt",
     "fileType": "txt",
     "lines": [
@@ -4594,87 +6559,80 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "do something"
+        "content": "clear"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "todo"
+        "content": "todo task1"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "todo this"
+        "content": "deadline ddl /by 10pm"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "event"
+        "content": "event /at 2"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "event /at"
+        "content": "event do stuff /at 2"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "event /at 2"
+        "content": "list"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "event do stuff /at 2"
+        "content": "done 1"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "list"
+        "content": "undone A"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "done 1"
+        "content": "undone c"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "done 2"
+        "content": "delete 2"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "undone 2"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "TomLBZ"
-        },
         "content": "list"
       },
       {
-        "lineNumber": 13,
+        "lineNumber": 12,
         "author": {
           "gitId": "TomLBZ"
         },
@@ -4682,7 +6640,7 @@
       }
     ],
     "authorContributionMap": {
-      "TomLBZ": 13
+      "TomLBZ": 12
     }
   },
   {
@@ -4757,7 +6715,7 @@
         "author": {
           "gitId": "TomLBZ"
         },
-        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\*.java ..\\src\\main\\java\\exceptions\\*.java ..\\src\\main\\java\\jobs\\*.java ..\\src\\main\\java\\messages\\*.java"
+        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\*.java ..\\src\\main\\java\\exceptions\\*.java ..\\src\\main\\java\\jobs\\*.java ..\\src\\main\\java\\messages\\*.java ..\\src\\main\\java\\io\\*.java"
       },
       {
         "lineNumber": 11,
