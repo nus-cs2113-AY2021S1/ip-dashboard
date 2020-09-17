@@ -1,5 +1,35 @@
 [
   {
+    "path": "data/duke.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "[T] | 0 | bob"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "[D] | 0 | this | yesterday"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "[E] | 1 | tut | tmr"
+      }
+    ],
+    "authorContributionMap": {
+      "randynyl": 3
+    }
+  },
+  {
     "path": "src/main/java/duke/Duke.java",
     "fileType": "java",
     "lines": [
@@ -50,962 +80,1417 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "import java.util.ArrayList;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "import java.util.Scanner;"
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 10,
         "author": {
-          "gitId": "-"
+          "gitId": "randynyl"
         },
-        "content": "public class Duke {"
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 11,
         "author": {
-          "gitId": "-"
+          "gitId": "randynyl"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "import java.nio.file.Files;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003cTask\u003e();"
+        "content": "import java.nio.file.Path;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printGreetings();"
+        "content": "import java.nio.file.Paths;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        executeCommand(tasks);"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printGoodbye();"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
-          "gitId": "randynyl"
+          "gitId": "-"
         },
-        "content": ""
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void executeCommand(ArrayList\u003cTask\u003e tasks) {"
+        "content": "    protected static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003cTask\u003e();"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
+        "content": "    private static final String FILE_PATH \u003d \"data/duke.txt\";"
       },
       {
         "lineNumber": 20,
         "author": {
-          "gitId": "randynyl"
+          "gitId": "-"
         },
-        "content": "        String userInput \u003d in.nextLine();"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String userCommand \u003d userInput.split(\" \")[0];"
+        "content": "        printGreetings();"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        while (!\"bye\".equals(userCommand)) {"
+        "content": "        try {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            printLineBorder();"
+        "content": "            getTasksFromFile();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            switch (userCommand) {"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            case \"list\":"
+        "content": "            System.out.print(\"Something went wrong: \\\" + e.getMessage()\");"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                listTasks(tasks);"
+        "content": "        }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                break;"
+        "content": "        executeCommand(tasks);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            case \"done\":"
+        "content": "        writeToFile();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                try {"
+        "content": "        printGoodbye();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    resolveTask(tasks, userInput);"
+        "content": "    }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                } catch (Exception e) {"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    System.out.println(\"\\t\u003e Please enter an existing task number to complete!\");"
+        "content": "    private static void writeToFile() {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                }"
+        "content": "        StringBuilder textToWrite \u003d new StringBuilder();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                break;"
+        "content": "        for (Task task : tasks) {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            case \"todo\":"
+        "content": "            textToWrite.append(task.getTag()).append(\" | \").append(task.getStatusBinary()).append(\" | \").append(task.getTaskName());"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                try {"
+        "content": "            if (task instanceof Event || task instanceof Deadline) {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    Todo newTodo \u003d getTodoFromInput(userInput);"
+        "content": "                textToWrite.append(\" | \").append(task.getDetails());"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    addTask(tasks, newTodo);"
+        "content": "            }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
+        "content": "            textToWrite.append(System.lineSeparator());"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    System.out.println(\"\\t\u003e Pardon me my lord but the description of a todo mustn\u0027t be empty!\");"
+        "content": "        }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                }"
+        "content": "        try {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                break;"
+        "content": "            IOManager.writeToFile(FILE_PATH, textToWrite.toString());"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            case \"deadline\":"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                try {"
+        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    Deadline newDeadline \u003d getDeadlineFromInput(userInput);"
+        "content": "        }"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    addTask(tasks, newDeadline);"
+        "content": "    }"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
+        "content": ""
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    System.out.println(\"\\t\u003e Sire, please ensure you have the deadline name and time separated with \u0027/by\u0027\");"
+        "content": "    private static void getTasksFromFile() throws IOException {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                }"
+        "content": "        try {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                break;"
+        "content": "            IOManager.readFileContents(FILE_PATH);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            case \"event\":"
+        "content": "            System.out.println(\"File found!\");"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                try {"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    Event newEvent \u003d getEventFromInput(userInput);"
+        "content": "            File f \u003d new File(FILE_PATH);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    addTask(tasks, newEvent);"
+        "content": "            f.createNewFile();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
+        "content": "        }"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                    System.out.println(\"\\t\u003e Sire, please ensure you have the event name and time separated with \u0027/at\u0027\");"
+        "content": "    }"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                }"
+        "content": ""
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                break;"
+        "content": "    private static void executeCommand(ArrayList\u003cTask\u003e tasks) {"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            default:"
+        "content": "        Scanner in \u003d new Scanner(System.in);"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                printRetryMessage();"
+        "content": "        String userInput \u003d in.nextLine();"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            }"
+        "content": "        String userCommand \u003d userInput.split(\" \")[0].toLowerCase();"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            printLineBorder();"
+        "content": "        while (!\"bye\".equals(userCommand)) {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            userInput \u003d in.nextLine();"
+        "content": "            printLineBorder();"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            userCommand \u003d userInput.split(\" \")[0];"
+        "content": "            switch (userCommand) {"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        }"
+        "content": "            case \"list\":"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                listTasks(tasks);"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "                break;"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printRetryMessage() {"
+        "content": "            case \"done\":"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Ohhh my sire please give me a valid command\");"
+        "content": "                try {"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                    resolveTask(tasks, userInput);"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "                } catch (Exception e) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printLineBorder() {"
+        "content": "                    System.out.println(\"\\t\u003e Please enter an existing task number to complete!\");"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\");"
+        "content": "                }"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                break;"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "            case \"todo\":"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static Event getEventFromInput(String userInput) throws IndexOutOfBoundsException {"
+        "content": "                try {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String[] eventComponents \u003d userInput.split(\"event | /at \");"
+        "content": "                    Todo newTodo \u003d getTodoFromInput(userInput);"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String eventName \u003d eventComponents[1];"
+        "content": "                    addTask(tasks, newTodo);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String eventDetails \u003d eventComponents[2];"
+        "content": "                } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        Event newEvent \u003d new Event(eventName, eventDetails);"
+        "content": "                    System.out.println(\"\\t\u003e Pardon me my lord but the description of a todo mustn\u0027t be empty!\");"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return newEvent;"
+        "content": "                }"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                break;"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "            case \"deadline\":"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static Deadline getDeadlineFromInput(String userInput) throws IndexOutOfBoundsException {"
+        "content": "                try {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String[] deadlineComponents \u003d userInput.split(\"deadline | /by \");"
+        "content": "                    Deadline newDeadline \u003d getDeadlineFromInput(userInput);"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String taskName \u003d deadlineComponents[1];"
+        "content": "                    addTask(tasks, newDeadline);"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String taskDeadline \u003d deadlineComponents[2];"
+        "content": "                } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        Deadline newDeadline \u003d new Deadline(taskName, taskDeadline);"
+        "content": "                    System.out.println(\"\\t\u003e Sire, please ensure you have the deadline name and time separated with \u0027/by\u0027\");"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return newDeadline;"
+        "content": "                }"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                break;"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "            case \"event\":"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static Todo getTodoFromInput (String userInput) throws IndexOutOfBoundsException {"
+        "content": "                try {"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String taskName \u003d userInput.split(\" \", 2)[1];"
+        "content": "                    Event newEvent \u003d getEventFromInput(userInput);"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        Todo newTodo \u003d new Todo(taskName);"
+        "content": "                    addTask(tasks, newEvent);"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return newTodo;"
+        "content": "                } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                    System.out.println(\"\\t\u003e Sire, please ensure you have the event name and time separated with \u0027/at\u0027\");"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "                }"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void resolveTask(ArrayList\u003cTask\u003e tasks, String userInput)"
+        "content": "                break;"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            throws DukeException, NumberFormatException {"
+        "content": "            case \"delete\":"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        int taskNumber \u003d Integer.parseInt(userInput.split(\" \")[1]);"
+        "content": "                try {"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        if (taskNumber \u003e tasks.size()) {"
+        "content": "                    deleteTask(tasks, userInput);"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            throw new DukeException();"
+        "content": "                } catch (Exception e) {"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        }"
+        "content": "                    System.out.println(\"\\t\u003e Please enter an existing task number to delete!\");"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        tasks.get(taskNumber-1).markAsDone();"
+        "content": "                }"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Excellent. This task shall be marked as done: \\n\\t  \""
+        "content": "                break;"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "                + tasks.get(taskNumber - 1).toString());"
+        "content": "            default:"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "                printRetryMessage();"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void listTasks(ArrayList\u003cTask\u003e tasks) {"
+        "content": "            printLineBorder();"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Here are your tasks, sire: \");"
+        "content": "            userInput \u003d in.nextLine();"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        for (int i \u003d 0; i \u003c tasks.size(); i++) {"
+        "content": "            userCommand \u003d userInput.split(\" \")[0];"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "            System.out.println(\"\\t\" + (i+1) + \".\" + tasks.get(i).toString());"
+        "content": "        }"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    private static void deleteTask(ArrayList\u003cTask\u003e tasks, String userInput)"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printGoodbye() {"
+        "content": "            throws DukeException, NumberFormatException {"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printLineBorder();"
+        "content": "        int taskNumber \u003d Integer.parseInt(userInput.split(\" \")[1]);"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Goodbye, sire. Fare thee well.\");"
+        "content": "        if (taskNumber \u003e tasks.size()) {"
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printLineBorder();"
+        "content": "            throw new DukeException();"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 121,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "        Task taskToRemove \u003d tasks.get(taskNumber-1);"
       },
       {
         "lineNumber": 122,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printGreetings() {"
+        "content": "        tasks.remove(taskNumber-1);"
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printLineBorder();"
+        "content": "        printDeleteTaskMessage(taskToRemove);"
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Good day, sire, Percival at your disposal.\");"
+        "content": "        printTaskCountMessage(tasks);"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e How may I be of service?\");"
+        "content": ""
       },
       {
         "lineNumber": 126,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printLineBorder();"
+        "content": "    }"
       },
       {
         "lineNumber": 127,
         "author": {
-          "gitId": "-"
+          "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 128,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    private static void printDeleteTaskMessage(Task task) {"
       },
       {
         "lineNumber": 129,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void addTask(ArrayList\u003cTask\u003e tasks, Task task) {"
+        "content": "        System.out.println(\"\\t\u003e Very Well. Your task has been removed:\");"
       },
       {
         "lineNumber": 130,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        tasks.add(task);"
+        "content": "        System.out.println(\"\\t\\t\" + task.toString());"
       },
       {
         "lineNumber": 131,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printAddedTaskMessage(task);"
+        "content": "    }"
       },
       {
         "lineNumber": 132,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        printTaskCountMessage(tasks);"
+        "content": ""
       },
       {
         "lineNumber": 133,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "    private static void printRetryMessage() {"
       },
       {
         "lineNumber": 134,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "        System.out.println(\"\\t\u003e Ohhh my sire please give me a valid command\");"
       },
       {
         "lineNumber": 135,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printTaskCountMessage(ArrayList\u003cTask\u003e tasks) {"
+        "content": "    }"
       },
       {
         "lineNumber": 136,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String plural \u003d (tasks.size() \u003d\u003d 1) ? \"\" : \"s\";"
+        "content": ""
       },
       {
         "lineNumber": 137,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.printf(\"\\t\u003e Now you have \" + tasks.size() + \" task%s in the list.%n\", plural);"
+        "content": "    private static void printLineBorder() {"
       },
       {
         "lineNumber": 138,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "        System.out.println(\"\\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\");"
       },
       {
         "lineNumber": 139,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 140,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private static void printAddedTaskMessage(Task task) {"
+        "content": ""
       },
       {
         "lineNumber": 141,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\u003e Very well. This task has been added: \");"
+        "content": "    private static Event getEventFromInput(String userInput) throws IndexOutOfBoundsException {"
       },
       {
         "lineNumber": 142,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        System.out.println(\"\\t\\t\" + task.toString());"
+        "content": "        String[] eventComponents \u003d userInput.split(\"event | /at \");"
       },
       {
         "lineNumber": 143,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": "        String eventName \u003d eventComponents[1];"
       },
       {
         "lineNumber": 144,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String eventDetails \u003d eventComponents[2];"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        Event newEvent \u003d new Event(eventName, eventDetails);"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return newEvent;"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static Deadline getDeadlineFromInput(String userInput) throws IndexOutOfBoundsException {"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String[] deadlineComponents \u003d userInput.split(\"deadline | /by \");"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String taskName \u003d deadlineComponents[1];"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String taskDeadline \u003d deadlineComponents[2];"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        Deadline newDeadline \u003d new Deadline(taskName, taskDeadline);"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return newDeadline;"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static Todo getTodoFromInput (String userInput) throws IndexOutOfBoundsException {"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String taskName \u003d userInput.split(\" \", 2)[1];"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        Todo newTodo \u003d new Todo(taskName);"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return newTodo;"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void resolveTask(ArrayList\u003cTask\u003e tasks, String userInput)"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            throws DukeException, NumberFormatException {"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        int taskNumber \u003d Integer.parseInt(userInput.split(\" \")[1]);"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        if (taskNumber \u003e tasks.size()) {"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        tasks.get(taskNumber-1).markAsDone();"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e Excellent. This task shall be marked as done: \\n\\t  \""
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                + tasks.get(taskNumber - 1).toString());"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void listTasks(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e Here are your tasks, sire: \");"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        for (int i \u003d 0; i \u003c tasks.size(); i++) {"
+      },
+      {
+        "lineNumber": 177,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            System.out.println(\"\\t\" + (i+1) + \".\" + tasks.get(i).toString());"
+      },
+      {
+        "lineNumber": 178,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 179,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 180,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 181,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void printGoodbye() {"
+      },
+      {
+        "lineNumber": 182,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printLineBorder();"
+      },
+      {
+        "lineNumber": 183,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e Goodbye, sire. Fare thee well.\");"
+      },
+      {
+        "lineNumber": 184,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printLineBorder();"
+      },
+      {
+        "lineNumber": 185,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 186,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 187,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void printGreetings() {"
+      },
+      {
+        "lineNumber": 188,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printLineBorder();"
+      },
+      {
+        "lineNumber": 189,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e Good day, sire, Percival at your disposal.\");"
+      },
+      {
+        "lineNumber": 190,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e How may I be of service?\");"
+      },
+      {
+        "lineNumber": 191,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printLineBorder();"
+      },
+      {
+        "lineNumber": 192,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 193,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 194,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    protected static void addTask(ArrayList\u003cTask\u003e tasks, Task task) {"
+      },
+      {
+        "lineNumber": 195,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 196,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printAddedTaskMessage(task);"
+      },
+      {
+        "lineNumber": 197,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        printTaskCountMessage(tasks);"
+      },
+      {
+        "lineNumber": 198,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 199,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 200,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void printTaskCountMessage(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 201,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        String plural \u003d (tasks.size() \u003d\u003d 1) ? \"\" : \"s\";"
+      },
+      {
+        "lineNumber": 202,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.printf(\"\\t\u003e Now you have \" + tasks.size() + \" task%s in the list.%n\", plural);"
+      },
+      {
+        "lineNumber": 203,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 204,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 205,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    private static void printAddedTaskMessage(Task task) {"
+      },
+      {
+        "lineNumber": 206,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\u003e Very well. This task has been added: \");"
+      },
+      {
+        "lineNumber": 207,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        System.out.println(\"\\t\\t\" + task.toString());"
+      },
+      {
+        "lineNumber": 208,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 209,
         "author": {
           "gitId": "-"
         },
@@ -1013,8 +1498,416 @@
       }
     ],
     "authorContributionMap": {
-      "randynyl": 140,
+      "randynyl": 205,
       "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/IOManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import duke.Duke;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "public class IOManager {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public static void readFileContents(String filePath) throws FileNotFoundException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        File f \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        Scanner s \u003d new Scanner(f);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            Task nextTask;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            String[] taskComponents \u003d s.nextLine().split(\" \\\\| \");"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            String taskTag \u003d taskComponents[0];"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            String taskComplete \u003d taskComponents[1];"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            String taskName \u003d taskComponents[2];"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            switch(taskTag) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            case \"[T]\":"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                nextTask \u003d new Todo(taskComponents[2]);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            case \"[D]\":"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                String deadlineDetails \u003d taskComponents[3];"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                nextTask \u003d new Deadline(taskName, deadlineDetails);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            case \"[E]\":"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                String eventDetails \u003d taskComponents[3];"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                nextTask \u003d new Event(taskName, eventDetails);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            default:"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                throw new IllegalStateException(\"Unexpected task tag: \" + taskTag);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            if (\"1\".equals(taskComplete)) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "                nextTask.markAsDone();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "            Duke.tasks.add(nextTask);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public static void writeToFile(String filePath, String textToAppend) throws IOException {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        FileWriter fw \u003d new FileWriter(filePath);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        fw.write(textToAppend);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        fw.close();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "randynyl": 57
     }
   },
   {
@@ -1105,7 +1998,7 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private String deadlineTag;"
+        "content": "    private static String deadlineTag  \u003d \"[D]\";"
       },
       {
         "lineNumber": 8,
@@ -1140,59 +2033,115 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        deadlineTag \u003d \"[D]\";"
+        "content": "    }"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    public String toString() {"
+        "content": "        String deadlineDetails \u003d \" (by: \" + deadlineTime + \")\";"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String deadlineDetails \u003d \" (by: \" + deadlineTime + \")\";"
+        "content": "        return deadlineTag + super.toString() + deadlineDetails;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return deadlineTag + super.toString() + deadlineDetails;"
+        "content": "    }"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 20,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getTag() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return deadlineTag;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getDetails() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return deadlineTime;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
         "author": {
           "gitId": "randynyl"
         },
@@ -1200,7 +2149,7 @@
       }
     ],
     "authorContributionMap": {
-      "randynyl": 20
+      "randynyl": 28
     }
   },
   {
@@ -1254,7 +2203,7 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private String eventTag;"
+        "content": "    private static String eventTag \u003d \"[E]\";"
       },
       {
         "lineNumber": 8,
@@ -1289,59 +2238,129 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        eventTag \u003d \"[E]\";"
+        "content": "    }"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    public String toString() {"
+        "content": "        String eventDetails \u003d \" (at: \" + details + \")\";"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        String eventDetails \u003d \" (at: \" + details + \")\";"
+        "content": "        return eventTag + super.toString() + eventDetails;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return eventTag + super.toString() + eventDetails;"
+        "content": "    }"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 20,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getTag() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return eventTag;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getDetails() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return details;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "randynyl"
         },
@@ -1349,7 +2368,7 @@
       }
     ],
     "authorContributionMap": {
-      "randynyl": 20
+      "randynyl": 30
     }
   },
   {
@@ -1375,7 +2394,7 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "public class Task {"
+        "content": "public abstract class Task {"
       },
       {
         "lineNumber": 4,
@@ -1571,38 +2590,94 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    @Override"
+        "content": "    public String getStatusBinary() {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    public String toString() {"
+        "content": "        return (isDone ? \"1\" : \"0\");"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return \"[\" + getStatusIcon() + \"] \" + getTaskName();"
+        "content": "    }"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "}"
+        "content": "    @Override"
       },
       {
         "lineNumber": 36,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return \"[\" + getStatusIcon() + \"] \" + getTaskName();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public abstract String getTag();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getDetails() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return null;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 44,
         "author": {
           "gitId": "randynyl"
         },
@@ -1610,7 +2685,7 @@
       }
     ],
     "authorContributionMap": {
-      "randynyl": 36
+      "randynyl": 44
     }
   },
   {
@@ -1657,7 +2732,7 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    private String todoTag;"
+        "content": "    private static String todoTag \u003d \"[T]\";"
       },
       {
         "lineNumber": 7,
@@ -1685,52 +2760,80 @@
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        todoTag \u003d \"[T]\";"
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "randynyl"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    public String toString() {"
+        "content": "        return todoTag + super.toString();"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "        return todoTag + super.toString();"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "randynyl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    public String getTag() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "        return todoTag;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "randynyl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
         "author": {
           "gitId": "randynyl"
         },
@@ -1738,7 +2841,7 @@
       }
     ],
     "authorContributionMap": {
-      "randynyl": 17
+      "randynyl": 21
     }
   },
   {
