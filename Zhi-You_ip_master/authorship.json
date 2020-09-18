@@ -1,5 +1,1106 @@
 [
   {
+    "path": "src/main/java/duke/DataManager.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import java.nio.file.Files;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import java.nio.file.Path;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import java.nio.file.Paths;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "public class DataManager {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Specifying file paths in an OS-independent way"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final String CURRENT_DIRECTORY \u003d System.getProperty(\"user.dir\");"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final Path DATA_DIRECTORY \u003d Paths.get(CURRENT_DIRECTORY, \"data\");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final Path DATA_PATH \u003d Paths.get(CURRENT_DIRECTORY, \"data\", \"duke.txt\");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Different parts of a task when it is converted to a String"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final int TASK_TYPE_INDICATOR \u003d 1;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final int START_OF_TASK_DESCRIPTION \u003d 7;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final String DEADLINE_TASK_DELIMITER \u003d \" \\\\(by:\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static final String EVENT_TASK_DELIMITER \u003d \" \\\\(at:\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static void saveTasksData(ArrayList\u003cTask\u003e tasks) throws IOException {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        ArrayList\u003cString\u003e tasksStringList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Get a string representation of the tasks and store it into an ArrayList"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        for (int i \u003d 0; i \u003c Task.getTaskCount(); i++) {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            tasksStringList.add(tasks.get(i).toString());"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Write tasks to data file - a text file"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        Files.write(DATA_PATH, tasksStringList);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static void loadTasksData(ArrayList\u003cTask\u003e tasks) throws IOException {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // If folder (data) and file (duke.txt) for saving and loading does not exist yet, create one for user."
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        createSaveLocation();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Requires casting as it only returns a list - superclass of arrayList"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Read from the saved file - if any"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        ArrayList\u003cString\u003e loadedTasksStringList \u003d (ArrayList\u003cString\u003e) Files.readAllLines(DATA_PATH);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        for (String task : loadedTasksStringList) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            TaskType taskType;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            // Get task type while catching unknown-task-type error"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                taskType \u003d getTaskType(task.charAt(TASK_TYPE_INDICATOR));"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                // Print error message to user and terminate loading of data file if task type is not found"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                DisplayManager.printDukeErrorMessage(e.getMessage());"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                return;"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            // Using enums to check the type of task we are dealing with."
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            // Unlikely to go to the default statement since enums are fixed values"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            switch(taskType) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            case TODO:"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                processTodoTask(task, tasks);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            case DEADLINE:"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                processDeadlineTask(task, tasks);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            case EVENT:"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                processEventTask(task, tasks);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            default:"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "                return;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // If folder (data) and file (duke.txt) for saving and loading does not exist yet, create one for user."
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void createSaveLocation() throws IOException {"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Create \u0027data\u0027 folder if it does not already exists"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (!Files.exists(DATA_DIRECTORY)) {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            Files.createDirectory(DATA_DIRECTORY);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Create \u0027duke.txt\u0027 file if it does not already exists"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (!Files.exists(DATA_PATH)) {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            Files.createFile(DATA_PATH);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Identifies the given task type"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static TaskType getTaskType(char taskTypeIndicator) throws DukeException {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // No breaks required as return statements are used"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        switch(taskTypeIndicator) {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case \u0027T\u0027:"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            return TaskType.TODO;"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case \u0027D\u0027:"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            return TaskType.DEADLINE;"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case \u0027E\u0027:"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            return TaskType.EVENT;"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_UNKNOWN_TASK_INDICATOR);"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Identify if task was marked as done before and mark it as done in current session if yes"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void markTaskDoneIfDone (String task, ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (task.contains(Task.TICK_SYMBOL)) {"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            tasks.get(Task.getTaskCount() - 1).markAsDone();"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Exceptions are already handled in Duke.java and hence we will assume these are appropriate tasks"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // No need to notify user that the task has been added too"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void processTodoTask(String task, ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String taskDescription \u003d task.substring(START_OF_TASK_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Load saved to_do task into current tasks"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        tasks.add(new Todo(taskDescription));"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Recover its isDone status"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        markTaskDoneIfDone(task, tasks);"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Deadline tasks should be in the right format since exceptions were handled in Duke.java"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // No need to notify user that the task has been added too"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void processDeadlineTask(String task, ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String taskDescription \u003d task.substring(START_OF_TASK_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String[] deadlineTaskParts \u003d taskDescription.split(DEADLINE_TASK_DELIMITER);"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String deadlineTaskDescription \u003d deadlineTaskParts[0];"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Took the substring of the deadline portion because we want to ignore the closing bracket at the end"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String deadline \u003d deadlineTaskParts[1].substring(0, deadlineTaskParts[1].length() - 1);"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Load saved deadline task into current tasks"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        tasks.add(new Deadline(deadlineTaskDescription, deadline));"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Recover its isDone status"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        markTaskDoneIfDone(task, tasks);"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Event tasks should be in the right format since exceptions were handled in Duke.java"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // No need to notify user that the task has been added too"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void processEventTask(String task, ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String taskDescription \u003d task.substring(START_OF_TASK_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String[] eventTaskParts \u003d taskDescription.split(EVENT_TASK_DELIMITER);"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String eventTaskDescription \u003d eventTaskParts[0];"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Took the substring of the deadline portion because we want to ignore the closing bracket at the end"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String eventTime \u003d eventTaskParts[1].substring(0, eventTaskParts[1].length() - 1);"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Load saved event task into current tasks"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        tasks.add(new Event(eventTaskDescription, eventTime));"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Recover its isDone status"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        markTaskDoneIfDone(task, tasks);"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Zhi-You": 156
+    }
+  },
+  {
     "path": "src/main/java/duke/DisplayManager.java",
     "fileType": "java",
     "lines": [
@@ -36,7 +1137,7 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "public class DisplayManager {"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 6,
@@ -50,322 +1151,322 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String DIVIDER \u003d \"________________________________________________\";"
+        "content": "public class DisplayManager {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String WELCOME_MESSAGE \u003d \"Hello! I\u0027m Duke\" + System.lineSeparator()"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \"What can I do for you?\";"
+        "content": "    private static final String DIVIDER \u003d \"________________________________________________\";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String EXIT_MESSAGE \u003d \"Bye. Hope to see you again soon!\";"
+        "content": "    private static final String WELCOME_MESSAGE \u003d \"Hello! I\u0027m Duke\" + System.lineSeparator()"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String DUKE_LOGO \u003d \" ____        _        \\n\""
+        "content": "            + \"What can I do for you?\";"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+        "content": "    private static final String EXIT_MESSAGE \u003d \"Bye. Hope to see you again soon!\";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+        "content": "    private static final String DUKE_LOGO \u003d \" ____        _        \\n\""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Error messages"
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String SAD_FACE_EMOJI \u003d \"\\u2639\";"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_COMMAND_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    // Duke Error messages"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+        "content": "    private static final String SAD_FACE_EMOJI \u003d \"\\u2639\";"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_TODO_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_COMMAND_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The description of a todo cannot be empty.\";"
+        "content": "            + \" OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_EVENT_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_TODO_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The description of an event cannot be empty.\";"
+        "content": "            + \" OOPS!!! The description of a todo cannot be empty.\";"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_EVENT_WRONG_FORMAT_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_EVENT_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The format to enter in an event task is \\\"\u003ctask\u003e /at \u003cevent\u0027s time\u003e\\\"\";"
+        "content": "            + \" OOPS!!! The description of an event cannot be empty.\";"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_DEADLINE_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_EVENT_WRONG_FORMAT_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The description of a deadline cannot be empty.\";"
+        "content": "            + \" OOPS!!! The format to enter in an event task is \\\"\u003ctask\u003e /at \u003cevent\u0027s time\u003e\\\"\";"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_DEADLINE_WRONG_FORMAT_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_DEADLINE_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The format to enter in a deadline task is \\\"\u003ctask\u003e /by \u003cdeadline\u003e\\\"\";"
+        "content": "            + \" OOPS!!! The description of a deadline cannot be empty.\";"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_DEADLINE_WRONG_FORMAT_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The description of a done cannot be empty.\";"
+        "content": "            + \" OOPS!!! The format to enter in a deadline task is \\\"\u003ctask\u003e /by \u003cdeadline\u003e\\\"\";"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_MARKTASKASDONE_WRONG_INDEX_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! The task to mark as done must be an existing task\";"
+        "content": "            + \" OOPS!!! The description of a done cannot be empty.\";"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String ERROR_MARKTASKASDONE_NOT_NUMBER_MESSAGE \u003d SAD_FACE_EMOJI"
+        "content": "    private static final String ERROR_MARKTASKASDONE_WRONG_INDEX_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            + \" OOPS!!! Use numbers to specify which task to be marked as done\";"
+        "content": "            + \" OOPS!!! The task to mark as done must be an existing task.\";"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    private static final String ERROR_MARKTASKASDONE_NOT_NUMBER_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            + \" OOPS!!! Use numbers to specify which task to be marked as done.\";"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    private static final String ERROR_DELETETASK_EMPTY_DESCRIPTION_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    /* duke.DisplayManager methods */"
+        "content": "            + \" OOPS!!! The description of a delete cannot be empty.\";"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    private static final String ERROR_DELETETASK_NOT_NUMBER_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints horizontal lines to wrap output for a clearer display"
+        "content": "            + \" OOPS!!! Use numbers to specify which task to be deleted.\";"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printDivider() {"
+        "content": "    private static final String ERROR_DELETETASK_WRONG_INDEX_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        System.out.println(DIVIDER);"
+        "content": "            + \" OOPS!!! The task to be deleted must be an existing task.\";"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "    private static final String UNEXPECTED_ERROR \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            + \" OOPS!!! An unidentified error has occurred! Please take note!\";"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints message to user wrapped with horizontal lines for clear display"
+        "content": "    private static final String ERROR_UNKNOWN_TASK_INDICATOR_MESSAGE \u003d  SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printMessageToUser(String message) {"
+        "content": "            + \" OOPS!!! Unidentified task type! Load file fail.\";"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printDivider();"
+        "content": ""
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        System.out.println(message);"
+        "content": "    // File Error message"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printDivider();"
+        "content": "    private static final String FILE_ERROR_MESSAGE \u003d SAD_FACE_EMOJI"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "            + \" OOPS!!! Something is wrong with the save file. Please check again\";"
       },
       {
         "lineNumber": 53,
@@ -379,507 +1480,836 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints message to indicate user has added a task"
+        "content": "    private static final boolean IS_DELETING \u003d true;"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printTaskAddedMessage(Task task) {"
+        "content": ""
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printMessageToUser(\"Got it. I\u0027ve added this task:\" + System.lineSeparator()"
+        "content": "    /* duke.DisplayManager methods */"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                + \"  \" + task + System.lineSeparator()"
+        "content": ""
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                + \"Now you have \" + Task.getTaskCount()"
+        "content": "    // Prints horizontal lines to wrap output for a clearer display"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                + (Task.getTaskCount() \u003d\u003d 1? \" task in the list.\" : \" tasks in the list.\"));"
+        "content": "    public static void printDivider() {"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        System.out.println(DIVIDER);"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints message to indicate user has marked a task as done"
+        "content": ""
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printMarkAsDoneMessage(Task task) {"
+        "content": "    // Prints message to user wrapped with horizontal lines for clear display"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printMessageToUser(\"Nice! I\u0027ve marked this task as done: \""
+        "content": "    public static void printMessageToUser(String message) {"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                + System.lineSeparator() + \"  \" + task);"
+        "content": "        printDivider();"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        System.out.println(message);"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        printDivider();"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints duke.Duke\u0027s hello message along with his logo"
+        "content": "    }"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printDukeHelloMessage() {"
+        "content": ""
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        System.out.println(\"Hello from\\n\" + DUKE_LOGO);"
+        "content": "    // Prints message to indicate user has added a task"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "    public static void printTaskAddedMessage(Task task) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        printMessageToUser(\"Got it. I\u0027ve added this task:\" + System.lineSeparator()"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints welcome message to user"
+        "content": "                + \"  \" + task + System.lineSeparator()"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printWelcomeMessage() {"
+        "content": "                + printTaskCount(!IS_DELETING));"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printMessageToUser(WELCOME_MESSAGE);"
+        "content": "    }"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Prints message to indicate user has deleted a task"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints exit message to user"
+        "content": "    public static void printTaskDeletedMessage (Task task) {"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printExitMessage() {"
+        "content": "        printMessageToUser(\"Noted. I\u0027ve removed this task: \" + System.lineSeparator()"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printMessageToUser(EXIT_MESSAGE);"
+        "content": "                + \"  \" + task + System.lineSeparator()"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "                + printTaskCount(IS_DELETING));"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints list out for user when list command is received."
+        "content": ""
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printList(Task[] tasks) {"
+        "content": "    // Prints the current count of the tasks in the task ArrayList"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printDivider();"
+        "content": "    public static String printTaskCount(boolean isDeleting) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        System.out.println(\"Here are the tasks in your list: \");"
+        "content": "        return(\"Now you have \" + (isDeleting ? Task.getTaskCount() - 1 : Task.getTaskCount())"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        for (int i \u003d 0; i \u003c Task.getTaskCount(); i++) {"
+        "content": "                + (Task.getTaskCount() \u003d\u003d 1 ? \" task in the list.\" : \" tasks in the list.\"));"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            System.out.println((i + 1) + \".\" + tasks[i]);"
+        "content": "    }"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        printDivider();"
+        "content": "    // Prints message to indicate user has marked a task as done"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "    public static void printMarkAsDoneMessage(Task task) {"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        printMessageToUser(\"Nice! I\u0027ve marked this task as done: \""
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Prints different error messages for different exceptions encountered"
+        "content": "                + System.lineSeparator() + \"  \" + task);"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void printErrorMessage(String errorType) {"
+        "content": "    }"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        switch (errorType) {"
+        "content": ""
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_UNKNOWN_COMMAND:"
+        "content": "    // Prints duke.Duke\u0027s hello message along with his logo"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_COMMAND_MESSAGE);"
+        "content": "    public static void printDukeHelloMessage() {"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "        System.out.println(\"Hello from\\n\" + DUKE_LOGO);"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_TODO_EMPTY_DESCRIPTION:"
+        "content": "    }"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_TODO_EMPTY_DESCRIPTION_MESSAGE);"
+        "content": ""
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "    // Prints welcome message to user"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION:"
+        "content": "    public static void printWelcomeMessage() {"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_EVENT_EMPTY_DESCRIPTION_MESSAGE);"
+        "content": "        printMessageToUser(WELCOME_MESSAGE);"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "    }"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_EVENT_WRONG_FORMAT:"
+        "content": ""
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_EVENT_WRONG_FORMAT_MESSAGE);"
+        "content": "    // Prints exit message to user"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "    public static void printExitMessage() {"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION:"
+        "content": "        printMessageToUser(EXIT_MESSAGE);"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_DEADLINE_EMPTY_DESCRIPTION_MESSAGE);"
+        "content": "    }"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": ""
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_DEADLINE_WRONG_FORMAT:"
+        "content": "    // Prints list out for user when list command is received."
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_DEADLINE_WRONG_FORMAT_MESSAGE);"
+        "content": "    public static void printList(ArrayList\u003cTask\u003e tasks) {"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "        printDivider();"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION:"
+        "content": "        System.out.println(\"Here are the tasks in your list: \");"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION_MESSAGE);"
+        "content": "        for (int i \u003d 0; i \u003c Task.getTaskCount(); i++) {"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "            System.out.println((i + 1) + \".\" + tasks.get(i));"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_WRONG_INDEX:"
+        "content": "        }"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_WRONG_INDEX_MESSAGE);"
+        "content": "        printDivider();"
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "    }"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_NOT_NUMBER:"
+        "content": ""
       },
       {
         "lineNumber": 121,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_NOT_NUMBER_MESSAGE);"
+        "content": "    // Prints different error messages for different exceptions encountered"
       },
       {
         "lineNumber": 122,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            break;"
+        "content": "    public static void printDukeErrorMessage(String errorType) {"
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        switch (errorType) {"
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        case ErrorTypeManager.ERROR_UNKNOWN_COMMAND:"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            printMessageToUser(ERROR_COMMAND_MESSAGE);"
       },
       {
         "lineNumber": 126,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_TODO_EMPTY_DESCRIPTION:"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_TODO_EMPTY_DESCRIPTION_MESSAGE);"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION:"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_EVENT_EMPTY_DESCRIPTION_MESSAGE);"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_EVENT_WRONG_FORMAT:"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_EVENT_WRONG_FORMAT_MESSAGE);"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION:"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_DEADLINE_EMPTY_DESCRIPTION_MESSAGE);"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_DEADLINE_WRONG_FORMAT:"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_DEADLINE_WRONG_FORMAT_MESSAGE);"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION:"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION_MESSAGE);"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_WRONG_INDEX:"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_WRONG_INDEX_MESSAGE);"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_MARKTASKASDONE_NOT_NUMBER:"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_MARKTASKASDONE_NOT_NUMBER_MESSAGE);"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_DELETETASK_EMPTY_DESCRIPTION:"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_DELETETASK_EMPTY_DESCRIPTION_MESSAGE);"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_DELETETASK_NOT_NUMBER:"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_DELETETASK_NOT_NUMBER_MESSAGE);"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_DELETETASK_WRONG_INDEX:"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_DELETETASK_WRONG_INDEX_MESSAGE);"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        case ErrorTypeManager.ERROR_UNKNOWN_TASK_INDICATOR:"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(ERROR_UNKNOWN_TASK_INDICATOR_MESSAGE);"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            printMessageToUser(UNEXPECTED_ERROR);"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Whenever there is an issue saving or loading from file"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static void printFileErrorMessage() {"
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        printMessageToUser(FILE_ERROR_MESSAGE);"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 173,
         "author": {
           "gitId": "Zhi-You"
         },
@@ -887,7 +2317,7 @@
       }
     ],
     "authorContributionMap": {
-      "Zhi-You": 126
+      "Zhi-You": 173
     }
   },
   {
@@ -948,21 +2378,21 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "import java.util.Scanner;"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 10,
         "author": {
-          "gitId": "-"
+          "gitId": "Zhi-You"
         },
-        "content": "public class Duke {"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 11,
@@ -974,44 +2404,44 @@
       {
         "lineNumber": 12,
         "author": {
-          "gitId": "Zhi-You"
+          "gitId": "-"
         },
-        "content": "    private static final int MAX_NUMBER_OF_TASKS \u003d 100;"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Constants for commands"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Constants for commands"
+        "content": "    private static final String COMMAND_EXIT \u003d \"bye\";"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String COMMAND_EXIT \u003d \"bye\";"
+        "content": "    private static final String COMMAND_LIST \u003d \"list\";"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String COMMAND_LIST \u003d \"list\";"
+        "content": "    private static final String COMMAND_MARK_TASK_DONE \u003d \"done\";"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String COMMAND_MARK_TASK_DONE \u003d \"done\";"
+        "content": "    private static final String COMMAND_DELETE_TASK \u003d \"delete\";"
       },
       {
         "lineNumber": 18,
@@ -1039,35 +2469,35 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    private static final String DEADLINE_TASK_DELIMITER \u003d \"/by\";"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Constant for user\u0027s exit status"
+        "content": "    private static final String EVENT_TASK_DELIMITER \u003d \"/at\";"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final boolean EXIT_COMMAND_IS_PASSED \u003d true;"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Constant for user\u0027s exit status"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final Scanner SCANNER \u003d new Scanner(System.in);"
+        "content": "    private static final boolean EXIT_COMMAND_IS_PASSED \u003d true;"
       },
       {
         "lineNumber": 26,
@@ -1081,42 +2511,42 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "    private static final Scanner SCANNER \u003d new Scanner(System.in);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Prints duke.Duke\u0027s hello message and logo"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printDukeHelloMessage();"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Prints welcome message"
+        "content": "        // Prints Duke\u0027s hello message and logo"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printWelcomeMessage();"
+        "content": "        DisplayManager.printDukeHelloMessage();"
       },
       {
         "lineNumber": 33,
@@ -1130,14 +2560,14 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Allows user to get help from duke.Duke"
+        "content": "        // Prints welcome message"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        handleUserInputs();"
+        "content": "        DisplayManager.printWelcomeMessage();"
       },
       {
         "lineNumber": 36,
@@ -1151,126 +2581,126 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Prints exit message"
+        "content": "        // Allows user to get help from Duke"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printExitMessage();"
+        "content": "        handleUserInputs();"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        // Prints exit message"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Handles the exception thrown by processUserInputs and repeat execution until user exits duke.Duke"
+        "content": "        DisplayManager.printExitMessage();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static void handleUserInputs() {"
+        "content": "    }"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Array of duke.task.Task objects to store tasks specified by user"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        Task[] tasks \u003d new Task[MAX_NUMBER_OF_TASKS];"
+        "content": "    // Continually handles the inputs user gives to Duke"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Handles the exception thrown by processUserInputs and repeat execution until user exits Duke"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        boolean exitCommandPassed \u003d false;"
+        "content": "    private static void handleUserInputs() {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        // ArrayList of Task objects to dynamically store tasks specified by user"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        while (!exitCommandPassed) {"
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            // Catch any exceptions that are thrown when processing user inputs"
+        "content": ""
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            try {"
+        "content": "        // Load tasks data when Duke starts up"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                exitCommandPassed \u003d processUserInputs(tasks);"
+        "content": "        try {"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            } catch (DukeException e) {"
+        "content": "            DataManager.loadTasksData(tasks);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                DisplayManager.printErrorMessage(e.getMessage());"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            }"
+        "content": "            DisplayManager.printFileErrorMessage();"
       },
       {
         "lineNumber": 55,
@@ -1284,462 +2714,462 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        boolean exitCommandPassed \u003d false;"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // To allow duke.Duke to get and process the inputs specified by the user"
+        "content": ""
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static boolean processUserInputs(Task[] tasks) throws DukeException {"
+        "content": "        while (!exitCommandPassed) {"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String userInput;"
+        "content": "            // Catch any exceptions that are thrown when processing user inputs"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String command;"
+        "content": "            try {"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String taskDescription;"
+        "content": "                exitCommandPassed \u003d processUserInputs(tasks);"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            } catch (DukeException e) {"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Continuously asks user for inputs until user exits"
+        "content": "                DisplayManager.printDukeErrorMessage(e.getMessage());"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        while (true) {"
+        "content": "            } catch (IOException e) {"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            userInput \u003d SCANNER.nextLine();"
+        "content": "                DisplayManager.printFileErrorMessage();"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            command \u003d getCommandFromInput(userInput);"
+        "content": "            }"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            taskDescription \u003d getTaskDescriptionFromInput(userInput);"
+        "content": "        }"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            // Exits loop when user inputs \"bye\""
+        "content": ""
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            if (command.equals(COMMAND_EXIT)) {"
+        "content": ""
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                return EXIT_COMMAND_IS_PASSED;"
+        "content": "    // To allow Duke to get and process the inputs specified by the user"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            }"
+        "content": "    private static boolean processUserInputs(ArrayList\u003cTask\u003e tasks) throws DukeException, IOException {"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        String userInput;"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            // duke.Duke reads user commands and either show task list, mark task as done or add task"
+        "content": "        String command;"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            switch (command) {"
+        "content": "        String taskDescription;"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            case COMMAND_LIST:"
+        "content": ""
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                DisplayManager.printList(tasks);"
+        "content": "        // Continuously asks user for inputs until user exits"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                break;"
+        "content": "        while (true) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            case COMMAND_MARK_TASK_DONE:"
+        "content": "            userInput \u003d SCANNER.nextLine();"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                markTaskAsDone(tasks, taskDescription);"
+        "content": "            command \u003d getCommandFromInput(userInput);"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                break;"
+        "content": "            taskDescription \u003d getTaskDescriptionFromInput(userInput);"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            case COMMAND_TODO_TASK:"
+        "content": ""
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                addTodoTask(tasks, taskDescription);"
+        "content": "            // Exits loop when user inputs \"bye\""
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                break;"
+        "content": "            if (command.equals(COMMAND_EXIT)) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            case COMMAND_DEADLINE_TASK:"
+        "content": "                return EXIT_COMMAND_IS_PASSED;"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                addDeadlineTask(tasks, taskDescription);"
+        "content": "            }"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                break;"
+        "content": ""
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            case COMMAND_EVENT_TASK:"
+        "content": "            // Duke reads user commands and either show task list, mark task as done or add task"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                addEventTask(tasks, taskDescription);"
+        "content": "            switch (command) {"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                break;"
+        "content": "            case COMMAND_LIST:"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            default:"
+        "content": "                DisplayManager.printList(tasks);"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "                throw new DukeException(ErrorTypeManager.ERROR_UNKNOWN_COMMAND);"
+        "content": "                break;"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            }"
+        "content": "            case COMMAND_MARK_TASK_DONE:"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "                markTaskAsDone(tasks, taskDescription);"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "                break;"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            case COMMAND_TODO_TASK:"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Extracts command word from user inputs to decide what duke.Duke will do"
+        "content": "                addTodoTask(tasks, taskDescription);"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static String getCommandFromInput(String userInput) {"
+        "content": "                break;"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Splits user input into different words to distinguish between command and task\u0027s information"
+        "content": "            case COMMAND_DEADLINE_TASK:"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String[] inputParts \u003d userInput.split(\" \");"
+        "content": "                addDeadlineTask(tasks, taskDescription);"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "                break;"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // User\u0027s command can be found in the first word of user\u0027s inputs"
+        "content": "            case COMMAND_EVENT_TASK:"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        return inputParts[0].toLowerCase();"
+        "content": "                addEventTask(tasks, taskDescription);"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "                break;"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            case COMMAND_DELETE_TASK:"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Extracts task information from user inputs to decide what kind of task to add to list"
+        "content": "                deleteTask(tasks, taskDescription);"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static String getTaskDescriptionFromInput(String userInput) {"
+        "content": "                break;"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Splits user input into different words to distinguish between command and task\u0027s information"
+        "content": "            default:"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String[] inputParts \u003d userInput.split(\" \");"
+        "content": "                throw new DukeException(ErrorTypeManager.ERROR_UNKNOWN_COMMAND);"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String taskDescription \u003d \"\";"
+        "content": ""
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            // Saves tasks whenever the task list changes"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Gets the informative parts from user input after the command (first word)"
+        "content": "            DataManager.saveTasksData(tasks);"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        for (int i \u003d 1; i \u003c inputParts.length; i++) {"
+        "content": "        }"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            taskDescription \u003d String.join(\" \", taskDescription, inputParts[i]);"
+        "content": "    }"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        taskDescription \u003d taskDescription.trim();"
+        "content": "    // Extracts command word from user inputs to decide what Duke will do"
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    private static String getCommandFromInput(String userInput) {"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        return taskDescription;"
+        "content": "        // Splits user input into different words to distinguish between command and task\u0027s information"
       },
       {
         "lineNumber": 121,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        String[] inputParts \u003d userInput.split(\" \");"
       },
       {
         "lineNumber": 122,
@@ -1753,56 +3183,56 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Given an index, able to mark the task at that index in the tasks array to be done"
+        "content": "        // User\u0027s command can be found in the first word of user\u0027s inputs"
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static void markTaskAsDone(Task[] tasks, String taskDescription) throws DukeException {"
+        "content": "        return inputParts[0].toLowerCase();"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any description after done command"
+        "content": "    }"
       },
       {
         "lineNumber": 126,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (taskDescription.isBlank()) {"
+        "content": ""
       },
       {
         "lineNumber": 127,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION);"
+        "content": "    // Extracts task information from user inputs to decide what kind of task to add to list"
       },
       {
         "lineNumber": 128,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "    private static String getTaskDescriptionFromInput(String userInput) {"
       },
       {
         "lineNumber": 129,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        // Splits user input into different words to distinguish between command and task\u0027s information"
       },
       {
         "lineNumber": 130,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        int taskDoneIndex;"
+        "content": "        String[] inputParts \u003d userInput.split(\" \");"
       },
       {
         "lineNumber": 131,
@@ -1816,49 +3246,49 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Gets index of the task user specified to be done"
+        "content": "        String taskDescription \u003d \"\";"
       },
       {
         "lineNumber": 133,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catch exceptions whereby if index specified is not in numeric form"
+        "content": ""
       },
       {
         "lineNumber": 134,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        try {"
+        "content": "        // Gets the informative parts from user input after the command (first word)"
       },
       {
         "lineNumber": 135,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            taskDoneIndex \u003d Integer.parseInt(taskDescription.split(\" \")[0]) - 1;"
+        "content": "        for (int i \u003d 1; i \u003c inputParts.length; i++) {"
       },
       {
         "lineNumber": 136,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        } catch (NumberFormatException e) {"
+        "content": "            taskDescription \u003d String.join(\" \", taskDescription, inputParts[i]);"
       },
       {
         "lineNumber": 137,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_NOT_NUMBER);"
+        "content": "        }"
       },
       {
         "lineNumber": 138,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        taskDescription \u003d taskDescription.trim();"
       },
       {
         "lineNumber": 139,
@@ -1872,77 +3302,77 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Marks specified task as done"
+        "content": "        return taskDescription;"
       },
       {
         "lineNumber": 141,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catch exceptions whereby user specified a negative index or an index without a task stored yet"
+        "content": "    }"
       },
       {
         "lineNumber": 142,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 143,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            tasks[taskDoneIndex].markAsDone();"
+        "content": "    // Given an index, able to mark the task at that index in the tasks arraylist to be done"
       },
       {
         "lineNumber": 144,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {"
+        "content": "    private static void markTaskAsDone(ArrayList\u003cTask\u003e tasks, String taskDescription) throws DukeException {"
       },
       {
         "lineNumber": 145,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_WRONG_INDEX);"
+        "content": "        // Catches the exception whereby user did not input any description after done command"
       },
       {
         "lineNumber": 146,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        if (taskDescription.isBlank()) {"
       },
       {
         "lineNumber": 147,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_EMPTY_DESCRIPTION);"
       },
       {
         "lineNumber": 148,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Notifies user that the task is marked as done"
+        "content": "        }"
       },
       {
         "lineNumber": 149,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printMarkAsDoneMessage(tasks[taskDoneIndex]);"
+        "content": ""
       },
       {
         "lineNumber": 150,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        int taskDoneIndex;"
       },
       {
         "lineNumber": 151,
@@ -1956,133 +3386,133 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Adds ToDos typed task into the tasks array"
+        "content": "        // Gets index of the task user specified to be done"
       },
       {
         "lineNumber": 153,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static void addTodoTask(Task[] tasks, String taskDescription) throws DukeException {"
+        "content": "        // Catch exceptions whereby if index specified is not in numeric form"
       },
       {
         "lineNumber": 154,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any description after to_do command"
+        "content": "        try {"
       },
       {
         "lineNumber": 155,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (taskDescription.isBlank()) {"
+        "content": "            taskDoneIndex \u003d Integer.parseInt(taskDescription.split(\" \")[0]) - 1;"
       },
       {
         "lineNumber": 156,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_TODO_EMPTY_DESCRIPTION);"
+        "content": "        } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 157,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_NOT_NUMBER);"
       },
       {
         "lineNumber": 158,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 159,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        tasks[Task.getTaskCount()] \u003d new Todo(taskDescription);"
+        "content": ""
       },
       {
         "lineNumber": 160,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        // Marks specified task as done"
       },
       {
         "lineNumber": 161,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Notifies user that task has been added"
+        "content": "        // Catch exceptions whereby user specified a negative index or an index without a task stored yet"
       },
       {
         "lineNumber": 162,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printTaskAddedMessage(tasks[Task.getTaskCount() - 1]);"
+        "content": "        try {"
       },
       {
         "lineNumber": 163,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "            tasks.get(taskDoneIndex).markAsDone();"
       },
       {
         "lineNumber": 164,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 165,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Adds duke.task.Deadline typed task into the tasks array"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_MARKTASKASDONE_WRONG_INDEX);"
       },
       {
         "lineNumber": 166,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static void addDeadlineTask(Task[] tasks, String taskDescription) throws DukeException {"
+        "content": "        }"
       },
       {
         "lineNumber": 167,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any description after deadline command"
+        "content": ""
       },
       {
         "lineNumber": 168,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (taskDescription.isBlank()) {"
+        "content": "        // Notifies user that the task is marked as done"
       },
       {
         "lineNumber": 169,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION);"
+        "content": "        DisplayManager.printMarkAsDoneMessage(tasks.get(taskDoneIndex));"
       },
       {
         "lineNumber": 170,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 171,
@@ -2096,217 +3526,217 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Splits user input into task details and deadline"
+        "content": "    // Given an index, able to delete the task at that index in the tasks arraylist"
       },
       {
         "lineNumber": 173,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String[] deadlineTaskParts \u003d taskDescription.split(\"/by\");"
+        "content": "    private static void deleteTask(ArrayList\u003cTask\u003e tasks, String taskDescription) throws DukeException {"
       },
       {
         "lineNumber": 174,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String deadlineTaskDescription;"
+        "content": "        // Catches the exception whereby user did not input any description after delete command"
       },
       {
         "lineNumber": 175,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String deadline;"
+        "content": "        if (taskDescription.isBlank()) {"
       },
       {
         "lineNumber": 176,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches exceptions where user does not specify deadline in the correct format"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DELETETASK_EMPTY_DESCRIPTION);"
       },
       {
         "lineNumber": 177,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Also catches specific input of: \"deadline /by \" where both description and deadline are empty"
+        "content": "        }"
       },
       {
         "lineNumber": 178,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 179,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            deadlineTaskDescription \u003d deadlineTaskParts[0];"
+        "content": "        int taskToDeleteIndex;"
       },
       {
         "lineNumber": 180,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            deadline \u003d deadlineTaskParts[1];"
+        "content": ""
       },
       {
         "lineNumber": 181,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        } catch (ArrayIndexOutOfBoundsException e) {"
+        "content": "        // Gets index of the task user specified to be deleted"
       },
       {
         "lineNumber": 182,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_WRONG_FORMAT);"
+        "content": "        // Catch exceptions whereby if index specified is not in numeric form"
       },
       {
         "lineNumber": 183,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        try {"
       },
       {
         "lineNumber": 184,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            taskToDeleteIndex \u003d Integer.parseInt(taskDescription.split(\" \")[0]) - 1;"
       },
       {
         "lineNumber": 185,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any task description but has a deadline"
+        "content": "        } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 186,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Sample input that will get caught: \"deadline /by tmr\""
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DELETETASK_NOT_NUMBER);"
       },
       {
         "lineNumber": 187,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (deadlineTaskDescription.isBlank()) {"
+        "content": "        }"
       },
       {
         "lineNumber": 188,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION);"
+        "content": ""
       },
       {
         "lineNumber": 189,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        // Delete specified task"
       },
       {
         "lineNumber": 190,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        // Catch exceptions whereby user specified a negative index or an index without a task stored yet"
       },
       {
         "lineNumber": 191,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        tasks[Task.getTaskCount()] \u003d new Deadline(deadlineTaskDescription, deadline);"
+        "content": "        try {"
       },
       {
         "lineNumber": 192,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            // Notifies user that the task is deleted."
       },
       {
         "lineNumber": 193,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Notifies user that task has been added"
+        "content": "            // Prints message using the task instance before it is deleted."
       },
       {
         "lineNumber": 194,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printTaskAddedMessage(tasks[Task.getTaskCount() - 1]);"
+        "content": "            DisplayManager.printTaskDeletedMessage(tasks.get(taskToDeleteIndex));"
       },
       {
         "lineNumber": 195,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "            tasks.remove(taskToDeleteIndex);"
       },
       {
         "lineNumber": 196,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 197,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Adds duke.task.Event typed task into the tasks array"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DELETETASK_WRONG_INDEX);"
       },
       {
         "lineNumber": 198,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static void addEventTask(Task[] tasks, String taskDescription) throws DukeException {"
+        "content": "        }"
       },
       {
         "lineNumber": 199,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any description after event command"
+        "content": ""
       },
       {
         "lineNumber": 200,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (taskDescription.isBlank()) {"
+        "content": "        // Updates current count of tasks in Task ArrayList"
       },
       {
         "lineNumber": 201,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION);"
+        "content": "        Task.decrementTaskCount();"
       },
       {
         "lineNumber": 202,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 203,
@@ -2320,171 +3750,556 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Splits user input into task details and event timing"
+        "content": ""
       },
       {
         "lineNumber": 205,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String[] eventTaskParts \u003d taskDescription.split(\"/at\");"
+        "content": "    // Adds ToDos typed task into the tasks arraylist"
       },
       {
         "lineNumber": 206,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String eventTaskDescription;"
+        "content": "    private static void addTodoTask(ArrayList\u003cTask\u003e tasks, String taskDescription) throws DukeException {"
       },
       {
         "lineNumber": 207,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        String eventTime;"
+        "content": "        // Catches the exception whereby user did not input any description after to_do command"
       },
       {
         "lineNumber": 208,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches exceptions where user does not specify event in the correct format"
+        "content": "        if (taskDescription.isBlank()) {"
       },
       {
         "lineNumber": 209,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Also catches specific input of: \"event /at \" where both description and event time are empty"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_TODO_EMPTY_DESCRIPTION);"
       },
       {
         "lineNumber": 210,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        try {"
+        "content": "        }"
       },
       {
         "lineNumber": 211,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            eventTaskDescription \u003d eventTaskParts[0];"
+        "content": ""
       },
       {
         "lineNumber": 212,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            eventTime \u003d eventTaskParts[1];"
+        "content": "        tasks.add(new Todo(taskDescription));"
       },
       {
         "lineNumber": 213,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        } catch (ArrayIndexOutOfBoundsException e) {"
+        "content": ""
       },
       {
         "lineNumber": 214,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_WRONG_FORMAT);"
+        "content": "        // Notifies user that task has been added"
       },
       {
         "lineNumber": 215,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        DisplayManager.printTaskAddedMessage(tasks.get(Task.getTaskCount() - 1));"
       },
       {
         "lineNumber": 216,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 217,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Catches the exception whereby user did not input any task description but has an event time"
+        "content": ""
       },
       {
         "lineNumber": 218,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Sample input that will get caught: \"event /at tmr\""
+        "content": ""
       },
       {
         "lineNumber": 219,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        if (eventTaskDescription.isBlank()) {"
+        "content": "    // Adds Deadline typed task into the tasks arraylist"
       },
       {
         "lineNumber": 220,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION);"
+        "content": "    private static void addDeadlineTask(ArrayList\u003cTask\u003e tasks, String taskDescription) throws DukeException {"
       },
       {
         "lineNumber": 221,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        }"
+        "content": "        // Catches the exception whereby user did not input any description after deadline command"
       },
       {
         "lineNumber": 222,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        if (taskDescription.isBlank()) {"
       },
       {
         "lineNumber": 223,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        tasks[Task.getTaskCount()] \u003d new Event(eventTaskDescription, eventTime);"
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION);"
       },
       {
         "lineNumber": 224,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 225,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        // Notifies user that task has been added"
+        "content": ""
       },
       {
         "lineNumber": 226,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        DisplayManager.printTaskAddedMessage(tasks[Task.getTaskCount() - 1]);"
+        "content": "        // Splits user input into task details and deadline"
       },
       {
         "lineNumber": 227,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": "        String[] deadlineTaskParts \u003d taskDescription.split(DEADLINE_TASK_DELIMITER);"
       },
       {
         "lineNumber": 228,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String deadlineTaskDescription;"
+      },
+      {
+        "lineNumber": 229,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String deadline;"
+      },
+      {
+        "lineNumber": 230,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Catches exceptions where user does not specify deadline in the correct format"
+      },
+      {
+        "lineNumber": 231,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Also catches specific input of: \"deadline /by \" where both description and deadline are empty"
+      },
+      {
+        "lineNumber": 232,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 233,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            deadlineTaskDescription \u003d deadlineTaskParts[0];"
+      },
+      {
+        "lineNumber": 234,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            deadline \u003d deadlineTaskParts[1];"
+      },
+      {
+        "lineNumber": 235,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        } catch (ArrayIndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 236,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_WRONG_FORMAT);"
+      },
+      {
+        "lineNumber": 237,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 238,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 239,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Catches the exception whereby user did not input any task description but has a deadline"
+      },
+      {
+        "lineNumber": 240,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Sample input that will get caught: \"deadline /by tmr\""
+      },
+      {
+        "lineNumber": 241,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (deadlineTaskDescription.isBlank()) {"
+      },
+      {
+        "lineNumber": 242,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_DEADLINE_EMPTY_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 243,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 244,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 245,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        tasks.add(new Deadline(deadlineTaskDescription, deadline));"
+      },
+      {
+        "lineNumber": 246,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 247,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Notifies user that task has been added"
+      },
+      {
+        "lineNumber": 248,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        DisplayManager.printTaskAddedMessage(tasks.get(Task.getTaskCount() - 1));"
+      },
+      {
+        "lineNumber": 249,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 250,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 251,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 252,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    // Adds Event typed task into the tasks arraylist"
+      },
+      {
+        "lineNumber": 253,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    private static void addEventTask(ArrayList\u003cTask\u003e tasks, String taskDescription) throws DukeException {"
+      },
+      {
+        "lineNumber": 254,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Catches the exception whereby user did not input any description after event command"
+      },
+      {
+        "lineNumber": 255,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (taskDescription.isBlank()) {"
+      },
+      {
+        "lineNumber": 256,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 257,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 258,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 259,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Splits user input into task details and event timing"
+      },
+      {
+        "lineNumber": 260,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String[] eventTaskParts \u003d taskDescription.split(EVENT_TASK_DELIMITER);"
+      },
+      {
+        "lineNumber": 261,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String eventTaskDescription;"
+      },
+      {
+        "lineNumber": 262,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        String eventTime;"
+      },
+      {
+        "lineNumber": 263,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Catches exceptions where user does not specify event in the correct format"
+      },
+      {
+        "lineNumber": 264,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Also catches specific input of: \"event /at \" where both description and event time are empty"
+      },
+      {
+        "lineNumber": 265,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 266,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            eventTaskDescription \u003d eventTaskParts[0];"
+      },
+      {
+        "lineNumber": 267,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            eventTime \u003d eventTaskParts[1];"
+      },
+      {
+        "lineNumber": 268,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        } catch (ArrayIndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 269,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_WRONG_FORMAT);"
+      },
+      {
+        "lineNumber": 270,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 271,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 272,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Catches the exception whereby user did not input any task description but has an event time"
+      },
+      {
+        "lineNumber": 273,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Sample input that will get caught: \"event /at tmr\""
+      },
+      {
+        "lineNumber": 274,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        if (eventTaskDescription.isBlank()) {"
+      },
+      {
+        "lineNumber": 275,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "            throw new DukeException(ErrorTypeManager.ERROR_EVENT_EMPTY_DESCRIPTION);"
+      },
+      {
+        "lineNumber": 276,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 277,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 278,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        tasks.add(new Event(eventTaskDescription, eventTime));"
+      },
+      {
+        "lineNumber": 279,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 280,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        // Notifies user that task has been added"
+      },
+      {
+        "lineNumber": 281,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        DisplayManager.printTaskAddedMessage(tasks.get(Task.getTaskCount() - 1));"
+      },
+      {
+        "lineNumber": 282,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 283,
         "author": {
           "gitId": "-"
         },
@@ -2492,7 +4307,7 @@
       }
     ],
     "authorContributionMap": {
-      "Zhi-You": 226,
+      "Zhi-You": 281,
       "-": 2
     }
   },
@@ -2540,7 +4355,7 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "// in a string instead."
+        "content": "// in a string instead to identify the type of error"
       },
       {
         "lineNumber": 7,
@@ -2619,7 +4434,7 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Constant for error types"
+        "content": "    // Constants for error types"
       },
       {
         "lineNumber": 6,
@@ -2696,17 +4511,38 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    public static final String ERROR_DELETETASK_EMPTY_DESCRIPTION"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "            \u003d \"error_delete_empty_description\";"
       },
       {
         "lineNumber": 18,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static final String ERROR_DELETETASK_NOT_NUMBER \u003d \"error_deleteTask_not_number\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static final String ERROR_DELETETASK_WRONG_INDEX \u003d \"error_deleteTask_wrong_index\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public static final String ERROR_UNKNOWN_TASK_INDICATOR \u003d \"error_unknownTaskIndicator\";"
+      },
+      {
+        "lineNumber": 21,
         "author": {
           "gitId": "Zhi-You"
         },
@@ -2714,7 +4550,51 @@
       }
     ],
     "authorContributionMap": {
-      "Zhi-You": 18
+      "Zhi-You": 21
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskType.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "public enum TaskType {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    TODO, DEADLINE, EVENT"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Zhi-You": 5
     }
   },
   {
@@ -3017,14 +4897,14 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String TICK_SYMBOL \u003d \"[\\u2713]\";"
+        "content": "    public static final String TICK_SYMBOL \u003d \"[\\u2713]\";"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    private static final String CROSS_SYMBOL \u003d \"[\\u2718]\";"
+        "content": "    public static final String CROSS_SYMBOL \u003d \"[\\u2718]\";"
       },
       {
         "lineNumber": 6,
@@ -3150,14 +5030,14 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": "    public static void decrementTaskCount() {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        return (isDone ? TICK_SYMBOL : CROSS_SYMBOL); //return tick or X symbols"
+        "content": "        taskCount--;"
       },
       {
         "lineNumber": 25,
@@ -3178,101 +5058,129 @@
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Getter method for description"
+        "content": "    public String getStatusIcon() {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public String getDescription() {"
+        "content": "        return (isDone ? TICK_SYMBOL : CROSS_SYMBOL); //return tick or X symbols"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        return description;"
+        "content": "    }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Getter method for description"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    // Setter method for isDone"
+        "content": "    public String getDescription() {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public void markAsDone() {"
+        "content": "        return description;"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        isDone \u003d true;"
+        "content": "    }"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": ""
+        "content": "    // Setter method for isDone"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    @Override"
+        "content": "    public void markAsDone() {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    public String toString() {"
+        "content": "        isDone \u003d true;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "        return getStatusIcon() + \" \" + getDescription();"
+        "content": "    }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "Zhi-You"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 41,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "        return getStatusIcon() + \" \" + getDescription();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
         "author": {
           "gitId": "Zhi-You"
         },
@@ -3280,7 +5188,7 @@
       }
     ],
     "authorContributionMap": {
-      "Zhi-You": 41
+      "Zhi-You": 45
     }
   },
   {
@@ -3616,11 +5524,74 @@
         "author": {
           "gitId": "Zhi-You"
         },
+        "content": "delete"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete -1"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete 50"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete a"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete 5"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete 2"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "delete 2"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Zhi-You"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Zhi-You"
+        },
         "content": "bye"
       }
     ],
     "authorContributionMap": {
-      "Zhi-You": 31
+      "Zhi-You": 40
     }
   },
   {
