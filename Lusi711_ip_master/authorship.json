@@ -1,6 +1,6 @@
 [
   {
-    "path": "data/duke.txt",
+    "path": "data/tasks.txt",
     "fileType": "txt",
     "lines": [
       {
@@ -29,7 +29,7 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "[T][✓] borrow book"
+        "content": "[T][✘] borrow book"
       }
     ],
     "authorContributionMap": {
@@ -59,154 +59,154 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.command.CommandType;"
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.command.FileProcessing;"
+        "content": "import duke.parser.Parser;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.Event;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.ToDo;"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import java.util.ArrayList;"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "import java.util.Scanner;"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "import java.io.IOException;"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "import java.io.FileNotFoundException;"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "Lusi711"
-        },
         "content": ""
       },
       {
-        "lineNumber": 15,
+        "lineNumber": 11,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
-        "lineNumber": 16,
+        "lineNumber": 12,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private static final String INDENTLINE \u003d \"----------------------------------------------------------\";"
+        "content": "    protected Storage storage;"
       },
       {
-        "lineNumber": 17,
+        "lineNumber": 13,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    protected static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "    protected TaskList tasks;"
       },
       {
-        "lineNumber": 18,
+        "lineNumber": 14,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private static boolean isChanged \u003d false;"
+        "content": "    protected Ui ui;"
       },
       {
-        "lineNumber": 19,
+        "lineNumber": 15,
         "author": {
           "gitId": "Lusi711"
         },
         "content": ""
       },
       {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Duke(String filePath) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui \u003d new Ui();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        try {"
+      },
+      {
         "lineNumber": 20,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    //Prints greeting message when opening the application"
+        "content": "            tasks \u003d new TaskList(storage.load());"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private static void enterGreet() {"
+        "content": "        } catch (FileNotFoundException fnfe) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(INDENTLINE);"
+        "content": "            storage.createFile(ui);"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(\"Hello! I\u0027m Duke\\n\" + \"What can I do for you?\\n\");"
+        "content": "            tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(INDENTLINE);"
+        "content": "        }"
       },
       {
         "lineNumber": 25,
@@ -227,1501 +227,227 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    //Prints farewell message after command \u003d \u0027bye\u0027"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private static void farewellGreet() {"
+        "content": "        new Duke(\"data/tasks.txt\").run();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(INDENTLINE);"
+        "content": "    }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(\"Bye. Hope to see you again soon!\\n\");"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        System.out.println(INDENTLINE);"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": "        start();"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "        runCommandLoopUntilExitCommand();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    protected static void addToDo(String input) {"
+        "content": "        exit();"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        tasks.add(new ToDo(input));"
+        "content": "    }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    private void start() {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    protected static void addDeadline(String input, String delimiter) {"
+        "content": "        ui.showWelcomeMessage();"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        String[] description \u003d input.split(delimiter);"
+        "content": "    }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        tasks.add(new Deadline(description[0].trim(), description[1].trim()));"
+        "content": ""
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": "    private void exit() {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "        ui.showGoodbyeMessage();"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    protected static void addEvent(String input, String delimiter) {"
+        "content": "        System.exit(0);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        String[] description \u003d input.split(delimiter);"
+        "content": "    }"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        tasks.add(new Event(description[0].trim(), description[1].trim()));"
+        "content": ""
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": "    private void runCommandLoopUntilExitCommand() {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "        Command command;"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    //Adds Task instance to tasks"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private static void addList(CommandType commandType, String input) {"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        String regex;"
+        "content": "            String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        switch (commandType) {"
+        "content": "            ui.showLine();"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        case COMMAND_TODO:"
+        "content": "            Command c \u003d new Parser().parse(fullCommand);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            addToDo(input);"
+        "content": "            c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            break;"
+        "content": "            isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        case COMMAND_DEADLINE:"
+        "content": ""
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            try {"
+        "content": "            ui.showLine();"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "                addDeadline(input, regex \u003d \" /by\");"
+        "content": "        }"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            } catch (ArrayIndexOutOfBoundsException e) {"
+        "content": "    }"
       },
       {
         "lineNumber": 59,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                System.out.println(\"OOPS!!! There must be a description after /by.\");"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case COMMAND_EVENT:"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                addEvent(input, regex \u003d \" /at \");"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                System.out.println(\"OOPS!!! There must be a description after /at.\");"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        isChanged \u003d true;"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task:\");"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"  \" + tasks.get(tasks.size() - 1));"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        if (tasks.size() \u003e 1) {"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" task in the list.\");"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    //Changes isDone of specified Task as True"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    private static void markAsDone(String input) {"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        int taskIndex;"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            taskIndex \u003d Integer.parseInt(input);"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"OOPS!!! Please list a task number to be marked done: \" + input);"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            tasks.get(taskIndex - 1).markAsDone();"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"OOPS!!! There are only \" + tasks.size() + \" tasks on the list.\");"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        isChanged \u003d true;"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"  \" + tasks.get(taskIndex - 1));"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    private static void removeTask(String input) {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        int taskIndex;"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            taskIndex \u003d Integer.parseInt(input);"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"OOPS!!! Please list a task number to be deleted: \" + input);"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            Task deletedTask \u003d tasks.get(taskIndex - 1);"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"OOPS!!! There are only \" + tasks.size() + \" tasks on the list\");"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"Noted. I\u0027ve removed this task:\");"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"  \" + tasks.get(taskIndex - 1));"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        tasks.remove(tasks.get(taskIndex - 1));"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        isChanged \u003d true;"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        if (tasks.size() \u003e 1) {"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" task in the list.\");"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    //Prints the tasks array"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    private static void displayList() {"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        for (Task task : tasks) {"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println((tasks.indexOf(task) + 1) + \". \" + task);"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    //Processes command-line input"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    private static void executeCommand() {"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        while (true) {"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            String line \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            String[] command \u003d line.split(\" \", 2);"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            //Identify the specific command by user"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            CommandType commandType \u003d CommandType.COMMAND_UNKNOWN;"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(INDENTLINE);"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                commandType \u003d readCommandType(command[0]);"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                System.out.println(\"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\");"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                System.out.println(INDENTLINE);"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                continue;"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            switch (commandType) {"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            case COMMAND_LIST:"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                displayList();"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            case COMMAND_DONE:"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    markAsDone(command[1]);"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    System.out.println(\"OOPS!!! Please provide a valid index number for: \" + command[0]);"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            case COMMAND_DELETE:"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    removeTask(command[1]);"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    System.out.println(\"OOPS!!! Please provide a valid index number for: \" + command[0]);"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            case COMMAND_BYE:"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    addList(commandType, command[1].trim());"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    System.out.println(\"OOPS!!! The description of a \" + command[0] + \" cannot be empty.\");"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            System.out.println(INDENTLINE);"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    private static CommandType readCommandType(String command) throws DukeException {"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        switch (command) {"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"bye\"):"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_BYE;"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"list\"):"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_LIST;"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"todo\"):"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_TODO;"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"deadline\"):"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_DEADLINE;"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"event\"):"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_EVENT;"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"done\"):"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_DONE;"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        case (\"delete\"):"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            return CommandType.COMMAND_DELETE;"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        default:"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        String logo \u003d \" ____        _        \\n\""
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        FileProcessing file \u003d new FileProcessing();"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        System.out.println(\"Hello from\\n\" + logo);"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        //Greets the user upon entering"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        enterGreet();"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        //Reads file content to load tasks"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            file.readFileContents(tasks);"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        } catch (FileNotFoundException e) {"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            file.createFile();"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        //Executes command-line input of user"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        executeCommand();"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        //Save tasks to text file if there are any changes made"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        if (isChanged) {"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                file.writeToFile(tasks);"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "                System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        //Displays exit message"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        farewellGreet();"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 241,
         "author": {
           "gitId": "-"
         },
@@ -1729,8 +455,8 @@
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 231,
-      "-": 10
+      "Lusi711": 57,
+      "-": 2
     }
   },
   {
@@ -1775,6 +501,141 @@
     ],
     "authorContributionMap": {
       "Lusi711": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    protected boolean isExit;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    protected Command() { }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) { }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return this.isExit;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 18
     }
   },
   {
@@ -1871,7 +732,7 @@
     }
   },
   {
-    "path": "src/main/java/duke/command/FileProcessing.java",
+    "path": "src/main/java/duke/command/DeleteCommand.java",
     "fileType": "java",
     "lines": [
       {
@@ -1893,28 +754,28 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.Duke;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import duke.task.ToDo;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 7,
@@ -1928,28 +789,1915 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import java.io.File;"
+        "content": "public class DeleteCommand extends Command{"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "    public static final String COMMAND_WORD \u003d \"delete\";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "import java.io.IOException;"
+        "content": "    public static final String MESSAGE_SUCCESS \u003d \"Noted. I\u0027ve removed this task:\";"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Lusi711"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private int targetIndex;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public DeleteCommand(int args) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        targetIndex \u003d args - 1;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task deletedTask \u003d tasks.deleteTask(targetIndex);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(MESSAGE_SUCCESS, \"  \"+deletedTask);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int numberOfTasks \u003d tasks.getNumberOfTasks();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (numberOfTasks \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \" + numberOfTasks + \" task in the list.\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \" + numberOfTasks + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class DoneCommand extends Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"done\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_SUCCESS \u003d \"Nice! I\u0027ve marked this task as done:\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private int targetIndex;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public DoneCommand(int args) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        targetIndex \u003d args - 1;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task doneTask \u003d tasks.markAsDone(targetIndex);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(MESSAGE_SUCCESS, \" \" + doneTask);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class ExitCommand extends Command{"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String MESSAGE_IOEXCEPTION \u003d \"Something went wrong.\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public ExitCommand() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.isExit \u003d true;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        storage.save(tasks,ui);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 21
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/IncorrectCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class IncorrectCommand extends Command{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public final String feedbackToUser;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public IncorrectCommand(String feedbackToUser) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.feedbackToUser \u003d feedbackToUser;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(feedbackToUser);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 18
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import static duke.ui.Messages.MESSAGE_DISPLAY_LIST;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class ListCommand extends Command{"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"list\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showTaskList(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 19
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/addTask/AddDeadlineCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command.addTask;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.Command;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class AddDeadlineCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_SUCCESS \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private final Deadline toAdd;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public AddDeadlineCommand(String description, String by) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.toAdd \u003d new Deadline(description,by);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.addNewTask(toAdd);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int numberOfTasks \u003d tasks.getNumberOfTasks();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(MESSAGE_SUCCESS, \"  \"+toAdd);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (numberOfTasks \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \"+numberOfTasks+\" task in the list.\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \" + numberOfTasks + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 29
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/addTask/AddEventCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command.addTask;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.Command;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class AddEventCommand extends Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"event\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_SUCCESS \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private final Event toAdd;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public AddEventCommand(String description, String at) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.toAdd \u003d new Event(description,at);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.addNewTask(toAdd);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int numberOfTasks \u003d tasks.getNumberOfTasks();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(MESSAGE_SUCCESS, \"  \"+toAdd);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (numberOfTasks \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \"+numberOfTasks+\" task in the list.\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \" + numberOfTasks + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 31
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/addTask/AddToDoCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.command.addTask;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.Command;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class AddToDoCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_SUCCESS \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private final ToDo toAdd;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public AddToDoCommand(String description) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.toAdd \u003d new ToDo(description);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.addNewTask(toAdd);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int numberOfTasks \u003d tasks.getNumberOfTasks();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ui.showFeedbackMessage(MESSAGE_SUCCESS, \"  \"+toAdd);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (numberOfTasks \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \"+numberOfTasks+\" task in the list.\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            ui.showFeedbackMessage(\"Now you have \" + numberOfTasks + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/parser/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.parser;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.addTask.AddDeadlineCommand;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.addTask.AddEventCommand;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.command.addTask.AddToDoCommand;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import static duke.ui.Messages.MESSAGE_INVALID_COMMAND_FORMAT;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import static duke.ui.Messages.MESSAGE_MISSING_COMMAND_FORMAT;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Command parse(String userInput) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String[] command \u003d userInput.trim().split(\" \", 2);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (command.length \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return new IncorrectCommand(MESSAGE_MISSING_COMMAND_FORMAT);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        switch (command[0]) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case AddToDoCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return new AddToDoCommand(command[1].trim());"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case AddDeadlineCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return prepareAddDeadlineCommand(command[1].trim());"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case AddEventCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return prepareAddEventCommand(command[1].trim());"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case ListCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return new ListCommand();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case DoneCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return prepareDoneCommand(command[1].trim());"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case DeleteCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return prepareDeleteCommand(command[1].trim());"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        case ExitCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return new ExitCommand();"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Command prepareAddDeadlineCommand(String args) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String[] parts \u003d args.split(\"/by\");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return new AddDeadlineCommand(parts[0].trim(),parts[1].trim());"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Command prepareAddEventCommand(String args) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String[] parts \u003d args.split(\"/at\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return new AddEventCommand(parts[0].trim(),parts[1].trim());"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Command prepareDeleteCommand(String args) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int targetIndex \u003d Integer.parseInt(args);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return new DeleteCommand(targetIndex);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Command prepareDoneCommand(String args) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        int targetIndex \u003d Integer.parseInt(args);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return new DoneCommand(targetIndex);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 57
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
         "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.List;"
       },
       {
         "lineNumber": 12,
@@ -1977,28 +2725,28 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "public class FileProcessing extends Duke {"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    String filePath \u003d \"data/duke.txt\";"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    private String filePath;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public FileProcessing() {"
+        "content": "    private static final String MESSAGE_IOEXCEPTION \u003d \"Something went wrong.\";"
       },
       {
         "lineNumber": 19,
@@ -2012,304 +2760,269 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    public Storage(String filePath) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public void createFile() {"
+        "content": "        this.filePath \u003d filePath;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        File folder \u003d new File(filePath.substring(0, 4));"
+        "content": "    }"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        folder.mkdirs();"
+        "content": ""
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        File f \u003d new File(filePath);"
+        "content": "    public void createFile(Ui ui) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        try {"
+        "content": "        File folder \u003d new File(filePath.substring(0,filePath.indexOf(\"/\")));"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            folder.createNewFile();"
+        "content": "        folder.mkdirs();"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "        File f \u003d new File(filePath);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            System.out.println(\"Something went wrong. \" + e.getMessage());"
+        "content": "        try {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        }"
+        "content": "            f.createNewFile();"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": "        } catch (IOException ioe) {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "            ui.showFeedbackMessage(MESSAGE_IOEXCEPTION,ioe.getMessage());"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public void readFileContents(ArrayList\u003cTask\u003e tasks) throws FileNotFoundException {"
+        "content": "        }"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        File f \u003d new File(filePath);"
+        "content": "    }"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        Scanner s \u003d new Scanner(f);"
+        "content": ""
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    public ArrayList\u003cTask\u003e load() throws FileNotFoundException {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        int index \u003d 0;"
+        "content": "        File f \u003d new File(filePath);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        while (s.hasNext()) {"
+        "content": "        Scanner s \u003d new Scanner(f);"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            String[] sentence \u003d s.nextLine().split(\"] \",2);"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            if (sentence[0].startsWith(\"[T]\")) {"
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d TaskListDecoder.decodeTaskList(s);"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "                Duke.addToDo(sentence[1]);"
+        "content": "        s.close();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            } else if (sentence[0].startsWith(\"[D]\")) {"
+        "content": ""
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "                Duke.addDeadline(sentence[1], \"\\\\| \");"
+        "content": "        return tasks;"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            } else if (sentence[0].startsWith(\"[E]\")) {"
+        "content": "    }"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "                Duke.addEvent(sentence[1],\"\\\\| \");"
+        "content": ""
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            }"
+        "content": "    public void save(TaskList taskList, Ui ui) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            //Mark task as done if indicated in the text"
+        "content": "        try {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            if (sentence[0].contains(\"\\u2713\")) {"
+        "content": "            FileWriter fw \u003d new FileWriter(filePath);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "                tasks.get(index).markAsDone();"
+        "content": "            List\u003cString\u003e encodedTaskList \u003d TaskListEncoder.encodeTaskList(taskList);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            }"
+        "content": "            for (String output : encodedTaskList) {"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "            index++;"
+        "content": "                fw.write(output+\"\\n\");"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        }"
+        "content": "            }"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        s.close();"
+        "content": "            fw.close();"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": "        } catch (IOException ioe) {"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "            ui.showFeedbackMessage(MESSAGE_IOEXCEPTION, ioe.getMessage());"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public void writeToFile(ArrayList\u003cTask\u003e tasks) throws IOException {"
+        "content": "        }"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath);"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        for (Task task : tasks) {"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "            fw.write(task.toFile()+\"\\n\");"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "Lusi711"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "Lusi711"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 63,
+        "lineNumber": 58,
         "author": {
           "gitId": "Lusi711"
         },
@@ -2317,7 +3030,620 @@
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 63
+      "Lusi711": 58
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/TaskListDecoder.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class TaskListDecoder {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String CHECKMARK \u003d \"\\u2713\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String TODO_DESCRIPTOR \u003d \"[T]\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String DEADLINE_DESCRIPTOR \u003d \"[D]\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String EVENT_DESCRIPTOR \u003d \"[E]\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static ArrayList\u003cTask\u003e decodeTaskList(Scanner s) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            String[] parts \u003d s.nextLine().split(\"] \",2);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            if (parts[0].startsWith(TODO_DESCRIPTOR)) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "                tasks.add(decodeToDoFromString(parts[0].trim(),parts[1].trim()));"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            } else if (parts[0].startsWith(DEADLINE_DESCRIPTOR)) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "                tasks.add(decodeDeadlineFromString(parts[0].trim(),parts[1].trim(),\"\\\\| \"));"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            } else if (parts[0].startsWith(EVENT_DESCRIPTOR)) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "                tasks.add(decodeEventFromString(parts[0].trim(),parts[1].trim(),\"//| \"));"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static Task decodeEventFromString(String isDone, String description, String regex) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String[] parts \u003d description.split(regex);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task event \u003d new Event(parts[0].trim(),parts[1].trim());"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (isDone.contains(CHECKMARK)) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            event.markAsDone();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return event;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static Task decodeDeadlineFromString(String isDone, String description, String regex) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String[] parts \u003d description.split(regex);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task deadline \u003d new Deadline(parts[0].trim(),parts[1].trim());"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (isDone.contains(CHECKMARK)) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            deadline.markAsDone();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return deadline;"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static Task decodeToDoFromString(String isDone, String description) {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task todo \u003d new ToDo(description);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        if (isDone.contains(CHECKMARK)) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            todo.markAsDone();"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return todo;"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 62
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/TaskListEncoder.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.List;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class TaskListEncoder {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String TODO_DESCRIPTOR \u003d \"[T]\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String DEADLINE_DESCRIPTOR \u003d \"[D]\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String EVENT_DESCRIPTOR \u003d \"[E]\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static List\u003cString\u003e encodeTaskList(TaskList toSave) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        List\u003cString\u003e encodedTaskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d toSave.getTasks();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        for (Task task : tasks) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            encodedTaskList.add(task.encodeToFile());"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return encodedTaskList;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 23
     }
   },
   {
@@ -2364,7 +3690,7 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private String descriptor;"
+        "content": "    private static final String DESCRIPTOR \u003d \"[D]\";"
       },
       {
         "lineNumber": 7,
@@ -2392,87 +3718,108 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        this.descriptor \u003d \"[D]\";"
+        "content": "        this.by \u003d by;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        this.by \u003d by;"
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toString() {"
+        "content": "        return DESCRIPTOR + super.toString() + \" (by: \" + by + \")\";"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toString() + \" (by: \" + by + \")\";"
+        "content": "    }"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    public String encodeToFile() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toFile() {"
+        "content": "        return DESCRIPTOR + super.encodeToFile() + \" | \" + by;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toFile() + \" | \" + by;"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public String getDescriptor() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return DESCRIPTOR;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
         "author": {
           "gitId": "Lusi711"
         },
@@ -2480,7 +3827,7 @@
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 22
+      "Lusi711": 25
     }
   },
   {
@@ -2520,7 +3867,7 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private String descriptor;"
+        "content": "    private static final String DESCRIPTOR \u003d \"[E]\";"
       },
       {
         "lineNumber": 6,
@@ -2548,87 +3895,108 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        this.descriptor \u003d \"[E]\";"
+        "content": "        this.at \u003d at;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        this.at \u003d at;"
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toString() {"
+        "content": "        return DESCRIPTOR + super.toString() + \" (at: \" + at + \")\";"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toString() + \" (at: \" + at + \")\";"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    public String encodeToFile() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toFile() {"
+        "content": "        return DESCRIPTOR + super.encodeToFile() + \" | \" + at;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toFile() + \" | \" + at;"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public String getDescriptor() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return DESCRIPTOR;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
         "author": {
           "gitId": "Lusi711"
         },
@@ -2636,7 +4004,7 @@
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 21
+      "Lusi711": 24
     }
   },
   {
@@ -2816,7 +4184,7 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toFile() {"
+        "content": "    public String encodeToFile() {"
       },
       {
         "lineNumber": 26,
@@ -2837,11 +4205,314 @@
         "author": {
           "gitId": "Lusi711"
         },
+        "content": "    public String getDescriptor() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return null;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 28
+      "Lusi711": 31
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private int numberOfTasks;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        numberOfTasks \u003d 0;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.tasks \u003d tasks;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void addNewTask(Task task) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Task deleteTask(int targetIndex) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        Task deletedTask \u003d tasks.get(targetIndex);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.remove(deletedTask);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return deletedTask;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Task markAsDone(int targetIndex) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        tasks.get(targetIndex).markAsDone();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return tasks.get(targetIndex);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTasks() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public int getNumberOfTasks() {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return tasks.size();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 39
     }
   },
   {
@@ -2881,7 +4552,7 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    private String descriptor;"
+        "content": "    private static final String DESCRIPTOR \u003d \"[T]\";"
       },
       {
         "lineNumber": 6,
@@ -2909,87 +4580,108 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        this.descriptor \u003d \"[T]\";"
+        "content": "    }"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toString() {"
+        "content": "        return DESCRIPTOR + super.toString();"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toString();"
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    @Override"
+        "content": "    public String encodeToFile() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    public String toFile() {"
+        "content": "        return DESCRIPTOR + super.encodeToFile();"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "        return descriptor + super.toFile();"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public String getDescriptor() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return DESCRIPTOR;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
         "author": {
           "gitId": "Lusi711"
         },
@@ -2997,7 +4689,585 @@
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 21
+      "Lusi711": 24
+    }
+  },
+  {
+    "path": "src/main/java/duke/ui/Messages.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class Messages {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_GOODBYE \u003d \"Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_INVALID_COMMAND_FORMAT \u003d \"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_MISSING_COMMAND_FORMAT \u003d \"Please enter a valid command.\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_DISPLAY_LIST \u003d \"Here are the tasks in your list:\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_WELCOME \u003d \"Hello! I\u0027m Duke.\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public static final String MESSAGE_ENQUIRY \u003d \"What can I do for you?\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 10
+    }
+  },
+  {
+    "path": "src/main/java/duke/ui/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "package duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.InputStream;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.io.PrintStream;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "import static duke.ui.Messages.*;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String DIVIDER \u003d \"----------------------------------------------------------\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private static final String logo \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private final Scanner in;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private final PrintStream out;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Ui() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this(System.in, System.out);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public Ui(InputStream in, PrintStream out) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.in \u003d new Scanner(in);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        this.out \u003d out;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        String fullInputLine \u003d in.nextLine().trim();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        return fullInputLine;"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void showWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        showToUser(DIVIDER, MESSAGE_WELCOME, logo, MESSAGE_ENQUIRY, DIVIDER);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void showGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        showToUser(DIVIDER, MESSAGE_GOODBYE, DIVIDER);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void showTaskList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        showToUser(MESSAGE_DISPLAY_LIST);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        for (Task task : tasks) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            int taskIndex \u003d tasks.indexOf(task) + 1;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            showToUser(taskIndex + \". \" + task);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void showFeedbackMessage(String... feedbackToUser) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        showToUser(feedbackToUser);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    public void showLine() {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        showToUser(DIVIDER);"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    private void showToUser(String... message) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        for (String m : message) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "            out.println(m);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "Lusi711": 70
     }
   },
   {
@@ -3065,11 +5335,32 @@
         "author": {
           "gitId": "Lusi711"
         },
-        "content": "delete 3"
+        "content": "list"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "delete 4"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "Lusi711"
+        },
+        "content": "bye"
       }
     ],
     "authorContributionMap": {
-      "Lusi711": 9
+      "Lusi711": 12
     }
   },
   {
