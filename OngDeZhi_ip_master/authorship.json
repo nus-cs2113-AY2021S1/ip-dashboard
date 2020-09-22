@@ -43,507 +43,304 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.io.File;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class Duke {"
+        "content": "    private static final String FILE_DIRECTORY \u003d \"data\" + File.separator;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+        "content": "    private static final String FILE_PATH \u003d \"data\" + File.separator + \"duke.txt\";"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String HORIZONTAL_LINE \u003d"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            \"____________________________________________________________\";"
+        "content": "    private final Ui ui;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private final Parser parser;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "    private final Storage storage;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        printWelcomeMessage();"
+        "content": "    private final TaskList taskList;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        readFromDukeStorage();"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    public Duke() {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        boolean shouldExit \u003d false;"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        while (!shouldExit) {"
+        "content": "        parser \u003d new Parser();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            try {"
+        "content": "        storage \u003d new Storage(FILE_PATH, FILE_DIRECTORY);"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                Command dukeCommand \u003d Parser.readUserInput();"
+        "content": "        taskList \u003d storage.readFromStorage(parser, ui);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                dukeCommand.execute(taskList);"
+        "content": "    }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                shouldExit \u003d Command.getShouldExit();"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } catch (DukeException exception) {"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                printErrorMessage(exception.getMessage());"
+        "content": "        ui.printWelcomeMessage();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        boolean shouldExit \u003d false;"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(HORIZONTAL_LINE);"
+        "content": "        while (!shouldExit) {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            String userInput \u003d ui.readUserInput();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "            try {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "                Command dukeCommand \u003d parser.processUserInput(userInput);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static void printWelcomeMessage() {"
+        "content": "                dukeCommand.execute(taskList, storage, ui);"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(HORIZONTAL_LINE);"
+        "content": "                shouldExit \u003d Command.getShouldExit();"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" Hello! I\u0027m Duke.\");"
+        "content": "            } catch (DukeException exception) {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" How can I help you today?\");"
+        "content": "                ui.printErrorMessage(exception.getMessage());"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(HORIZONTAL_LINE);"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "                ui.printHorizontalLine();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static void printErrorMessage(String errorMessage) {"
+        "content": "        }"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" ☹ OOPS!!!\" + errorMessage);"
+        "content": "    }"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static void readFromDukeStorage() {"
+        "content": "        new Duke().run();"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        boolean hasNullTask \u003d false;"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        String filePath \u003d \"data\" + File.separator + \"duke.txt\";"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            File dukeFile \u003d new File(filePath);"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            Scanner fileReader \u003d new Scanner(dukeFile);"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            while (fileReader.hasNextLine()) {"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                String taskInString \u003d fileReader.nextLine();"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                Task readTask \u003d Parser.convertStringToTask(taskInString);"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                if (readTask \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                    hasNullTask \u003d true;"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                } else {"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                    taskList.add(readTask);"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                    Task.incrementPendingTaskCount();"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            fileReader.close();"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            "
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            if (hasNullTask) {"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                printErrorMessage(\" Duke could not load some of the saved task(s).\");"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                System.out.println(\" Duke successfully loaded all of the saved task(s).\");"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        } catch (FileNotFoundException exception) {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            System.out.println(\" No storage file was found, let\u0027s start afresh then.\");"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        System.out.println(HORIZONTAL_LINE);"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 78,
+        "lineNumber": 49,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -551,7 +348,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 78
+      "OngDeZhi": 49
     }
   },
   {
@@ -584,150 +381,157 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class AddCommand extends Command {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private final Task newTask;"
+        "content": "public class AddCommand extends Command {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private final Task newTask;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public AddCommand(Task newTask) {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        this.newTask \u003d newTask;"
+        "content": "    public AddCommand(Task newTask) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        this.newTask \u003d newTask;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public void execute(ArrayList\u003cTask\u003e taskList) throws DukeException {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        taskList.add(newTask);"
+        "content": "    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        writeToDukeStorage(taskList);"
+        "content": "        taskList.addTask(newTask);"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        Task.incrementPendingTaskCount();"
+        "content": "        storage.writeToStorage(taskList);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        Task.incrementPendingTaskCount();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" Gotcha! I\u0027ve added this task: \");"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\"\\t\" + newTask.toString());"
+        "content": "        ui.printMessage(\"Gotcha! I\u0027ve added this task: \");"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" There\u0027s currently \" + taskList.size() + \" task(s) in the list.\");"
+        "content": "        ui.printMessage(\"\\t\" + newTask.toString());"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        ui.printMessage(\"There\u0027s currently \" + taskList.getSize() + \" task(s) in the list.\");"
       },
       {
         "lineNumber": 25,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -735,7 +539,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 25
+      "OngDeZhi": 26
     }
   },
   {
@@ -761,21 +565,21 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 6,
@@ -810,7 +614,7 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public void execute(ArrayList\u003cTask\u003e taskList) {"
+        "content": "    public void execute(TaskList taskList, Storage storage, Ui ui) {"
       },
       {
         "lineNumber": 11,
@@ -824,7 +628,7 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" Bye-bye. Hope to see you again soon!\");"
+        "content": "        ui.printMessage(\"Bye-bye. Hope to see you again soon!\");"
       },
       {
         "lineNumber": 13,
@@ -875,42 +679,42 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.io.File;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.io.FileWriter;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.io.IOException;"
+        "content": "public abstract class Command {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "    protected static boolean shouldExit \u003d false;"
       },
       {
         "lineNumber": 10,
@@ -924,164 +728,38 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public abstract class Command {"
+        "content": "    public static boolean getShouldExit() {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    protected static boolean shouldExit \u003d false;"
+        "content": "        return shouldExit;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public static boolean getShouldExit() {"
+        "content": ""
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return shouldExit;"
+        "content": "    public abstract void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException;"
       },
       {
         "lineNumber": 16,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "    protected static void writeToDukeStorage(ArrayList\u003cTask\u003e taskList) throws DukeException {"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        String dukeDirectory \u003d \"data\" + File.separator;"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        new File(dukeDirectory).mkdirs();"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            String filePath \u003d dukeDirectory + \"duke.txt\";"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            FileWriter fileWriter \u003d new FileWriter(filePath);"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            for (Task task : taskList) {"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "                fileWriter.write(task.toFileFormatString() + System.lineSeparator());"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            fileWriter.close();"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        } catch (IOException exception) {"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "            throw new DukeException(\" Duke couldn\u0027t write the task to file :(.\");"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 33,
-        "author": {
-          "gitId": "OngDeZhi"
-        },
-        "content": "    public abstract void execute(ArrayList\u003cTask\u003e taskList) throws DukeException;"
-      },
-      {
-        "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -1089,7 +767,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 34
+      "OngDeZhi": 16
     }
   },
   {
@@ -1122,234 +800,241 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class DeleteCommand extends Command {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private final int deleteTaskIndex;"
+        "content": "public class DeleteCommand extends Command {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private final int deleteTaskIndex;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public DeleteCommand(String deleteTaskIndexString) throws DukeException {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": "    public DeleteCommand(String deleteTaskIndexString) throws DukeException {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            deleteTaskIndex \u003d Integer.parseInt(deleteTaskIndexString) - 1;"
+        "content": "        try {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (NumberFormatException exception) {"
+        "content": "            deleteTaskIndex \u003d Integer.parseInt(deleteTaskIndexString) - 1;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" \\\"\" + deleteTaskIndexString + \"\\\" is not a number.\");"
+        "content": "        } catch (NumberFormatException exception) {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            throw new DukeException(\" \\\"\" + deleteTaskIndexString + \"\\\" is not a number.\");"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public void execute(ArrayList\u003cTask\u003e taskList) throws DukeException {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": "    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Task deleteTask \u003d taskList.get(deleteTaskIndex);"
+        "content": "        try {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (!deleteTask.getIsDone()) {"
+        "content": "            Task deleteTask \u003d taskList.getTask(deleteTaskIndex);"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                Task.decrementPendingTaskCount();"
+        "content": "            if (!deleteTask.getIsDone()) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "                Task.decrementPendingTaskCount();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            taskList.remove(deleteTaskIndex);"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            writeToDukeStorage(taskList);"
+        "content": "            taskList.deleteTask(deleteTaskIndex);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            storage.writeToStorage(taskList);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\" Noted! I have removed this task: \");"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\"\\t\" + deleteTask.toString());"
+        "content": "            ui.printMessage(\"Noted! I have removed this task: \");"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\" There\u0027s currently \" + taskList.size() + \" task(s) in the list.\");"
+        "content": "            ui.printMessage(\"\\t\" + deleteTask.toString());"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (IndexOutOfBoundsException exception) {"
+        "content": "            ui.printMessage(\"There\u0027s currently \" + taskList.getSize() + \" task(s) in the list.\");"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" \\\"\" + (deleteTaskIndex + 1) + \"\\\" is not a valid task number.\");"
+        "content": "        } catch (IndexOutOfBoundsException exception) {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            throw new DukeException(\" \\\"\" + (deleteTaskIndex + 1) + \"\\\" is not a valid task number.\");"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 37,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -1357,7 +1042,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 37
+      "OngDeZhi": 38
     }
   },
   {
@@ -1390,276 +1075,283 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class DoneCommand extends Command {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private final int doneTaskIndex;"
+        "content": "public class DoneCommand extends Command {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private final int doneTaskIndex;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public DoneCommand(String doneTaskIndexString) throws DukeException {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": "    public DoneCommand(String doneTaskIndexString) throws DukeException {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            doneTaskIndex \u003d Integer.parseInt(doneTaskIndexString) - 1;"
+        "content": "        try {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (NumberFormatException exception) {"
+        "content": "            doneTaskIndex \u003d Integer.parseInt(doneTaskIndexString) - 1;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" \\\"\" + doneTaskIndexString + \"\\\" is not a number.\");"
+        "content": "        } catch (NumberFormatException exception) {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            throw new DukeException(\" \\\"\" + doneTaskIndexString + \"\\\" is not a number.\");"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public void execute(ArrayList\u003cTask\u003e taskList) throws DukeException {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": "    public void execute(TaskList taskList, Storage storage, Ui ui) throws DukeException {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Task doneTask \u003d taskList.get(doneTaskIndex);"
+        "content": "        try {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (doneTask.getIsDone()) {"
+        "content": "            Task doneTask \u003d taskList.getTask(doneTaskIndex);"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                System.out.println(\" Remember? You have completed this task already.\");"
+        "content": "            if (doneTask.getIsDone()) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                System.out.println(\"\\t\" + taskList.get(doneTaskIndex).toString());"
+        "content": "                ui.printMessage(\"Remember? You have completed this task already.\");"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                return;"
+        "content": "                ui.printMessage(\"\\t\" + taskList.getTask(doneTaskIndex).toString());"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "                return;"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            taskList.get(doneTaskIndex).setIsDone(true);"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            writeToDukeStorage(taskList);"
+        "content": "            taskList.getTask(doneTaskIndex).setIsDone(true);"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            storage.writeToStorage(taskList);"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            int pendingTaskCount \u003d Task.getPendingTaskCount();"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (pendingTaskCount \u003d\u003d 0) {"
+        "content": "            int pendingTaskCount \u003d Task.getPendingTaskCount();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                System.out.println(\" Awesome!! You are all caught up :)\");"
+        "content": "            if (pendingTaskCount \u003d\u003d 0) {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } else {"
+        "content": "                ui.printMessage(\"Awesome!! You are all caught up :)\");"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                System.out.println(\" Awesome!! Just \" + pendingTaskCount + \" more task(s) to go!\");"
+        "content": "            } else {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "                ui.printMessage(\"Awesome!! Just \" + pendingTaskCount + \" more task(s) to go!\");"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\"\\t\" + taskList.get(doneTaskIndex).toString());"
+        "content": "            }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (IndexOutOfBoundsException exception) {"
+        "content": "            ui.printMessage(\"\\t\" + taskList.getTask(doneTaskIndex).toString());"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" \\\"\" + (doneTaskIndex + 1) + \"\\\" is not a valid task number.\");"
+        "content": "        } catch (IndexOutOfBoundsException exception) {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            throw new DukeException(\" \\\"\" + (doneTaskIndex + 1) + \"\\\" is not a valid task number.\");"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 43,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -1667,7 +1359,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 43
+      "OngDeZhi": 44
     }
   },
   {
@@ -1693,136 +1385,143 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class ListCommand extends Command {"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "public class ListCommand extends Command {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public void execute(ArrayList\u003cTask\u003e taskList) {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        if (taskList.isEmpty()) {"
+        "content": "    public void execute(TaskList taskList, Storage storage, Ui ui) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\" Uhh.. It\u0027s empty..\");"
+        "content": "        if (taskList.getSize() \u003d\u003d 0) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return;"
+        "content": "            ui.printMessage(\"Uhh.. It\u0027s empty..\");"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            return;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(\" Here are the tasks in your list: \");"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        for (int i \u003d 0; i \u003c taskList.size(); i++) {"
+        "content": "        ui.printMessage(\"Here are the tasks in your list: \");"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Task task \u003d taskList.get(i);"
+        "content": "        for (int i \u003d 0; i \u003c taskList.getSize(); i++) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            System.out.println(\"\\t\" + (i + 1) + \". \" + task.toString());"
+        "content": "            Task task \u003d taskList.getTask(i);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            ui.printMessage(\"\\t\" + (i + 1) + \". \" + task.toString());"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 22,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -1830,7 +1529,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 22
+      "OngDeZhi": 23
     }
   },
   {
@@ -2012,378 +1711,378 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "public class Parser {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "public class Parser {"
+        "content": "    private static final String COMMAND_BYE \u003d \"bye\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_BYE \u003d \"bye\";"
+        "content": "    private static final String COMMAND_LIST \u003d \"list\";"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_LIST \u003d \"list\";"
+        "content": "    private static final String COMMAND_DONE \u003d \"done\";"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_DONE \u003d \"done\";"
+        "content": "    private static final String COMMAND_DELETE \u003d \"delete\";"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_DELETE \u003d \"delete\";"
+        "content": "    private static final String COMMAND_TODO \u003d \"todo\";"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_TODO \u003d \"todo\";"
+        "content": "    private static final String COMMAND_DEADLINE \u003d \"deadline\";"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_DEADLINE \u003d \"deadline\";"
+        "content": "    private static final String COMMAND_EVENT \u003d \"event\";"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String COMMAND_EVENT \u003d \"event\";"
+        "content": ""
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private static final String REQUIRED_DEADLINE_OPTION \u003d \"/by\";"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String REQUIRED_DEADLINE_OPTION \u003d \"/by\";"
+        "content": "    private static final String REQUIRED_EVENT_OPTION \u003d \"/at\";"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String REQUIRED_EVENT_OPTION \u003d \"/at\";"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    private static final int REQUIRED_BYE_ARGUMENT_COUNT \u003d 1;"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_BYE_ARGUMENT_COUNT \u003d 1;"
+        "content": "    private static final int REQUIRED_LIST_ARGUMENT_COUNT \u003d 1;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_LIST_ARGUMENT_COUNT \u003d 1;"
+        "content": "    private static final int REQUIRED_DONE_ARGUMENT_COUNT \u003d 2;"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_DONE_ARGUMENT_COUNT \u003d 2;"
+        "content": "    private static final int REQUIRED_DELETE_ARGUMENT_COUNT \u003d 2;"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_DELETE_ARGUMENT_COUNT \u003d 2;"
+        "content": "    private static final int REQUIRED_TODO_ARGUMENT_COUNT \u003d 2;"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_TODO_ARGUMENT_COUNT \u003d 2;"
+        "content": "    private static final int REQUIRED_DEADLINE_ARGUMENT_COUNT \u003d 4;"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_DEADLINE_ARGUMENT_COUNT \u003d 4;"
+        "content": "    private static final int REQUIRED_EVENT_ARGUMENT_COUNT \u003d 4;"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final int REQUIRED_EVENT_ARGUMENT_COUNT \u003d 4;"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    public Task convertStringToTask(String taskInString) {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final Scanner CONSOLE \u003d new Scanner(System.in);"
+        "content": "        try {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static final String HORIZONTAL_LINE \u003d"
+        "content": "            String[] splitTaskInString \u003d taskInString.split(\"\\\\|\");"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            \"____________________________________________________________\";"
+        "content": "            String taskType \u003d splitTaskInString[0].trim();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            String description \u003d splitTaskInString[2].trim();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public static Task convertStringToTask(String taskInString) {"
+        "content": "            boolean isDone \u003d splitTaskInString[1].trim().equals(\"1\");"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String[] splitTaskInString \u003d taskInString.split(\"\\\\|\");"
+        "content": "            switch (taskType) {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String taskType \u003d splitTaskInString[0].trim();"
+        "content": "            case \"T\":"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String description \u003d splitTaskInString[2].trim();"
+        "content": "                Todo newTodo \u003d new Todo(description);"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            boolean isDone \u003d splitTaskInString[1].trim().equals(\"1\");"
+        "content": "                newTodo.setIsDone(isDone);"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "                return newTodo;"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            switch (taskType) {"
+        "content": "            case \"D\":"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            case \"T\":"
+        "content": "                String byInformation \u003d splitTaskInString[3].trim();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                Todo newTodo \u003d new Todo(description);"
+        "content": "                Deadline newDeadline \u003d new Deadline(description, byInformation);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                newTodo.setIsDone(isDone);"
+        "content": "                newDeadline.setIsDone(isDone);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                return newTodo;"
+        "content": "                return newDeadline;"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            case \"D\":"
+        "content": "            case \"E\":"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                String byInformation \u003d splitTaskInString[3].trim();"
+        "content": "                String atInformation \u003d splitTaskInString[3].trim();"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                Deadline newDeadline \u003d new Deadline(description, byInformation);"
+        "content": "                Event newEvent \u003d new Event(description, atInformation);"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                newDeadline.setIsDone(isDone);"
+        "content": "                newEvent.setIsDone(isDone);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                return newDeadline;"
+        "content": "                return newEvent;"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            case \"E\":"
+        "content": "            default:"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                String atInformation \u003d splitTaskInString[3].trim();"
+        "content": "                return null;"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                Event newEvent \u003d new Event(description, atInformation);"
+        "content": "            }"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                newEvent.setIsDone(isDone);"
+        "content": "        } catch (ArrayIndexOutOfBoundsException exception) {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                return newEvent;"
+        "content": "            return null;"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            default:"
+        "content": "        }"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                return null;"
+        "content": "    }"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": ""
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (ArrayIndexOutOfBoundsException exception) {"
+        "content": "    public Command processUserInput(String userInput) throws DukeException {"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return null;"
+        "content": "        String[] inputArguments \u003d parseUserInput(userInput);"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "        return generateCommand(inputArguments);"
       },
       {
         "lineNumber": 70,
@@ -2404,581 +2103,581 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public static Command readUserInput() throws DukeException {"
+        "content": "    private String[] parseUserInput(String userInput) throws DukeException {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.print(System.lineSeparator() + \" \u003e\u003e \");"
+        "content": "        ArrayList\u003cString\u003e inputArguments \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String userInput \u003d CONSOLE.nextLine();"
+        "content": "        String[] splitInput \u003d userInput.split(\" \");"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        System.out.println(HORIZONTAL_LINE);"
+        "content": ""
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String[] inputArguments \u003d parseUserInput(userInput);"
+        "content": "        try {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return generateCommand(inputArguments);"
+        "content": "            String userCommand \u003d splitInput[0];"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "            inputArguments.add(userCommand);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        } catch (ArrayIndexOutOfBoundsException exception) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static String[] parseUserInput(String userInput) throws DukeException {"
+        "content": "            throw new DukeException(\" Input \\\"\" + userInput + \"\\\" is not usable by Duke :(\");"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        ArrayList\u003cString\u003e inputArguments \u003d new ArrayList\u003c\u003e();"
+        "content": "        }"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String[] splitInput \u003d userInput.split(\" \");"
+        "content": ""
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        // Build arguments (if any): description and command option (at/by) information (only 1 is expected)"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        try {"
+        "content": "        String commandOption \u003d \"\";"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String userCommand \u003d splitInput[0];"
+        "content": "        StringBuilder sbArgument \u003d new StringBuilder();"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            inputArguments.add(userCommand);"
+        "content": "        for (int i \u003d 1; i \u003c splitInput.length; i++) {"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } catch (ArrayIndexOutOfBoundsException exception) {"
+        "content": "            boolean isFirstCommandOption \u003d commandOption.isEmpty() \u0026\u0026 splitInput[i].startsWith(\"/\");"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" Input \\\"\" + userInput + \"\\\" is not usable by Duke :(\");"
+        "content": "            if (isFirstCommandOption) {"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "                String description \u003d sbArgument.toString().stripTrailing();"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "                commandOption \u003d splitInput[i];"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        // Build arguments (if any): description and command option (at/by) information (only 1 is expected)"
+        "content": "                inputArguments.add(description);"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String commandOption \u003d \"\";"
+        "content": "                inputArguments.add(commandOption);"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        StringBuilder sbArgument \u003d new StringBuilder();"
+        "content": "                sbArgument.setLength(0);"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        for (int i \u003d 1; i \u003c splitInput.length; i++) {"
+        "content": "                continue;"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            boolean isFirstCommandOption \u003d commandOption.isEmpty() \u0026\u0026 splitInput[i].startsWith(\"/\");"
+        "content": "            }"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (isFirstCommandOption) {"
+        "content": ""
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                String description \u003d sbArgument.toString().stripTrailing();"
+        "content": "            sbArgument.append(splitInput[i]).append(\" \");"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                commandOption \u003d splitInput[i];"
+        "content": "        }"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                inputArguments.add(description);"
+        "content": ""
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                inputArguments.add(commandOption);"
+        "content": "        // The last argument could be a description, task index, at/by information or empty string"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                sbArgument.setLength(0);"
+        "content": "        String lastArgument \u003d sbArgument.toString().stripTrailing();"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                continue;"
+        "content": "        inputArguments.add(lastArgument);"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "        return inputArguments.toArray(new String[0]);"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            sbArgument.append(splitInput[i]).append(\" \");"
+        "content": ""
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "    private Command generateCommand(String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        String userCommand \u003d inputArguments[0];"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        // The last argument could be a description, task index, at/by information or empty string"
+        "content": "        String description \u003d inputArguments[1];"
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String lastArgument \u003d sbArgument.toString().stripTrailing();"
+        "content": "        switch (userCommand) {"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        inputArguments.add(lastArgument);"
+        "content": "        case COMMAND_BYE:"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return inputArguments.toArray(new String[0]);"
+        "content": "            validateCommand(REQUIRED_BYE_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "            return new ByeCommand();"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        case COMMAND_LIST:"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static Command generateCommand(String[] inputArguments) throws DukeException {"
+        "content": "            validateCommand(REQUIRED_LIST_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String userCommand \u003d inputArguments[0];"
+        "content": "            return new ListCommand();"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String description \u003d inputArguments[1];"
+        "content": "        case COMMAND_DONE:"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        switch (userCommand) {"
+        "content": "            validateCommand(REQUIRED_DONE_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_BYE:"
+        "content": "            return new DoneCommand(description);"
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_BYE_ARGUMENT_COUNT, inputArguments);"
+        "content": "        case COMMAND_DELETE:"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new ByeCommand();"
+        "content": "            validateCommand(REQUIRED_DELETE_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 121,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_LIST:"
+        "content": "            return new DeleteCommand(description);"
       },
       {
         "lineNumber": 122,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_LIST_ARGUMENT_COUNT, inputArguments);"
+        "content": "        case COMMAND_TODO:"
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new ListCommand();"
+        "content": "            validateCommand(REQUIRED_TODO_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_DONE:"
+        "content": "            Todo newTodo \u003d new Todo(description);"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_DONE_ARGUMENT_COUNT, inputArguments);"
+        "content": "            return new AddCommand(newTodo);"
       },
       {
         "lineNumber": 126,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new DoneCommand(description);"
+        "content": "        case COMMAND_DEADLINE:"
       },
       {
         "lineNumber": 127,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_DELETE:"
+        "content": "            validateCommand(REQUIRED_DEADLINE_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 128,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_DELETE_ARGUMENT_COUNT, inputArguments);"
+        "content": "            String byInformation \u003d inputArguments[3];"
       },
       {
         "lineNumber": 129,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new DeleteCommand(description);"
+        "content": "            Deadline newDeadline \u003d new Deadline(description, byInformation);"
       },
       {
         "lineNumber": 130,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_TODO:"
+        "content": "            return new AddCommand(newDeadline);"
       },
       {
         "lineNumber": 131,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_TODO_ARGUMENT_COUNT, inputArguments);"
+        "content": "        case COMMAND_EVENT:"
       },
       {
         "lineNumber": 132,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Todo newTodo \u003d new Todo(description);"
+        "content": "            validateCommand(REQUIRED_EVENT_ARGUMENT_COUNT, inputArguments);"
       },
       {
         "lineNumber": 133,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new AddCommand(newTodo);"
+        "content": "            String atInformation \u003d inputArguments[3];"
       },
       {
         "lineNumber": 134,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_DEADLINE:"
+        "content": "            Event newEvent \u003d new Event(description, atInformation);"
       },
       {
         "lineNumber": 135,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_DEADLINE_ARGUMENT_COUNT, inputArguments);"
+        "content": "            return new AddCommand(newEvent);"
       },
       {
         "lineNumber": 136,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String byInformation \u003d inputArguments[3];"
+        "content": "        default:"
       },
       {
         "lineNumber": 137,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Deadline newDeadline \u003d new Deadline(description, byInformation);"
+        "content": "            throw new DukeException(\" Command \\\"\" + userCommand + \"\\\" is not recognized by Duke :(\");"
       },
       {
         "lineNumber": 138,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new AddCommand(newDeadline);"
+        "content": "        }"
       },
       {
         "lineNumber": 139,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case COMMAND_EVENT:"
+        "content": "    }"
       },
       {
         "lineNumber": 140,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            validateCommand(REQUIRED_EVENT_ARGUMENT_COUNT, inputArguments);"
+        "content": ""
       },
       {
         "lineNumber": 141,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String atInformation \u003d inputArguments[3];"
+        "content": "    private void validateCommand(int requiredArgumentCount, String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 142,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            Event newEvent \u003d new Event(description, atInformation);"
+        "content": "        validateArgumentCount(requiredArgumentCount, inputArguments);"
       },
       {
         "lineNumber": 143,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            return new AddCommand(newEvent);"
+        "content": "        switch(requiredArgumentCount) {"
       },
       {
         "lineNumber": 144,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        default:"
+        "content": "        case 1:"
       },
       {
         "lineNumber": 145,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" Command \\\"\" + userCommand + \"\\\" is not recognized by Duke :(\");"
+        "content": "            validateOneArgumentCommand(inputArguments);"
       },
       {
         "lineNumber": 146,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "            break;"
       },
       {
         "lineNumber": 147,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        case 2:"
       },
       {
         "lineNumber": 148,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            validateTwoArgumentCommand(inputArguments);"
       },
       {
         "lineNumber": 149,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    private static void validateCommand(int requiredArgumentCount, String[] inputArguments) throws DukeException {"
+        "content": "            break;"
       },
       {
         "lineNumber": 150,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String userCommand \u003d inputArguments[0];"
+        "content": "        case 4:"
       },
       {
         "lineNumber": 151,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        String description \u003d inputArguments[1];"
+        "content": "            validateFourArgumentCommand(inputArguments);"
       },
       {
         "lineNumber": 152,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        int argumentCount \u003d inputArguments.length;"
+        "content": "            break;"
       },
       {
         "lineNumber": 153,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        if (userCommand.equals(COMMAND_BYE) || userCommand.equals(COMMAND_LIST)) {"
+        "content": "        default:"
       },
       {
         "lineNumber": 154,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            argumentCount--;"
+        "content": "            break;"
       },
       {
         "lineNumber": 155,
@@ -2992,266 +2691,266 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 157,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        if (argumentCount \u003e requiredArgumentCount) {"
+        "content": ""
       },
       {
         "lineNumber": 158,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" There\u0027s too many arguments for \\\"\" + userCommand + \"\\\".\");"
+        "content": "    private void validateArgumentCount(int requiredArgumentCount, String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 159,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        } else if (argumentCount \u003c requiredArgumentCount) {"
+        "content": "        String userCommand \u003d inputArguments[0];"
       },
       {
         "lineNumber": 160,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            throw new DukeException(\" There\u0027s too little arguments for \\\"\" + userCommand + \"\\\".\");"
+        "content": "        int argumentCount \u003d inputArguments.length;"
       },
       {
         "lineNumber": 161,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": "        if (userCommand.equals(COMMAND_BYE) || userCommand.equals(COMMAND_LIST)) {"
       },
       {
         "lineNumber": 162,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "            argumentCount--;"
       },
       {
         "lineNumber": 163,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        boolean isValidDescription;"
+        "content": "        }"
       },
       {
         "lineNumber": 164,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        switch(requiredArgumentCount) {"
+        "content": ""
       },
       {
         "lineNumber": 165,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case 1:"
+        "content": "        if (argumentCount \u003e requiredArgumentCount) {"
       },
       {
         "lineNumber": 166,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            isValidDescription \u003d !description.isBlank();"
+        "content": "            throw new DukeException(\" There\u0027s too many arguments for \\\"\" + userCommand + \"\\\".\");"
       },
       {
         "lineNumber": 167,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (isValidDescription) {"
+        "content": "        } else if (argumentCount \u003c requiredArgumentCount) {"
       },
       {
         "lineNumber": 168,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" There\u0027s no need for a description for \\\"\" + userCommand + \"\\\".\");"
+        "content": "            throw new DukeException(\" There\u0027s too little arguments for \\\"\" + userCommand + \"\\\".\");"
       },
       {
         "lineNumber": 169,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "        }"
       },
       {
         "lineNumber": 170,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            break;"
+        "content": "    }"
       },
       {
         "lineNumber": 171,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case 2:"
+        "content": ""
       },
       {
         "lineNumber": 172,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            isValidDescription \u003d !description.isBlank();"
+        "content": "    private void validateOneArgumentCommand(String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 173,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            boolean isDoneOrDelete \u003d userCommand.equals(COMMAND_DONE) || userCommand.equals(COMMAND_DELETE);"
+        "content": "        String userCommand \u003d inputArguments[0];"
       },
       {
         "lineNumber": 174,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (isDoneOrDelete \u0026\u0026 !isValidDescription) {"
+        "content": "        String description \u003d inputArguments[1];"
       },
       {
         "lineNumber": 175,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" The task number for \\\"\" + userCommand + \"\\\" cannot be empty.\");"
+        "content": ""
       },
       {
         "lineNumber": 176,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } else if (userCommand.equals(COMMAND_TODO) \u0026\u0026 !isValidDescription) {"
+        "content": "        boolean isValidDescription \u003d !description.isBlank();"
       },
       {
         "lineNumber": 177,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" The description of \\\"\" + userCommand + \"\\\" cannot be empty.\");"
+        "content": "        if (isValidDescription) {"
       },
       {
         "lineNumber": 178,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "            throw new DukeException(\" There\u0027s no need for a description for \\\"\" + userCommand + \"\\\".\");"
       },
       {
         "lineNumber": 179,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            break;"
+        "content": "        }"
       },
       {
         "lineNumber": 180,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        case 4:"
+        "content": "    }"
       },
       {
         "lineNumber": 181,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String requiredCommandOption \u003d \"\";"
+        "content": ""
       },
       {
         "lineNumber": 182,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String commandOption \u003d inputArguments[2];"
+        "content": "    private void validateTwoArgumentCommand(String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 183,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            String commandOptionInformation \u003d inputArguments[3];"
+        "content": "        String userCommand \u003d inputArguments[0];"
       },
       {
         "lineNumber": 184,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        String description \u003d inputArguments[1];"
       },
       {
         "lineNumber": 185,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (userCommand.equals(COMMAND_DEADLINE)) {"
+        "content": ""
       },
       {
         "lineNumber": 186,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                requiredCommandOption \u003d REQUIRED_DEADLINE_OPTION;"
+        "content": "        boolean isValidDescription \u003d !description.isBlank();"
       },
       {
         "lineNumber": 187,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } else if (userCommand.equals(COMMAND_EVENT)) {"
+        "content": "        boolean isDoneOrDelete \u003d userCommand.equals(COMMAND_DONE) || userCommand.equals(COMMAND_DELETE);"
       },
       {
         "lineNumber": 188,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                requiredCommandOption \u003d REQUIRED_EVENT_OPTION;"
+        "content": "        if (isDoneOrDelete \u0026\u0026 !isValidDescription) {"
       },
       {
         "lineNumber": 189,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "            throw new DukeException(\" The task number for \\\"\" + userCommand + \"\\\" cannot be empty.\");"
       },
       {
         "lineNumber": 190,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": ""
+        "content": "        } else if (userCommand.equals(COMMAND_TODO) \u0026\u0026 !isValidDescription) {"
       },
       {
         "lineNumber": 191,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            isValidDescription \u003d !description.isBlank();"
+        "content": "            throw new DukeException(\" The description of \\\"\" + userCommand + \"\\\" cannot be empty.\");"
       },
       {
         "lineNumber": 192,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            boolean isValidOption \u003d commandOption.equals(requiredCommandOption);"
+        "content": "        }"
       },
       {
         "lineNumber": 193,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            boolean isValidOptionInformation \u003d !commandOptionInformation.isBlank();"
+        "content": "    }"
       },
       {
         "lineNumber": 194,
@@ -3265,101 +2964,192 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            if (!isValidDescription) {"
+        "content": "    private void validateFourArgumentCommand(String[] inputArguments) throws DukeException {"
       },
       {
         "lineNumber": 196,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" The description of \\\"\" + userCommand + \"\\\" cannot be empty.\");"
+        "content": "        String userCommand \u003d inputArguments[0];"
       },
       {
         "lineNumber": 197,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } else if (!isValidOption) {"
+        "content": "        String description \u003d inputArguments[1];"
       },
       {
         "lineNumber": 198,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" The \\\"\" + requiredCommandOption + \"\\\" option is missing for \\\"\""
+        "content": "        String commandOption \u003d inputArguments[2];"
       },
       {
         "lineNumber": 199,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                        + userCommand + \"\\\".\");"
+        "content": "        String commandOptionInformation \u003d inputArguments[3];"
       },
       {
         "lineNumber": 200,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            } else if (!isValidOptionInformation) {"
+        "content": ""
       },
       {
         "lineNumber": 201,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                throw new DukeException(\" The \\\"\" + requiredCommandOption + \"\\\" information is missing for \\\"\""
+        "content": "        String requiredCommandOption \u003d \"\";"
       },
       {
         "lineNumber": 202,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "                        + userCommand + \"\\\".\");"
+        "content": "        if (userCommand.equals(COMMAND_DEADLINE)) {"
       },
       {
         "lineNumber": 203,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            }"
+        "content": "            requiredCommandOption \u003d REQUIRED_DEADLINE_OPTION;"
       },
       {
         "lineNumber": 204,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            break;"
+        "content": "        } else if (userCommand.equals(COMMAND_EVENT)) {"
       },
       {
         "lineNumber": 205,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        default:"
+        "content": "            requiredCommandOption \u003d REQUIRED_EVENT_OPTION;"
       },
       {
         "lineNumber": 206,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "            break;"
+        "content": "        }"
       },
       {
         "lineNumber": 207,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 208,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        boolean isValidDescription \u003d !description.isBlank();"
+      },
+      {
+        "lineNumber": 209,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        boolean isValidOption \u003d commandOption.equals(requiredCommandOption);"
+      },
+      {
+        "lineNumber": 210,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        boolean isValidOptionInformation \u003d !commandOptionInformation.isBlank();"
+      },
+      {
+        "lineNumber": 211,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 212,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        if (!isValidDescription) {"
+      },
+      {
+        "lineNumber": 213,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            throw new DukeException(\" The description of \\\"\" + userCommand + \"\\\" cannot be empty.\");"
+      },
+      {
+        "lineNumber": 214,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        } else if (!isValidOption) {"
+      },
+      {
+        "lineNumber": 215,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            throw new DukeException(\" The \\\"\" + requiredCommandOption + \"\\\" option is missing for \\\"\""
+      },
+      {
+        "lineNumber": 216,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                    + userCommand + \"\\\".\");"
+      },
+      {
+        "lineNumber": 217,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        } else if (!isValidOptionInformation) {"
+      },
+      {
+        "lineNumber": 218,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            throw new DukeException(\" The \\\"\" + requiredCommandOption + \"\\\" information is missing for \\\"\""
+      },
+      {
+        "lineNumber": 219,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                    + userCommand + \"\\\".\");"
+      },
+      {
+        "lineNumber": 220,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 221,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 209,
+        "lineNumber": 222,
         "author": {
           "gitId": "-"
         },
@@ -3367,8 +3157,500 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 207,
+      "OngDeZhi": 220,
       "-": 2
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import duke.parser.Parser;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    private final String filePath;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    private final String fileDirectory;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public Storage(String filePath, String fileDirectory) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        this.filePath \u003d filePath;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        this.fileDirectory \u003d fileDirectory;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public TaskList readFromStorage(Parser parser, Ui ui) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        ui.printHorizontalLine();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        boolean hasNullTask \u003d false;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        TaskList taskList \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            File dukeFile \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            Scanner fileReader \u003d new Scanner(dukeFile);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            while (fileReader.hasNextLine()) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                String taskInString \u003d fileReader.nextLine();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                Task readTask \u003d parser.convertStringToTask(taskInString);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                if (readTask \u003d\u003d null) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                    hasNullTask \u003d true;"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                } else {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                    taskList.addTask(readTask);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                    Task.incrementPendingTaskCount();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            fileReader.close();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            if (hasNullTask) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                ui.printErrorMessage(\" Duke could not load some of the saved task(s).\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                ui.printMessage(\"Duke successfully loaded all of the saved task(s).\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        } catch (FileNotFoundException exception) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            ui.printMessage(\"No storage file was found, let\u0027s start afresh then.\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        return taskList;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void writeToStorage(TaskList taskList) throws DukeException {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        new File(fileDirectory).mkdirs();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            FileWriter fileWriter \u003d new FileWriter(filePath);"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            for (Task task : taskList.getTaskList()) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "                fileWriter.write(task.toFileFormatString() + System.lineSeparator());"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            fileWriter.close();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        } catch (IOException exception) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            throw new DukeException(\" Duke couldn\u0027t write the task to file :(.\");"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "OngDeZhi": 69
     }
   },
   {
@@ -3485,24 +3767,31 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public String toFileFormatString() {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return \"D\" + super.toFileFormatString() + FILE_FORMAT_DELIMITER + by;"
+        "content": "    public String toFileFormatString() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        return \"D\" + super.toFileFormatString() + FILE_FORMAT_DELIMITER + by;"
       },
       {
         "lineNumber": 19,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -3510,7 +3799,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 19
+      "OngDeZhi": 20
     }
   },
   {
@@ -3627,24 +3916,31 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public String toFileFormatString() {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return \"E\" + super.toFileFormatString() + FILE_FORMAT_DELIMITER + at;"
+        "content": "    public String toFileFormatString() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        return \"E\" + super.toFileFormatString() + FILE_FORMAT_DELIMITER + at;"
       },
       {
         "lineNumber": 19,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -3652,7 +3948,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 19
+      "OngDeZhi": 20
     }
   },
   {
@@ -4043,6 +4339,232 @@
     }
   },
   {
+    "path": "src/main/java/duke/task/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    private final ArrayList\u003cTask\u003e taskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public int getSize() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        return taskList.size();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public Task getTask(int taskIndex) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        return taskList.get(taskIndex);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTaskList() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        return taskList;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void addTask(Task newTask) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        taskList.add(newTask);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void deleteTask(int deleteTaskIndex) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        taskList.remove(deleteTaskIndex);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "OngDeZhi": 31
+    }
+  },
+  {
     "path": "src/main/java/duke/task/Todo.java",
     "fileType": "java",
     "lines": [
@@ -4135,24 +4657,31 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    public String toFileFormatString() {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "        return \"T\" + super.toFileFormatString();"
+        "content": "    public String toFileFormatString() {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "    }"
+        "content": "        return \"T\" + super.toFileFormatString();"
       },
       {
         "lineNumber": 16,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -4160,7 +4689,261 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 16
+      "OngDeZhi": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/ui/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "package duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    private static final Scanner CONSOLE \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    private static final String HORIZONTAL_LINE \u003d"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "            \"____________________________________________________________\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void printHorizontalLine() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        System.out.println(HORIZONTAL_LINE);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void printMessage(String message) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        System.out.println(\" \" + message);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void printErrorMessage(String errorMessage) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        System.out.println(\" ☹ OOPS!!!\" + errorMessage);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public String readUserInput() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        System.out.print(System.lineSeparator() + \" \u003e\u003e \");"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        String userInput \u003d CONSOLE.nextLine();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        return userInput;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    public void printWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        printMessage(\"Hello! I\u0027m Duke.\");"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        printMessage(\"How can I help you today?\");"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "        printHorizontalLine();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "OngDeZhi": 35
     }
   },
   {
@@ -4340,80 +5123,115 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "list"
+        "content": "done a"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "done a"
+        "content": "done 0"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "done 0"
+        "content": "done 100"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "done 100"
+        "content": "delete a"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "list"
+        "content": "delete 0"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "bye 123"
+        "content": "delete 100"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "bye 123 /at "
+        "content": "bye 123"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "list 123"
+        "content": "bye 123 /at "
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "list 123 /at"
+        "content": "list 123"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "done 7"
+        "content": "list 123 /at"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "list"
+        "content": "done 7"
       },
       {
         "lineNumber": 36,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "delete 1"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "delete 5"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "done 3"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "done 5"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "OngDeZhi"
+        },
+        "content": "list"
+      },
+      {
+        "lineNumber": 41,
         "author": {
           "gitId": "OngDeZhi"
         },
@@ -4421,7 +5239,7 @@
       }
     ],
     "authorContributionMap": {
-      "OngDeZhi": 36
+      "OngDeZhi": 41
     }
   },
   {
@@ -4496,7 +5314,7 @@
         "author": {
           "gitId": "OngDeZhi"
         },
-        "content": "javac -cp ..\\src\\main\\java -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\Duke.java ..\\src\\main\\java\\duke\\command\\*.java ..\\src\\main\\java\\duke\\exception\\*.java ..\\src\\main\\java\\duke\\parser\\*.java ..\\src\\main\\java\\duke\\task\\*.java"
+        "content": "javac -cp ..\\src\\main\\java -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\Duke.java"
       },
       {
         "lineNumber": 11,
