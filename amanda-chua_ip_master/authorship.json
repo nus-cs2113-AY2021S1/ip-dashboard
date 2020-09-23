@@ -15,28 +15,422 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class AddCommand extends Command {"
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    protected static String cmd;"
+        "content": "import java.time.format.DateTimeParseException;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * Handles adding tasks to the TaskList."
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class AddCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected static String cmd;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
         "content": "    protected static String details;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public AddCommand(String s, String d) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        cmd \u003d s;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        details \u003d d;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Adds a task to the taskList based on command and"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * calls Ui to print add message."
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param t TaskList"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param u Ui"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s Storage"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        Task task \u003d new Task(\"null\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        if (cmd.equals(\"todo\")) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            task \u003d new ToDo(details);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            t.taskList.add(task);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else if (cmd.equals(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String date \u003d details.split(\"/by \")[1];"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String description \u003d details.split(\"/by \")[0];"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            LocalDate dateFromString \u003d LocalDate.parse(date);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String localDate \u003d dateFromString.format(DateTimeFormatter.ofPattern(\"MMM dd yyyy\"));"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            task \u003d new Deadline(description, localDate);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            t.taskList.add(task);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else if (cmd.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String time \u003d details.split(\"/at \")[1];"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String description \u003d details.split(\"/at \")[0];"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            task \u003d new Event(description, time);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            t.taskList.add(task);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            String text \u003d task.getType() + \" | 0 | \" + task.getFullDescription() + \"\\n\";"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            s.writeTaskToFile(true, text, t);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            System.out.println(\"Something went wrong\");"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        u.addOutput(task.toString(), t.taskList.size());"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 55
+    }
+  },
+  {
+    "path": "src/main/java/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * Abstract Command class for Command objects."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected static boolean isExit;"
       },
       {
         "lineNumber": 6,
@@ -50,21 +444,184 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public AddCommand(String s, String d) {"
+        "content": "    public Command() {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        cmd \u003d s;"
+        "content": "        isExit \u003d false;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        details \u003d d;"
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * For Commands execution."
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param t TaskList"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param u Ui"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s Storage"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public abstract void execute(TaskList t, Ui u, Storage s);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static boolean isExit() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return isExit;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 22
+    }
+  },
+  {
+    "path": "src/main/java/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * For creating Deadline objects."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected String by;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public Deadline(String description, String by) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        this.by \u003d by;"
       },
       {
         "lineNumber": 10,
@@ -85,119 +642,119 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "    /**"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+        "content": "     * Returns type of Task object."
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        Task task \u003d new Task(\"null\");"
+        "content": "     * @return task type."
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        if (cmd.equals(\"todo\")) {"
+        "content": "     */"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            task \u003d new ToDo(details);"
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            t.taskList.add(task);"
+        "content": "    public String getType() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (cmd.equals(\"deadline\")) {"
+        "content": "        return \"D\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String date \u003d details.split(\"/by \")[1];"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String description \u003d details.split(\"/by \")[0];"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            task \u003d new Deadline(description, date);"
+        "content": "    /**"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            t.taskList.add(task);"
+        "content": "     * Returns text to File."
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (cmd.equals(\"event\")) {"
+        "content": "     * @return Deadline task information to File."
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String time \u003d details.split(\"/at \")[1];"
+        "content": "     */"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String description \u003d details.split(\"/at \")[0];"
+        "content": "    @Override"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            task \u003d new Event(description, time);"
+        "content": "    public String getFullDescription() {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            t.taskList.add(task);"
+        "content": "        return description + \" | \" + by;"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 29,
@@ -211,351 +768,67 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        try {"
+        "content": "    /**"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String text \u003d task.getType() + \" | 0 | \" + task.getFullDescription() + \"\\n\";"
+        "content": "     * Returns format of output shown to user after adding task."
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            s.writeTaskToFile(true, text, t);"
+        "content": "     * @return Deadline task information to be shown in list."
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "     */"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            System.out.println(\"Something went wrong\");"
+        "content": "    @Override"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        u.addOutput(task.toString(), t.taskList.size());"
+        "content": "    }"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "amanda-chua"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 40
-    }
-  },
-  {
-    "path": "src/main/java/Command.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "public abstract class Command {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected static boolean isExit;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public Command() {"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        isExit \u003d false;"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public abstract void execute(TaskList t, Ui u, Storage s);"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public static boolean isExit() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return isExit;"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "amanda-chua": 13
-    }
-  },
-  {
-    "path": "src/main/java/Deadline.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "public class Deadline extends Task {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected String by;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public Deadline(String description, String by) {"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        this.by \u003d by;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String getType() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return \"D\";"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String getFullDescription() {"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return description + \" | \" + by;"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "amanda-chua": 23
+      "amanda-chua": 38
     }
   },
   {
@@ -581,129 +854,199 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class DeleteCommand extends Command {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    protected static int delete;"
+        "content": " * Handles the delete command."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public DeleteCommand(int d) {"
+        "content": "public class DeleteCommand extends Command {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        delete \u003d d;"
+        "content": "    protected static int delete;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    public DeleteCommand(int d) {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "        delete \u003d d;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        Task task \u003d t.taskList.get(delete);"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        t.taskList.remove(delete);"
+        "content": "    /**"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        try {"
+        "content": "     * Deletes a task from the taskList and"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            s.writeTaskToFile(false, \"\", t);"
+        "content": "     * calls Ui to print delete message."
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "     * @param t TaskList"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            u.showError(e.getMessage());"
+        "content": "     * @param u Ui"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "     * @param s Storage"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        u.deleteOutput(task.toString(), t.taskList.size());"
+        "content": "     */"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        Task task \u003d t.taskList.get(delete);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        t.taskList.remove(delete);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            s.writeTaskToFile(false, \"\", t);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            u.showError(e.getMessage());"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        u.deleteOutput(task.toString(), t.taskList.size());"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -711,7 +1054,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 21
+      "amanda-chua": 31
     }
   },
   {
@@ -737,129 +1080,199 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class DoneCommand extends Command {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    protected static int done;"
+        "content": " * Handles the done command."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public DoneCommand(int d) {"
+        "content": "public class DoneCommand extends Command {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        done \u003d d;"
+        "content": "    protected static int done;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    public DoneCommand(int d) {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "        done \u003d d;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        Task task \u003d t.taskList.get(done);"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        task.markDone();"
+        "content": "    /**"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        try {"
+        "content": "     * Marks a task as done from the taskList and"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            s.writeTaskToFile(false, \"\", t);"
+        "content": "     * calls Ui to print done message."
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "     * @param t TaskList"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            u.showError(e.getMessage());"
+        "content": "     * @param u Ui"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "     * @param s Storage"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        u.doneOutput(task.toString());"
+        "content": "     */"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        Task task \u003d t.taskList.get(done);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        task.markDone();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            s.writeTaskToFile(false, \"\", t);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            u.showError(e.getMessage());"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        u.doneOutput(task.toString());"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -867,7 +1280,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 21
+      "amanda-chua": 31
     }
   },
   {
@@ -893,262 +1306,276 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
-          "gitId": "-"
+          "gitId": "amanda-chua"
         },
-        "content": "public class Duke {"
+        "content": " * Handles the main logic of the program."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    private static Storage storage;"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
-          "gitId": "amanda-chua"
+          "gitId": "-"
         },
-        "content": "    private static TaskList tasks;"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    private static Ui ui;"
+        "content": "    private static Storage storage;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    private static TaskList tasks;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public Duke(String filePath) {"
+        "content": "    private static Ui ui;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        ui \u003d new Ui();"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        storage \u003d new Storage(filePath);"
+        "content": "    public Duke(String filePath) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        try {"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            tasks \u003d new TaskList(storage.convertTextToTaskList());"
+        "content": "        storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "        try {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            ui.showLoadingError();"
+        "content": "            tasks \u003d new TaskList(storage.convertTextToTaskList());"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            tasks \u003d new TaskList();"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "            ui.showLoadingError();"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "            tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public void run() {"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        ui.showWelcome();"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        boolean isExit \u003d false;"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        while (!isExit) {"
+        "content": "        ui.showWelcome();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            try {"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                String fullCommand \u003d ui.readCommand();"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                Command c \u003d Parser.parse(fullCommand);"
+        "content": "            try {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                c.execute(tasks, ui, storage);"
+        "content": "                String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                isExit \u003d c.isExit();"
+        "content": "                Command c \u003d Parser.parse(fullCommand);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            } catch (DukeException e) {"
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                ui.showError(e.getMessage());"
+        "content": "                isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            } finally {"
+        "content": "            } catch (DukeException e) {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                ui.showLine();"
+        "content": "                ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            }"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "                ui.showLine();"
       },
       {
         "lineNumber": 35,
         "author": {
-          "gitId": "-"
+          "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "            }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "-"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "    }"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        new Duke(\"taskList.txt\").run();"
+        "content": ""
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "-"
         },
-        "content": "    }"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 40,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        new Duke(\"taskList.txt\").run();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
         "author": {
           "gitId": "-"
         },
@@ -1156,7 +1583,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 35,
+      "amanda-chua": 37,
       "-": 5
     }
   },
@@ -1169,86 +1596,42 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class DukeException extends Exception{"
+        "content": "/**"
       },
       {
         "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * Handles exceptions of the program."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class DukeException extends Exception{"
+      },
+      {
+        "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    public DukeException(String s) {"
       },
       {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        super(s);"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "amanda-chua": 5
-    }
-  },
-  {
-    "path": "src/main/java/Event.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "public class Event extends Task{"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected String time;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public Event(String description, String time) {"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        super(description);"
-      },
-      {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        this.time \u003d time;"
+        "content": "        super(s);"
       },
       {
         "lineNumber": 7,
@@ -1262,115 +1645,285 @@
         "author": {
           "gitId": "amanda-chua"
         },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 8
+    }
+  },
+  {
+    "path": "src/main/java/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * For creating Event objects."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class Event extends Task{"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected String time;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "amanda-chua"
+        },
         "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public Event(String description, String time) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        super(description);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "        this.time \u003d time;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public String getType() {"
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        return \"E\";"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "    /**"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "     * Returns type of Task object."
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "     * @return task type."
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public String getFullDescription() {"
+        "content": "     */"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        return description + \" | \" + time;"
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "    public String getType() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "        return \"E\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public String toString() {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        return \"[E]\" + super.toString() + \" (at: \" + time + \")\";"
+        "content": "    /**"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "     * Returns text to File."
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "     * @return Event task information to File."
       },
       {
         "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String getFullDescription() {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return description + \" | \" + time;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns format of output shown to user after adding task."
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return Event task information to be shown in list."
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return \"[E]\" + super.toString() + \" (at: \" + time + \")\";"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -1378,7 +1931,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 24
+      "amanda-chua": 39
     }
   },
   {
@@ -1390,35 +1943,191 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class ExitCommand extends Command{"
+        "content": "/**"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " * Handles the exit command."
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public ExitCommand() {"
+        "content": " */"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        super();"
+        "content": "public class ExitCommand extends Command{"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public ExitCommand() {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        super();"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
         "content": "        isExit \u003d true;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Calls Ui to print exit message."
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param t TaskList"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param u Ui"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s Storage"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        u.exitLine();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 21
+    }
+  },
+  {
+    "path": "src/main/java/FindCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class FindCommand extends Command {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected static String keyword;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public FindCommand(String s) {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        keyword \u003d s;"
       },
       {
         "lineNumber": 6,
@@ -1453,7 +2162,7 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        u.exitLine();"
+        "content": "        u.findMatchMessage(t.contains(keyword));"
       },
       {
         "lineNumber": 11,
@@ -1483,45 +2192,108 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class ListCommand extends Command {"
+        "content": "/**"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " * Handles the list command."
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    @Override"
+        "content": " */"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+        "content": "public class ListCommand extends Command {"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        u.list(t);"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "    /**"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Calls Ui to print TaskList."
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param t TaskList"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param u Ui"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s Storage"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void execute(TaskList t, Ui u, Storage s) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        u.list(t);"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -1529,7 +2301,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 7
+      "amanda-chua": 16
     }
   },
   {
@@ -1541,269 +2313,353 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class Parser {"
+        "content": "/**"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " * Handles parsing of user input"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static Command parse(String input) throws DukeException {"
+        "content": " */"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        String[] array \u003d input.split(\" \", 2);"
+        "content": "public class Parser {"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        String cmd \u003d array[0];"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        int noOfWords \u003d array.length;"
+        "content": "    /**"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        Command c \u003d null;"
+        "content": "     * Parses user input and recognises what type of command"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        boolean addTaskCmd \u003d cmd.equals(\"todo\") || cmd.equals(\"event\") || cmd.equals(\"deadline\");"
+        "content": "     * the user is looking for"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "     * @param input String representing user input"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        if (!cmd.equals(\"todo\") \u0026\u0026 !cmd.equals(\"deadline\") \u0026\u0026 !cmd.equals(\"event\") \u0026\u0026 !cmd.equals(\"bye\") \u0026\u0026 !cmd.equals(\"list\") \u0026\u0026 !cmd.equals(\"done\") \u0026\u0026 !cmd.equals(\"delete\")) {"
+        "content": "     * @return new Command object based on what the user input is"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            throw new DukeException(\"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\\n\");"
+        "content": "     * @throws DukeException if the user\u0027s input is not recognised"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (addTaskCmd \u0026\u0026 (noOfWords \u003d\u003d 1)) {"
+        "content": "     */"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" description cannot be empty.\\n\");"
+        "content": "    public static Command parse(String input) throws DukeException {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else {"
+        "content": "        String[] array \u003d input.split(\" \", 2);"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            if (cmd.equals(\"event\") \u0026\u0026 !input.contains(\"/at\")) {"
+        "content": "        String cmd \u003d array[0];"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" time cannot be empty.\\n\");"
+        "content": "        int noOfWords \u003d array.length;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            } else if (cmd.equals(\"deadline\") \u0026\u0026 !input.contains(\"/by\")) {"
+        "content": "        Command c \u003d null;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" date cannot be empty.\\n\");"
+        "content": "        boolean addTaskCmd \u003d cmd.equals(\"todo\") || cmd.equals(\"event\") || cmd.equals(\"deadline\");"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            }"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "        if (!cmd.equals(\"todo\") \u0026\u0026 !cmd.equals(\"deadline\") \u0026\u0026 !cmd.equals(\"event\") \u0026\u0026 !cmd.equals(\"bye\") \u0026\u0026 !cmd.equals(\"list\") \u0026\u0026 !cmd.equals(\"done\") \u0026\u0026 !cmd.equals(\"delete\") \u0026\u0026 !cmd.equals(\"find\")) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "            throw new DukeException(\"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\\n\");"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        if (cmd.equals(\"done\")) {"
+        "content": "        } else if ((addTaskCmd || cmd.equals(\"find\")) \u0026\u0026 (noOfWords \u003d\u003d 1)) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            int taskNo \u003d Integer.parseInt(input.substring(5));"
+        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" description cannot be empty.\\n\");"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            c \u003d new DoneCommand(taskNo- 1);"
+        "content": "        } else {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (addTaskCmd) {"
+        "content": "            if (cmd.equals(\"event\") \u0026\u0026 !input.contains(\"/at\")) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            c \u003d new AddCommand(cmd, array[1].trim());"
+        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" time cannot be empty.\\n\");"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (cmd.equals(\"delete\")) {"
+        "content": "            } else if (cmd.equals(\"deadline\") \u0026\u0026 !input.contains(\"/by\")) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            int taskNo \u003d Integer.parseInt(input.substring(7));"
+        "content": "                throw new DukeException(\"☹ OOPS!!! The \" + cmd + \" date cannot be empty.\\n\");"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            c \u003d new DeleteCommand(taskNo- 1);"
+        "content": "            }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else if (cmd.toLowerCase().equals(\"list\")) {"
+        "content": "        }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            c \u003d new ListCommand();"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } else {"
+        "content": "        if (cmd.equals(\"done\")) {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            if (cmd.equals(\"bye\")) {"
+        "content": "            int taskNo \u003d Integer.parseInt(input.substring(5));"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                c \u003d new ExitCommand();"
+        "content": "            c \u003d new DoneCommand(taskNo- 1);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            }"
+        "content": "        } else if (addTaskCmd) {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "            c \u003d new AddCommand(cmd, array[1].trim());"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        return c;"
+        "content": "        } else if (cmd.equals(\"delete\")) {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "            int taskNo \u003d Integer.parseInt(input.substring(7));"
       },
       {
         "lineNumber": 39,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            c \u003d new DeleteCommand(taskNo- 1);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else if (cmd.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            c \u003d new ListCommand();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else if (cmd.equals(\"find\")) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            c \u003d new FindCommand(array[1].trim());"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            if (cmd.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                c \u003d new ExitCommand();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return c;"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -1811,7 +2667,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 39
+      "amanda-chua": 51
     }
   },
   {
@@ -1872,280 +2728,863 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class Storage {"
+        "content": "/**"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    protected static String filepath;"
+        "content": " * Handles storage of tasks in File."
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " */"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public Storage(String filepath) {"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        this.filepath \u003d filepath;"
+        "content": "    protected static String filepath;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    public Storage(String filepath) {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static ArrayList\u003cTask\u003e convertTextToTaskList() throws FileNotFoundException {"
+        "content": "        this.filepath \u003d filepath;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "    }"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            File f \u003d new File(filepath);"
+        "content": "    /**"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            f.createNewFile();"
+        "content": "     * Creates new File if File does not exist then"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "     * loads Tasks into the TaskList using details from File."
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            Ui.showError(e.getMessage());"
+        "content": "     * @return ArrayList to be used to create a new TaskList."
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "     * @throws FileNotFoundException if File is not found."
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        File f \u003d new File(filepath);"
+        "content": "     */"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        Scanner sc \u003d new Scanner(f);"
+        "content": "    public static ArrayList\u003cTask\u003e convertTextToTaskList() throws FileNotFoundException {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        while (sc.hasNext()) {"
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String input \u003d sc.nextLine();"
+        "content": "        try {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String[] taskInfo \u003d input.split(\" \\\\| \");"
+        "content": "            File f \u003d new File(filepath);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            Task convertedTask;"
+        "content": "            f.createNewFile();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String type \u003d taskInfo[0];"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            int status \u003d Integer.parseInt(taskInfo[1]);"
+        "content": "            Ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            String description \u003d taskInfo[2];"
+        "content": "        }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            if (type.equals(\"T\")) {"
+        "content": "        File f \u003d new File(filepath);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                convertedTask \u003d new ToDo(description);"
+        "content": "        Scanner sc \u003d new Scanner(f);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            } else {"
+        "content": "        while (sc.hasNext()) {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                String time \u003d taskInfo[3];"
+        "content": "            String input \u003d sc.nextLine();"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                if (type.equals(\"E\")) {"
+        "content": "            String[] taskInfo \u003d input.split(\" \\\\| \");"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                    convertedTask \u003d new Event(description, time);"
+        "content": "            Task convertedTask;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                } else {"
+        "content": "            String type \u003d taskInfo[0];"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                    convertedTask \u003d new Deadline(description, time);"
+        "content": "            int status \u003d Integer.parseInt(taskInfo[1]);"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                }"
+        "content": "            String description \u003d taskInfo[2];"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            }"
+        "content": "            if (type.equals(\"T\")) {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            if (status \u003d\u003d 1) {"
+        "content": "                convertedTask \u003d new ToDo(description);"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                convertedTask.markDone();"
+        "content": "            } else {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            }"
+        "content": "                String time \u003d taskInfo[3];"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "            tasks.add(convertedTask);"
+        "content": "                if (type.equals(\"E\")) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        }"
+        "content": "                    convertedTask \u003d new Event(description, time);"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "amanda-chua"
         },
+        "content": "                } else {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                    convertedTask \u003d new Deadline(description, time);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            if (status \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                convertedTask.markDone();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            tasks.add(convertedTask);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "amanda-chua"
+        },
         "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Writes data into the txt file whenever the task list changes"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param append Boolean to show if File can be appended"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s task to be updated."
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param t TaskList."
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @throws IOException if there is an error."
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void writeTaskToFile(boolean append, String s, TaskList t) throws IOException {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        FileWriter fileWriter;"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        if (!append) {"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            fileWriter \u003d new FileWriter(filepath);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            StringBuilder tasks \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            for (Task taskToAdd : t.taskList) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                int status \u003d taskToAdd.isDone ? 1 : 0;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                tasks.append(taskToAdd.getType()).append(\" | \").append(status).append(\" | \").append(taskToAdd.getFullDescription()).append(\"\\n\");"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            fileWriter.write(tasks.toString());"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            fileWriter \u003d new FileWriter(filepath, true);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            fileWriter.append(s);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        fileWriter.close();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "} "
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 82
+    }
+  },
+  {
+    "path": "src/main/java/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * For creating Task objects."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns done status of Task."
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return done status of Task."
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return (isDone ? \"Y\" : \"N\");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public void markDone() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns Task type."
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return null Task type."
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String getType() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return \"null\";"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns Task description."
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return description of task."
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String getFullDescription() {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns format of output shown to user after adding task."
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return task information to be shown in list."
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return \"[\" + this.getStatusIcon() + \"] \" + this.description;"
       },
       {
         "lineNumber": 48,
@@ -2166,349 +3605,11 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void writeTaskToFile(boolean append, String s, TaskList t) throws IOException {"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        FileWriter fileWriter;"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        if (!append) {"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            fileWriter \u003d new FileWriter(filepath);"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            StringBuilder tasks \u003d new StringBuilder();"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            for (Task taskToAdd : t.taskList) {"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                int status \u003d taskToAdd.isDone ? 1 : 0;"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                tasks.append(taskToAdd.getType()).append(\" | \").append(status).append(\" | \").append(taskToAdd.getFullDescription()).append(\"\\n\");"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            fileWriter.write(tasks.toString());"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            fileWriter \u003d new FileWriter(filepath, true);"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            fileWriter.append(s);"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        fileWriter.close();"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "} "
-      }
-    ],
-    "authorContributionMap": {
-      "amanda-chua": 66
-    }
-  },
-  {
-    "path": "src/main/java/Task.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "public class Task {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected String description;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected boolean isDone;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public Task(String description) {"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        this.description \u003d description;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        this.isDone \u003d false;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String getStatusIcon() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return (isDone ? \"Y\" : \"N\");"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public void markDone() {"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        this.isDone \u003d true;"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String getType() {"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return \"null\";"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String getFullDescription() {"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return description;"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return \"[\" + this.getStatusIcon() + \"] \" + this.description;"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "amanda-chua"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 31
+      "amanda-chua": 50
     }
   },
   {
@@ -2534,73 +3635,164 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class TaskList {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    protected static ArrayList\u003cTask\u003e taskList;"
+        "content": " * Handles storing Tasks in an ArrayList."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public TaskList() {"
+        "content": "public class TaskList {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        this.taskList \u003d new ArrayList\u003c\u003e();"
+        "content": "    protected static ArrayList\u003cTask\u003e taskList;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    public TaskList() {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public TaskList(ArrayList\u003cTask\u003e l) {"
+        "content": "        this.taskList \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        this.taskList \u003d l;"
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 13,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e l) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        this.taskList \u003d l;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public ArrayList\u003cTask\u003e contains(String keyword) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        ArrayList\u003cTask\u003e result \u003d new ArrayList\u003cTask\u003e();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        for (Task task: taskList) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            if (task.description.contains(keyword)) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                result.add(task);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return result;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -2608,7 +3800,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 13
+      "amanda-chua": 26
     }
   },
   {
@@ -2620,289 +3812,168 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "public class ToDo extends Task {"
+        "content": "/**"
       },
       {
         "lineNumber": 2,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " * For creating objects to do."
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    public ToDo(String description) {"
       },
       {
-        "lineNumber": 3,
+        "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "        super(description);"
       },
       {
-        "lineNumber": 4,
+        "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 5,
+        "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": ""
       },
       {
-        "lineNumber": 6,
+        "lineNumber": 9,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Returns type of Task object."
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return task type."
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    @Override"
       },
       {
-        "lineNumber": 7,
+        "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    public String getType() {"
       },
       {
-        "lineNumber": 8,
+        "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "        return \"T\";"
       },
       {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return \"[T]\" + super.toString();"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
         "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "amanda-chua": 16
-    }
-  },
-  {
-    "path": "src/main/java/Ui.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "import java.util.Scanner;"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "public class Ui {"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    protected static Scanner sc;"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public Ui() {"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        sc \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "amanda-chua"
-        },
         "content": "    }"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public static void showWelcome() {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        String logoStart \u003d \"       _____________       \\n\""
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                + \"      /             \\\\     \\n\""
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                + \"  \\\\  /    \u003e      \u003c   \\\\  /\\n\""
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                + \"   \\\\|         *       |/ \\n\""
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                + \"     \\\\               /   \\n\""
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "                + \"      \\\\_____________/    \\n\""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                + \"         ^^     ^^        \\n\";"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"Hello! I\u0027m Duke\");"
+        "content": "    /**"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(logoStart);"
+        "content": "     * Returns format of output shown to user after adding task."
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"What can I do for you?\");"
+        "content": "     * @return task information to be shown in list."
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "     */"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void showLine() {"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"---------------------------------------------------------------------\");"
+        "content": "        return \"[T]\" + super.toString();"
       },
       {
         "lineNumber": 25,
@@ -2923,318 +3994,887 @@
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void showError(String s) {"
-      },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "amanda-chua": 27
+    }
+  },
+  {
+    "path": "src/main/java/Ui.java",
+    "fileType": "java",
+    "lines": [
       {
-        "lineNumber": 28,
+        "lineNumber": 1,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(s);"
+        "content": "import java.util.Scanner;"
       },
       {
-        "lineNumber": 29,
+        "lineNumber": 2,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "import java.util.ArrayList;"
       },
       {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public static String readCommand() {"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        return sc.nextLine();"
-      },
-      {
-        "lineNumber": 33,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 34,
+        "lineNumber": 3,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": ""
       },
       {
-        "lineNumber": 35,
+        "lineNumber": 4,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void showLoadingError() {"
+        "content": "/**"
       },
       {
-        "lineNumber": 36,
+        "lineNumber": 5,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"File not found.\");"
+        "content": " * Handles user interface of Duke."
       },
       {
-        "lineNumber": 37,
+        "lineNumber": 6,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": " */"
       },
       {
-        "lineNumber": 38,
+        "lineNumber": 7,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": ""
+        "content": "public class Ui {"
       },
       {
-        "lineNumber": 39,
+        "lineNumber": 8,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void doneOutput(String str) {"
+        "content": "    protected static Scanner sc;"
       },
       {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\\n \" + str);"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 42,
+        "lineNumber": 9,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": ""
       },
       {
-        "lineNumber": 43,
+        "lineNumber": 10,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void deleteOutput(String str, int size) {"
+        "content": "    public Ui() {"
       },
       {
-        "lineNumber": 44,
+        "lineNumber": 11,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"Noted. I\u0027ve removed this task: \\n   \" + str);"
+        "content": "        sc \u003d new Scanner(System.in);"
       },
       {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        System.out.println(\"Now you have \" + size + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 46,
+        "lineNumber": 12,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 47,
+        "lineNumber": 13,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": ""
       },
       {
-        "lineNumber": 48,
+        "lineNumber": 14,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    public static void addOutput(String str, int size) {"
+        "content": "    /**"
       },
       {
-        "lineNumber": 49,
+        "lineNumber": 15,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task:\\n \" + str);"
+        "content": "     * Prints welcome message."
       },
       {
-        "lineNumber": 50,
+        "lineNumber": 16,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"---------------------------------------------------------------------\");"
+        "content": "     */"
       },
       {
-        "lineNumber": 51,
+        "lineNumber": 17,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"Now you have \" + size + \" tasks in the list!\");"
+        "content": "    public static void showWelcome() {"
       },
       {
-        "lineNumber": 52,
+        "lineNumber": 18,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "    }"
+        "content": "        String logoStart \u003d \"       _____________       \\n\""
       },
       {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public static void list(TaskList tl) {"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        for (int i \u003d 0; i \u003c tl.taskList.size(); i++) {"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "            System.out.println((i+1) + \". \" + tl.taskList.get(i).toString());"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "    public static void exitLine() {"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "amanda-chua"
-        },
-        "content": "        String logoEnd \u003d \"       _____________       \\n\""
-      },
-      {
-        "lineNumber": 63,
+        "lineNumber": 19,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "                + \"      /             \\\\     \\n\""
       },
       {
-        "lineNumber": 64,
+        "lineNumber": 20,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                + \"     /    x      x   \\\\   \\n\""
+        "content": "                + \"  \\\\  /    \u003e      \u003c   \\\\  /\\n\""
       },
       {
-        "lineNumber": 65,
+        "lineNumber": 21,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                + \"  /\\\\|         ~       |/\\\\ \\n\""
+        "content": "                + \"   \\\\|         *       |/ \\n\""
       },
       {
-        "lineNumber": 66,
+        "lineNumber": 22,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "                + \"     \\\\               /   \\n\""
       },
       {
-        "lineNumber": 67,
+        "lineNumber": 23,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                + \"   ~  \\\\_____________/    \\n\""
+        "content": "                + \"      \\\\_____________/    \\n\""
       },
       {
-        "lineNumber": 68,
+        "lineNumber": 24,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "                + \"  ~      ^^     ^^        \\n\";"
+        "content": "                + \"         ^^     ^^        \\n\";"
       },
       {
-        "lineNumber": 69,
+        "lineNumber": 25,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(logoEnd);"
+        "content": "        System.out.println(\"Hello! I\u0027m Duke\");"
       },
       {
-        "lineNumber": 70,
+        "lineNumber": 26,
         "author": {
           "gitId": "amanda-chua"
         },
-        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+        "content": "        System.out.println(logoStart);"
       },
       {
-        "lineNumber": 71,
+        "lineNumber": 27,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 28,
         "author": {
           "gitId": "amanda-chua"
         },
         "content": "    }"
       },
       {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints out the divider that is to be used for each output"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void showLine() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"---------------------------------------------------------------------\");"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints out the errorMessage directly"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param s String to be printed"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void showError(String s) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(s);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Reads user input"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @return the user input"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static String readCommand() {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        return sc.nextLine();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints out the error message"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void showLoadingError() {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"File not found.\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints message when a task is marked done."
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param str String representing Task marked done."
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void doneOutput(String str) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\\n \" + str);"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints message when a task is deleted."
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param str String representing Task deleted."
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param size integer representing remaining size of the TaskList."
+      },
+      {
         "lineNumber": 72,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void deleteOutput(String str, int size) {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Noted. I\u0027ve removed this task: \\n   \" + str);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Now you have \" + size + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints message when a task is added."
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param str String representing Task added."
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param size integer representing size of the TaskList."
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void addOutput(String str, int size) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Got it. I\u0027ve added this task:\\n \" + str);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"---------------------------------------------------------------------\");"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Now you have \" + size + \" tasks in the list!\");"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints the list of all Tasks in the TaskList."
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * @param tl Current TaskList."
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void list(TaskList tl) {"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Here are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        for (int i \u003d 0; i \u003c tl.taskList.size(); i++) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            System.out.println((i+1) + \". \" + tl.taskList.get(i).toString());"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     * Prints exit message."
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void findMatchMessage(ArrayList\u003cTask\u003e result) {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        if (result.size() !\u003d 0) {"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            System.out.println(\"Here are the matching tasks in your list:\");"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            for (int i \u003d 0; i \u003c result.size(); i++) {"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                System.out.println(\" \" + (i+1) + \". \" + result.get(i).toString());"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "            System.out.println(\"Sorry, no match found.\");"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    "
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    public static void exitLine() {"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        String logoEnd \u003d \"       _____________       \\n\""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"      /             \\\\     \\n\""
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"     /    x      x   \\\\   \\n\""
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"  /\\\\|         ~       |/\\\\ \\n\""
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"     \\\\               /   \\n\""
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"   ~  \\\\_____________/    \\n\""
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "                + \"  ~      ^^     ^^        \\n\";"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(logoEnd);"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "amanda-chua"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 125,
         "author": {
           "gitId": "amanda-chua"
         },
@@ -3242,7 +4882,7 @@
       }
     ],
     "authorContributionMap": {
-      "amanda-chua": 72
+      "amanda-chua": 125
     }
   },
   {

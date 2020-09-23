@@ -192,6 +192,1779 @@
     }
   },
   {
+    "path": "src/main/java/Duke/Commands/AddCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.NoDueTimeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.NoEventTimeException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.StorageOperationException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Represents the command for adding tasks into the task list."
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class AddCommand extends Command {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String taskType;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String details;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Initializes type of task and details of task."
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public AddCommand(String typeTask, String details) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.taskType \u003d typeTask;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.details \u003d details;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Adds a task into the task list."
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws NoEventTimeException if the user didn\u0027t state the event time of an event."
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws NoDueTimeException if the user didn\u0027t state the due time of a deadline."
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) throws NoEventTimeException,"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            NoDueTimeException, StorageOperationException {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String[] words;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        switch(taskType) {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"todo\":"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            tasklist.addTodo(details);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            ui.showAdd(tasklist);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"event\":"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            if (!details.matches(\"(.*)/at(.*)\") || details.matches(\"(.*)/at\")) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                throw new NoEventTimeException();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            words \u003d details.split(\"/at\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            tasklist.addEvent(words[0], words[1]);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            ui.showAdd(tasklist);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"deadline\":"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            if (!details.matches(\"(.*)/by(.*)\") || details.matches(\"(.*)/by\")) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                throw new NoDueTimeException();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            words \u003d details.split(\"/by\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            tasklist.addDeadline(words[0], words[1]);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            ui.showAdd(tasklist);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        storage.save(tasklist);"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 59
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Represents the command that the user wants the program to execute."
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Executes a command."
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Saves task list after a command is executed."
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Throws exceptions if the command is invalid or there is problem saving task list."
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public abstract void execute(TaskList tasklist, Ui ui, Storage storage) throws"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            NoEventTimeException, NoDueTimeException, InvalidDeleteNumberException,"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            EmptyDoneException, EmptyDeleteException, EmptyTaskException,"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            UnsureMeaningException, InvalidDoneNumberException, StorageOperationException,"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            EmptyFindException;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return true if the user wants to end program, false if otherwise."
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Default return value is false, unless the gives the \u0027bye\u0027 command."
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 31
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.InvalidDeleteNumberException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.StorageOperationException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Deletes a task using its last displayed index from the task list."
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String details;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public DeleteCommand(String details) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.details \u003d details;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) throws InvalidDeleteNumberException,"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            StorageOperationException {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int deleteNumber \u003d Integer.parseInt(details) - 1;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if (!(deleteNumber \u003e\u003d 0 \u0026\u0026 deleteNumber \u003c totalTasks)) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new InvalidDeleteNumberException();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ui.showDelete(tasklist, deleteNumber);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasklist.updateDelete(deleteNumber);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        storage.save(tasklist);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 31
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.InvalidDoneNumberException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.StorageOperationException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Marks a task as done using its last displayed index from the task list."
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class DoneCommand extends Command {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String details;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public DoneCommand(String details) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.details \u003d details;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) throws InvalidDoneNumberException,"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            StorageOperationException {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int doneNumber \u003d Integer.parseInt(details) - 1;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if (!(doneNumber \u003e\u003d 0 \u0026\u0026 doneNumber \u003c totalTasks)) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new InvalidDoneNumberException();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasklist.updateDone(doneNumber);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ui.showDone(tasklist, doneNumber);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        storage.save(tasklist);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 31
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Terminates the program."
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class ExitCommand extends Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ui.showGoodbyeMessage();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return true;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 19
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/FindCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class FindCommand extends Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String keyword;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public FindCommand(String keyword) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.keyword \u003d keyword;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d tasklist.findTasks(keyword);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ui.showKeywordList(tasks);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 22
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/IncorrectCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Represents an incorrect command."
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class IncorrectCommand extends Command {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String details;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public IncorrectCommand(String details) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.details \u003d details;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) throws EmptyDoneException,"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            EmptyDeleteException, EmptyTaskException, UnsureMeaningException,"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            EmptyFindException {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        switch(details) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"empty done\":"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new EmptyDoneException();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"empty delete\":"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new EmptyDeleteException();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"empty find\":"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new EmptyFindException();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"empty task\":"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new EmptyTaskException();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"unsure\":"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new UnsureMeaningException();"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 35
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Commands/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Ui;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Storage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Lists all tasks in the task list to the user."
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void execute(TaskList tasklist, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ui.showTaskList(tasklist);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 15
+    }
+  },
+  {
     "path": "src/main/java/Duke/Duke.java",
     "fileType": "java",
     "lines": [
@@ -214,56 +1987,56 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "import Duke.Commands.*;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import java.io.IOException;"
+        "content": "import Duke.Exceptions.*;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import java.util.ArrayList;"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import Duke.Exceptions.*;"
+        "content": "/**"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import Duke.Task.*;"
+        "content": " * Entry point of the application."
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import java.io.File;"
+        "content": " * Initializes the application."
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": " */"
       },
       {
         "lineNumber": 10,
         "author": {
-          "gitId": "xieyaoyue"
+          "gitId": "-"
         },
-        "content": "import java.util.Scanner;"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 11,
@@ -275,170 +2048,170 @@
       {
         "lineNumber": 12,
         "author": {
-          "gitId": "-"
+          "gitId": "xieyaoyue"
         },
-        "content": "public class Duke {"
+        "content": "    private static Ui ui;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "    private static Storage storage;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "    private static TaskList tasklist;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static int totalTasks \u003d 0;"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "    /**"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static final String home \u003d System.getProperty(\"user.home\");"
+        "content": "     * Runs the program until termination."
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static final String dirPath \u003d home + File.separator + \"Documents\" + File.separator + \"CS2113T\";"
+        "content": "     */"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static final String filePath \u003d home + File.separator + \"Documents\" + File.separator + \"CS2113T\""
+        "content": "    private static void run(String[] args) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            + File.separator + \"tasks.txt\";"
+        "content": "        start(args);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "        runCommandLoopUntilExitCommand();"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static void loadFile() {"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        if(!new File(dirPath).exists()) {"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            System.out.println(\"Folder does not exist yet.\");"
+        "content": "    /**"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            File dir \u003d new File(dirPath);"
+        "content": "     * Sets up the required objects and loads data from the storage file."
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            if(dir.mkdir()) {"
+        "content": "     * @param args arguments supplied by the user at program launch."
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                System.out.println(\"New folder is created at this location: \" + dirPath);"
+        "content": "     */"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            } else {"
+        "content": "    private static void start(String[] args) {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                System.out.println(\"Oops! There\u0027s some problem in creating new folder.\");"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            }"
+        "content": "        try {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        }"
+        "content": "            storage \u003d Storage.initializeStorage(args);"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        try {"
+        "content": "            tasklist \u003d storage.load();"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            readFileContents();"
+        "content": "        } catch(DukeException e) {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "            ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            System.out.println(\"File is not found.\");"
+        "content": "            System.exit(0);"
       },
       {
         "lineNumber": 36,
@@ -466,1487 +2239,227 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    private static void readFileContents() throws FileNotFoundException {"
+        "content": "    /**"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        File f \u003d new File(filePath);"
+        "content": "     * Reads the user command and executes it, until the user issues the \u0027bye\u0027 command."
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        try {"
+        "content": "     */"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            if(f.createNewFile()) {"
+        "content": "    private static void runCommandLoopUntilExitCommand() {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                System.out.println(\"New file is created in the folder for storing task list.\");"
+        "content": "        ui.showWelcomeMessage(storage.filepath);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            }"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        } catch(IOException e) {"
+        "content": "        do {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            System.out.println(\"An error has occurred.\");"
+        "content": "            try {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        }"
+        "content": "                String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        Scanner s \u003d new Scanner(f);"
+        "content": "                Command c \u003d Parser.parseCommand(fullCommand);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        while (s.hasNext()) {"
+        "content": "                c.execute(tasklist, ui, storage);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            String thisLine \u003d s.nextLine();"
+        "content": "                isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            String[] words \u003d thisLine.split(\"\\\\|\", 4);"
+        "content": "            } catch (DukeException e) {"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            switch(words[0].trim()) {"
+        "content": "                ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            case \"T\":"
+        "content": "            }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                tasks.add(new Todo(words[2].trim()));"
+        "content": "        } while(!isExit);"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                break;"
+        "content": "    }"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            case \"E\":"
+        "content": ""
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                tasks.add(new Event(words[2].trim(), words[3].trim()));"
+        "content": "    /**"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                break;"
+        "content": "     * Creates the Storage object based on the user-specified file path (if any) or the default storage path."
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            case \"D\":"
+        "content": "     * @param Args arguments supplied by the user at program launch."
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                tasks.add(new Deadline(words[2].trim(), words[3].trim()));"
+        "content": "     * @throws InvalidStorageFilePathException if the target file path is incorrect."
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                break;"
+        "content": "     * @throws StorageOperationException if there some error in creating storage file."
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            default:"
+        "content": "     */"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                System.out.println(\"This line is not added to list:\" + thisLine);"
+        "content": "    private static Storage initializeStorage(String[] Args) throws InvalidStorageFilePathException, StorageOperationException {"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            }"
+        "content": "        boolean isStorageFileSpecifiedByUser \u003d Args.length \u003e 0;"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            if(Integer.parseInt(words[1].trim())\u003d\u003d1) {"
+        "content": "        return isStorageFileSpecifiedByUser? new Storage(Args[0]) : new Storage();"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "                tasks.get(totalTasks).markAsDone();"
+        "content": "    }"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            }"
+        "content": ""
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "            totalTasks++;"
+        "content": "    public static void main(String[] Args) {"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        }"
+        "content": "        run(Args);"
       },
       {
         "lineNumber": 70,
         "author": {
-          "gitId": "xieyaoyue"
+          "gitId": "-"
         },
         "content": "    }"
       },
       {
         "lineNumber": 71,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void saveTaskList() throws IOException {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath);"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        for(int i \u003d 0; i\u003c totalTasks; ++i) {"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            fw.write(tasks.get(i).storeString() + \"\\n\");"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void addTodo(String task) {"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        tasks.add(new Todo(task));"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void addEvent(String task) {"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        String[] words \u003d task.split(\"/at\");"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        tasks.add(new Event(words[0], words[1]));"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void addDeadline(String task) {"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        String[] words \u003d task.split(\"/by\");"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        tasks.add(new Deadline(words[0], words[1]));"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void updateDone(int updateNumber) {"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        tasks.get(updateNumber).markAsDone();"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void updateDelete(int deleteNumber) {"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        tasks.remove(deleteNumber);"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void printList() {"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        if(totalTasks\u003d\u003d0) {"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            System.out.println(\"List is empty.\");"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        for(int taskNumber \u003d 0; taskNumber \u003c totalTasks; taskNumber++) {"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            System.out.println(taskNumber + 1 + \".\" + tasks.get(taskNumber));"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void printDone(int updateNumber) {"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done: \");"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(tasks.get(updateNumber));"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void printDelete(int deleteNumber) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Noted. I\u0027ve removed this task: \");"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(tasks.get(deleteNumber));"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        totalTasks -\u003d 1;"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println((totalTasks\u003d\u003d1)? \"Now you have 1 task in the list.\" : \"Now you have \" + totalTasks + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    private static void printUpdate() {"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \");"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(tasks.get(totalTasks));"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        totalTasks++;"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println((totalTasks\u003d\u003d1)? \"Now you have 1 task in the list.\" : \"Now you have \" + totalTasks + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        String logo \u003d \" ____        _        \\n\""
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(logo);"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        loadFile();"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Hello! I\u0027m Duke.\");"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"What can I do for you?\");"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        String command;"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        String lowerCaseCommand;"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        do {"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            command \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            // remove all unnecessary spaces in input"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            command \u003d command.trim();"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            // input on type of task should be case-insensitive"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            lowerCaseCommand \u003d command.toLowerCase();"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                switch (lowerCaseCommand) {"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                case \"done\":"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    throw new EmptyDoneException();"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                case \"delete\":"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    throw new EmptyDeleteException();"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                case \"todo\": case \"event\": case \"deadline\":"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    throw new EmptyTaskException();"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                continue;"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            if(lowerCaseCommand.equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printList();"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(lowerCaseCommand.startsWith(\"done\")) {"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                String[] words \u003d command.split(\" \");"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                int updateNumber \u003d Integer.parseInt(words[1]) - 1;"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    if (!(updateNumber \u003e\u003d 0 \u0026\u0026 updateNumber \u003c totalTasks)) {"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                        throw new InvalidDoneNumberException();"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    continue;"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                updateDone(updateNumber);"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printDone(updateNumber);"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    saveTaskList();"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(IOException e) {"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(lowerCaseCommand.startsWith(\"delete\")) {"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                String[] words \u003d command.split(\" \");"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                int deleteNumber \u003d Integer.parseInt(words[1]) - 1;"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    if (!(deleteNumber \u003e\u003d 0 \u0026\u0026 deleteNumber \u003c totalTasks)) {"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                        throw new InvalidDeleteNumberException();"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    continue;"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printDelete(deleteNumber);"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                updateDelete(deleteNumber);"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    saveTaskList();"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(IOException e) {"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(lowerCaseCommand.startsWith(\"todo\")) {"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                addTodo(command.substring(5));"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printUpdate();"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    saveTaskList();"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(IOException e) {"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(lowerCaseCommand.startsWith(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                String task \u003d command.substring(9);"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    if (!command.matches(\"(.*)/by(.*)\") || command.matches(\"(.*)/by\")) {"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                        throw new NoDueTimeException();"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(DukeException e) {"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    continue;"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                addDeadline(task);"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printUpdate();"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    saveTaskList();"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(IOException e) {"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(lowerCaseCommand.startsWith(\"event\")) {"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                String task \u003d command.substring(6);"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    if (!command.matches(\"(.*)/at(.*)\") || command.matches(\"(.*)/at\")) {"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                        throw new NoEventTimeException();"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(DukeException e){"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    continue;"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                addEvent(task);"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                printUpdate();"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    saveTaskList();"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(IOException e) {"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            } else if(!lowerCaseCommand.equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                    throw new UnsureMeaningException();"
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                } catch(DukeException ignored) {"
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        } while(!lowerCaseCommand.equals(\"bye\"));"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "xieyaoyue"
-        },
-        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 251,
         "author": {
           "gitId": "-"
         },
@@ -1954,8 +2467,8 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 243,
-      "-": 8
+      "xieyaoyue": 68,
+      "-": 3
     }
   },
   {
@@ -1981,31 +2494,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class DukeException extends Exception {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public DukeException() {"
+        "content": " * Classifies the various exceptions that could occur in the application under \u0027DukeException\u0027."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.print(\"☹ OOPS!!! \");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class DukeException extends Exception {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public DukeException() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        System.out.print(\"☹ OOPS!!! \");"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2013,7 +2547,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
     }
   },
   {
@@ -2039,31 +2573,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class EmptyDeleteException extends DukeException {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public EmptyDeleteException() {"
+        "content": " * Signals that the user didn\u0027t specify which task to delete."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"I\u0027m sorry, but I don\u0027t know which task you want to delete :-(\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class EmptyDeleteException extends DukeException {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"I\u0027m sorry, but I don\u0027t know which task you want to delete :-(\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2071,7 +2626,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
     }
   },
   {
@@ -2097,21 +2652,100 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class EmptyDoneException extends DukeException {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public EmptyDoneException() {"
+        "content": " * Signals that the user didn\u0027t specify which task to mark as done."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"I\u0027m sorry, but I don\u0027t know which task you\u0027ve completed :-(\");"
+        "content": " */"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class EmptyDoneException extends DukeException {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"I\u0027m sorry, but I don\u0027t know which task you\u0027ve completed :-(\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 10
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Exceptions/EmptyFindException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class EmptyFindException extends DukeException {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"I\u0027m sorry, but I don\u0027t know what is your search keyword :-(\";"
       },
       {
         "lineNumber": 6,
@@ -2155,31 +2789,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class EmptyTaskException extends DukeException{"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public EmptyTaskException() {"
+        "content": " * Signals that the user didn\u0027t specify the details of the task."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"The description of a task cannot be empty.\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class EmptyTaskException extends DukeException{"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"The description of a task cannot be empty.\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2187,7 +2842,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
     }
   },
   {
@@ -2213,31 +2868,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class InvalidDeleteNumberException extends DukeException{"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public InvalidDeleteNumberException() {"
+        "content": " * Signals that the user has wrongly declared the index of the task to delete."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"There\u0027s no such task :-(\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class InvalidDeleteNumberException extends DukeException{"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"There\u0027s no such task :-(\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2245,7 +2921,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
     }
   },
   {
@@ -2271,31 +2947,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class InvalidDoneNumberException extends DukeException {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public InvalidDoneNumberException() {"
+        "content": " * Signals that the user has wrongly declared the index of the task to mark as done."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"There\u0027s no such task :-(\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class InvalidDoneNumberException extends DukeException {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"There\u0027s no such task :-(\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2303,7 +3000,86 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Exceptions/InvalidStorageFilePathException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Signals that the given file path does not fulfill the storage filepath constraints."
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class InvalidStorageFilePathException extends DukeException {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"Storage file should end with \u0027.txt\u0027\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 10
     }
   },
   {
@@ -2329,31 +3105,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class NoDueTimeException extends DukeException{"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public NoDueTimeException() {"
+        "content": " * Signals that the user did not specify the due time of a deadline."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"Please specify the due time.\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class NoDueTimeException extends DukeException {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"Please specify the due time.\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2361,7 +3158,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
     }
   },
   {
@@ -2387,31 +3184,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class NoEventTimeException extends DukeException{"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public NoEventTimeException() {"
+        "content": " * Signals that the user did not specify the event time of an event."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"Please specify the event time.\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class NoEventTimeException extends DukeException {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"Please specify the event time.\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2419,7 +3237,121 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Exceptions/StorageOperationException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke.Exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Signals that some error has occurred while creating storage file,"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * or trying to read/write data between the application and the storage file."
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class StorageOperationException extends DukeException {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String errorMessage;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public StorageOperationException(String errorMessage) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.errorMessage \u003d errorMessage;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return errorMessage;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 15
     }
   },
   {
@@ -2445,31 +3377,52 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class UnsureMeaningException extends DukeException {"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public UnsureMeaningException() {"
+        "content": " * Signals that the user has keyed in a command that the application could not understand."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        System.out.println(\"I\u0027m sorry, but I don\u0027t know what that means :-(\");"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "public class UnsureMeaningException extends DukeException {"
       },
       {
         "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getMessage() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2477,7 +3430,1313 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 7
+      "xieyaoyue": 10
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Commands.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Parses user input."
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Parses user input into command for execution."
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @param userInput full user input string."
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return the command based on the user input."
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public static Command parseCommand(String userInput) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        // trims the input of all leading and trailing spaces so that command can be captured accurately"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        userInput \u003d userInput.trim();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        // input on type of task should be case-insensitive"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String lowerCaseInput \u003d userInput.toLowerCase();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        Command c;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        switch (lowerCaseInput) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"done\":"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new IncorrectCommand(\"empty done\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            return c;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"delete\":"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new IncorrectCommand(\"empty delete\");"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            return c;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"find\":"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new IncorrectCommand(\"empty find\");"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            return c;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"todo\":"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"event\":"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        case \"deadline\":"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new IncorrectCommand(\"empty task\");"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            return c;"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String[] words \u003d userInput.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if(lowerCaseInput.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new ListCommand();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"find\")) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new FindCommand(words[1]);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"done\")) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new DoneCommand(words[1]);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"delete\")) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new DeleteCommand(words[1]);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"todo\")) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new AddCommand(\"todo\", words[1]);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"event\")) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new AddCommand(\"event\", words[1]);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(lowerCaseInput.startsWith(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new AddCommand(\"deadline\", words[1]);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else if(!lowerCaseInput.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new IncorrectCommand(\"unsure\");"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            c \u003d new ExitCommand();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return c;"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 62
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Exceptions.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Represents the file used to store task list data."
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String HOME \u003d System.getProperty(\"user.home\");"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String DEFAULT_FILEPATH \u003d HOME + File.separator + \"Documents\""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            + File.separator + \"CS2113T\" + File.separator + \"tasks.txt\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String filepath;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws InvalidStorageFilePathException if the default file path is invalid"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws StorageOperationException if there is error in creating the storage file"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public Storage() throws InvalidStorageFilePathException, StorageOperationException {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this(DEFAULT_FILEPATH);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws InvalidStorageFilePathException if the given file path is invalid"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws StorageOperationException if there is error in creating the storage file"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public Storage(String filePath) throws InvalidStorageFilePathException, StorageOperationException {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.filepath \u003d filePath;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if(!isValidPath(filePath)) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new InvalidStorageFilePathException();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            File file \u003d new File(filepath);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            boolean hasParent \u003d file.getParentFile() !\u003d null;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            if(hasParent) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                file.getParentFile().mkdir();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            file.createNewFile();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } catch(IOException e) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new StorageOperationException(\"Error creating file: \" + filepath);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * File path is considered valid if it ends with \u0027.txt\u0027"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Returns true if the given path is acceptable as a storage file."
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static boolean isValidPath(String filePath) {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return filePath.endsWith(\".txt\");"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return task list data loaded from the storage file."
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws StorageOperationException if storage file is not found."
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public TaskList load() throws StorageOperationException {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        TaskList tasks;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks \u003d decodeFile();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Decodes the storage file and stores data into a new task list"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return task list with the stored data"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws StorageOperationException if storage file is not found"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private TaskList decodeFile() throws StorageOperationException {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        File f \u003d new File(filepath);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        TaskList tasklist \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            Scanner s \u003d new Scanner(f);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            int totalTasks \u003d 0;"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                String thisLine \u003d s.nextLine();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                String[] words \u003d thisLine.split(\"\\\\|\", 4);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                switch (words[0].trim()) {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                case \"T\":"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    tasklist.addTodo(words[2].trim());"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                case \"E\":"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    tasklist.addEvent(words[2].trim(), words[3].trim());"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                case \"D\":"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    tasklist.addDeadline(words[2].trim(), words[3].trim());"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                default:"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    System.out.println(\"This line is not added to list:\" + thisLine);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                if (Integer.parseInt(words[1].trim()) \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    tasklist.updateDone(totalTasks);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                totalTasks++;"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } catch(FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new StorageOperationException(\"Error finding storage file: \" + filepath);"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return tasklist;"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Saves the task list data into the storage file."
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @throws StorageOperationException if there were errors storing data to the file."
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void save(TaskList tasklist) throws StorageOperationException {"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            FileWriter fw \u003d new FileWriter(filepath);"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            for (int i \u003d 0; i \u003c totalTasks; ++i) {"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                fw.write(tasklist.getTask(i).storeString() + \"\\n\");"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            fw.close();"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } catch(IOException e) {"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            throw new StorageOperationException(\"Error writing to file: \" + filepath);"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 122
     }
   },
   {
@@ -2503,56 +4762,56 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "import java.text.SimpleDateFormat;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "import java.text.DateFormat;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    protected String by;"
+        "content": "import java.util.Date;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "import java.text.ParseException;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public Deadline(String description, String by) {"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        super(description);"
+        "content": "public class Deadline extends Task {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        this.by \u003d by;"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "    protected String by;"
       },
       {
         "lineNumber": 11,
@@ -2566,52 +4825,164 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String toString() {"
+        "content": "    public Deadline(String description, String by) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \"[D]\" + super.toString() + \"(by:\" + by + \")\";"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "        this.by \u003d by;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "        try {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String storeString() {"
+        "content": "            DateFormat inputFormat \u003d new SimpleDateFormat(\"dd/MM/yyyy HHmm\");"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \"D\" + super.storeString() + \" |\" + by;"
+        "content": "            DateFormat outputFormat \u003d new SimpleDateFormat(\" MMM dd yyyy hh:mm aa\");"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "            Date date \u003d inputFormat.parse(by);"
       },
       {
         "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            this.by \u003d outputFormat.format(date);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } catch(ParseException ignored) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getBy() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return by;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"[D]\" + super.toString() + \"(by:\" + by + \")\";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String storeString() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"D\" + super.storeString() + \" |\" + by;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2619,7 +4990,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 19
+      "xieyaoyue": 35
     }
   },
   {
@@ -2708,14 +5079,14 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String toString() {"
+        "content": "    public String getAt() {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \"[E]\" + super.toString() + \"(at:\" + at + \")\";"
+        "content": "        return at;"
       },
       {
         "lineNumber": 14,
@@ -2736,14 +5107,14 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String storeString() {"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \"E\" + super.storeString() + \" |\" + at;"
+        "content": "        return \"[E]\" + super.toString() + \"(at:\" + at + \")\";"
       },
       {
         "lineNumber": 18,
@@ -2757,11 +5128,39 @@
         "author": {
           "gitId": "xieyaoyue"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String storeString() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"E\" + super.storeString() + \" |\" + at;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 19
+      "xieyaoyue": 23
     }
   },
   {
@@ -2787,119 +5186,119 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "import Duke.Duke;"
+        "content": "/**"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": " * Represents a task in the task list."
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "public class Task {"
+        "content": " */"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    protected String description;"
+        "content": "public class Task {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    protected boolean isDone;"
+        "content": "    protected String description;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "    protected boolean isDone;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public void markAsDone() {"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "    /**"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "     * Marks a task as done."
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "     */"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public Task(String description) {"
+        "content": "    public void markAsDone() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        this.description \u003d description;"
+        "content": "        this.isDone \u003d true;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "    public Task(String description) {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": "        this.description \u003d description;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+        "content": "        this.isDone \u003d false;"
       },
       {
         "lineNumber": 20,
@@ -2920,52 +5319,150 @@
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String toString() {"
+        "content": "    /**"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \"[\" + this.getStatusIcon() + \"] \" + this.description;"
+        "content": "     * @return tick or X symbol based on whether the task is marked as done."
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": "     */"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": ""
+        "content": "    public String getStatusIcon() {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    public String storeString() {"
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\");"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "        return \" | \" + (isDone? \"1\":\"0\") + \" | \" + description;"
+        "content": "    }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "xieyaoyue"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \"[\" + this.getStatusIcon() + \"] \" + this.description;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Stores the task in the storage file based on a given format."
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String storeString() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return \" | \" + (isDone? \"1\":\"0\") + \" | \" + description;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
         "author": {
           "gitId": "xieyaoyue"
         },
@@ -2973,7 +5470,7 @@
       }
     ],
     "authorContributionMap": {
-      "xieyaoyue": 29
+      "xieyaoyue": 43
     }
   },
   {
@@ -3095,6 +5592,1641 @@
     ],
     "authorContributionMap": {
       "xieyaoyue": 16
+    }
+  },
+  {
+    "path": "src/main/java/Duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Task.*;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Represents the entire task list."
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Contains data of the task list."
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private int totalTasks;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Creates an empty task list."
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        totalTasks \u003d 0;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Marks a task as done."
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void updateDone(int doneNumber) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks.get(doneNumber).markAsDone();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Deletes a task from the task list."
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void updateDelete(int deleteNumber) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks.remove(deleteNumber);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        totalTasks--;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Adds a todo task into the task list."
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void addTodo(String task) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks.add(new Todo(task));"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        totalTasks++;"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Adds an event into the task list."
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void addEvent(String task, String at) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks.add(new Event(task, at));"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        totalTasks++;"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Adds a deadline into the task list."
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void addDeadline(String task, String by) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        tasks.add(new Deadline(task, by));"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        totalTasks++;"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public ArrayList\u003cTask\u003e findTasks(String keyword) {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        boolean hasKeyword;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        ArrayList\u003cTask\u003e keywordTasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        for(Task task: tasks) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            hasKeyword \u003d false;"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            if(task.getDescription().contains(keyword)) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                hasKeyword \u003d true;"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            } else if(task instanceof Event) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                Event event \u003d (Event) task;"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                if(event.getAt().contains(keyword)) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    hasKeyword \u003d true;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            } else if(task instanceof Deadline) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                Deadline deadline \u003d (Deadline) task;"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                if(deadline.getBy().contains(keyword)) {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    hasKeyword \u003d true;"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            if(hasKeyword) {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                keywordTasks.add(task);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return keywordTasks;"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return the details of a task based on its latest index in the task list."
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public Task getTask(int taskIndex) {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return tasks.get(taskIndex);"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @return the total number of tasks in the task list."
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public int getTotalTasks() {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return totalTasks;"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 100
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "package Duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import Duke.Task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " * Text UI of the application."
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String LOGO \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_USING_STORAGE_FILE \u003d \"Using storage file : %1$s\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_WELCOME \u003d \"Hello! I\u0027m Duke.\\nWhat can I do for you?\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_GOODBYE \u003d \"Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_ADD \u003d \"Got it. I\u0027ve added this task:\\n %1$s\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_DONE \u003d \"Nice! I\u0027ve marked this task as done:\\n %1$s\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_DELETE \u003d \"Noted. I\u0027ve removed this task:\\n %1$s\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_CURRENT_STATUS \u003d \"Now you have %1$d %2$s in the list.\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_EMPTY_LIST \u003d \"List is empty.\";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_MATCHING_TASKS \u003d \"Here are the matching tasks in your list:\";"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private static final String MESSAGE_EMPTY_MATCH \u003d \"There\u0027s no match.\";"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private final Scanner in;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public Ui() {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        this.in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Reads the text entered by the user."
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return in.nextLine();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Prints welcome message upon the start of the application."
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * @param filePath path to the storage file being used."
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showWelcomeMessage(String filePath) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String storageFileInfo \u003d String.format(MESSAGE_USING_STORAGE_FILE, filePath);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(LOGO, MESSAGE_WELCOME, storageFileInfo);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(MESSAGE_GOODBYE);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showError(String errorMessage) {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(errorMessage);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Prints the list of tasks recorded in the task list."
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showTaskList(TaskList tasklist) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if(totalTasks\u003d\u003d0) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            showToUser(MESSAGE_EMPTY_LIST);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            showToUser(getTaskList(tasklist));"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showKeywordList(ArrayList\u003cTask\u003e keywordList) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        if(keywordList.isEmpty()) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            showToUser(MESSAGE_EMPTY_MATCH);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            int taskNumber \u003d 1;"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            showToUser(MESSAGE_MATCHING_TASKS);"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            for(Task task : keywordList) {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                showToUser(taskNumber + \". \" + task.toString());"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                taskNumber++;"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Prints the details of task which has just been added to the task list."
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showAdd(TaskList tasklist) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String addInfo \u003d String.format(MESSAGE_ADD, tasklist.getTask(totalTasks-1));"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(addInfo);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Prints the details of task which has just been marked as done."
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showDone(TaskList tasklist, int doneNumber) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String doneInfo \u003d String.format(MESSAGE_DONE, tasklist.getTask(doneNumber));"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(doneInfo);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Prints the details of task which has just been deleted from the task list."
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showDelete(TaskList tasklist, int deleteNumber) {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String deleteInfo \u003d String.format(MESSAGE_DELETE, tasklist.getTask(deleteNumber));"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks() - 1;"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        String currentStatus \u003d String.format(MESSAGE_CURRENT_STATUS, totalTasks,"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                (totalTasks\u003d\u003d1 || totalTasks\u003d\u003d0)? \"task\" : \"tasks\");"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        showToUser(deleteInfo, currentStatus);"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    private String getTaskList(TaskList tasklist) {"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        final StringBuilder formattedList \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int totalTasks \u003d tasklist.getTotalTasks();"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        int taskNumber;"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        for(taskNumber \u003d 0; taskNumber \u003c totalTasks-1; taskNumber++) {"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            formattedList.append(taskNumber + 1).append(\".\").append(tasklist."
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "                    getTask(taskNumber)).append(\"\\n\");"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        formattedList.append(taskNumber + 1).append(\".\").append(tasklist.getTask(taskNumber));"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        return formattedList.toString();"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     * Shows message(s) to the user."
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    public void showToUser(String... message) {"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        for(String m : message) {"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "            System.out.println(m);"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "xieyaoyue"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "xieyaoyue": 131
     }
   },
   {
