@@ -8,28 +8,623 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import task.Deadline;"
+        "content": "import command.Command;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import task.Event;"
+        "content": "import exception.DukeInvalidArgumentException;"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import task.Task;"
+        "content": "import parser.Parser;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import task.Todo;"
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private static final String FILEPATH \u003d \"data/saveData.txt\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private TaskList tasks;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public Duke(String filePath) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            tasks \u003d new TaskList(storage.loadData());"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        } catch (FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            UI.fileNotFoundMessage();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            tasks \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void run() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        UI.greet();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        boolean isExit \u003d false;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        while (!isExit) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                String input \u003d UI.prompt();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                Command c \u003d Parser.parse(tasks, input);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                c.execute(tasks, storage);"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                isExit \u003d c.isExit();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (DukeInvalidArgumentException e) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                // todo: improve error messages"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.invalidArgumentMessage();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        new Duke(FILEPATH).run();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "-": 4,
+      "adhy-p": 40
+    }
+  },
+  {
+    "path": "src/main/java/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import exception.DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public abstract void execute(TaskList tasks, Storage storage) throws DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public abstract boolean isExit();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 11
+    }
+  },
+  {
+    "path": "src/main/java/command/byeCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class byeCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            storage.saveData(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            UI.bye();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            UI.failToWriteMessage();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return true;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 26
+    }
+  },
+  {
+    "path": "src/main/java/command/deleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
       },
       {
         "lineNumber": 5,
@@ -43,14 +638,1801 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "public class deleteCommand extends Command {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "import java.util.Scanner;"
+        "content": "    private int index;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public deleteCommand(int index) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.index \u003d index;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        // index - 1 will be done at task.TaskList.deleteFromList"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        tasks.deleteFromList(index);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 23
+    }
+  },
+  {
+    "path": "src/main/java/command/doneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import exception.DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class doneCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private int index;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public doneCommand(int index) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.index \u003d index;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) throws DukeInvalidArgumentException {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            tasks.markAsDone(index); // index - 1 will be done at task.TaskList.markAsDone"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 27
+    }
+  },
+  {
+    "path": "src/main/java/command/eventDeadlineCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Deadline;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class eventDeadlineCommand extends Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private String type;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private String description;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private String timeOfEvent;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public eventDeadlineCommand(String type, String description, String timeOfEvent) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.type \u003d type;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.timeOfEvent \u003d timeOfEvent;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (type.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            tasks.addToList(new Event(description, timeOfEvent));"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            tasks.addToList(new Deadline(description, timeOfEvent));"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 33
+    }
+  },
+  {
+    "path": "src/main/java/command/listCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class listCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        UI.printList(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 18
+    }
+  },
+  {
+    "path": "src/main/java/command/todoCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Todo;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class todoCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private String description;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public todoCommand(String description) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        tasks.addToList(new Todo(description));"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 23
+    }
+  },
+  {
+    "path": "src/main/java/command/unknownCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import exception.DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class unknownCommand extends Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    String description;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public unknownCommand(String description) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void execute(TaskList tasks, Storage storage) throws DukeInvalidArgumentException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        UI.handleUnknownCommandMessage(description);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 25
+    }
+  },
+  {
+    "path": "src/main/java/exception/DukeInvalidArgumentException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class DukeInvalidArgumentException extends Exception{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 4
+    }
+  },
+  {
+    "path": "src/main/java/parser/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package parser;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import exception.DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static Command parse(TaskList tasks, String input) throws DukeInvalidArgumentException {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.trim().equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new byeCommand();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.trim().equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new listCommand();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.startsWith(\"done\")) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            int index \u003d -1;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                index \u003d Integer.parseInt(input.split(\"done\")[1].trim());"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }  catch (IndexOutOfBoundsException | NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.doneMessage();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            if(index \u003c 1 || index \u003e tasks.getTasks().size()){"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new doneCommand(index);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.startsWith(\"delete\")) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            int index \u003d -1;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                index \u003d Integer.parseInt(input.split(\"delete\")[1].trim());"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }  catch (IndexOutOfBoundsException | NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.invalidIndexMessage();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            if(index \u003c 1 || index \u003e tasks.getTasks().size()){"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new deleteCommand(index);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.startsWith(\"todo\")) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            String description;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                description \u003d input.trim().split(\"todo\")[1].trim();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.noDescriptionExceptionMessage();"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new todoCommand(description);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.startsWith(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            final String TYPE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            String deadlineDetails;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                deadlineDetails \u003d input.trim().split(\"deadline\")[1];"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.noDescriptionExceptionMessage();"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            String description, timeOfEvent;"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                description \u003d deadlineDetails.split(\"/by\")[0].trim();"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                timeOfEvent \u003d deadlineDetails.split(\"/by\")[1].trim();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.notEnoughArgumentsMessage();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new eventDeadlineCommand(TYPE, description, timeOfEvent);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (input.startsWith(\"event\")) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            final String TYPE \u003d \"event\";"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            String eventDetails;"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                eventDetails \u003d input.trim().split(\"event\")[1];"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.noDescriptionExceptionMessage();"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            String description, timeOfEvent;"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                description \u003d eventDetails.split(\"/at\")[0].trim();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                timeOfEvent \u003d eventDetails.split(\"/at\")[1].trim();"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                UI.notEnoughArgumentsMessage();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                throw new DukeInvalidArgumentException();"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            return new eventDeadlineCommand(TYPE, description, timeOfEvent);"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        // default"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return new unknownCommand(input);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 92
+    }
+  },
+  {
+    "path": "src/main/java/storage/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
       },
       {
         "lineNumber": 8,
@@ -85,539 +2467,539 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 13,
         "author": {
-          "gitId": "-"
+          "gitId": "adhy-p"
         },
-        "content": "public class Duke {"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": ""
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    private static final String FILEPATH \u003d \"data/saveData.txt\";"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    private ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public static void printLine() {"
+        "content": "    private String filePath;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"----------------------------------------------\");"
+        "content": "    private final String SAVEDIR \u003d \"data\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    public Storage(String filePath) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public static void greet() {"
+        "content": "        this.filePath \u003d filePath;"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"Hello, I\u0027m Duke\");"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"What can I do for you?\");"
+        "content": "    public void saveData(ArrayList\u003cTask\u003e tasks) throws IOException {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": "        StringBuilder line \u003d new StringBuilder();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        for (Task task : tasks) {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "            line.append(serializeTask(task));"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public static void bye() {"
+        "content": "        }"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"Bye. Hope to see you soon!\");"
+        "content": "        FileWriter fw \u003d new FileWriter(filePath);"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": "        fw.write(line.toString());"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        fw.close();"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public static void addToList(String input) {"
+        "content": ""
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        boolean isValidCommand \u003d true;"
+        "content": "    public ArrayList\u003cTask\u003e loadData() throws FileNotFoundException {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        try {"
+        "content": "        File directory \u003d new File(SAVEDIR);"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            if (input.startsWith(\"deadline\")) {"
+        "content": "        if (!directory.exists()) {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "                addDeadline(input);"
+        "content": "            if (directory.mkdir()) {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            } else if (input.startsWith(\"event\")) {"
+        "content": "                System.out.println(\"Successfully created a new directory for save file\");"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "                addEvent(input);"
+        "content": "            }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            } else if (input.startsWith(\"todo\")) {"
+        "content": "        } else {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "                addTodo(input);"
+        "content": "            File f \u003d new File(filePath); // create a File for the given file path"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            } else {"
+        "content": "            Scanner s \u003d new Scanner(f); // create a scanner using the file as the source"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "                handleUnknownCommand(input);"
+        "content": "            while (s.hasNext()) {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            }"
+        "content": "                tasks.add(deserializeTask(s.nextLine()));"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        } catch (DukeInvalidArgumentException e) {"
+        "content": "            }"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            isValidCommand \u003d false;"
+        "content": "        }"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "        return tasks;"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        if (isValidCommand) {"
+        "content": "    }"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": ""
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            System.out.println(\"Got it bro. I\u0027ve added this task:\");"
+        "content": "    private Task deserializeTask(String serializedTask) {"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            System.out.println(tasks.get(tasks.size() - 1));"
+        "content": "        Task task \u003d null;"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
+        "content": "        String[] splitTask \u003d serializedTask.split(\"\\\\|\");"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": ""
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        }"
+        "content": "        String taskType \u003d splitTask[0];"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        boolean isDone \u003d splitTask[1].equals(\"1\");"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "        String description \u003d splitTask[2].trim();"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    private static void handleUnknownCommand(String input) throws DukeInvalidArgumentException {"
+        "content": ""
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": "        switch (taskType) {"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"Huh? \" + input + \"?\");"
+        "content": "        case \"T\":"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        System.out.println(\"You haven\u0027t read the documentation, have you?\");"
+        "content": "            task \u003d new Todo(description, isDone);"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        printLine();"
+        "content": "            break;"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        throw new DukeInvalidArgumentException();"
+        "content": "        case \"D\":"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "            String by \u003d splitTask[3].trim();"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "            task \u003d new Deadline(description, by, isDone);"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    private static void addTodo(String input) throws DukeInvalidArgumentException {"
+        "content": "            break;"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        String description;"
+        "content": "        case \"E\":"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        try {"
+        "content": "            String at \u003d splitTask[3].trim();"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            description \u003d input.trim().split(\"todo\")[1].trim();"
+        "content": "            task \u003d new Event(description, at, isDone);"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
+        "content": "            break;"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": "        }"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            System.out.println(\"What task do you have? Add the task description please...\");"
+        "content": "        return task;"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            throw new DukeInvalidArgumentException();"
+        "content": ""
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        }"
+        "content": "    // T|1/0|Description"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        tasks.add(new Todo(description));"
+        "content": "    // D|1/0|Description|by"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    // E|1/0|Description|at"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    private String serializeTask(Task task) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    private static void addEvent(String input) throws DukeInvalidArgumentException {"
+        "content": "        String result \u003d \"\";"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        String eventDetails;"
+        "content": "        result +\u003d task.getTaskType() + \"|\";"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        try {"
+        "content": "        result +\u003d (task.getDoneStatus() ? 1 : 0) + \"|\";"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            eventDetails \u003d input.trim().split(\"event\")[1];"
+        "content": "        result +\u003d task.getDescription();"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
+        "content": ""
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": "        if (task instanceof Deadline) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            System.out.println(\"Come on bro you must specify the event details...\");"
+        "content": "            result +\u003d \"|\" + ((Deadline) task).getBy();"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            printLine();"
+        "content": "        } else if (task instanceof Event) {"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            throw new DukeInvalidArgumentException();"
+        "content": "            result +\u003d \"|\" + ((Event) task).getAt();"
       },
       {
         "lineNumber": 89,
@@ -631,1330 +3013,39 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        String description, at;"
+        "content": ""
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        try {"
+        "content": "        return result + \"\\n\";"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            description \u003d eventDetails.split(\"/at\")[0].trim();"
+        "content": "    }"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "            at \u003d eventDetails.split(\"/at\")[1].trim();"
+        "content": ""
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"Forgot to type something?\");"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"I need both the description and the time to add an event.\");"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            throw new DukeInvalidArgumentException();"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        tasks.add(new Event(description, at));"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    private static void addDeadline(String input) throws DukeInvalidArgumentException {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String deadlineDetails;"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            deadlineDetails \u003d input.trim().split(\"deadline\")[1];"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"Come on bro you must specify the deadline details...\");"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            throw new DukeInvalidArgumentException();"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String description, by;"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            description \u003d deadlineDetails.split(\"/by\")[0].trim();"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            by \u003d deadlineDetails.split(\"/by\")[1].trim();"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"Forgot to type something?\");"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"I need both the description and the time to add a deadline.\");"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            throw new DukeInvalidArgumentException();"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        tasks.add(new Deadline(description, by));"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    public static void printList() {"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        if (!tasks.isEmpty()) {"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            int i \u003d 1;"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            for (Task item : tasks) {"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                System.out.println((i++) + \". \" + item);"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"You have nothing to do! Yeay!\");"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    public static void markAsDone(int index) throws DukeInvalidArgumentException {"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            tasks.get(index - 1).markAsDone();"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            throw new DukeInvalidArgumentException();"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        System.out.println(\"[\\u2713] \" + tasks.get(index - 1).getDescription());"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    public static void deleteTask(int index) {"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        // todo: throw exception when index is invalid"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        System.out.println(\"Got it! I\u0027ve removed this task:\");"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        System.out.println(tasks.get(index - 1));"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        tasks.remove(index - 1);"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        printLine();"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    public static int handleInput(String input) {"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        if (input.trim().equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            return 0;"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        if (input.trim().equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            printList();"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } else if (input.startsWith(\"done\")) {"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            int index;"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                index \u003d Integer.parseInt(input.split(\"done\")[1].trim());"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                markAsDone(index);"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            } catch (DukeInvalidArgumentException e) {"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                printLine();"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                System.out.println(\"Hey bro.. Don\u0027t try to break me okay.. Invalid index.\");"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                printLine();"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            } catch (IndexOutOfBoundsException | NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                printLine();"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                System.out.println(\"Done using the program? You should type \\\"bye\\\" instead.\");"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "                printLine();"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } else if (input.startsWith(\"delete\")){"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            // todo: throw exception when index is invalid"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            int index;"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            index \u003d Integer.parseInt(input.split(\"delete\")[1].trim());"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            deleteTask(index);"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            addToList(input);"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        return 1;"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    private static void saveData() throws IOException{"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        StringBuilder line \u003d new StringBuilder();"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        for(Task task: tasks){"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            line.append(serializeTask(task));"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(FILEPATH);"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        fw.write(line.toString());"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    private static void loadData() throws FileNotFoundException{"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        File f \u003d new File(FILEPATH); // create a File for the given file path"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        Scanner s \u003d new Scanner(f); // create a scanner using the file as the source"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        while(s.hasNext()){"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            tasks.add(deserializeTask(s.nextLine()));"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    private static Task deserializeTask(String serializedTask){"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        Task task \u003d null;"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String[] splitTask \u003d serializedTask.split(\"\\\\|\");"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String taskType \u003d splitTask[0];"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        boolean isDone \u003d splitTask[1].equals(\"1\");"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String description \u003d splitTask[2].trim();"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        switch (taskType){"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        case \"T\":"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           task \u003d new Todo(description, isDone);"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           break;"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        case \"D\":"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           String by \u003d splitTask[3].trim();"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           task \u003d new Deadline(description, by, isDone);"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           break;"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        case \"E\":"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           String at \u003d splitTask[3].trim();"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           task \u003d new Event(description, at, isDone);"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "           break;"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        return task;"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    // T|1/0|Description"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    // D|1/0|Description|by"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    // E|1/0|Description|at"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    private static String serializeTask(Task task){"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String result \u003d \"\";"
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        result +\u003d task.getTaskType() + \"|\";"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        result +\u003d (task.getDoneStatus() ? 1 : 0) + \"|\";"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        result +\u003d task.getDescription();"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        if (task instanceof Deadline) {"
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            result +\u003d \"|\" + ((Deadline) task).getBy();"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } else if (task instanceof Event) {"
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            result +\u003d \"|\" + ((Event) task).getAt();"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 251,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        return result + \"\\n\";"
-      },
-      {
-        "lineNumber": 252,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 253,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 254,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 255,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        greet();"
-      },
-      {
-        "lineNumber": 256,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 257,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        String input;"
-      },
-      {
-        "lineNumber": 258,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        try{"
-      },
-      {
-        "lineNumber": 259,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            loadData();"
-      },
-      {
-        "lineNumber": 260,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } catch(FileNotFoundException e) {"
-      },
-      {
-        "lineNumber": 261,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            // no save data, do nothing."
-      },
-      {
-        "lineNumber": 262,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 263,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        do {"
-      },
-      {
-        "lineNumber": 264,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.print(\"root@PC:~# \");"
-      },
-      {
-        "lineNumber": 265,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            input \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 266,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } while (handleInput(input) \u003d\u003d 1);"
-      },
-      {
-        "lineNumber": 267,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 268,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            saveData(); //todo: implement an efficient method to save data each time receiving input"
-      },
-      {
-        "lineNumber": 269,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        } catch (IOException e){"
-      },
-      {
-        "lineNumber": 270,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "            System.out.println(\"Failed to write data\");"
-      },
-      {
-        "lineNumber": 271,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 272,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        bye();"
-      },
-      {
-        "lineNumber": 273,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "        in.close();"
-      },
-      {
-        "lineNumber": 274,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 275,
-        "author": {
-          "gitId": "-"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "-": 4,
-      "adhy-p": 271
-    }
-  },
-  {
-    "path": "src/main/java/DukeInvalidArgumentException.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "public class DukeInvalidArgumentException extends Exception{"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "adhy-p"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "adhy-p": 2
+      "adhy-p": 94
     }
   },
   {
@@ -2036,122 +3127,136 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public Deadline(String description, String by, boolean isDone) {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        super(description, isDone);"
+        "content": "    public Deadline(String description, String by, boolean isDone) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        this.by \u003d by;"
+        "content": "        super(description, isDone);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        this.by \u003d by;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getBy(){"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return by;"
+        "content": "    public String getBy() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        return by;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String toString() {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return \"[\" + type + \"]\" + super.toString() + \" (by: \" + by + \")\";"
+        "content": "    @Override"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "        return \"[\" + type + \"]\" + super.toString() + \" (by: \" + by + \")\";"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "    }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getTaskType() {"
+        "content": ""
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return type;"
+        "content": "    @Override"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    public String getTaskType() {"
       },
       {
         "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return type;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "adhy-p"
         },
@@ -2159,7 +3264,7 @@
       }
     ],
     "authorContributionMap": {
-      "adhy-p": 28
+      "adhy-p": 30
     }
   },
   {
@@ -2206,150 +3311,171 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public Event(String description, String at) {"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        super(description);"
+        "content": "    public Event(String description, String at) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        this.at \u003d at;"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        this.at \u003d at;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public Event( String description, String at, boolean isDone) {"
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        super(description, isDone);"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        this.at \u003d at;"
+        "content": "    public Event(String description, String at, boolean isDone) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        super(description, isDone);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getAt(){"
+        "content": "        this.at \u003d at;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return at;"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    public String getAt() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "        return at;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String toString() {"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return \"[\" + type + \"]\" + super.toString() + \" (at: \" + at + \")\";"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "        return \"[\" + type + \"]\" + super.toString() + \" (at: \" + at + \")\";"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getTaskType() {"
+        "content": "    }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return type;"
+        "content": ""
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return type;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "adhy-p"
         },
@@ -2357,7 +3483,7 @@
       }
     ],
     "authorContributionMap": {
-      "adhy-p": 27
+      "adhy-p": 30
     }
   },
   {
@@ -2502,14 +3628,310 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getTaskType(){"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "adhy-p"
         },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
         "content": "        return \"To be overridden by subclass\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public boolean getDoneStatus() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return isDone;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void setDoneStatus() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return getStatusIcon() + \" \" + description;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 41
+    }
+  },
+  {
+    "path": "src/main/java/task/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import exception.DukeInvalidArgumentException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import ui.UI;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        this.tasks \u003d tasks;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public void addToList(Task t) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        tasks.add(t);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        UI.addToListMessage(tasks);"
       },
       {
         "lineNumber": 22,
@@ -2523,108 +3945,150 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getDescription() {"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return description;"
+        "content": "    public void deleteFromList(int index) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        String deletedTask \u003d tasks.get(index - 1).toString();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public boolean getDoneStatus(){"
+        "content": "        tasks.remove(index - 1);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return isDone;"
+        "content": "        int size \u003d tasks.size();"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        UI.deleteTaskMessage(deletedTask, size);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public void markAsDone() {"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        isDone \u003d true;"
+        "content": "    public void markAsDone(int index) throws DukeInvalidArgumentException {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        try {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": ""
+        "content": "            tasks.get(index - 1).setDoneStatus();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String toString() {"
+        "content": "            throw new DukeInvalidArgumentException();"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return getStatusIcon() + \" \" + description;"
+        "content": "        }"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        String description \u003d tasks.get(index - 1).toString();"
       },
       {
         "lineNumber": 38,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        UI.markAsDoneMessage(description);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTasks() {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
         "author": {
           "gitId": "adhy-p"
         },
@@ -2632,7 +4096,7 @@
       }
     ],
     "authorContributionMap": {
-      "adhy-p": 38
+      "adhy-p": 44
     }
   },
   {
@@ -2672,101 +4136,129 @@
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public Todo(String description) {"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        super(description);"
+        "content": "    public Todo(String description) {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public Todo(String description, boolean isDone) {"
+        "content": "    }"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        super(description, isDone);"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    public Todo(String description, boolean isDone) {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "        super(description, isDone);"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String toString() {"
+        "content": "    }"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return \"[\" + type + \"]\" + super.toString();"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": "    @Override"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    public String getTaskType() {"
+        "content": "        return \"[\" + type + \"]\" + super.toString();"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "        return type;"
+        "content": "    }"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "adhy-p"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return type;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
         "author": {
           "gitId": "adhy-p"
         },
@@ -2774,7 +4266,849 @@
       }
     ],
     "authorContributionMap": {
-      "adhy-p": 19
+      "adhy-p": 23
+    }
+  },
+  {
+    "path": "src/main/java/ui/UI.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "package ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "public class UI {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private static Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    private static void printLine() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"----------------------------------------------\");"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void greet() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Hello, I\u0027m Duke\");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void bye() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        in.close();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you soon!\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static String prompt() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.print(\"root@PC:~# \");"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        return in.nextLine();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void addToListMessage(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Got it bro. I\u0027ve added this task:\");"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(tasks.get(tasks.size() - 1));"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void handleUnknownCommandMessage(String input) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Huh? \" + input + \"?\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"You haven\u0027t read the documentation, have you?\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void noDescriptionExceptionMessage() {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Please give me more details..\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void notEnoughArgumentsMessage() {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Forgot to type something?\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"I need both the description and the time!!\");"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void printList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        if (!tasks.isEmpty()) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            int i \u003d 1;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            for (Task item : tasks) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "                System.out.println((i++) + \". \" + item);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "            System.out.println(\"You have nothing to do! Yeay!\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void markAsDoneMessage(String description) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"[\\u2713] \" + description);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void deleteTaskMessage(String description, int size) {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Got it! I\u0027ve removed this task:\");"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(description);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Now you have \" + size + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void invalidIndexMessage() {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Hey bro.. Don\u0027t try to break me okay.. Invalid index.\");"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void doneMessage() {"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Done using the program? You should type \\\"bye\\\" instead.\");"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void failToWriteMessage() {"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Failed to write data\");"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void fileNotFoundMessage() {"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Error: save file not found\");"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    public static void invalidArgumentMessage() {"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        System.out.println(\"Invalid argument. Please try again.\");"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "adhy-p"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "adhy-p": 119
     }
   },
   {

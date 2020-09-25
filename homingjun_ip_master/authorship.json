@@ -346,7 +346,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class ByeCommand extends Command {"
+        "content": "public class ByeCommand implements Command {"
       },
       {
         "lineNumber": 8,
@@ -423,31 +423,24 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        return false;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return false;"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 22,
+        "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
@@ -455,7 +448,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 22
+      "homingjun": 21
     }
   },
   {
@@ -502,14 +495,14 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public abstract class Command {"
+        "content": "public interface Command {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public abstract boolean doCommand(TaskList tasks, String userInput) throws DukeException;"
+        "content": "    boolean doCommand(TaskList tasks, String userInput) throws DukeException;"
       },
       {
         "lineNumber": 8,
@@ -595,7 +588,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class DeadlineCommand extends Command{"
+        "content": "public class DeadlineCommand implements Command{"
       },
       {
         "lineNumber": 11,
@@ -658,122 +651,115 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        int byIndex \u003d userInput.indexOf(\"/by\");"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        int byIndex \u003d userInput.indexOf(\"/by\");"
+        "content": "        if (userInput.substring(8).isBlank()) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        if (userInput.substring(8).isBlank()) {"
+        "content": "            throw new DukeException(Messages.NO_DEADLINE);"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.NO_DEADLINE);"
+        "content": "        } else if (!userInput.contains(\"by\")) {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        } else if (!userInput.contains(\"by\")) {"
+        "content": "            throw new DukeException(Messages.DEADLINE_NEEDS_BY);"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.DEADLINE_NEEDS_BY);"
+        "content": "        } else if (userInput.substring(8, byIndex).isBlank() || userInput.substring(byIndex + 3).isBlank()) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        } else if (userInput.substring(8, byIndex).isBlank() || userInput.substring(byIndex + 3).isBlank()) {"
+        "content": "            throw new DukeException(Messages.INVALID_DEADLINE);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.INVALID_DEADLINE);"
+        "content": "        }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        }"
+        "content": "        String[] deadline \u003d userInput.substring(9).split(\"/by \");"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String[] deadline \u003d userInput.substring(9).split(\"/by \");"
+        "content": "        String[] dateAndTime \u003d deadline[1].split(\" \",2);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String[] dateAndTime \u003d deadline[1].split(\" \",2);"
+        "content": "        tasks.add(new Deadline(deadline[0], dateAndTime[0], dateAndTime[1]));"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        tasks.add(new Deadline(deadline[0], dateAndTime[0], dateAndTime[1]));"
+        "content": "        Ui.printLine(Ui.printDeadline(tasks, userInput));"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printDeadline(tasks, userInput));"
+        "content": "        Storage.writeSaveFile(tasks);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Storage.writeSaveFile(tasks);"
+        "content": "        return true;"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 36,
+        "lineNumber": 35,
         "author": {
           "gitId": "homingjun"
         },
@@ -781,7 +767,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 36
+      "homingjun": 35
     }
   },
   {
@@ -842,7 +828,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class DeleteCommand extends Command {"
+        "content": "public class DeleteCommand implements Command {"
       },
       {
         "lineNumber": 9,
@@ -905,59 +891,52 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        Ui.printLine(Ui.printTaskDeletion(tasks, userInput));"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printTaskDeletion(tasks, userInput));"
+        "content": "        String[] words \u003d userInput.split(\" \");"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String[] words \u003d userInput.split(\" \");"
+        "content": "        tasks.delete(Integer.parseInt(words[1]));"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        tasks.delete(Integer.parseInt(words[1]));"
+        "content": "        Storage.writeSaveFile(tasks);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Storage.writeSaveFile(tasks);"
+        "content": "        return true;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 25,
+        "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
@@ -965,7 +944,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 25
+      "homingjun": 24
     }
   },
   {
@@ -1026,7 +1005,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class DoneCommand extends Command{"
+        "content": "public class DoneCommand implements Command{"
       },
       {
         "lineNumber": 9,
@@ -1089,45 +1068,38 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        Ui.printLine(Ui.printTaskCompletion(tasks, userInput));"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printTaskCompletion(tasks, userInput));"
+        "content": "        Storage.writeSaveFile(tasks);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Storage.writeSaveFile(tasks);"
+        "content": "        return true;"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 23,
+        "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
@@ -1135,7 +1107,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 23
+      "homingjun": 22
     }
   },
   {
@@ -1210,7 +1182,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class EventCommand extends Command {"
+        "content": "public class EventCommand implements Command {"
       },
       {
         "lineNumber": 11,
@@ -1273,122 +1245,115 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        int atIndex \u003d userInput.indexOf(\"/at\");"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        int atIndex \u003d userInput.indexOf(\"/at\");"
+        "content": "        if (userInput.substring(5).isBlank()) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        if (userInput.substring(5).isBlank()) {"
+        "content": "            throw new DukeException(Messages.NO_EVENT);"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.NO_EVENT);"
+        "content": "        } else if (!userInput.contains(\"at\")) {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        } else if (!userInput.contains(\"at\")) {"
+        "content": "            throw new DukeException(Messages.EVENT_NEEDS_AT);"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.EVENT_NEEDS_AT);"
+        "content": "        } else if (userInput.substring(5, atIndex).isBlank() || userInput.substring(atIndex + 3).isBlank()) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        } else if (userInput.substring(5, atIndex).isBlank() || userInput.substring(atIndex + 3).isBlank()) {"
+        "content": "            throw new DukeException(Messages.INVALID_EVENT);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            throw new DukeException(Messages.INVALID_EVENT);"
+        "content": "        }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        }"
+        "content": "        String[] event \u003d userInput.substring(5).split(\"/at \");"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String[] event \u003d userInput.substring(5).split(\"/at \");"
+        "content": "        String[] dateAndTime \u003d event[1].split(\" \", 2);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String[] dateAndTime \u003d event[1].split(\" \", 2);"
+        "content": "        tasks.add(new Event(event[0],  dateAndTime[0], dateAndTime[1]));"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        tasks.add(new Event(event[0],  dateAndTime[0], dateAndTime[1]));"
+        "content": "        Ui.printLine(Ui.printEvent(tasks, userInput));"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printEvent(tasks, userInput));"
+        "content": "        Storage.writeSaveFile(tasks);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Storage.writeSaveFile(tasks);"
+        "content": "        return true;"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 36,
+        "lineNumber": 35,
         "author": {
           "gitId": "homingjun"
         },
@@ -1396,7 +1361,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 36
+      "homingjun": 35
     }
   },
   {
@@ -1450,7 +1415,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class FindCommand extends Command {"
+        "content": "public class FindCommand implements Command {"
       },
       {
         "lineNumber": 8,
@@ -1513,66 +1478,59 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        if (userInput.substring(4).isBlank()) {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        if (userInput.substring(4).isBlank()) {"
+        "content": "            Ui.printLine(Ui.invalidInput());"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            Ui.printLine(Ui.invalidInput());"
+        "content": "            return true;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            return true;"
+        "content": "        }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        }"
+        "content": "        Ui.printLine(Ui.printFoundItems(tasks, userInput));"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printFoundItems(tasks, userInput));"
+        "content": "        return true;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 25,
+        "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
@@ -1580,7 +1538,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 25
+      "homingjun": 24
     }
   },
   {
@@ -1641,7 +1599,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class ListCommand extends Command {"
+        "content": "public class ListCommand implements Command {"
       },
       {
         "lineNumber": 9,
@@ -1704,73 +1662,66 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        if (!userInput.substring(4).isBlank()) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        if (!userInput.substring(4).isBlank()) {"
+        "content": "            Ui.printLine(Ui.invalidInput());"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            Ui.printLine(Ui.invalidInput());"
+        "content": "            return true;"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            return true;"
+        "content": "        }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        }"
+        "content": "        Ui.printLine(Ui.printListDescription(Task.getNumberOfTasks(), Task.getCompletedTasks())"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printListDescription(Task.getNumberOfTasks(), Task.getCompletedTasks())"
+        "content": "                + Ui.printListItems(tasks));"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                + Ui.printListItems(tasks));"
+        "content": "        return true;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 27,
+        "lineNumber": 26,
         "author": {
           "gitId": "homingjun"
         },
@@ -1778,7 +1729,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 27
+      "homingjun": 26
     }
   },
   {
@@ -1853,7 +1804,7 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "public class TodoCommand  extends Command {"
+        "content": "public class TodoCommand implements Command {"
       },
       {
         "lineNumber": 11,
@@ -1916,59 +1867,52 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    @Override"
+        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "    public boolean doCommand(TaskList tasks, String userInput) throws DukeException {"
+        "content": "        String todo \u003d userInput.substring(4);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        String todo \u003d userInput.substring(4);"
+        "content": "        tasks.add(new Todo(todo));"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        tasks.add(new Todo(todo));"
+        "content": "        Ui.printLine(Ui.printTodo(tasks, userInput));"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Ui.printLine(Ui.printTodo(tasks, userInput));"
+        "content": "        Storage.writeSaveFile(tasks);"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        Storage.writeSaveFile(tasks);"
+        "content": "        return true;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 27,
+        "lineNumber": 26,
         "author": {
           "gitId": "homingjun"
         },
@@ -1976,7 +1920,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 27
+      "homingjun": 26
     }
   },
   {
@@ -2804,255 +2748,199 @@
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new ListCommand().doCommand(tasks, userInput);"
+        "content": "                return new ListCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "            case \"todo\":"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"todo\":"
+        "content": "                return new TodoCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new TodoCommand().doCommand(tasks, userInput);"
+        "content": "            case \"deadline\":"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "                return new DeadlineCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"deadline\":"
+        "content": "            case \"event\":"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new DeadlineCommand().doCommand(tasks, userInput);"
+        "content": "                return new EventCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "            case \"done\":"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"event\":"
+        "content": "                return new DoneCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new EventCommand().doCommand(tasks, userInput);"
+        "content": "            case \"delete\":"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "                return new DeleteCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"done\":"
+        "content": "            case \"find\":"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new DoneCommand().doCommand(tasks, userInput);"
+        "content": "                return new FindCommand().doCommand(tasks, userInput);"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "            case \"bye\":"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"delete\":"
+        "content": "                return new ByeCommand().byeCommand();"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new DeleteCommand().doCommand(tasks, userInput);"
+        "content": "            default:"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "                Ui.printLine(Ui.invalidInput());"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"find\":"
+        "content": "            }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new FindCommand().doCommand(tasks, userInput);"
+        "content": "        } catch (DukeException e) {"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                break;"
+        "content": "            e.printExceptionMessage();"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            case \"bye\":"
+        "content": "        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                new ByeCommand().byeCommand();"
+        "content": "            e.printStackTrace();"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                return false;"
+        "content": "            Ui.printLine(Messages.INVALID_NUMBER);"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            default:"
+        "content": "        } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "                Ui.printLine(Ui.invalidInput());"
+        "content": "            Ui.printLine(Messages.NO_STRING);"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            }"
+        "content": "        }"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "        } catch (DukeException e) {"
+        "content": "        return true;"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "homingjun"
         },
-        "content": "            e.printExceptionMessage();"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "            e.printStackTrace();"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "            Ui.printLine(Messages.INVALID_NUMBER);"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "            Ui.printLine(Messages.NO_STRING);"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "homingjun"
-        },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "homingjun"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 79,
+        "lineNumber": 71,
         "author": {
           "gitId": "homingjun"
         },
@@ -3060,7 +2948,7 @@
       }
     ],
     "authorContributionMap": {
-      "homingjun": 79
+      "homingjun": 71
     }
   },
   {
