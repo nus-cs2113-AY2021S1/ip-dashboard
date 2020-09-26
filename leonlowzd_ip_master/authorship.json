@@ -15,133 +15,133 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.exceptions.IllegalDate;"
+        "content": "import Duke.commands.ByeCommand;"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.exceptions.IllegalIndex;"
+        "content": "import Duke.commands.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.exceptions.IllegalDescription;"
+        "content": "import Duke.data.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.task.Deadline;"
+        "content": "import Duke.data.TaskList;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.task.Event;"
+        "content": "import Duke.ui.TextUi;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.task.ToDo;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.ui.TextUi;"
+        "content": ""
       },
       {
         "lineNumber": 9,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import java.io.IOException;"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 13,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected static int numberOfTasks \u003d 0;"
-      },
-      {
-        "lineNumber": 15,
+        "lineNumber": 10,
         "author": {
           "gitId": "leonlowzd"
         },
         "content": "    //retrieve home directory \u0026 set homeDirectory"
       },
       {
-        "lineNumber": 16,
+        "lineNumber": 11,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static String home \u003d System.getProperty(\"user.home\");"
+        "content": "    private final static String HOME_DIRECTORY \u003d System.getProperty(\"user.home\");"
       },
       {
-        "lineNumber": 17,
+        "lineNumber": 12,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    protected final static String homeDirectory \u003d home+\"/Documents/log.txt\";"
+        "content": "    private final static String STORE_DIRECTORY \u003d HOME_DIRECTORY+\"/Documents/log.txt\";"
       },
       {
-        "lineNumber": 18,
+        "lineNumber": 13,
         "author": {
           "gitId": "leonlowzd"
         },
         "content": ""
       },
       {
-        "lineNumber": 19,
+        "lineNumber": 14,
         "author": {
           "gitId": "leonlowzd"
         },
         "content": "    private static TextUi ui \u003d new TextUi();"
       },
       {
-        "lineNumber": 20,
+        "lineNumber": 15,
         "author": {
           "gitId": "leonlowzd"
         },
         "content": "    private static TaskList taskList \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private static Storage storage \u003d new Storage(taskList);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        Duke.run();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
       },
       {
         "lineNumber": 21,
@@ -155,343 +155,696 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static void main(String[] args) throws IOException {"
+        "content": "    private static void run() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        LogFile logFile \u003d new LogFile();"
+        "content": "        start();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        runCommandLoop();"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        ui.showWelcomeMessage(\"\");"
+        "content": "        exit();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        //Read from memory \u0026 location to read and write file"
+        "content": "    }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        logFile.readFile(homeDirectory);"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        boolean hasExit \u003d false;"
+        "content": "    private static void start() {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        ui.printWelcomeMessage();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "//        printWelcomeMessage();"
+        "content": "        storage.readFile(STORE_DIRECTORY);"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        while (!hasExit) {"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String userCommand \u003d ui.getUserCommand();"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            // process user input and decide what operation to use"
+        "content": "    private static void runCommandLoop() {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String operation \u003d extractOperationType(userCommand);"
+        "content": "        Command command;"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        do {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            switch (operation){"
+        "content": "            String userCommandText \u003d ui.getUserCommand();"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"bye\":"
+        "content": "            command \u003d Parser.parseCommand(userCommandText);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    hasExit \u003d true;"
+        "content": "            command.setData(taskList);"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    ui.showGoodbyeMessage();"
+        "content": "            command.execute();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    break;"
+        "content": "            storage.writeFile(STORE_DIRECTORY);"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"list\":"
+        "content": "        } while (!ByeCommand.isExit(command));"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    ui.showTaskListView(taskList.printAllTask());"
+        "content": "    }"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    break;"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    private static void exit() {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"done\":"
+        "content": "        ui.showGoodbyeMessage();"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    try {"
+        "content": "        System.exit(0);"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        markTaskAsDone(userCommand);"
+        "content": "    }"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    } catch (IllegalIndex e) {"
+        "content": ""
       },
       {
         "lineNumber": 49,
         "author": {
-          "gitId": "leonlowzd"
+          "gitId": "-"
         },
-        "content": "                        ui.showIllegalIndexMessage();"
-      },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 47,
+      "-": 2
+    }
+  },
+  {
+    "path": "src/main/java/Duke/Parser.java",
+    "fileType": "java",
+    "lines": [
       {
-        "lineNumber": 50,
+        "lineNumber": 1,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        continue;"
+        "content": "package Duke;"
       },
       {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                case \"delete\":"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    try {"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                        deleteTask(userCommand);"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    } catch (IllegalIndex e) {"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                        ui.showIllegalIndexMessage();"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                        continue;"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 61,
+        "lineNumber": 2,
         "author": {
           "gitId": "leonlowzd"
         },
         "content": ""
       },
       {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.commands.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.exceptions.IllegalDate;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.exceptions.IllegalDescription;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.exceptions.IllegalIndex;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import static Duke.common.Messages.*;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import static Duke.common.TaskNames.DEADLINE_DATE_IDENTIFIER;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import static Duke.common.TaskNames.EVENT_DATE_IDENTIFIER;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        public Parser() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static Command parseCommand(String userInput) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        String[] words \u003d userInput.trim().split(\" \", 2);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        final String commandWord \u003d words[0];"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        final String arguments \u003d userInput.replaceFirst(commandWord, \"\").trim();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        switch (commandWord) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case AddTask.COMMAND_WORD_TODO:"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case AddTask.COMMAND_WORD_DEADLINE:"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case AddTask.COMMAND_WORD_EVENT:"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return prepareAddCommand(arguments, commandWord);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case DoneCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return prepareDoneCommand(arguments);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case DeleteCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return prepareDeleteCommand(arguments);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case ByeCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return prepareByeCommand();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case ListCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return prepareListCommand();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return new InvalidCommand(MESSAGE_INVALID_COMMAND_ERROR);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private static int getIndexFromString(String arguments) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        int index;"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            index \u003d Integer.parseInt(arguments.trim()) - 1;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        } catch (RuntimeException e) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            index \u003d -1;"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return index;"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private static Command prepareDeleteCommand(String arguments) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            int selectedIndex \u003d getIndexFromString(arguments);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            if (selectedIndex \u003c 0) throw new IllegalIndex();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return new DeleteCommand(selectedIndex);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        } catch (IllegalIndex e) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            return new InvalidCommand(MESSAGE_INDEX_ERROR);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private static Command prepareDoneCommand(String arguments) {"
+      },
+      {
         "lineNumber": 62,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"todo\":"
+        "content": "        try {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"deadline\":"
+        "content": "            int selectedIndex \u003d getIndexFromString(arguments);"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                case \"event\":"
+        "content": "            if (selectedIndex \u003c 0) throw new IllegalIndex();"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    try {"
+        "content": "            return new DoneCommand(selectedIndex);"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        String taskDescription \u003d extractDescriptionFromString(operation, userCommand);"
+        "content": ""
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        if (operation.equals(\"todo\")) {"
+        "content": "        } catch (IllegalIndex e) {"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                            createNewTask(operation, taskDescription,null,false,true);"
+        "content": "            return new InvalidCommand(MESSAGE_INDEX_ERROR);"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        }"
+        "content": "        }"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        else{"
+        "content": "    }"
       },
       {
         "lineNumber": 71,
@@ -505,49 +858,49 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                            String date \u003d extractDateFromString(userCommand);"
+        "content": "    private static Command prepareListCommand() {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                            createNewTask(operation, taskDescription ,date ,false,true);"
+        "content": "        return new ListCommand();"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        }"
+        "content": ""
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    } catch (IllegalDate e) {"
+        "content": "    private static Command prepareByeCommand() {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        ui.showIllegalDateMessage();"
+        "content": "        return new ByeCommand();"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        continue;"
+        "content": "    }"
       },
       {
         "lineNumber": 79,
@@ -561,800 +914,239 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    } catch (IllegalDescription e){"
+        "content": "    private static Command prepareAddCommand(String arguments, String commandWord) {"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        ui.showIllegalDescriptionMessage();"
+        "content": "        String description;"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                        continue;"
+        "content": "        String date;"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        try {"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    }"
+        "content": "            if (commandWord.equals(AddTask.COMMAND_WORD_DEADLINE)) {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    break;"
+        "content": "                date \u003d arguments.substring(arguments.indexOf(DEADLINE_DATE_IDENTIFIER));"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                default:"
+        "content": "                date \u003d date.replace(DEADLINE_DATE_IDENTIFIER, \"\").trim();"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    ui.showIllegalCommandMessage();"
+        "content": "                description \u003d arguments.substring(0, arguments.lastIndexOf(\"/\")).trim();"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    continue;"
+        "content": "                if (date.isEmpty()) throw new IllegalDate();"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            }"
+        "content": ""
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            logFile.writeFile(homeDirectory,taskList.printAllTask());"
+        "content": "            } else if (commandWord.equals(AddTask.COMMAND_WORD_EVENT)) {"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "                date \u003d arguments.substring(arguments.indexOf(EVENT_DATE_IDENTIFIER));"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "                date \u003d date.replace(EVENT_DATE_IDENTIFIER, \"\").trim();"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    "
+        "content": "                description \u003d arguments.substring(0, arguments.lastIndexOf(\"/\")).trim();"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static void createNewTask(String taskType, String description, String date,"
+        "content": "                if (date.isEmpty()) throw new IllegalDate();"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                                     Boolean status, Boolean mode)"
+        "content": ""
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            throws IllegalDate, IllegalDescription {"
+        "content": "            } else {"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        if(description.isEmpty()) throw new IllegalDescription();"
+        "content": "                date \u003d null;"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        switch(taskType) {"
+        "content": "                description \u003d arguments;"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            case \"todo\":"
+        "content": "            }"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                ToDo todo \u003d new ToDo(description);"
+        "content": "            if (description.isEmpty()) throw new IllegalDescription();"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                taskList.addNewTask(todo);"
+        "content": "            return new AddTask(commandWord, description, date, true);"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                numberOfTasks++;"
+        "content": ""
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                if (mode) {"
+        "content": "        } catch (IllegalDate | StringIndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    ui.showCreatedTask(todo,numberOfTasks);"
+        "content": "            return new InvalidCommand(MESSAGE_DATE_ERROR);"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                }"
+        "content": ""
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                break;"
+        "content": "        } catch (IllegalDescription e) {"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            return new InvalidCommand(MESSAGE_DESCRIPTION_ERROR);"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            case \"deadline\":"
+        "content": ""
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                Deadline deadline \u003d new Deadline(description, date);"
+        "content": "        }"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                taskList.addNewTask(deadline);"
+        "content": "    }"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                if (mode) {"
+        "content": ""
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                    ui.showCreatedTask(deadline,numberOfTasks);"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            case \"event\":"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                Event event \u003d new Event(description, date);"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                taskList.addNewTask(event);"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                numberOfTasks++;"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                if (mode){"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                    ui.showCreatedTask(event,numberOfTasks);"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if (status) taskList.getTask(numberOfTasks-1).markAsDone();"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    // This function extracts the operation type from the user input\u0027s String"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractOperationType(String userInput) {"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        userInput \u003d userInput.trim();"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        String [] operation \u003d userInput.split(\" \");"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return operation[0];"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    // This function removes the task type and extracts the description of the task"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractDescriptionFromString(String type, String userInput)"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throws IllegalDescription, IllegalDate {"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        String description;"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            if (type.equals(\"todo\")){"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                description \u003d userInput.replace(type, \"\");"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                if (description.contains(\"/\")) throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            } else{"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                description \u003d userInput.replace(type, \"\");"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                description \u003d description.substring(0, description.lastIndexOf(\"/\"));"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            if (description.replace(\" \",\"\").isEmpty()) throw new IllegalDescription();"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        } catch ( StringIndexOutOfBoundsException e ) {"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return description;"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    // This function extracts the date from the user input"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractDateFromString(String userInput) throws IllegalDate {"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        String date \u003d userInput.substring(userInput.lastIndexOf(\"/\"));"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if (date.isEmpty()) throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else if (date.contains(\"/by\") \u003d\u003d date.contains((\"/at\"))) {"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return date;"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    // This function selects the tagged index from user input and deletes it from the list"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static void deleteTask (String line) throws IllegalIndex {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            int selectedIndex \u003d Integer.parseInt(line.split(\" \")[1]) - 1;"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            if (selectedIndex\u003c0) throw new IllegalIndex();"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            numberOfTasks--;"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            ui.showDeleteTaskMessage(taskList.getTask(selectedIndex),numberOfTasks);"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            taskList.removeTask(selectedIndex);"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        } catch (RuntimeException e) {"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalIndex();"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    // This function marks the tagged index from user input as complete and prints the statement"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static void markTaskAsDone (String line) throws IllegalIndex  {"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            int selectedIndex \u003d Integer.parseInt(line.split(\" \")[1]) - 1;"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            taskList.getTask(selectedIndex).markAsDone();"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            ui.showTaskAsDoneMessage(taskList.getTask(selectedIndex));"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        } catch (RuntimeException e) {"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalIndex();"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "-"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "leonlowzd": 189,
-      "-": 3
+      "leonlowzd": 112
     }
   },
   {
-    "path": "src/main/java/Duke/LogFile.java",
+    "path": "src/main/java/Duke/commands/AddTask.java",
     "fileType": "java",
     "lines": [
       {
@@ -1362,7 +1154,429 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "package Duke;"
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.exceptions.IllegalDescription;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.Deadline;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.Event;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class AddTask extends Command{"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD_TODO \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD_DEADLINE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD_EVENT \u003d \"event\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String TODO_ADD \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String DEADLINE_ADD \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String EVENT_ADD \u003d \"event\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final String description;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final String date;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final String type;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final Boolean mode;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public AddTask(String type, String description, String date, Boolean mode) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.type \u003d type;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.date \u003d date;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.mode \u003d mode;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        switch (type) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case TODO_ADD:"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            ToDo todo \u003d new ToDo(description);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            tasks.addNewTask(todo);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            if (mode) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "                ui.printCreatedTask(todo,tasks.getNumberOfTasksInList());"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case DEADLINE_ADD:"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            Deadline deadline \u003d new Deadline(description, date);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            tasks.addNewTask(deadline);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            if (mode) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "                ui.printCreatedTask(deadline,tasks.getNumberOfTasksInList());"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        case EVENT_ADD:"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            Event event \u003d new Event(description, date);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            tasks.addNewTask(event);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            if (mode) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "                ui.printCreatedTask(event,tasks.getNumberOfTasksInList());"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 59
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/ByeCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
       },
       {
         "lineNumber": 2,
@@ -1397,35 +1611,1227 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.io.BufferedWriter;"
+        "content": "public class ByeCommand extends Command {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.io.File;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "    public static final String COMMAND_WORD \u003d \"bye\";"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.io.IOException;"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "leonlowzd"
         },
+        "content": "    public static boolean isExit(Command command) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return command instanceof ByeCommand; // instanceof returns false if it is null"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 18
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.ui.TextUi;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "abstract public class Command {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected TaskList tasks;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected static TextUi ui \u003d new TextUi();"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected Command() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void setData(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.tasks \u003d tasks;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    abstract public void execute();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 18
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class DeleteCommand extends Command{"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final int indexToDelete;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public DeleteCommand(int indexToDelete) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.indexToDelete \u003d indexToDelete;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        if (indexToDelete \u003e tasks.getNumberOfTasksInList()-1) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            ui.printIllegalIndexMessage();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            Task TaskToDelete \u003d tasks.getTask(indexToDelete);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            tasks.removeTask(indexToDelete);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            ui.printDeleteTaskMessage(TaskToDelete ,tasks.getNumberOfTasksInList());"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 25
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class DoneCommand extends Command{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"done\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final int indexToMark;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public DoneCommand(int indexToMark) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.indexToMark \u003d indexToMark;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        if (indexToMark \u003e tasks.getNumberOfTasksInList()-1){"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            ui.printIllegalIndexMessage();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            tasks.getTask(indexToMark).markAsDone();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            ui.printTaskAsDoneMessage(tasks.getTask(indexToMark));"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 20
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/InvalidCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class InvalidCommand extends Command {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public final String feedbackToUser;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public InvalidCommand(String feedbackToUser) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.feedbackToUser \u003d feedbackToUser;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        ui.printCustomError(this.feedbackToUser + \"\\n\");"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 13
+    }
+  },
+  {
+    "path": "src/main/java/Duke/commands/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.commands;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"list\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public ListCommand() {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void execute() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        StringBuilder sb \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        int index \u003d 0;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        for (Task task :tasks.getAllTasks()) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            sb.append(index+1);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            sb.append(\". \");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            sb.append(task);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            sb.append(\"\\n\");"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            index++;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        ui.printTaskListView(sb.toString());"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 24
+    }
+  },
+  {
+    "path": "src/main/java/Duke/common/Messages.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.common;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": " * Diciontary for user visible messages."
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class Messages {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_GOODBYE \u003d \"Good bye!\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_ADD_NEW_TASK \u003d \"Nice, I\u0027ve added the following task to the list\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_REMOVED_TASK \u003d \"Noted. I\u0027ve removed this task: \";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_SHOW_LIST \u003d \"Here are the tasks in your list:\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_MARKED_AS_DONE \u003d \"Nice! I\u0027ve marked this task as done: \";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_WELCOME \u003d"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            \" Hello! I\u0027m Duke\\n\" + \" What can I do for you?\\n\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_INVALID_COMMAND_ERROR \u003d"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            \"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_INDEX_ERROR \u003d"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            \"☹ OOPS!!! Illegal index, it does not exist in the list\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_DATE_ERROR \u003d"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            \"☹ OOPS!!! Illegal date format!!\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String MESSAGE_DESCRIPTION_ERROR \u003d"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "            \"☹ OOPS!!! Illegal description\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 24
+    }
+  },
+  {
+    "path": "src/main/java/Duke/common/TaskNames.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.common;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "/**"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": " * Diciontary for user visible messages."
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class TaskNames {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String TODO \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String TODO_DISPLAY \u003d \"T\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String DEADLINE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String DEADLINE_DISPLAY \u003d \"D\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String DEADLINE_DATE_IDENTIFIER \u003d \"/by\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String EVENT \u003d \"event\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String EVENT_DISPLAY \u003d \"E\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public static final String EVENT_DATE_IDENTIFIER \u003d \"/by\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 18
+    }
+  },
+  {
+    "path": "src/main/java/Duke/data/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.data;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.commands.AddTask;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import Duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import java.io.BufferedWriter;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
         "content": "import java.io.FileNotFoundException;  // Import this class to handle errors"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 11,
@@ -1446,14 +2852,14 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "public class LogFile extends Duke {"
+        "content": "import static Duke.common.TaskNames.*;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static final String TEXT_DIVIDER \u003d \" | \";"
+        "content": ""
       },
       {
         "lineNumber": 15,
@@ -1467,133 +2873,133 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public LogFile() {"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "    private static final String TEXT_DIVIDER \u003d \" | \";"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void writeFile(String homeDirectory, String statement) throws IOException {"
+        "content": "    private final TaskList tasks;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    public Storage(TaskList tasks) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        File file \u003d new File(homeDirectory);"
+        "content": "        this.tasks \u003d tasks;"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        FileWriter fw \u003d new FileWriter(file.getAbsoluteFile());"
+        "content": "    }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        BufferedWriter bw \u003d new BufferedWriter(fw);"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        // Write in file"
+        "content": "    public void writeFile(String homeDirectory) {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        StringBuilder sb \u003d convertListToTextFormat(statement);"
+        "content": "        try {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        bw.write(sb.toString());"
+        "content": "            File file \u003d new File(homeDirectory);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        // Close connection"
+        "content": "            FileWriter fw \u003d new FileWriter(file.getAbsoluteFile());"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        bw.close();"
+        "content": "            BufferedWriter bw \u003d new BufferedWriter(fw);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "            // Write in file"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            StringBuilder sb \u003d convertListToTextFormat(this.tasks);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private StringBuilder convertListToTextFormat(String statement) {"
+        "content": "            bw.write(sb.toString());"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String[] lines \u003d statement.split(\"\\\\r?\\\\n\");"
+        "content": "            // Close connection"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        StringBuilder sb \u003d new StringBuilder();"
+        "content": "            bw.close();"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        for (String line : lines){"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractLineToText(sb, line);"
+        "content": "            System.out.println(\"Unable to write File\");"
       },
       {
         "lineNumber": 35,
@@ -1607,7 +3013,7 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return sb;"
+        "content": ""
       },
       {
         "lineNumber": 37,
@@ -1628,836 +3034,493 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private void extractLineToText(StringBuilder sb, String line) {"
+        "content": "    private StringBuilder convertListToTextFormat(TaskList taskList) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        if (!line.isEmpty()) {"
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d taskList.getAllTasks();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String extractedType \u003d convertTypeToText(line);"
+        "content": "        StringBuilder sb \u003d new StringBuilder();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String extractedDoneStatus \u003d convertDoneStatusToText(line);"
+        "content": "        for (Task task: tasks) {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String extractedDescription \u003d convertDescriptionToText(line, extractedType);"
+        "content": "            String type \u003d task.getTaskType().replace(\"[\",\"\").replace(\"]\",\"\") + TEXT_DIVIDER;"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String extractedDate \u003d convertDateToText(extractedType, line);"
+        "content": "            String doneStatus \u003d task.getStatus() + TEXT_DIVIDER;"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            sb.append(extractedType).append(extractedDoneStatus).append(extractedDescription).append(extractedDate).append(\"\\n\");"
+        "content": "            String description \u003d task.getDescription();"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            String date \u003d \"\";"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            if (!(type.equals(\"T | \"))) {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "                date \u003d TEXT_DIVIDER + task.getDate();"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private String convertTypeToText(String line) {"
+        "content": "            sb.append(type).append(doneStatus).append(description).append(date).append(\"\\n\");"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return line.split(\"]\")[0].replace(\"[\",\"\") +TEXT_DIVIDER;"
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "        return sb;"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private String convertDescriptionToText(String line, String extractedType) {"
+        "content": "    }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String extractedDescription \u003d line.split(\" \",3)[2].trim();"
+        "content": ""
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        if (extractedType.contains(\"E\")) {"
+        "content": "    public void readFile(String homeDirectory) {"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDescription \u003d extractedDescription.split(\"\\\\(at:\")[0].trim();"
+        "content": "        try {"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            File file \u003d new File(homeDirectory);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        else if (extractedType.contains(\"D\")) {"
+        "content": "            if (!file.exists()){"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDescription \u003d extractedDescription.split(\"\\\\(by:\")[0].trim();"
+        "content": "                return;"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return extractedDescription;"
+        "content": "            Scanner myReader \u003d new Scanner(file);"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "            convertTextToTask(myReader);"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            myReader.close();"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private String convertDateToText(String extractedType, String line) {"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        line \u003d line.split(\" \",3)[2].trim();"
+        "content": "            System.out.println(\"An error occurred.\");"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String extractedDate \u003d \"\";"
+        "content": "            e.printStackTrace();"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        if(extractedType.contains(\"E\")) {"
+        "content": "        }"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDate \u003d TEXT_DIVIDER+ line.split(\"\\\\(at:\")[1].trim().replace(\")\",\"\").trim();"
+        "content": ""
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        } else if (extractedType.contains(\"D\")) {"
+        "content": "    }"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDate \u003d TEXT_DIVIDER+ line.split(\"\\\\(by:\")[1].replace(\")\",\"\").trim();"
+        "content": ""
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "    private void convertTextToTask(Scanner myReader) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return extractedDate;"
+        "content": "        while (myReader.hasNextLine()) {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "            String data \u003d myReader.nextLine();"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            String[] list \u003d data.split(\"\\\\|\");"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private String convertDoneStatusToText(String line) {"
+        "content": "            String type \u003d extractTaskType(list[0]);"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String extractedDoneStatus \u003d line.split(\"]\")[1].replace(\"[\",\"\");"
+        "content": "            boolean status \u003d extractDoneStatus(list[1].trim());"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        if (extractedDoneStatus.equals(\"\\u2713\")) {"
+        "content": "            String description \u003d list[2].trim();"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDoneStatus \u003d \"1\"+TEXT_DIVIDER;"
+        "content": "            String date \u003d \"\";"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            if (!(type.equals(TODO))) date \u003d list[2].trim();"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        else {"
+        "content": ""
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            extractedDoneStatus \u003d \"0\"+TEXT_DIVIDER;"
+        "content": "            AddTask add \u003d new AddTask(type,description,date,false);"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            add.setData(tasks);"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return extractedDoneStatus;"
+        "content": "            add.execute();"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "            if (status){"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "                tasks.getTask(tasks.getNumberOfTasksInList()-1).markAsDone();"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void readFile(String homeDirectory) {"
+        "content": "            }"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            File file \u003d new File(homeDirectory);"
+        "content": "        }"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            if (!file.exists()){"
+        "content": "    }"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                return;"
+        "content": ""
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            }"
+        "content": "    private boolean extractDoneStatus(String status) {"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            Scanner myReader \u003d new Scanner(file);"
+        "content": "        boolean isFinished;"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            convertTextToTask(myReader);"
+        "content": "        isFinished \u003d !status.equals(\"0\");"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            myReader.close();"
+        "content": "        return isFinished;"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "    }"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            System.out.println(\"An error occurred.\");"
+        "content": ""
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            e.printStackTrace();"
+        "content": "    private String extractTaskType(String type) {"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        } catch (IllegalDescription | IllegalDate illegalDescription) {"
+        "content": "        String taskType;"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            illegalDescription.printStackTrace();"
+        "content": "        if (type.contains(\"E\")) {"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "            taskType \u003d EVENT;"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "        } else if(type.contains(\"T\")) {"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "            taskType \u003d TODO;"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private void convertTextToTask(Scanner myReader) throws IllegalDate, IllegalDescription {"
+        "content": "        } else {"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        while (myReader.hasNextLine()) {"
+        "content": "            taskType \u003d DEADLINE;"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String data \u003d myReader.nextLine();"
+        "content": "        }"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String taskType \u003d extractTaskType(data.split(\"\\\\|\")[0].trim());"
+        "content": "        return taskType;"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            boolean status \u003d extractDoneStatus(data.split(\"\\\\|\")[1].trim());"
+        "content": "    }"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            String description \u003d extractDescription(data.split(\"\\\\|\")[2].trim(),taskType);"
+        "content": ""
       },
       {
         "lineNumber": 109,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            String date \u003d extractDate(data,taskType);"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            // Create New Task from Duke Main function"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            Duke.createNewTask(taskType,description,date,status,false);"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractTaskType(String type) {"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        String taskType;"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if (type.contains(\"E\")) {"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            taskType \u003d \"event\";"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else if(type.contains(\"T\")) {"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            taskType \u003d \"todo\";"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            taskType \u003d \"deadline\";"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return taskType;"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static boolean extractDoneStatus(String status) {"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return status.contains(\"1\");"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractDescription(String description, String type) {"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if (type.contains(\"deadline\")){"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            description \u003d description.split(\"by:\")[0];"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            description \u003d description.split(\"at:\")[0];"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        description \u003d description.replace(\"(\",\"\");"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return description;"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private static String extractDate(String line, String type) {"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        String date;"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if (type.contains(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            date \u003d \"/by \"+line.split(\"\\\\|\")[3].trim();"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else if (type.contains(\"event\")) {"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            date \u003d \"/at \"+line.split(\"\\\\|\")[3].trim();"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            date \u003d \"\";"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return date;"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 158,
         "author": {
           "gitId": "leonlowzd"
         },
@@ -2465,11 +3528,11 @@
       }
     ],
     "authorContributionMap": {
-      "leonlowzd": 158
+      "leonlowzd": 109
     }
   },
   {
-    "path": "src/main/java/Duke/TaskList.java",
+    "path": "src/main/java/Duke/data/TaskList.java",
     "fileType": "java",
     "lines": [
       {
@@ -2477,7 +3540,7 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "package Duke;"
+        "content": "package Duke.data;"
       },
       {
         "lineNumber": 2,
@@ -2491,7 +3554,7 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.task.Task;"
+        "content": "import Duke.data.task.Task;"
       },
       {
         "lineNumber": 4,
@@ -2659,94 +3722,59 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public String printAllTask() {"
+        "content": "    public int getNumberOfTasksInList() {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        StringBuilder sb \u003d new StringBuilder();"
+        "content": "        return taskList.size();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        int index \u003d 0;"
+        "content": "    }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        for (Task task :taskList) {"
+        "content": ""
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            sb.append(index+1);"
+        "content": "    public ArrayList\u003cTask\u003e getAllTasks() {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            sb.append(\". \");"
+        "content": "        return taskList;"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            sb.append(task);"
+        "content": "    }"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            sb.append(\"\\\\n\");"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            index++;"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return sb.toString();"
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "leonlowzd"
-        },
         "content": ""
       },
       {
-        "lineNumber": 40,
+        "lineNumber": 35,
         "author": {
           "gitId": "leonlowzd"
         },
@@ -2754,11 +3782,11 @@
       }
     ],
     "authorContributionMap": {
-      "leonlowzd": 40
+      "leonlowzd": 35
     }
   },
   {
-    "path": "src/main/java/Duke/common/Messages.java",
+    "path": "src/main/java/Duke/data/task/Deadline.java",
     "fileType": "java",
     "lines": [
       {
@@ -2766,7 +3794,7 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "package Duke.common;"
+        "content": "package Duke.data.task;"
       },
       {
         "lineNumber": 2,
@@ -2780,7 +3808,7 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.Duke;"
+        "content": "import static Duke.common.TaskNames.DEADLINE_DISPLAY;"
       },
       {
         "lineNumber": 4,
@@ -2794,28 +3822,28 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "/**"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": " * Container for user visible messages."
+        "content": "public class Deadline extends Task {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": " */"
+        "content": "    protected String date;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "public class Messages {"
+        "content": "    protected final String TASK_TYPE \u003d DEADLINE_DISPLAY;"
       },
       {
         "lineNumber": 9,
@@ -2829,56 +3857,338 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_GOODBYE \u003d \"Good bye!\";"
+        "content": "    public Deadline(String description, String date) {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_ADD_NEW_TASK \u003d \"Nice, I\u0027ve added the following task to the list\";"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_REMOVED_TASK \u003d \"Noted. I\u0027ve removed this task: \";"
+        "content": "        setDate(date);"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_INVALID_COMMAND_FORMAT \u003d \"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_SHOW_LIST \u003d \"Here are the tasks in your list:\";"
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_MARKED_AS_DONE \u003d \"Nice! I\u0027ve marked this task as done: \";"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_WELCOME \u003d \" Hello! I\u0027m Duke\\n\""
+        "content": "    @Override"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            + \" What can I do for you?\\n\";"
+        "content": "    public String getTaskType(){"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.TASK_TYPE;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void setDate(String date){"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.date \u003d date;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getDate(){"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.date;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private String setPrintDate() {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return \" (by: \"+getDate()+\")\";"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String toString(){"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return \"[\" + getTaskType() + \"]\" + super.toString() + setPrintDate();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 39
+    }
+  },
+  {
+    "path": "src/main/java/Duke/data/task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import static Duke.common.TaskNames.EVENT_DISPLAY;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected String date;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected final String TASK_TYPE \u003d EVENT_DISPLAY;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public Event(String description, String date) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        setDate(date);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.TASK_TYPE;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
       },
       {
         "lineNumber": 18,
@@ -2892,24 +4202,115 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_INDEX_ERROR \u003d \"☹ OOPS!!! Illegal index, it does not exist in the list\";"
+        "content": "    public void setDate(String date) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_DATE_ERROR \u003d \"☹ OOPS!!! Illegal date format!!\";"
+        "content": "        this.date \u003d date;"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final String MESSAGE_DESCRIPTION_ERROR \u003d \"☹ OOPS!!! Illegal description\";"
+        "content": "    }"
       },
       {
         "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getDate(){"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.date;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private String setPrintDate() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return \" (at: \"+getDate()+\")\";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return \"[\"+getTaskType()+\"]\" + super.toString() + setPrintDate();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
         "author": {
           "gitId": "leonlowzd"
         },
@@ -2917,7 +4318,473 @@
       }
     ],
     "authorContributionMap": {
-      "leonlowzd": 22
+      "leonlowzd": 35
+    }
+  },
+  {
+    "path": "src/main/java/Duke/data/task/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "abstract public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public abstract String getTaskType();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getStatus() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return (isDone ? \"1\" : \"0\");"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        //return tick or X symbols"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return (isDone ? \"[\\u2713]\" : \"[\\u2718]\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.description;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String toString(){"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return getStatusIcon() +\" \"+ this.description.trim();"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public abstract String getDate();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 36
+    }
+  },
+  {
+    "path": "src/main/java/Duke/data/task/ToDo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "package Duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "import static Duke.common.TaskNames.TODO_DISPLAY;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    private final String TASK_TYPE \u003d TODO_DISPLAY;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public ToDo(String description) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        isDone \u003d false;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getDate() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return null;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return this.TASK_TYPE;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    public String toString(){"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "        return \"[\"+getTaskType()+\"]\" + super.toString();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "leonlowzd"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "leonlowzd": 28
     }
   },
   {
@@ -3039,938 +4906,6 @@
     }
   },
   {
-    "path": "src/main/java/Duke/task/Deadline.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "package Duke.task;"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.Duke;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.exceptions.IllegalDate;"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.task.Task;"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "public class Deadline extends Task {"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected String date;"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected final String TASK_TYPE \u003d \"[D]\";"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public Deadline(String description, String date) throws IllegalDate {"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if(date.contains(\"/by\")) {"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            if (date.replace(\"/by\",\"\").trim().isEmpty()) {"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            setDate(date);"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getTaskType(){"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return this.TASK_TYPE;"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public void setDate(String date){"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        date \u003d date.replace(\"/by\",\" (by:\");"
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        date +\u003d \")\";"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        this.date \u003d date;"
-      },
-      {
-        "lineNumber": 33,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 34,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String toString(){"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return getTaskType() + super.toString() + getDate();"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getDate(){"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return this.date;"
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "leonlowzd": 43
-    }
-  },
-  {
-    "path": "src/main/java/Duke/task/Event.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "package Duke.task;"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.Duke;"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.exceptions.IllegalDate;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.task.Task;"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "public class Event extends Task {"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected String date;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected final String TASK_TYPE \u003d \"[E]\";"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public Event(String description, String date) throws IllegalDate {"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        if(date.contains(\"/at\")){"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            if (date.replace(\"/at\",\"\").trim().isEmpty()){"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "                throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            setDate(date);"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "            throw new IllegalDate();"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getTaskType() {"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return this.TASK_TYPE;"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public void setDate(String date) {"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        date \u003d date.replace(\"/at\", \" (at:\");"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        date +\u003d \")\";"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        this.date \u003d date;"
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getDate(){"
-      },
-      {
-        "lineNumber": 33,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return this.date;"
-      },
-      {
-        "lineNumber": 34,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return getTaskType() + super.toString() + getDate();"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "leonlowzd": 38
-    }
-  },
-  {
-    "path": "src/main/java/Duke/task/Task.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "package Duke.task;"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.Duke;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "public class Task {"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected String description;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected boolean isDone;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public Task(String description) {"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        this.description \u003d description;"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        this.isDone \u003d false;"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getStatusIcon() {"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        //return tick or X symbols"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return (isDone ? \"[\\u2713]\" : \"[\\u2718]\");"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public void markAsDone() {"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        this.isDone \u003d true;"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String toString(){"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return getStatusIcon() +\" \"+ this.description.trim();"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "leonlowzd": 26
-    }
-  },
-  {
-    "path": "src/main/java/Duke/task/ToDo.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "package Duke.task;"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.Duke;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "import Duke.task.Task;"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "public class ToDo extends Task {"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    protected boolean isDone;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    private String TASK_TYPE \u003d \"[T]\";"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public ToDo(String description){"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        isDone \u003d false;"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String toString(){"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return getTaskType() + super.toString();"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public String getTaskType() {"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        return this.TASK_TYPE;"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "leonlowzd": 21
-    }
-  },
-  {
     "path": "src/main/java/Duke/ui/TextUi.java",
     "fileType": "java",
     "lines": [
@@ -4007,35 +4942,35 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "import Duke.data.task.Task;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.TaskList;"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import Duke.task.Task;"
+        "content": "import static Duke.common.Messages.*;"
       },
       {
         "lineNumber": 10,
@@ -4049,168 +4984,168 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "import static Duke.common.Messages.*;"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "/**"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": " * Text UI of the application."
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "/**"
+        "content": " */"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": " * Text UI of the application."
+        "content": "public class TextUi {"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": " */"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "public class TextUi {"
+        "content": "    /**"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     * A platform independent line separator."
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /** Offset required to convert between 1-indexing and 0-indexing.  */"
+        "content": "     */"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public static final int DISPLAYED_INDEX_OFFSET \u003d 1;"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    private static final String DIVIDER \u003d \"____________________________________________________________\";"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /** A platform independent line separator. */"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static final String LS \u003d System.lineSeparator();"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    /**"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static final String DIVIDER \u003d \"____________________________________________________________\";"
+        "content": "     * Format of a comment input line. Comment lines are silently consumed when reading user input."
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     */"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /** Format of indexed list item */"
+        "content": "    private static final String COMMENT_LINE_FORMAT_REGEX \u003d \"#.*\";"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static final String MESSAGE_INDEXED_LIST_ITEM \u003d \"\\t%1$d. %2$s\";"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    private final Scanner in;"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /** Format of a comment input line. Comment lines are silently consumed when reading user input. */"
+        "content": "    private final PrintStream out;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private static final String COMMENT_LINE_FORMAT_REGEX \u003d \"#.*\";"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    public TextUi() {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private final Scanner in;"
+        "content": "        this(System.in, System.out);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private final PrintStream out;"
+        "content": "    }"
       },
       {
         "lineNumber": 35,
@@ -4224,392 +5159,392 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public TextUi() {"
+        "content": "    public TextUi(InputStream in, PrintStream out) {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        this(System.in, System.out);"
+        "content": "        this.in \u003d new Scanner(in);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "        this.out \u003d out;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public TextUi(InputStream in, PrintStream out) {"
+        "content": ""
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        this.in \u003d new Scanner(in);"
+        "content": "    /**"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        this.out \u003d out;"
+        "content": "     * Returns true if the user input line should be ignored."
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     * Input should be ignored if it is parsed as a comment, is only whitespace, or is empty."
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     *"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /**"
+        "content": "     * @param rawInputLine full raw user input line."
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Returns true if the user input line should be ignored."
+        "content": "     * @return true if the entire user input line should be ignored."
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Input should be ignored if it is parsed as a comment, is only whitespace, or is empty."
+        "content": "     */"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     *"
+        "content": "    private boolean removeEmptyLines(String rawInputLine) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @param rawInputLine full raw user input line."
+        "content": "        return rawInputLine.trim().isEmpty() || isCommentLine(rawInputLine);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @return true if the entire user input line should be ignored."
+        "content": "    }"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     */"
+        "content": ""
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private boolean removeEmptyLines(String rawInputLine) {"
+        "content": "    /**"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return rawInputLine.trim().isEmpty() || isCommentLine(rawInputLine);"
+        "content": "     * Returns true if the user input line is a comment line."
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     *"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     * @param rawInputLine full raw user input line."
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /**"
+        "content": "     * @return true if input line is a comment."
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Returns true if the user input line is a comment line."
+        "content": "     */"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     *"
+        "content": "    private boolean isCommentLine(String rawInputLine) {"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @param rawInputLine full raw user input line."
+        "content": "        return rawInputLine.trim().matches(COMMENT_LINE_FORMAT_REGEX);"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @return true if input line is a comment."
+        "content": "    }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     */"
+        "content": ""
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    private boolean isCommentLine(String rawInputLine) {"
+        "content": "    /**"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return rawInputLine.trim().matches(COMMENT_LINE_FORMAT_REGEX);"
+        "content": "     * Prompts for the command and reads the text entered by the user."
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     * Ignores empty, pure whitespace, and comment lines."
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     * Echos the command back to the user."
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /**"
+        "content": "     *"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Prompts for the command and reads the text entered by the user."
+        "content": "     * @return command (full line) entered by the user"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Ignores empty, pure whitespace, and comment lines."
+        "content": "     */"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Echos the command back to the user."
+        "content": "    public String getUserCommand() {"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @return command (full line) entered by the user"
+        "content": "        String fullInputLine \u003d in.nextLine();"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     */"
+        "content": "        while (removeEmptyLines(fullInputLine)) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public String getUserCommand() {"
+        "content": "            fullInputLine \u003d in.nextLine();"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String fullInputLine \u003d in.nextLine();"
+        "content": "        }"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        return fullInputLine;"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        while (removeEmptyLines(fullInputLine)) {"
+        "content": "    }"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            fullInputLine \u003d in.nextLine();"
+        "content": ""
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "    /**"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "     * Generates and prints the welcome message upon the start of the application."
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        return fullInputLine;"
+        "content": "     *"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     */"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    public void printWelcomeMessage() {"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /**"
+        "content": "        printOut("
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Generates and prints the welcome message upon the start of the application."
+        "content": "                DIVIDER,"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * @param version current version of the application."
+        "content": "                MESSAGE_WELCOME,"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     */"
+        "content": "                DIVIDER);"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showWelcomeMessage(String version) {"
+        "content": "    }"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser("
+        "content": ""
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                DIVIDER,"
+        "content": "    public void showGoodbyeMessage() {"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                MESSAGE_WELCOME,"
+        "content": "        printOut(DIVIDER, MESSAGE_GOODBYE, DIVIDER);"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "                DIVIDER);"
+        "content": "    }"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 92,
@@ -4623,196 +5558,196 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showGoodbyeMessage() {"
+        "content": "    /**"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_GOODBYE, DIVIDER);"
+        "content": "     * Prints message(s) to the user"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     */"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    public void printOut(String... text) {"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        for (String t : text) {"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /** Shows message(s) to the user */"
+        "content": "            System.out.println(t);"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showToUser(String... message) {"
+        "content": "        }"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        for (String m : message) {"
+        "content": ""
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "            out.println(m.replace(\"\\\\n\", LS));"
+        "content": "    /**"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        }"
+        "content": "     * Shows a list of persons to the user, formatted as an indexed list."
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "     */"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    public void printTaskListView(String toPrint) {"
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    /**"
+        "content": "        printOut(DIVIDER, MESSAGE_SHOW_LIST, toPrint, DIVIDER);"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     * Shows a list of persons to the user, formatted as an indexed list."
+        "content": "    }"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "     */"
+        "content": ""
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showTaskListView(String taskList) {"
+        "content": "    public void printCreatedTask(Task task, int numberOfTasks) {"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_SHOW_LIST,taskList, DIVIDER);"
+        "content": "        String numberOfTaskMessage \u003d \"Now you have \" + numberOfTasks + \" in the list.\\n\";"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "        printOut(DIVIDER, MESSAGE_ADD_NEW_TASK, task.toString(), numberOfTaskMessage, DIVIDER);"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showCreatedTask(Task task, int numberOfTasks){"
+        "content": ""
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String numberOfTaskMessage \u003d \"Now you have \"+numberOfTasks+\" in the list.\\n\";"
+        "content": "    public void printDeleteTaskMessage(Task task, int selectedIndex) {"
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_ADD_NEW_TASK, task.toString(), numberOfTaskMessage, DIVIDER);"
+        "content": "        String numberOfTaskMessage \u003d \"Now you have \" + selectedIndex + \" in the list.\\n\";"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "        printOut(DIVIDER, MESSAGE_REMOVED_TASK, task.toString(), numberOfTaskMessage, DIVIDER);"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showDeleteTaskMessage(Task task, int selectedIndex) {"
+        "content": ""
       },
       {
         "lineNumber": 119,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        String numberOfTaskMessage \u003d \"Now you have \"+selectedIndex+\" in the list.\\n\";"
+        "content": "    public void printTaskAsDoneMessage(Task task) {"
       },
       {
         "lineNumber": 120,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_REMOVED_TASK, task.toString(), numberOfTaskMessage, DIVIDER);"
+        "content": "        printOut(DIVIDER, MESSAGE_MARKED_AS_DONE, task.toString(), DIVIDER);"
       },
       {
         "lineNumber": 121,
@@ -4826,143 +5761,94 @@
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showTaskAsDoneMessage(Task task) {"
+        "content": ""
       },
       {
         "lineNumber": 123,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_MARKED_AS_DONE,task.toString(), DIVIDER);"
+        "content": ""
       },
       {
         "lineNumber": 124,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "    public void printIllegalDescriptionMessage() {"
       },
       {
         "lineNumber": 125,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        printOut(DIVIDER, MESSAGE_DESCRIPTION_ERROR, DIVIDER);"
       },
       {
         "lineNumber": 126,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showIllegalCommandMessage() {"
+        "content": "    }"
       },
       {
         "lineNumber": 127,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER,MESSAGE_INVALID_COMMAND_FORMAT,DIVIDER);"
+        "content": ""
       },
       {
         "lineNumber": 128,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "    public void printIllegalIndexMessage() {"
       },
       {
         "lineNumber": 129,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        printOut(DIVIDER, MESSAGE_INDEX_ERROR, DIVIDER);"
       },
       {
         "lineNumber": 130,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showIllegalDateMessage(){"
+        "content": "    }"
       },
       {
         "lineNumber": 131,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "        showToUser(DIVIDER, MESSAGE_DATE_ERROR, DIVIDER);"
+        "content": ""
       },
       {
         "lineNumber": 132,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    }"
+        "content": "    public void printCustomError(String error) {"
       },
       {
         "lineNumber": 133,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": ""
+        "content": "        printOut(error);"
       },
       {
         "lineNumber": 134,
         "author": {
           "gitId": "leonlowzd"
         },
-        "content": "    public void showIllegalDescriptionMessage(){"
+        "content": "    }"
       },
       {
         "lineNumber": 135,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        showToUser(DIVIDER, MESSAGE_DESCRIPTION_ERROR, DIVIDER);"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    public void showIllegalIndexMessage(){"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "        showToUser(DIVIDER, MESSAGE_INDEX_ERROR, DIVIDER);"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "leonlowzd"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 142,
         "author": {
           "gitId": "leonlowzd"
         },
@@ -4970,7 +5856,7 @@
       }
     ],
     "authorContributionMap": {
-      "leonlowzd": 142
+      "leonlowzd": 135
     }
   },
   {

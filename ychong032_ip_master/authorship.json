@@ -207,2355 +207,395 @@
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import static duke.aesthetics.Emojis.*;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.exception.DukeEmptyDescriptionException;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import duke.task.ToDo;"
+        "content": "import duke.exception.DukeUnknownInputException;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import duke.task.Event;"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "import java.io.IOException;"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "import java.util.Scanner;"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "import java.util.ArrayList;"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "import java.io.FileWriter;"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "import java.io.File;"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "ychong032"
-        },
         "content": ""
       },
       {
-        "lineNumber": 15,
+        "lineNumber": 10,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
-        "lineNumber": 16,
+        "lineNumber": 11,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    private static int listIndex \u003d 0;"
+        "content": "    protected static int listIndex \u003d 0;"
       },
       {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    private static final ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
-      },
-      {
-        "lineNumber": 18,
+        "lineNumber": 12,
         "author": {
           "gitId": "ychong032"
         },
         "content": "    private static final String PATH \u003d \"data\" + File.separator + \"duke.txt\";"
       },
       {
-        "lineNumber": 19,
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private TaskList tasks;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private Ui ui;"
+      },
+      {
+        "lineNumber": 16,
         "author": {
           "gitId": "ychong032"
         },
         "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Duke(String filePath) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        ui \u003d new Ui();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "        try {"
       },
       {
         "lineNumber": 21,
         "author": {
-          "gitId": "-"
+          "gitId": "ychong032"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "            tasks \u003d new TaskList(storage.load());"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        //Print logo and opening message"
+        "content": "        } catch (IOException e) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        try {"
+        "content": "            ui.showFileNotFoundError();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            File dukeFile \u003d createDukeFile();"
+        "content": "        }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            readDukeFile(dukeFile);"
+        "content": "    }"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": ""
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            System.out.println(\"\\tduke.txt not found in /data folder!\");"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            System.exit(-1);"
+        "content": "        ui.printLogo();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        } catch (IOException e) {"
+        "content": "        ui.printGreeting();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            printIOEMessage();"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            System.exit(-1);"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        }"
+        "content": "            try {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "                String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        printLogo();"
+        "content": "                Command c \u003d Parser.parse(fullCommand);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        printGreeting();"
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "                isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        //Receive user input and execute corresponding functions"
+        "content": "            } catch (IOException e) {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "                ui.showFileNotFoundError();"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        getUserInput();"
+        "content": "                System.exit(-1);"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "            } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        //Print closing message"
+        "content": "                ui.showTaskNumberError();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        printFarewell();"
+        "content": "            } catch (StringIndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    }"
+        "content": "                ui.showInputFormatError();"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    public static File createDukeFile() throws IOException {"
+        "content": "                ui.showMissingTaskNumberError();"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        File dukeFile \u003d new File(PATH);"
+        "content": "            } catch (DukeEmptyDescriptionException e) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        if (!dukeFile.exists()) {"
+        "content": "                ui.showBlankDescriptionError();"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            new File(dukeFile.getParent()).mkdirs();"
+        "content": "            } catch (DukeUnknownInputException e) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "            dukeFile.createNewFile();"
+        "content": "                ui.showUnknownInputError();"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        }"
+        "content": "            }"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        return dukeFile;"
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    }"
+        "content": "        ui.printFarewell();"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "ychong032"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    public static void readDukeFile(File dukeFile) throws FileNotFoundException {"
+        "content": ""
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        Scanner sc \u003d new Scanner(dukeFile);"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        String taskAsString;"
+        "content": "        new Duke(PATH).run();"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        while (sc.hasNext()) {"
+        "content": "    }"
       },
       {
         "lineNumber": 58,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            taskAsString \u003d sc.nextLine();"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            if (taskAsString.contains(\"[T]\")) {"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                readToDo(taskAsString);"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (taskAsString.contains(\"[D]\")) {"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                readDeadline(taskAsString);"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                readEvent(taskAsString);"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            if (taskAsString.contains(\"\\u2713\")) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                tasks.get(listIndex).markAsDone();"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            listIndex++;"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void readEvent(String taskAsString) {"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String description;"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int atStartIndex \u003d taskAsString.indexOf(\" (at:\") + \" (at:\".length();"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int atEndIndex \u003d taskAsString.lastIndexOf(\")\");"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String at \u003d taskAsString.substring(atStartIndex, atEndIndex);"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        description \u003d taskAsString.substring(taskAsString.indexOf(\" \"), taskAsString.indexOf(\" (at:\"));"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new Event(description, at));"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void readDeadline(String taskAsString) {"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String description;"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int deadlineStartIndex \u003d (taskAsString.indexOf(\" (by:\") + \" (by:\".length());"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int deadlineEndIndex \u003d taskAsString.lastIndexOf(\")\");"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String deadline \u003d taskAsString.substring(deadlineStartIndex, deadlineEndIndex);"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        description \u003d taskAsString.substring(taskAsString.indexOf(\" \"), taskAsString.indexOf(\" (by:\"));"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new Deadline(description, deadline));"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void readToDo(String taskAsString) {"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String description \u003d taskAsString.substring(taskAsString.indexOf(\" \"));"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new ToDo(description));"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void writeToFile() throws IOException {"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        FileWriter dukeFile \u003d new FileWriter(\"data/duke.txt\");"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        for (Task task : tasks) {"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            dukeFile.write(task.toString() + \"\\n\");"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        dukeFile.close();"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void getUserInput() {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        Scanner sc \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String userInput \u003d sc.nextLine();"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        while (!userInput.trim().toLowerCase().equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            if (userInput.trim().toLowerCase().equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                displayList();"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (userInput.trim().toLowerCase().contains(\"done\")) {"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                markTaskDone(userInput);"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (userInput.trim().toLowerCase().contains(\"todo\")) {"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addToList(userInput, \"todo\");"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (userInput.trim().toLowerCase().contains(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addToList(userInput, \"deadline\");"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (userInput.trim().toLowerCase().contains(\"event\")) {"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addToList(userInput, \"event\");"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else if (userInput.trim().toLowerCase().contains(\"delete\")) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                deleteTask(userInput);"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                printErrorMessage();"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            userInput \u003d sc.nextLine();"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void markTaskDone(String userInput) {"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            Task taskDone \u003d getCompletedTask(userInput);"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            taskDone.markAsDone();"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printTaskDone(taskDone);"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            writeToFile();"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printNFEMessage();"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printIOOEMessage();"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printIOEMessage();"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            System.exit(-1);"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void deleteTask(String userInput) {"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            Task deletedTask \u003d getDeletedTask(userInput);"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printTaskDeleted(deletedTask);"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            tasks.remove(deletedTask);"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            writeToFile();"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printNFEMessage();"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printIOOEMessage();"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printIOEMessage();"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            System.exit(-1);"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printTaskDeleted(Task deletedTask) {"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tUnderstood, I\u0027ve deleted this task: \");"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\\t\" + deletedTask);"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.printf(\"\\tYou now have %d task(s) in your list, sir.\\n\", tasks.size() - 1);"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static Task getDeletedTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String replacedInput \u003d userInput.trim().toLowerCase().replace(\"delete\", \"\");"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int taskDeleted \u003d Integer.parseInt(replacedInput.trim());"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        return tasks.get(taskDeleted - 1);"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printIOOEMessage() {"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tThat task number is not in your list, sir.\");"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printIOEMessage() {"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tduke.txt does not exist in /data folder!\");"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tTerminating Duke...\");"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printNFEMessage() {"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + SAD_EMOJI + \" I don\u0027t recognise that task number, sir. Please enter a valid\" +"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                \"\\n\\ttask number after the keyword.\");"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printTaskDone(Task taskDone) {"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + CLAP_EMOJI + \" Very good, sir. Excellent work accomplishing your task:\");"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\\t\" + taskDone);"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static Task getCompletedTask(String userInput) throws NumberFormatException, IndexOutOfBoundsException {"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String replacedInput \u003d userInput.trim().toLowerCase().replace(\"done\", \"\");"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int taskNumber \u003d Integer.parseInt(replacedInput.trim());"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        return tasks.get(taskNumber-1);"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void addToList(String userInput, String taskType) {"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String replacedInput \u003d userInput.replaceFirst(\"(?i)\" + taskType, \"\").trim();"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            switch (taskType) {"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            case \"todo\":"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addToDoToList(replacedInput);"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            case \"deadline\":"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addDeadlineToList(replacedInput);"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            case \"event\":"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                addEventToList(replacedInput);"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            writeToFile();"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (StringIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printSIOOBEMessage();"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printDEMessage(taskType);"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            printIOEMessage();"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            System.exit(1);"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printDEMessage(String taskType) {"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + SAD_EMOJI + \" Apologies, sir. The description of your \" + taskType"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \" cannot be empty.\");"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printSIOOBEMessage() {"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + SAD_EMOJI + \" Please ensure that your deadline or event is followed by\""
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \"\\n\\t\u0027/by\u0027 or \u0027/at\u0027, respectively.\");"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printAddedTask() {"
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + OKAY_EMOJI + \" Understood, sir. I\u0027ve added this task: \");"
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\\t\" + tasks.get(listIndex));"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.printf(\"\\tYou currently have %d task(s) in your list, sir.%n\", tasks.size());"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 251,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 252,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 253,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void addToDoToList(String replacedInput) throws DukeException {"
-      },
-      {
-        "lineNumber": 254,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (replacedInput.isBlank()) {"
-      },
-      {
-        "lineNumber": 255,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 256,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 257,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new ToDo(replacedInput));"
-      },
-      {
-        "lineNumber": 258,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printAddedTask();"
-      },
-      {
-        "lineNumber": 259,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        listIndex++;"
-      },
-      {
-        "lineNumber": 260,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 261,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 262,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void addDeadlineToList(String replacedInput) throws StringIndexOutOfBoundsException, DukeException {"
-      },
-      {
-        "lineNumber": 263,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (replacedInput.isBlank()) {"
-      },
-      {
-        "lineNumber": 264,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 265,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 266,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int byIndex \u003d replacedInput.toLowerCase().indexOf(\"/by\");"
-      },
-      {
-        "lineNumber": 267,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String by \u003d replacedInput.substring(byIndex + \"/by\".length());"
-      },
-      {
-        "lineNumber": 268,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String description \u003d replacedInput.substring(0, byIndex);"
-      },
-      {
-        "lineNumber": 269,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (description.isBlank()) {"
-      },
-      {
-        "lineNumber": 270,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            description \u003d \"Unspecified task\";"
-      },
-      {
-        "lineNumber": 271,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 272,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new Deadline(description, by));"
-      },
-      {
-        "lineNumber": 273,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printAddedTask();"
-      },
-      {
-        "lineNumber": 274,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        listIndex++;"
-      },
-      {
-        "lineNumber": 275,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 276,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 277,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void addEventToList(String replacedInput) throws StringIndexOutOfBoundsException, DukeException {"
-      },
-      {
-        "lineNumber": 278,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (replacedInput.isBlank()) {"
-      },
-      {
-        "lineNumber": 279,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 280,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 281,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        int atIndex \u003d replacedInput.toLowerCase().indexOf(\"/at\");"
-      },
-      {
-        "lineNumber": 282,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String at \u003d replacedInput.substring(atIndex + \"/at\".length());"
-      },
-      {
-        "lineNumber": 283,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String description \u003d replacedInput.substring(0, atIndex);"
-      },
-      {
-        "lineNumber": 284,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (description.isBlank()) {"
-      },
-      {
-        "lineNumber": 285,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            description \u003d \"Unspecified event\";"
-      },
-      {
-        "lineNumber": 286,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 287,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        tasks.add(new Event(description, at));"
-      },
-      {
-        "lineNumber": 288,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printAddedTask();"
-      },
-      {
-        "lineNumber": 289,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        listIndex++;"
-      },
-      {
-        "lineNumber": 290,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 291,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 292,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void displayList() {"
-      },
-      {
-        "lineNumber": 293,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 294,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        if (tasks.isEmpty()) {"
-      },
-      {
-        "lineNumber": 295,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            System.out.println(\"\\t\" + HURRAY_EMOJI + \" You have no tasks recorded, sir. Huzzah!\");"
-      },
-      {
-        "lineNumber": 296,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 297,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            System.out.println(\"\\t\" + LIST_EMOJI + \" Here are your tasks, sir: \");"
-      },
-      {
-        "lineNumber": 298,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            for (int i \u003d 0; i \u003c tasks.size(); i++) {"
-      },
-      {
-        "lineNumber": 299,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                System.out.printf(\"\\t%d.\", i + 1);"
-      },
-      {
-        "lineNumber": 300,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                System.out.println(tasks.get(i));"
-      },
-      {
-        "lineNumber": 301,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 302,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 303,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 304,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 305,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 306,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printFarewell() {"
-      },
-      {
-        "lineNumber": 307,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 308,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + SMILE_EMOJI + \" Always a pleasure, sir. Do come back soon.\");"
-      },
-      {
-        "lineNumber": 309,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 310,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 311,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 312,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printLogo() {"
-      },
-      {
-        "lineNumber": 313,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        String logo \u003d \"\\t ____        _        \\n\""
-      },
-      {
-        "lineNumber": 314,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \"\\t|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 315,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \"\\t| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 316,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \"\\t| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 317,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                + \"\\t|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 318,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tHello from\\n\" + logo);"
-      },
-      {
-        "lineNumber": 319,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 320,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 321,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printGreeting() {"
-      },
-      {
-        "lineNumber": 322,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 323,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + WAVE_EMOJI + \" Greetings, sir. My name is Duke\");"
-      },
-      {
-        "lineNumber": 324,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\tHow may I assist you today, sir?\");"
-      },
-      {
-        "lineNumber": 325,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 326,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 327,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 328,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printDivider() {"
-      },
-      {
-        "lineNumber": 329,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t+------------------------------------------------------------------+\");"
-      },
-      {
-        "lineNumber": 330,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 331,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 332,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    public static void printErrorMessage() {"
-      },
-      {
-        "lineNumber": 333,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 334,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        System.out.println(\"\\t\" + CONFUSED_EMOJI + \" I\u0027m afraid I don\u0027t understand, sir. Please preface \" +"
-      },
-      {
-        "lineNumber": 335,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "                \"your tasks \" + \"\\n\\twith \u0027todo\u0027, \u0027deadline\u0027, or \u0027event\u0027 to add them to your list.\");"
-      },
-      {
-        "lineNumber": 336,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "        printDivider();"
-      },
-      {
-        "lineNumber": 337,
-        "author": {
-          "gitId": "ychong032"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 338,
         "author": {
           "gitId": "-"
         },
@@ -2563,12 +603,12 @@
       }
     ],
     "authorContributionMap": {
-      "ychong032": 335,
-      "-": 3
+      "ychong032": 56,
+      "-": 2
     }
   },
   {
-    "path": "src/main/java/duke/DukeException.java",
+    "path": "src/main/java/duke/Parser.java",
     "fileType": "java",
     "lines": [
       {
@@ -2590,17 +630,143 @@
         "author": {
           "gitId": "ychong032"
         },
-        "content": "public class DukeException extends Exception {"
+        "content": "import duke.command.*;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "ychong032"
         },
-        "content": "    //no other code needed"
+        "content": "import duke.exception.DukeUnknownInputException;"
       },
       {
         "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public static Command parse(String fullCommand) throws DukeUnknownInputException {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String trimmedCommand \u003d fullCommand.toLowerCase().trim();"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (trimmedCommand.contains(\"todo\") | trimmedCommand.contains(\"deadline\") | trimmedCommand.contains(\"event\")) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            return new AddCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else if (trimmedCommand.contains(\"delete\")) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            return new DeleteCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else if (trimmedCommand.contains(\"done\")) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            return new CompleteCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else if (trimmedCommand.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            return new ListCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else if (trimmedCommand.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            return new ExitCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            throw new DukeUnknownInputException();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
         "author": {
           "gitId": "ychong032"
         },
@@ -2608,7 +774,2162 @@
       }
     ],
     "authorContributionMap": {
-      "ychong032": 5
+      "ychong032": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private String filePath;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Storage(String filePath) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        this.filePath \u003d filePath;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public File createDukeFile() throws IOException {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        File dukeFile \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (!dukeFile.exists()) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            new File(dukeFile.getParent()).mkdirs();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            dukeFile.createNewFile();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return dukeFile;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void readDukeFile(File dukeFile) throws FileNotFoundException {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Scanner sc \u003d new Scanner(dukeFile);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String taskAsString;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        while (sc.hasNext()) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            taskAsString \u003d sc.nextLine();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            if (taskAsString.contains(\"[T]\")) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                readToDo(taskAsString);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            } else if (taskAsString.contains(\"[D]\")) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                readDeadline(taskAsString);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                readEvent(taskAsString);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            if (taskAsString.contains(\"\\u2713\")) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                tasks.get(Duke.listIndex).markAsDone();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            Duke.listIndex++;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void readEvent(String taskAsString) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String description;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int atStartIndex \u003d taskAsString.indexOf(\" (at:\") + \" (at:\".length() + 1;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int atEndIndex \u003d taskAsString.lastIndexOf(\")\");"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String at \u003d taskAsString.substring(atStartIndex, atEndIndex);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        description \u003d taskAsString.substring(taskAsString.indexOf(\" \") + 1, taskAsString.indexOf(\" (at:\"));"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new Event(description, at));"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void readDeadline(String taskAsString) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String description;"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int deadlineStartIndex \u003d taskAsString.indexOf(\" (by:\") + \" (by:\".length() + 1;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int deadlineEndIndex \u003d taskAsString.lastIndexOf(\")\");"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String deadline \u003d taskAsString.substring(deadlineStartIndex, deadlineEndIndex);"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        description \u003d taskAsString.substring(taskAsString.indexOf(\" \") + 1, taskAsString.indexOf(\" (by:\"));"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new Deadline(description, deadline));"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void readToDo(String taskAsString) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String description \u003d taskAsString.substring(taskAsString.indexOf(\" \") + 1);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new ToDo(description));"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void writeToFile() throws IOException {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        FileWriter dukeFile \u003d new FileWriter(filePath);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        for (Task task : tasks) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            dukeFile.write(task.toString() + \"\\n\");"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        dukeFile.close();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public ArrayList\u003cTask\u003e load() throws IOException {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        File dukeFile \u003d createDukeFile();"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        readDukeFile(dukeFile);"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 88
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.exception.DukeEmptyDescriptionException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        this.tasks \u003d tasks;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Task markTaskDone(String fullCommand) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Task taskDone \u003d getCompletedTask(fullCommand);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        taskDone.markAsDone();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return taskDone;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Task deleteTask(String fullCommand) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Task deletedTask \u003d getDeletedTask(fullCommand);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.remove(deletedTask);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return deletedTask;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Task getDeletedTask(String fullCommand) throws NumberFormatException, IndexOutOfBoundsException {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String replacedInput \u003d fullCommand.toLowerCase().replace(\"delete\", \"\");"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int taskDeleted \u003d Integer.parseInt(replacedInput.trim());"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return tasks.get(taskDeleted - 1);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Task getCompletedTask(String fullCommand) throws NumberFormatException, IndexOutOfBoundsException {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String replacedInput \u003d fullCommand.toLowerCase().replace(\"done\", \"\");"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int taskNumber \u003d Integer.parseInt(replacedInput.trim());"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return tasks.get(taskNumber - 1);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void addToList(String fullCommand, String taskType) throws DukeEmptyDescriptionException {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String replacedInput \u003d fullCommand.replaceFirst(\"(?i)\" + taskType, \"\").trim();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        switch (taskType) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        case \"todo\":"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            addToDoToList(replacedInput);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        case \"deadline\":"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            addDeadlineToList(replacedInput);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        case \"event\":"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            addEventToList(replacedInput);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void addToDoToList(String replacedInput) throws DukeEmptyDescriptionException {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (replacedInput.isBlank()) {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            throw new DukeEmptyDescriptionException();"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new ToDo(replacedInput));"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Duke.listIndex++;"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void addDeadlineToList(String replacedInput) throws StringIndexOutOfBoundsException,"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            DukeEmptyDescriptionException {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (replacedInput.isBlank()) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            throw new DukeEmptyDescriptionException();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int byIndex \u003d replacedInput.indexOf(\"/by\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String by \u003d replacedInput.substring(byIndex + \"/by\".length()).trim();"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String description \u003d replacedInput.substring(0, byIndex).trim();"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (description.isBlank()) {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            description \u003d \"Unspecified task\";"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new Deadline(description, by));"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Duke.listIndex++;"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void addEventToList(String replacedInput) throws StringIndexOutOfBoundsException,"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            DukeEmptyDescriptionException {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (replacedInput.isBlank()) {"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            throw new DukeEmptyDescriptionException();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        int atIndex \u003d replacedInput.indexOf(\"/at\");"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String at \u003d replacedInput.substring(atIndex + \"/at\".length()).trim();"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String description \u003d replacedInput.substring(0, atIndex).trim();"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (description.isBlank()) {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            description \u003d \"Unspecified event\";"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.add(new Event(description, at));"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Duke.listIndex++;"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTasks() {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 98
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.aesthetics.Emojis;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        Scanner sc \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return sc.nextLine();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showTaskDeleted(Task deletedTask, TaskList tasks) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tUnderstood, I\u0027ve deleted this task: \");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\\t\" + deletedTask);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.printf(\"\\tYou now have %d task(s) in your list, sir.\\n\", tasks.getTasks().size());"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showMissingTaskNumberError() {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tThat task number is not in your list, sir.\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showFileNotFoundError() {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tduke.txt does not exist in /data folder!\");"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tTerminating Duke...\");"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showTaskNumberError() {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.SAD_EMOJI + \" I don\u0027t recognise that task number, sir. Please enter a valid\" +"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                \"\\n\\ttask number after the keyword.\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showTaskDone(Task taskDone) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.CLAP_EMOJI + \" Very good, sir. Excellent work accomplishing your task:\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\\t\" + taskDone);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showBlankDescriptionError() {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.SAD_EMOJI + \" Apologies, sir. The description of your task cannot be empty.\");"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showInputFormatError() {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.SAD_EMOJI + \" Please ensure that your deadline or event is followed by\""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                + \"\\n\\t\u0027/by\u0027 or \u0027/at\u0027, respectively.\");"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showAddedTask(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.OKAY_EMOJI + \" Understood, sir. I\u0027ve added this task: \");"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\\t\" + tasks.getTasks().get(tasks.getTasks().size() - 1));"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.printf(\"\\tYou currently have %d task(s) in your list, sir.%n\", tasks.getTasks().size());"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showTaskList(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (tasks.getTasks().isEmpty()) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            System.out.println(\"\\t\" + Emojis.HURRAY_EMOJI + \" You have no tasks recorded, sir. Huzzah!\");"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            System.out.println(\"\\t\" + Emojis.LIST_EMOJI + \" Here are your tasks, sir: \");"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            for (int i \u003d 0; i \u003c tasks.getTasks().size(); i++) {"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                System.out.printf(\"\\t%d.\", i + 1);"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                System.out.println(tasks.getTasks().get(i));"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void printFarewell() {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.SMILE_EMOJI + \" Always a pleasure, sir. Do come back soon.\");"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void printLogo() {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String logo \u003d \"\\t ____        _        \\n\""
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                + \"\\t|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                + \"\\t| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                + \"\\t| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                + \"\\t|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tHello from\\n\" + logo);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void printGreeting() {"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.WAVE_EMOJI + \" Greetings, sir. My name is Duke\");"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\tHow may I assist you today, sir?\");"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void printDivider() {"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t+------------------------------------------------------------------+\");"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void showUnknownInputError() {"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        System.out.println(\"\\t\" + Emojis.CONFUSED_EMOJI + \" I\u0027m afraid I don\u0027t understand, sir. Please preface \" +"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "                \"your tasks \" + \"\\n\\twith \u0027todo\u0027, \u0027deadline\u0027, or \u0027event\u0027 to add them to your list.\");"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        printDivider();"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 118
     }
   },
   {
@@ -2705,6 +3026,1044 @@
     }
   },
   {
+    "path": "src/main/java/duke/command/AddCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.exception.DukeEmptyDescriptionException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class AddCommand extends Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    private String taskType;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public AddCommand(String fullCommand) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        super(fullCommand);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        String trimmedCommand \u003d fullCommand.toLowerCase().trim();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        if (trimmedCommand.contains(\"todo\")) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            taskType \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else if (trimmedCommand.contains(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            taskType \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "            taskType \u003d \"event\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeEmptyDescriptionException, IOException {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        tasks.addToList(fullCommand, taskType);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        ui.showAddedTask(tasks);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        storage.writeToFile();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 29
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.exception.DukeEmptyDescriptionException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    protected String fullCommand;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    protected boolean isExit;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public Command(String fullCommand) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        this.fullCommand \u003d fullCommand;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        isExit \u003d false;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeEmptyDescriptionException;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public boolean isExit() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        return isExit;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 24
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/CompleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class CompleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public CompleteCommand(String fullCommand) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        super(fullCommand);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        ui.showTaskDone(tasks.markTaskDone(fullCommand));"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        storage.writeToFile();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 20
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public DeleteCommand(String fullCommand) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        super(fullCommand);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        ui.showTaskDeleted(tasks.deleteTask(fullCommand), tasks);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        storage.writeToFile();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 20
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class ExitCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public ExitCommand(String fullCommand) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        super(fullCommand);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        isExit \u003d true;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public ListCommand(String fullCommand) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        super(fullCommand);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "        ui.showTaskList(tasks);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/DukeEmptyDescriptionException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class DukeEmptyDescriptionException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    ;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 5
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/DukeUnknownInputException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "public class DukeUnknownInputException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    //no other code needed"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "    ;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "ychong032"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "ychong032": 6
+    }
+  },
+  {
     "path": "src/main/java/duke/task/Deadline.java",
     "fileType": "java",
     "lines": [
@@ -2797,7 +4156,7 @@
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        return \"[D]\" + super.toString() + \" (by:\" + by + \")\";"
+        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
       },
       {
         "lineNumber": 14,
@@ -2911,7 +4270,7 @@
         "author": {
           "gitId": "ychong032"
         },
-        "content": "        return \"[E]\" + super.toString() + \" (at:\" + at + \")\";"
+        "content": "        return \"[E]\" + super.toString() + \" (at: \" + at + \")\";"
       },
       {
         "lineNumber": 14,

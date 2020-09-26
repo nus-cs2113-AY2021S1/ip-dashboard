@@ -22,42 +22,815 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.exceptions.InvalidCommandException;"
+        "content": "import duke.exceptions.*;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.exceptions.NullCommandArgsException;"
+        "content": "import duke.tasks.Task;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.tasks.Deadline;"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.tasks.Event;"
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.tasks.Task;"
+        "content": "import java.time.format.DateTimeParseException;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import duke.tasks.Todo;"
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_TODO \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_DEADLINE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_EVENT \u003d \"event\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_DONE \u003d \"done\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_LIST \u003d \"list\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_DELETE \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_FIND \u003d \"find\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_BYE \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String FILE_PATH \u003d \"data/duke.txt\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    private Ui ui;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    private TaskList tasks;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    private Parser parse;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Duke(String filePath) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        ui \u003d new Ui();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        tasks \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        parse \u003d new Parser();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            tasks \u003d new TaskList(storage.readFromFile());"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        } catch (FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            ui.showLoadingError();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            tasks \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        } catch (DateTimeParseException e) {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            ui.showInvalidFileFormatExceptionMessage();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void run() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        ui.showWelcomeMessage();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        boolean isExit \u003d false;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        while (!isExit) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            String userInput \u003d ui.getUserInput();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            String commandType \u003d parse.getCommandType(userInput);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            String commandArgs \u003d parse.getCommandArgs(userInput);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                switch (commandType) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_TODO:"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    Task todoTask \u003d tasks.addTodo(parse.getDescription(commandArgs));"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showAddTaskMessage(tasks, todoTask);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_DEADLINE:"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    Task deadlineTask \u003d tasks.addDeadline(parse.getDescription(commandArgs), parse.getDate(commandArgs));"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showAddTaskMessage(tasks, deadlineTask);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_EVENT:"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    Task eventTask \u003d tasks.addEvent(parse.getDescription(commandArgs), parse.getDate(commandArgs));"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showAddTaskMessage(tasks, eventTask);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_DONE:"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    Task taskToBeMarkedAsDone \u003d tasks.markTaskAsDone(parse.getIndex(commandArgs));"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    taskToBeMarkedAsDone.markAsDone();"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showTaskDoneMessage(taskToBeMarkedAsDone);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_LIST:"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showTaskList(tasks.getTaskList());"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_DELETE:"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    Task taskToBeDeleted \u003d tasks.deleteTask(parse.getIndex(commandArgs));"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showTaskDeletedMessage(tasks, taskToBeDeleted);"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_FIND:"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showFilteredTaskList(tasks.getTaskList(), commandArgs);"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case COMMAND_BYE:"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    isExit \u003d true;"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    ui.showExitMessage();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    storage.writeToFile(tasks);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                default:"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (InvalidCommandException e) {"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showInvalidCommandExceptionMessage();"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (InvalidDateArgsException e) {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showInvalidDateArgsExceptionMessage(commandType);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (NullDescriptionException e) {"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showNullDescriptionExceptionMessage(commandType);"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (NullIndexException e) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showNullIndexExceptionMessage(commandType);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (NullStringException e)  {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showNullStringExceptionMessage();"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (DateTimeParseException e) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                ui.showInvalidDateInputExceptionMessage();"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static void main(String[] args) {"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        new Duke(FILE_PATH).run();"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 106,
+      "-": 3
+    }
+  },
+  {
+    "path": "src/main/java/duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.exceptions.InvalidDateArgsException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.exceptions.NullDescriptionException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.exceptions.NullIndexException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.time.LocalDate;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 9,
@@ -71,469 +844,469 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.io.File;"
+        "content": "public class Parser {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "    public static final String COMMAND_WORD_DELIMITER \u003d \" \";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.io.IOException;"
+        "content": "    public static final String DEADLINE_DELIMITER \u003d \"/by\";"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "    public static final String EVENT_DELIMITER \u003d \"/at\";"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    public String getCommandType(String userInput) {"
       },
       {
         "lineNumber": 17,
         "author": {
-          "gitId": "-"
+          "gitId": "czlin98"
         },
-        "content": "public class Duke {"
+        "content": "        String[] commandTypeAndParams;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "        String commandType;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_TODO \u003d \"todo\";"
+        "content": "        if (userInput.contains(COMMAND_WORD_DELIMITER)) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_DEADLINE \u003d \"deadline\";"
+        "content": "            commandTypeAndParams \u003d userInput.split(COMMAND_WORD_DELIMITER, 2);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_EVENT \u003d \"event\";"
+        "content": "            commandType \u003d commandTypeAndParams[0];"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_DONE \u003d \"done\";"
+        "content": "        }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_LIST \u003d \"list\";"
+        "content": "        else {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_DELETE \u003d \"delete\";"
+        "content": "            commandType \u003d userInput;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String COMMAND_BYE \u003d \"bye\";"
+        "content": "        }"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DIVIDER_TOP \u003d \"    ____________________________________________________________\";"
+        "content": "        return commandType;"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DIVIDER_BOTTOM \u003d \"    ____________________________________________________________\\n\";"
+        "content": "    }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_PREFIX \u003d \"     \";"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String TASK_PREFIX \u003d \"       \";"
+        "content": "    public String getCommandArgs(String userInput) {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_GREET_A \u003d \"Hello! I\u0027m Duke\";"
+        "content": "        String[] commandTypeAndParams;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_GREET_B \u003d \"What can I do for you?\";"
+        "content": "        String commandArgs;"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_BYE \u003d \"Bye. Hope to see you again soon!\";"
+        "content": "        if (userInput.contains(COMMAND_WORD_DELIMITER)) {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_LIST \u003d \"Here are the tasks in your list:\";"
+        "content": "            commandTypeAndParams \u003d userInput.split(COMMAND_WORD_DELIMITER, 2);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_LIST_NO_TASKS \u003d \"There are no tasks in your list yet.\";"
+        "content": "            commandArgs \u003d commandTypeAndParams[1];"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_ADD_TASK \u003d \"Got it. I\u0027ve added this task:\";"
+        "content": "        }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_TASK_COUNT_A \u003d \"Now you have \";"
+        "content": "        else {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_TASK_COUNT_B \u003d \" tasks in the list.\";"
+        "content": "            commandArgs \u003d null;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_DONE \u003d \"Nice! I\u0027ve marked this task as done:\";"
+        "content": "        }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String PERIOD \u003d \".\";"
+        "content": "        return commandArgs;"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String SPACE \u003d \" \";"
+        "content": "    }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DELIMITER_DEADLINE \u003d \" /by \";"
+        "content": ""
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DELIMITER_EVENT \u003d \" /at \";"
+        "content": "    public String getDescription(String commandArgs) throws NullDescriptionException {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_NULL_COMMAND_ARGS_A \u003d \"☹ OOPS!!! The description of a \";"
+        "content": "        String[] descriptionAndDate;"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String NULL_COMMAND_ARGS_B \u003d \" cannot be empty.\";"
+        "content": "        String description;"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_NULL_INDEX_DONE_A \u003d \"☹ OOPS!!! The index of the task to be marked as done\";"
+        "content": "        if (commandArgs \u003d\u003d null || commandArgs.trim().length() \u003d\u003d 0) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_NULL_INDEX_DONE_B \u003d \"cannot be empty.\";"
+        "content": "            throw new NullDescriptionException();"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_NULL_INDEX_DELETE_A \u003d \"☹ OOPS!!! The index of the task to be deleted cannot be\";"
+        "content": "        }"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_NULL_INDEX_DELETE_B \u003d \"empty.\";"
+        "content": "        if (commandArgs.contains(DEADLINE_DELIMITER)) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_INVALID_COMMAND \u003d \"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+        "content": "            descriptionAndDate \u003d commandArgs.split(DEADLINE_DELIMITER, 2);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_DELETE_TASK \u003d \"Noted. I\u0027ve removed this task:\";"
+        "content": "            description \u003d descriptionAndDate[0].trim();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String FILE_PATH \u003d \"data/duke.txt\";"
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String LETTER_TODO \u003d \"T\";"
+        "content": "        else if (commandArgs.contains(EVENT_DELIMITER)) {"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String LETTER_DEADLINE \u003d \"D\";"
+        "content": "            descriptionAndDate \u003d commandArgs.split(EVENT_DELIMITER, 2);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String LETTER_EVENT \u003d \"E\";"
+        "content": "            description \u003d descriptionAndDate[1].trim();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String MESSAGE_SOMETHING_WENT_WRONG \u003d \"Something went wrong: \";"
+        "content": "        }"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks;"
+        "content": "        else {"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static boolean isExit;"
+        "content": "            description \u003d commandArgs;"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "        return description;"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        showWelcomeMessage();"
+        "content": "    }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        initProgram();"
+        "content": ""
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        while (!isExit) {"
+        "content": "    public LocalDate getDate(String commandArgs) throws InvalidDateArgsException {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String userInput \u003d getUserInput();"
+        "content": "        String[] descriptionAndDate;"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            try {"
+        "content": "        String date \u003d null;"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                executeCommand(userInput);"
+        "content": "        if (!(commandArgs.contains(DEADLINE_DELIMITER) || commandArgs.contains(EVENT_DELIMITER))) {"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            }"
+        "content": "            throw new InvalidDateArgsException();"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            catch (InvalidCommandException e) {"
+        "content": "        }"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                showInvalidCommandExceptionMessage();"
+        "content": "        if (commandArgs.contains(DEADLINE_DELIMITER)) {"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            }"
+        "content": "            descriptionAndDate \u003d commandArgs.split(DEADLINE_DELIMITER, 2);"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        }"
+        "content": "            date \u003d descriptionAndDate[1].trim();"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "        else if (commandArgs.contains(EVENT_DELIMITER)) {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void initProgram() {"
+        "content": "            descriptionAndDate \u003d commandArgs.split(EVENT_DELIMITER, 2);"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "            date \u003d descriptionAndDate[1].trim();"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        isExit \u003d false;"
+        "content": "        }"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        readTasks();"
+        "content": "        return LocalDate.parse(date, DateTimeFormatter.ofPattern(\"d/MM/yyyy\"));"
       },
       {
         "lineNumber": 77,
@@ -554,2126 +1327,2271 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void readTasks() {"
+        "content": "    public int getIndex(String commandArgs) throws NullIndexException {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        File file \u003d new File(FILE_PATH);"
+        "content": "        if (commandArgs \u003d\u003d null || commandArgs.trim().length() \u003d\u003d 0) {"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        try {"
+        "content": "            throw new NullIndexException();"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            if (file.exists()) {"
+        "content": "        }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                readFromFile();"
+        "content": "        int index \u003d Integer.parseInt(commandArgs) - 1;"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            } else {"
+        "content": "        return index;"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                file.createNewFile();"
+        "content": "    }"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            }"
-      },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 86
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
+    "fileType": "java",
+    "lines": [
       {
-        "lineNumber": 87,
+        "lineNumber": 1,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        }"
+        "content": "package duke;"
       },
       {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        catch (IOException e) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_SOMETHING_WENT_WRONG + e.getMessage());"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            isExit \u003d true;"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 93,
+        "lineNumber": 2,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 94,
+        "lineNumber": 3,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void readFromFile() throws FileNotFoundException {"
+        "content": "import duke.tasks.Deadline;"
       },
       {
-        "lineNumber": 95,
+        "lineNumber": 4,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        File file \u003d new File(FILE_PATH);"
+        "content": "import duke.tasks.Event;"
       },
       {
-        "lineNumber": 96,
+        "lineNumber": 5,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.tasks.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.tasks.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.time.LocalDate;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.time.format.DateTimeFormatter;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.time.format.DateTimeParseException;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String LETTER_TODO \u003d \"T\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String LETTER_DEADLINE \u003d \"D\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String LETTER_EVENT \u003d \"E\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_SOMETHING_WENT_WRONG \u003d \"Something went wrong: \";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String FILE_DELIMITER \u003d \" \\\\| \";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String OUTPUT_FORMAT \u003d \"MMM d yyyy\";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    private final String filePath;"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Storage(String filePath) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        this.filePath \u003d filePath;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public ArrayList\u003cTask\u003e readFromFile() throws FileNotFoundException, DateTimeParseException {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        File file \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 36,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        Scanner scanner \u003d new Scanner(file);"
       },
       {
-        "lineNumber": 97,
+        "lineNumber": 37,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        while (scanner.hasNext()) {"
+        "content": "        if (file.exists()) {"
       },
       {
-        "lineNumber": 98,
+        "lineNumber": 38,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String taskLine \u003d scanner.nextLine();"
+        "content": "            while (scanner.hasNext()) {"
       },
       {
-        "lineNumber": 99,
+        "lineNumber": 39,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String[] taskTypeAndParams \u003d taskLine.split(\" \\\\| \");"
+        "content": "                String taskLine \u003d scanner.nextLine();"
       },
       {
-        "lineNumber": 100,
+        "lineNumber": 40,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String taskType \u003d taskTypeAndParams[0];"
+        "content": "                String[] taskTypeAndParams \u003d taskLine.split(FILE_DELIMITER);"
       },
       {
-        "lineNumber": 101,
+        "lineNumber": 41,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String taskDoneStatus \u003d taskTypeAndParams[1];"
+        "content": "                String taskType \u003d taskTypeAndParams[0];"
       },
       {
-        "lineNumber": 102,
+        "lineNumber": 42,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            String taskDescription \u003d taskTypeAndParams[2];"
+        "content": "                String taskDoneStatus \u003d taskTypeAndParams[1];"
       },
       {
-        "lineNumber": 103,
+        "lineNumber": 43,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "                String taskDescription \u003d taskTypeAndParams[2];"
       },
       {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            switch (taskType) {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case LETTER_TODO:"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                tasks.add(new Todo(taskDescription));"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case LETTER_DEADLINE:"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                String deadlineDate \u003d taskTypeAndParams[3];"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                tasks.add(new Deadline(taskDescription, deadlineDate));"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case LETTER_EVENT:"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                String eventDate \u003d taskTypeAndParams[3];"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                tasks.add(new Event(taskDescription, eventDate));"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                throw new FileNotFoundException();"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 119,
+        "lineNumber": 44,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 120,
+        "lineNumber": 45,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            if (taskDoneStatus.equals(\"1\")) {"
+        "content": "                switch (taskType) {"
       },
       {
-        "lineNumber": 121,
+        "lineNumber": 46,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                tasks.get(tasks.size() - 1).markAsDone();"
+        "content": "                case LETTER_TODO:"
       },
       {
-        "lineNumber": 122,
+        "lineNumber": 47,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    tasks.add(new Todo(taskDescription));"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case LETTER_DEADLINE:"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    String deadlineDate \u003d taskTypeAndParams[3];"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    tasks.add(new Deadline(taskDescription, LocalDate.parse(deadlineDate, DateTimeFormatter.ofPattern(OUTPUT_FORMAT))));"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                case LETTER_EVENT:"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    String eventDate \u003d taskTypeAndParams[3];"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    tasks.add(new Event(taskDescription, LocalDate.parse(eventDate, DateTimeFormatter.ofPattern(OUTPUT_FORMAT))));"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                default:"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    throw new FileNotFoundException();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                if (taskDoneStatus.equals(\"1\")) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    tasks.get(tasks.size() - 1).markAsDone();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 64,
         "author": {
           "gitId": "czlin98"
         },
         "content": "            }"
       },
       {
-        "lineNumber": 123,
+        "lineNumber": 65,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 124,
+        "lineNumber": 66,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        else {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                file.createNewFile();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                e.printStackTrace();"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 74,
         "author": {
           "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 125,
+        "lineNumber": 75,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 126,
+        "lineNumber": 76,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void showWelcomeMessage() {"
+        "content": "    public void writeToFile(TaskList tasks) {"
       },
       {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_GREET_A);"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_GREET_B);"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_BOTTOM);"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String getUserInput() {"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        Scanner input \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return input.nextLine();"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void executeCommand(String userInput) throws InvalidCommandException{"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String commandType \u003d getCommandType(userInput);"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String commandArgs \u003d getCommandArgs(userInput);"
-      },
-      {
-        "lineNumber": 141,
+        "lineNumber": 77,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        try {"
       },
       {
-        "lineNumber": 142,
+        "lineNumber": 78,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            switch (commandType) {"
+        "content": "            FileWriter filewriter \u003d new FileWriter(filePath);"
       },
       {
-        "lineNumber": 143,
+        "lineNumber": 79,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            case COMMAND_TODO:"
+        "content": "            for (Task task : tasks.getTaskList()) {"
       },
       {
-        "lineNumber": 144,
+        "lineNumber": 80,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "                addTodo(commandArgs);"
+        "content": "                filewriter.write(task.toSave() + System.lineSeparator());"
       },
       {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_DEADLINE:"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                addDeadline(commandArgs);"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_EVENT:"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                addEvent(commandArgs);"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_DONE:"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                markTaskAsDone(commandArgs);"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_LIST:"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                showList();"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_DELETE:"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                deleteTask(commandArgs);"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            case COMMAND_BYE:"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                saveTasks();"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                exitProgram();"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                throw new InvalidCommandException();"
-      },
-      {
-        "lineNumber": 167,
+        "lineNumber": 81,
         "author": {
           "gitId": "czlin98"
         },
         "content": "            }"
       },
       {
-        "lineNumber": 168,
+        "lineNumber": 82,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        }"
+        "content": "            filewriter.close();"
       },
       {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        catch (NullCommandArgsException e) {"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showNullCommandArgsExceptionMessage(commandType);"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String getCommandType(String userInput) {"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String commandType;"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (userInput.contains(SPACE)) {"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String[] commandTypeAndParams \u003d splitCommandWordAndArgs(userInput);"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            commandType \u003d commandTypeAndParams[0];"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            commandType \u003d userInput;"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return commandType;"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String getCommandArgs(String userInput) {"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String commandArgs;"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (userInput.contains(SPACE)) {"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String[] commandTypeAndParams \u003d splitCommandWordAndArgs(userInput);"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            commandArgs \u003d commandTypeAndParams[1];"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            commandArgs \u003d null;"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return commandArgs;"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String[] splitCommandWordAndArgs(String userInput) {"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String[] split \u003d userInput.split(SPACE, 2);"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return split;"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void addTodo(String commandArgs) throws NullCommandArgsException {"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (commandArgs \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            throw new NullCommandArgsException();"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showAddTaskMessage();"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            Todo todoTask \u003d new Todo(commandArgs);"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            tasks.add(todoTask);"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            echoTask(todoTask);"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showTaskCountMessage();"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void addDeadline(String commandArgs) throws NullCommandArgsException {"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (commandArgs \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            throw new NullCommandArgsException();"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else{"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String[] deadlineDescriptionAndDate \u003d splitDeadlineDescriptionAndDate(commandArgs);"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String deadlineDescription \u003d deadlineDescriptionAndDate[0];"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String deadlineDate \u003d deadlineDescriptionAndDate[1];"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            Deadline deadlineTask \u003d new Deadline(deadlineDescription, deadlineDate);"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showAddTaskMessage();"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            tasks.add(deadlineTask);"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            echoTask(deadlineTask);"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showTaskCountMessage();"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void addEvent(String commandArgs) throws NullCommandArgsException {"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (commandArgs \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            throw new NullCommandArgsException();"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String[] eventDescriptionAndDate \u003d splitEventDescriptionAndDate(commandArgs);"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String eventDescription \u003d eventDescriptionAndDate[0];"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            String eventDate \u003d eventDescriptionAndDate[1];"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            Event eventTask \u003d new Event(eventDescription, eventDate);"
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showAddTaskMessage();"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            tasks.add(eventTask);"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            echoTask(eventTask);"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showTaskCountMessage();"
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showNullCommandArgsExceptionMessage(String commandType) {"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        switch (commandType) {"
-      },
-      {
-        "lineNumber": 251,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        case COMMAND_TODO:"
-      },
-      {
-        "lineNumber": 252,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        case COMMAND_DEADLINE:"
-      },
-      {
-        "lineNumber": 253,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        case COMMAND_EVENT:"
-      },
-      {
-        "lineNumber": 254,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_COMMAND_ARGS_A + commandType + NULL_COMMAND_ARGS_B);"
-      },
-      {
-        "lineNumber": 255,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 256,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        case COMMAND_DONE:"
-      },
-      {
-        "lineNumber": 257,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DONE_A);"
-      },
-      {
-        "lineNumber": 258,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DONE_B);"
-      },
-      {
-        "lineNumber": 259,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 260,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        case COMMAND_DELETE:"
-      },
-      {
-        "lineNumber": 261,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DELETE_A);"
-      },
-      {
-        "lineNumber": 262,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DELETE_B);"
-      },
-      {
-        "lineNumber": 263,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 264,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 265,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_BOTTOM);"
-      },
-      {
-        "lineNumber": 266,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 267,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 268,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String[] splitDeadlineDescriptionAndDate(String commandArgs) {"
-      },
-      {
-        "lineNumber": 269,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String[] split \u003d commandArgs.split(DELIMITER_DEADLINE, 2);"
-      },
-      {
-        "lineNumber": 270,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return split;"
-      },
-      {
-        "lineNumber": 271,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 272,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 273,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static String[] splitEventDescriptionAndDate(String commandArgs) {"
-      },
-      {
-        "lineNumber": 274,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String[] split \u003d commandArgs.split(DELIMITER_EVENT, 2);"
-      },
-      {
-        "lineNumber": 275,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return split;"
-      },
-      {
-        "lineNumber": 276,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 277,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 278,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showAddTaskMessage() {"
-      },
-      {
-        "lineNumber": 279,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 280,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_ADD_TASK);"
-      },
-      {
-        "lineNumber": 281,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 282,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 283,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void echoTask(Task task) {"
-      },
-      {
-        "lineNumber": 284,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(TASK_PREFIX + task.toString());"
-      },
-      {
-        "lineNumber": 285,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 286,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 287,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showTaskCountMessage() {"
-      },
-      {
-        "lineNumber": 288,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_TASK_COUNT_A + tasks.size() + MESSAGE_TASK_COUNT_B);"
-      },
-      {
-        "lineNumber": 289,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_BOTTOM);"
-      },
-      {
-        "lineNumber": 290,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 291,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 292,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void markTaskAsDone(String commandArgs) throws NullCommandArgsException {"
-      },
-      {
-        "lineNumber": 293,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (commandArgs \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 294,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            throw new NullCommandArgsException();"
-      },
-      {
-        "lineNumber": 295,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 296,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 297,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            int index \u003d getDoneIndex(commandArgs);"
-      },
-      {
-        "lineNumber": 298,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            Task task \u003d tasks.get(index);"
-      },
-      {
-        "lineNumber": 299,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            task.markAsDone();"
-      },
-      {
-        "lineNumber": 300,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showDoneMessage(task);"
-      },
-      {
-        "lineNumber": 301,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 302,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 303,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 304,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static int getDoneIndex(String commandArgs) {"
-      },
-      {
-        "lineNumber": 305,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        return Integer.parseInt(commandArgs) - 1;"
-      },
-      {
-        "lineNumber": 306,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 307,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 308,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showDoneMessage(Task task) {"
-      },
-      {
-        "lineNumber": 309,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 310,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_DONE);"
-      },
-      {
-        "lineNumber": 311,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(TASK_PREFIX + task.toString());"
-      },
-      {
-        "lineNumber": 312,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_BOTTOM);"
-      },
-      {
-        "lineNumber": 313,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 314,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 315,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showList() {"
-      },
-      {
-        "lineNumber": 316,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 317,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (tasks.size() \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 318,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_LIST_NO_TASKS);"
-      },
-      {
-        "lineNumber": 319,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 320,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 321,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_LIST);"
-      },
-      {
-        "lineNumber": 322,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            for (Task task : tasks) {"
-      },
-      {
-        "lineNumber": 323,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "                System.out.println(MESSAGE_PREFIX + (tasks.indexOf(task)+1) + PERIOD + task.toString());"
-      },
-      {
-        "lineNumber": 324,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 325,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 326,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_BOTTOM);"
-      },
-      {
-        "lineNumber": 327,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 328,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 329,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void deleteTask(String commandArgs) throws NullCommandArgsException {"
-      },
-      {
-        "lineNumber": 330,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        if (commandArgs \u003d\u003d null) {"
-      },
-      {
-        "lineNumber": 331,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            throw new NullCommandArgsException();"
-      },
-      {
-        "lineNumber": 332,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 333,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 334,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            int index \u003d getDoneIndex(commandArgs);"
-      },
-      {
-        "lineNumber": 335,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showDeleteTaskMessage(index);"
-      },
-      {
-        "lineNumber": 336,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            tasks.remove(index);"
-      },
-      {
-        "lineNumber": 337,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            showTaskCountMessage();"
-      },
-      {
-        "lineNumber": 338,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 339,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 340,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 341,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void showDeleteTaskMessage(int index) {"
-      },
-      {
-        "lineNumber": 342,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(DIVIDER_TOP);"
-      },
-      {
-        "lineNumber": 343,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_DELETE_TASK);"
-      },
-      {
-        "lineNumber": 344,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        System.out.println(TASK_PREFIX + tasks.get(index).toString());"
-      },
-      {
-        "lineNumber": 345,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 346,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 347,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "    private static void saveTasks() {"
-      },
-      {
-        "lineNumber": 348,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        String file \u003d FILE_PATH;"
-      },
-      {
-        "lineNumber": 349,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 350,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "            writeToFile(file);"
-      },
-      {
-        "lineNumber": 351,
+        "lineNumber": 83,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        } catch (IOException e) {"
       },
       {
-        "lineNumber": 352,
+        "lineNumber": 84,
         "author": {
           "gitId": "czlin98"
         },
         "content": "            System.out.println(MESSAGE_SOMETHING_WENT_WRONG + e.getMessage());"
       },
       {
-        "lineNumber": 353,
+        "lineNumber": 85,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 354,
+        "lineNumber": 86,
         "author": {
           "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 355,
+        "lineNumber": 87,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 87
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 356,
+        "lineNumber": 3,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void writeToFile(String filePath) throws IOException {"
+        "content": "import duke.tasks.Deadline;"
       },
       {
-        "lineNumber": 357,
+        "lineNumber": 4,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        FileWriter filewriter \u003d new FileWriter(filePath);"
+        "content": "import duke.tasks.Event;"
       },
       {
-        "lineNumber": 358,
+        "lineNumber": 5,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        for (Task task : tasks) {"
+        "content": "import duke.tasks.Task;"
       },
       {
-        "lineNumber": 359,
+        "lineNumber": 6,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "            filewriter.write(task.toSave() + System.lineSeparator());"
+        "content": "import duke.tasks.Todo;"
       },
       {
-        "lineNumber": 360,
+        "lineNumber": 7,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        }"
+        "content": ""
       },
       {
-        "lineNumber": 361,
+        "lineNumber": 8,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        filewriter.close();"
+        "content": "import java.time.LocalDate;"
       },
       {
-        "lineNumber": 362,
+        "lineNumber": 9,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public ArrayList\u003cTask\u003e taskList;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        this.taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 17,
         "author": {
           "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 363,
+        "lineNumber": 18,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 364,
+        "lineNumber": 19,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void exitProgram() {"
+        "content": "    public TaskList(ArrayList\u003cTask\u003e taskList) {"
       },
       {
-        "lineNumber": 365,
+        "lineNumber": 20,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        isExit \u003d true;"
+        "content": "        this.taskList \u003d taskList;"
       },
       {
-        "lineNumber": 366,
-        "author": {
-          "gitId": "czlin98"
-        },
-        "content": "        showExitMessage();"
-      },
-      {
-        "lineNumber": 367,
+        "lineNumber": 21,
         "author": {
           "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 368,
+        "lineNumber": 22,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 369,
+        "lineNumber": 23,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void showExitMessage() {"
+        "content": "    public ArrayList\u003cTask\u003e getTaskList() {"
       },
       {
-        "lineNumber": 370,
+        "lineNumber": 24,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return taskList;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Task addTodo(String todoDescription) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Todo todoTask \u003d new Todo(todoDescription);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        taskList.add(todoTask);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return todoTask;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Task addDeadline(String deadlineDescription, LocalDate deadlineDate) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Deadline deadlineTask \u003d new Deadline(deadlineDescription, deadlineDate);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        taskList.add(deadlineTask);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return deadlineTask;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Task addEvent(String eventDescription, LocalDate eventDate) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Event eventTask \u003d new Event(eventDescription, eventDate);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        taskList.add(eventTask);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return eventTask;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Task markTaskAsDone(int index) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Task task \u003d taskList.get(index);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        task.markAsDone();"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return task;"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public Task deleteTask(int index) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Task task \u003d taskList.get(index);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        taskList.remove(task);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return task;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 56
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.exceptions.NullStringException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import duke.tasks.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "import static java.util.stream.Collectors.toList;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_DONE \u003d \"done\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String COMMAND_DELETE \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String DIVIDER_TOP \u003d \"    ____________________________________________________________\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String DIVIDER_BOTTOM \u003d \"    ____________________________________________________________\\n\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_PREFIX \u003d \"     \";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String TASK_PREFIX \u003d \"       \";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_GREET_A \u003d \"Hello! I\u0027m Duke\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_GREET_B \u003d \"What can I do for you?\";"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_BYE \u003d \"Bye. Hope to see you again soon!\";"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_LIST \u003d \"Here are the tasks in your list:\";"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_LIST_NO_TASKS \u003d \"There are no tasks in your list yet.\";"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_ADD_TASK \u003d \"Got it. I\u0027ve added this task:\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_TASK_COUNT_A \u003d \"Now you have \";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_TASK_COUNT_B \u003d \" tasks in the list.\";"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_DONE \u003d \"Nice! I\u0027ve marked this task as done:\";"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String PERIOD \u003d \".\";"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_COMMAND_ARGS_A \u003d \"☹ OOPS!!! The description of a \";"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String NULL_COMMAND_ARGS_B \u003d \" cannot be empty.\";"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_INDEX_DONE_A \u003d \"☹ OOPS!!! The index of the task to be marked as done\";"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_INDEX_DONE_B \u003d \"cannot be empty.\";"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_INDEX_DELETE_A \u003d \"☹ OOPS!!! The index of the task to be deleted cannot be\";"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_INDEX_DELETE_B \u003d \"empty.\";"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_INVALID_COMMAND \u003d \"☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\";"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_DELETE_TASK \u003d \"Noted. I\u0027ve removed this task:\";"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_FILE_NOT_FOUND \u003d \"No existing file detected\";"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NEW_FILE_CREATED \u003d \"New file created\";"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_INVALID_DATE_ARGS_A \u003d \"☹ OOPS!!! The input format for the \";"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_INVALID_DATE_ARGS_B \u003d \" is not valid.\";"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_INVALID_DATE_INPUT \u003d \"☹ OOPS!!! The format of the date entered is not valid\";"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_INVALID_FILE_FORMAT \u003d \"☹ OOPS!!! The format of the file to be read is not valid.\";"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_FILTERED_LIST \u003d \"Here are the matching tasks in your list:\";"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_STRING_A \u003d \"☹ OOPS!!! The keyword you want to search for cannot be\";"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public static final String MESSAGE_NULL_STRING_B \u003d \"empty.\";"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public String getUserInput() {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        Scanner in \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return in.nextLine();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 53,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        System.out.println(DIVIDER_TOP);"
       },
       {
-        "lineNumber": 371,
+        "lineNumber": 54,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_BYE);"
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_GREET_A);"
       },
       {
-        "lineNumber": 372,
+        "lineNumber": 55,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_GREET_B);"
+      },
+      {
+        "lineNumber": 56,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        System.out.println(DIVIDER_BOTTOM);"
       },
       {
-        "lineNumber": 373,
+        "lineNumber": 57,
         "author": {
           "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 374,
+        "lineNumber": 58,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
       },
       {
-        "lineNumber": 375,
+        "lineNumber": 59,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private static void showInvalidCommandExceptionMessage() {"
+        "content": "    public void showInvalidCommandExceptionMessage() {"
       },
       {
-        "lineNumber": 376,
+        "lineNumber": 60,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        System.out.println(DIVIDER_TOP);"
       },
       {
-        "lineNumber": 377,
+        "lineNumber": 61,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_INVALID_COMMAND);"
       },
       {
-        "lineNumber": 378,
+        "lineNumber": 62,
         "author": {
           "gitId": "czlin98"
         },
         "content": "        System.out.println(DIVIDER_BOTTOM);"
       },
       {
-        "lineNumber": 379,
+        "lineNumber": 63,
         "author": {
-          "gitId": "-"
+          "gitId": "czlin98"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 380,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "}"
-      },
-      {
-        "lineNumber": 381,
+        "lineNumber": 64,
         "author": {
           "gitId": "czlin98"
         },
         "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showInvalidDateArgsExceptionMessage(String commandType) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_INVALID_DATE_ARGS_A + commandType + MESSAGE_INVALID_DATE_ARGS_B);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showInvalidDateInputExceptionMessage() {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_INVALID_DATE_INPUT);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showInvalidFileFormatExceptionMessage() {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_INVALID_FILE_FORMAT);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showNullDescriptionExceptionMessage(String commandType) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_COMMAND_ARGS_A + commandType + NULL_COMMAND_ARGS_B);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showNullIndexExceptionMessage(String commandType) {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        switch (commandType) {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        case COMMAND_DONE:"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DONE_A);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DONE_B);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        case COMMAND_DELETE:"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DELETE_A);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_INDEX_DELETE_B);"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showAddTaskMessage(TaskList tasks, Task task) {"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_ADD_TASK);"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(TASK_PREFIX + task.toString());"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_TASK_COUNT_A + tasks.getTaskList().size() + MESSAGE_TASK_COUNT_B);"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showTaskDoneMessage(Task task) {"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_DONE);"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(TASK_PREFIX + task.toString());"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showTaskList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        if (tasks.size() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_LIST_NO_TASKS);"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        else {"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + MESSAGE_LIST);"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            tasks.stream()"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                    .forEach((t) -\u003e System.out.println(MESSAGE_PREFIX + (tasks.indexOf(t) + 1) + PERIOD + t.toString()));"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showTaskDeletedMessage(TaskList tasks, Task task) {"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_DELETE_TASK);"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(TASK_PREFIX + task.toString());"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_TASK_COUNT_A + tasks.getTaskList().size() + MESSAGE_TASK_COUNT_B);"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showExitMessage() {"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_BYE);"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showLoadingError() {"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_FILE_NOT_FOUND);"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_NEW_FILE_CREATED);"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showFilteredTaskList(ArrayList\u003cTask\u003e tasks, String filterString) throws NullStringException {"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        if (filterString \u003d\u003d null || filterString.trim().length() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            throw new NullStringException();"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_FILTERED_LIST);"
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        ArrayList\u003cTask\u003e filteredTaskList \u003d (ArrayList\u003cTask\u003e) tasks.stream()"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                .filter((s) -\u003e s.getDescription().contains(filterString))"
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "                .collect(toList());"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        for (Task t : filteredTaskList) {"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "            System.out.println(MESSAGE_PREFIX + (filteredTaskList.indexOf(t) + 1) + PERIOD + t.toString());"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public void showNullStringExceptionMessage() {"
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_TOP);"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_STRING_A);"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(MESSAGE_PREFIX + MESSAGE_NULL_STRING_B);"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        System.out.println(DIVIDER_BOTTOM);"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
       }
     ],
     "authorContributionMap": {
-      "czlin98": 378,
-      "-": 3
+      "czlin98": 169
     }
   },
   {
@@ -2714,7 +3632,7 @@
     }
   },
   {
-    "path": "src/main/java/duke/exceptions/NullCommandArgsException.java",
+    "path": "src/main/java/duke/exceptions/InvalidDateArgsException.java",
     "fileType": "java",
     "lines": [
       {
@@ -2736,7 +3654,118 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "public class NullCommandArgsException extends Exception {"
+        "content": "public class InvalidDateArgsException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/exceptions/NullDescriptionException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class NullDescriptionException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/exceptions/NullIndexException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class NullIndexException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 4
+    }
+  },
+  {
+    "path": "src/main/java/duke/exceptions/NullStringException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "package duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "public class NullStringException extends Exception {"
       },
       {
         "lineNumber": 4,
@@ -2773,164 +3802,192 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String ICON_DEADLINE \u003d \"[D]\";"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DATE_PREFIX \u003d \" (by: \";"
+        "content": "public class Deadline extends Task {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DATE_POSTFIX \u003d \")\";"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String LETTER_DEADLINE \u003d \"D\";"
+        "content": "    public static final String ICON_DEADLINE \u003d \"[D]\";"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DELIMITER \u003d \" | \";"
+        "content": "    public static final String DATE_PREFIX \u003d \" (by: \";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private String by;"
+        "content": "    public static final String DATE_POSTFIX \u003d \")\";"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    public static final String LETTER_DEADLINE \u003d \"D\";"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public Deadline(String description, String by) {"
+        "content": "    public static final String DELIMITER \u003d \" | \";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        super(description);"
+        "content": "    public static final String OUTPUT_FORMAT \u003d \"MMM d yyyy\";"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        this.by \u003d by;"
+        "content": "    private LocalDate date;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    public Deadline(String description, LocalDate date) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    @Override"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public String toString() {"
+        "content": "        this.date \u003d date;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        return ICON_DEADLINE + super.toString() + DATE_PREFIX + by + DATE_POSTFIX;"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public String toSave() {"
+        "content": "        return ICON_DEADLINE + super.toString() + DATE_PREFIX + date.format(DateTimeFormatter.ofPattern(OUTPUT_FORMAT)) + DATE_POSTFIX;"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        return LETTER_DEADLINE + DELIMITER + super.toSave() + DELIMITER + by;"
+        "content": "    }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public String toSave() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return LETTER_DEADLINE + DELIMITER + super.toSave() + DELIMITER + date.format(DateTimeFormatter.ofPattern(OUTPUT_FORMAT));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "czlin98"
         },
@@ -2938,7 +3995,7 @@
       }
     ],
     "authorContributionMap": {
-      "czlin98": 26
+      "czlin98": 30
     }
   },
   {
@@ -2964,164 +4021,192 @@
         "author": {
           "gitId": "czlin98"
         },
-        "content": "public class Event extends Task {"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String ICON_EVENT \u003d \"[E]\";"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DATE_PREFIX \u003d \" (at: \";"
+        "content": "public class Event extends Task {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DATE_POSTFIX \u003d \")\";"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String LETTER_EVENT \u003d \"E\";"
+        "content": "    public static final String ICON_EVENT \u003d \"[E]\";"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public static final String DELIMITER \u003d \" | \";"
+        "content": "    public static final String DATE_PREFIX \u003d \" (at: \";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    private String at;"
+        "content": "    public static final String DATE_POSTFIX \u003d \")\";"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    public static final String LETTER_EVENT \u003d \"E\";"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public Event(String description, String at) {"
+        "content": "    public static final String DELIMITER \u003d \" | \";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        super(description);"
+        "content": "    public static final String OUTPUT_FORMAT \u003d \"MMM d yyyy\";"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        this.at \u003d at;"
+        "content": "    private LocalDate date;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    public Event(String description, LocalDate date) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    @Override"
+        "content": "        super(description);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public String toString() {"
+        "content": "        this.date \u003d date;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        return ICON_EVENT + super.toString() + DATE_PREFIX + at + DATE_POSTFIX;"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "czlin98"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    public String toSave() {"
+        "content": "        return ICON_EVENT + super.toString() + DATE_PREFIX + date.format(DateTimeFormatter.ofPattern(OUTPUT_FORMAT)) + DATE_POSTFIX;"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "        return LETTER_EVENT + DELIMITER + super.toSave() + DELIMITER + at;"
+        "content": "    }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "czlin98"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 26,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public String toSave() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return LETTER_EVENT + DELIMITER + super.toSave() + DELIMITER + date.format(DateTimeFormatter.ofPattern(OUTPUT_FORMAT));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "czlin98"
         },
@@ -3129,7 +4214,7 @@
       }
     ],
     "authorContributionMap": {
-      "czlin98": 26
+      "czlin98": 30
     }
   },
   {
@@ -3372,11 +4457,39 @@
         "author": {
           "gitId": "czlin98"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "czlin98"
+        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "czlin98": 34
+      "czlin98": 38
     }
   },
   {
@@ -3540,6 +4653,163 @@
     ],
     "authorContributionMap": {
       "czlin98": 22
+    }
+  },
+  {
+    "path": "text-ui-test/runtest.bat",
+    "fileType": "bat",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "@ECHO OFF"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM create bin directory if it doesn\u0027t exist"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "if not exist ..\\bin mkdir ..\\bin"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM delete output from previous run"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "del ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compile the code into the bin folder"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "czlin98"
+        },
+        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\Duke.java"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "IF ERRORLEVEL 1 ("
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    echo ********** BUILD FAILURE **********"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    exit /b 1"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ")"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM no error here, errorlevel \u003d\u003d 0"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "java -classpath ..\\bin Duke \u003c input.txt \u003e ACTUAL.TXT"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "-"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "REM compare the output to the expected output"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "FC ACTUAL.TXT EXPECTED.TXT"
+      }
+    ],
+    "authorContributionMap": {
+      "czlin98": 1,
+      "-": 20
     }
   }
 ]

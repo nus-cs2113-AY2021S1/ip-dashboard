@@ -1,28 +1,5 @@
 [
   {
-    "path": "data/tasksList.txt",
-    "fileType": "txt",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Todo | false | asdf"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Deadline | false | ;lkj  | dfg | larp"
-      }
-    ],
-    "authorContributionMap": {
-      "CFZeon": 2
-    }
-  },
-  {
     "path": "src/main/java/duke/Duke.java",
     "fileType": "java",
     "lines": [
@@ -45,84 +22,84 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import duke.task.Event;"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import duke.task.Task;"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import duke.task.Todo;"
+        "content": "public class Duke extends Parser {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": ""
+        "content": "    private static final Scanner in \u003d new Scanner (System.in);"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import java.util.Scanner;"
+        "content": "    protected static Storage storage \u003d new Storage();"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "    protected static Ui ui \u003d new Ui();"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": ""
+        "content": "    protected static Parser parser \u003d new Parser();"
       },
       {
         "lineNumber": 11,
         "author": {
-          "gitId": "-"
+          "gitId": "CFZeon"
         },
-        "content": "public class Duke {"
+        "content": "    protected static TaskList tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    static final String LINE \u003d \"____________________________________________________________\";"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "    public static void main(String[] args) throws DukeException {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    private static final Scanner in \u003d new Scanner (System.in);"
+        "content": "        ui.welcomeMessage();"
       },
       {
         "lineNumber": 15,
@@ -136,14 +113,14 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    public static void main(String[] args) throws DukeException {"
+        "content": "        loadTasks();"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        welcomeMessage();"
+        "content": "        inputLoop();"
       },
       {
         "lineNumber": 18,
@@ -157,14 +134,14 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        taskLoad();"
+        "content": "        ui.byeMessage();"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        inputLoop();"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
@@ -178,1459 +155,115 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        byeMessage();"
+        "content": "    private static void inputLoop() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    }"
+        "content": "        String inputString \u003d \"\";"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": ""
+        "content": "        while (!inputString.equals(\"bye\")) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    private static void taskLoad() throws DukeException {"
+        "content": "            inputString \u003d in.nextLine();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        tasks \u003d SaveLoad.loadTasksList();"
+        "content": "            Command c \u003d parser.parseCommand(inputString);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    }"
+        "content": "            if (c !\u003d null) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": ""
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    private static void inputLoop() {"
+        "content": "            }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        String inputString \u003d \"\";"
+        "content": "        }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "        while (!inputString.equals(\"bye\")) {"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "            inputString \u003d in.nextLine();"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "            String[] inputSplit \u003d inputString.trim().split(\" \", 2);"
+        "content": "    private static void loadTasks() throws DukeException {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "            switch (inputSplit[0].trim()) {"
+        "content": "        tasks.tasks \u003d storage.loadTasksList();"
       },
       {
         "lineNumber": 35,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"list\":"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskList();"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"done\":"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskDone(inputSplit);"
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"todo\":"
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskAddTodo(inputSplit);"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"deadline\":"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskAddDeadline(inputSplit);"
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"event\":"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskAddEvent(inputSplit);"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"bye\":"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"help\":"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskHelp();"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            case \"delete\":"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                taskDelete(inputSplit[1]);"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                invalidCommandMessage();"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskDelete(String s) {"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            int taskNumber \u003d Integer.parseInt(s);"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            // to check if the task exists"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (taskNumber \u003c\u003d 0 || taskNumber \u003e tasks.size()) {"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"delete\");"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(\"Noted. I\u0027ve removed this task:\");"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(tasks.get(taskNumber - 1));"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            tasks.remove(taskNumber - 1);"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            SaveLoad.saveTasks(tasks);"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            e.getError(\"delete\");"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskHelp() {"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Here are a list of available commands:\");"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"done [number on list]\\\": marks a task on the list as done\");"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"todo [action]\\\": adds a todo into the list\");"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"deadline [action] /[limit] [time]\\\": adds a deadline into the list\");"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"event [action] /[limit] [time]\\\": adds an event into the list\");"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"help\\\": brings you to this menu!\");"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"delete [number on list]\\\": removes a task from the list\");"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"\\\"bye\\\": exits duke.\");"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskList() {"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        if (tasks.size() \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(\"Oops! Looks like there\u0027s nothing in your list!\");"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        for (int i \u003d 0; i \u003c tasks.size(); i++) {"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println((i+1) + \".\" + tasks.get(i));"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskAddEvent(String[] s) {"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        String[] inputSplitAtSlash;"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        //splits input into task and time"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            //splits input into task and time"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (s.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"event\");"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            inputSplitAtSlash \u003d s[1].trim().split(\"/\", 2);"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (inputSplitAtSlash.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"event\");"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            // if input string format does not fit constructor, throw error"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            String[] constructorFormat \u003d inputSplitAtSlash[1].trim().split(\" \", 2);"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (constructorFormat.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"event\");"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            Event temp \u003d new Event(inputSplitAtSlash[0], inputSplitAtSlash[1]);"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            tasks.add(temp);"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            taskWithTimeAddMessage(tasks.get(tasks.size()-1));"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            SaveLoad.saveTasks(tasks);"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            e.getError(\"event\");"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskAddDeadline(String[] s) {"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        String[] inputSplitAtSlash;"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            //splits input into task and time"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (s.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"deadline\");"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            inputSplitAtSlash \u003d s[1].trim().split(\"/\", 2);"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (inputSplitAtSlash.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"deadline\");"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            // if input string format does not fit constructor, throw error"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            String[] constructorFormat \u003d inputSplitAtSlash[1].trim().split(\" \", 2);"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (constructorFormat.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"deadline\");"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            Deadline temp \u003d new Deadline(inputSplitAtSlash[0], inputSplitAtSlash[1]);"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            tasks.add(temp);"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            taskWithTimeAddMessage(tasks.get(tasks.size()-1));"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            SaveLoad.saveTasks(tasks);"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            e.getError(\"deadline\");"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskAddTodo(String[] inputSplit) {"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (inputSplit.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"todo\");"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            Todo temp \u003d  new Todo(inputSplit[1]);"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            tasks.add(temp);"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            taskAddMessage(tasks.get(tasks.size()-1));"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            SaveLoad.saveTasks(tasks);"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            e.getError(\"todo\");"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void welcomeMessage() {"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE + System.lineSeparator() + \"Hello! I\u0027m Duke!\" + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                + \"What can I do for you?\" + System.lineSeparator() + LINE);"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void invalidCommandMessage() {"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE + System.lineSeparator() + \"Sorry! You have entered an invalid command.\");"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Type \\\"help\\\" to view a list of available commands!\");"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskAddMessage(Task task) {"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE + System.lineSeparator() + \"Got it. I\u0027ve added this task: \""
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                + System.lineSeparator() + task);"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskWithTimeAddMessage(Task task) {"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE + System.lineSeparator() + \"Got it. I\u0027ve added this task: \");"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(task);"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void taskDone(String[] inputSplit) {"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            int taskNumber \u003d Integer.parseInt(inputSplit[1]);"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            // to check if the task exists"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            if (taskNumber \u003c\u003d 0 || taskNumber \u003e tasks.size()) {"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "                throw new DukeException(\"done\");"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            tasks.get(taskNumber - 1).markAsDone();"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            System.out.println(taskNumber + \".\" + tasks.get(taskNumber - 1));"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            SaveLoad.saveTasks(tasks);"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "            e.getError(\"done\");"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "    private static void byeMessage() {"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(\"Bye! Hope to see you again soon!\");"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "        System.out.println(LINE);"
-      },
-      {
-        "lineNumber": 227,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 228,
+        "lineNumber": 36,
         "author": {
           "gitId": "-"
         },
         "content": "}"
       },
       {
-        "lineNumber": 229,
+        "lineNumber": 37,
         "author": {
           "gitId": "CFZeon"
         },
         "content": ""
       },
       {
-        "lineNumber": 230,
+        "lineNumber": 38,
         "author": {
           "gitId": "CFZeon"
         },
@@ -1638,8 +271,8 @@
       }
     ],
     "authorContributionMap": {
-      "CFZeon": 227,
-      "-": 3
+      "CFZeon": 36,
+      "-": 2
     }
   },
   {
@@ -1925,7 +558,324 @@
     }
   },
   {
-    "path": "src/main/java/duke/SaveLoad.java",
+    "path": "src/main/java/duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class Parser extends TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected static Command parseCommand(String inputString) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        // limit of 2 splits the string into 2 parts"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        String[] inputSplit \u003d inputString.trim().split(\" \", 2);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        String command \u003d inputSplit[0];"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        String message \u003d inputSplit[1];"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        Command c \u003d null;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        switch (command) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"list\":"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new ListTasksCommand();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"done\":"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new DoneCommand(message);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"todo\":"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new AddTodoCommand(message);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"deadline\":"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new AddDeadlineCommand(message);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"event\":"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new AddEventCommand(message);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"help\":"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new HelpCommand();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"delete\":"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new DeleteCommand(message);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        case \"bye\":"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            c \u003d new ByeCommand();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            Ui.invalidCommandMessage();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        return c;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 44
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
     "fileType": "java",
     "lines": [
       {
@@ -2038,7 +988,7 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "public class SaveLoad{"
+        "content": "public class Storage{"
       },
       {
         "lineNumber": 17,
@@ -2066,7 +1016,7 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    public static void saveTasks(ArrayList\u003cTask\u003e saveInput) throws DukeException{"
+        "content": "    public void saveTasks(ArrayList\u003cTask\u003e saveInput) throws DukeException{"
       },
       {
         "lineNumber": 21,
@@ -2339,7 +1289,7 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "    public static ArrayList\u003cTask\u003e loadTasksList() throws DukeException{"
+        "content": "    public ArrayList\u003cTask\u003e loadTasksList() throws DukeException{"
       },
       {
         "lineNumber": 60,
@@ -2785,6 +1735,2471 @@
     ],
     "authorContributionMap": {
       "CFZeon": 122
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void taskDelete(TaskList tasks, Ui ui, Storage storage, String s) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.printLine();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            int taskNumber \u003d Integer.parseInt(s);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            // to check if the task exists"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (taskNumber \u003c\u003d 0 || taskNumber \u003e tasks.getTasksSize()) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"delete\");"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            TaskList.taskDeleteMessage(taskNumber);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            storage.saveTasks(tasks.tasks);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            e.getError(\"delete\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.printLine();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    private static void taskDeleteMessage(int taskNumber) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Noted. I\u0027ve removed this task:\");"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        // 0 based array index so task location is -1"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        int taskIndex \u003d taskNumber - 1;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(tasks.get(taskIndex));"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.remove(taskIndex);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void taskAddEvent(TaskList tasks, Ui ui, Storage storage, String s) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        String[] inputSplitAtSlash;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            //splits input into task and time"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            inputSplitAtSlash \u003d s.trim().split(\"/\", 2);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (inputSplitAtSlash.length \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"event\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            // if input string format does not fit constructor, throw error"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            String[] constructorFormat \u003d inputSplitAtSlash[1].trim().split(\" \", 2);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (constructorFormat.length \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"event\");"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            Event temp \u003d new Event(inputSplitAtSlash[0], inputSplitAtSlash[1]);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            tasks.tasks.add(temp);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.taskWithTimeAddMessage(tasks);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            storage.saveTasks(tasks.tasks);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            e.getError(\"event\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void taskAddDeadline(TaskList tasks, Ui ui, Storage storage, String s) {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        String[] inputSplitAtSlash;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            //splits input into task and time"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            inputSplitAtSlash \u003d s.trim().split(\"/\", 2);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (inputSplitAtSlash.length \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"deadline\");"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            // if input string format does not fit constructor, throw error"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            String[] constructorFormat \u003d inputSplitAtSlash[1].trim().split(\" \", 2);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (constructorFormat.length \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"deadline\");"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            Deadline temp \u003d new Deadline(inputSplitAtSlash[0], inputSplitAtSlash[1]);"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            tasks.tasks.add(temp);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.taskWithTimeAddMessage(tasks);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            storage.saveTasks(tasks.tasks);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            e.getError(\"deadline\");"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void taskAddTodo(TaskList tasks, Ui ui, Storage storage, String input) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (input.equals(null)) {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"todo\");"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            Todo temp \u003d new Todo(input);"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            tasks.tasks.add(temp);"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.taskAddMessage(tasks);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            storage.saveTasks(tasks.tasks);"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            e.getError(\"todo\");"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            ui.printLine();"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void taskDone(TaskList tasks, Ui ui, Storage storage, String inputSplit) {"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.printLine();"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            int taskNumber \u003d Integer.parseInt(inputSplit);"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            // on 0-index based array, location of task is -1"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            int taskIndex \u003d taskNumber - 1;"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            // to check if the task exists"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            if (taskNumber \u003c\u003d 0 || taskNumber \u003e tasks.getTasksSize()) {"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                throw new DukeException(\"done\");"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            tasks.tasks.get(taskIndex).markAsDone();"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            System.out.println(taskNumber + \".\" + tasks.tasks.get(taskIndex));"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            storage.saveTasks(tasks.tasks);"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            e.getError(\"done\");"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.printLine();"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public int getTasksSize() {"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        return tasks.size();"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 125
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    static final String LINE \u003d \"____________________________________________________________\";"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public static void taskHelp() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Here are a list of available commands:\");"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"done [number on list]\\\": marks a task on the list as done\");"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"todo [action]\\\": adds a todo into the list\");"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"deadline [action] /[limit] [time]\\\": adds a deadline into the list\");"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"event [action] /[limit] [time]\\\": adds an event into the list\");"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"help\\\": brings you to this menu!\");"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"delete [number on list]\\\": removes a task from the list\");"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"\\\"bye\\\": exits duke\");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public static void taskList(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Here are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        if (tasks.getTasksSize() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            System.out.println(\"Oops! Looks like there\u0027s nothing in your list!\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        for (int i \u003d 0; i \u003c tasks.getTasksSize(); i++) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "            System.out.println((i + 1) + \".\" + tasks.tasks.get(i));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public static void taskAddMessage(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                + System.lineSeparator() + tasks.tasks.get(tasks.getTasksSize() - 1));"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Now you have \" + tasks.getTasksSize() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected static void taskWithTimeAddMessage(TaskList tasks) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(tasks.tasks.get(tasks.getTasksSize() - 1));"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Now you have \" + tasks.tasks.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void welcomeMessage() {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Hello! I\u0027m Duke!\" + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "                + \"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected static void invalidCommandMessage() {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Sorry! You have entered an invalid command.\");"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Type \\\"help\\\" to view a list of available commands!\");"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected void byeMessage() {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(\"Bye! Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    protected static void printLine() {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        System.out.println(LINE);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 72
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/AddDeadlineCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class AddDeadlineCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    String UnprocessedMessage;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public AddDeadlineCommand(String UnprocessedMessage) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        this.UnprocessedMessage \u003d UnprocessedMessage;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.taskAddDeadline(tasks, ui, storage, this.UnprocessedMessage);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 18
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/AddEventCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class AddEventCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    String UnprocessedMessage;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public AddEventCommand(String UnprocessedMessage) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        this.UnprocessedMessage \u003d UnprocessedMessage;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.taskAddEvent(tasks, ui, storage, this.UnprocessedMessage);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/AddTodoCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class AddTodoCommand extends Command{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    String message;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public AddTodoCommand(String message) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        this.message \u003d message;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.taskAddTodo(tasks, ui, storage, this.message);"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 16
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ByeCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class ByeCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public ByeCommand(){"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 13
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public Command() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public abstract void execute(TaskList tasks, Ui ui, Storage storage);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 12
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    String number;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public DeleteCommand(String number) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        this.number \u003d number;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.taskDelete(tasks, ui, storage, number);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 18
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class DoneCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    String number;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public DoneCommand(String number) {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        this.number \u003d number;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        tasks.taskDone(tasks, ui, storage, number);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/HelpCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class HelpCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public HelpCommand() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.taskHelp();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 16
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListTasksCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "public class ListTasksCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public ListTasksCommand(){"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "        ui.taskList(tasks);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "CFZeon"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "CFZeon": 14
     }
   },
   {
@@ -3386,52 +4801,10 @@
           "gitId": "CFZeon"
         },
         "content": "Deadline | false | bar  | foo | lish"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Event | false | foo  | bar | ring"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Todo | false | Play Library of Ruina"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Deadline | false | bar  | foo | lish"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Event | false | foo  | bar | ring"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Todo | false | Play Library of Ruina"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "CFZeon"
-        },
-        "content": "Deadline | false | bar  | foo | lish"
       }
     ],
     "authorContributionMap": {
-      "CFZeon": 8
+      "CFZeon": 2
     }
   },
   {
@@ -3613,7 +4986,7 @@
         "author": {
           "gitId": "CFZeon"
         },
-        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\*.java ..\\src\\main\\java\\duke\\task\\*.java"
+        "content": "javac  -cp ..\\src -Xlint:none -d ..\\bin ..\\src\\main\\java\\duke\\*.java ..\\src\\main\\java\\duke\\task\\*.java ..\\src\\main\\java\\duke\\command\\*.java"
       },
       {
         "lineNumber": 11,

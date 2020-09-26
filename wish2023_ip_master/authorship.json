@@ -192,43 +192,6 @@
     }
   },
   {
-    "path": "data/duke.txt",
-    "fileType": "txt",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "1. [T][✓] read book"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "2. [T][✘] that"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "3. [E][✘] project (at: tuesday)"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "4. [D][✓] finish this (by: sat)"
-      }
-    ],
-    "authorContributionMap": {
-      "wish2023": 4
-    }
-  },
-  {
     "path": "src/main/java/duke/Deadline.java",
     "fileType": "java",
     "lines": [
@@ -400,98 +363,98 @@
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.io.FileWriter;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.io.File;"
+        "content": "public class Duke {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "import java.io.IOException;"
+        "content": "    private static final String INITIALISE_MESSAGE \u003d \"initialising\";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "    //private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 11,
         "author": {
-          "gitId": "-"
+          "gitId": "wish2023"
         },
-        "content": "public class Duke {"
+        "content": "    private static final String FILE_PATH \u003d \"data/duke.txt\";"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static final String INITIALISING \u003d \"initialising\";"
+        "content": "    private static final String DIRECTORY_PATH \u003d \"data\";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static final int MAX_LIST_SIZE \u003d 100;"
+        "content": "    private static Storage storage;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e(MAX_LIST_SIZE);"
+        "content": "    private static TaskList tasks;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static final String FILEPATH \u003d \"data/duke.txt\";"
+        "content": "    private static Ui ui;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static final String DIRPATH \u003d \"data\";"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    private static int listSize \u003d 0;"
+        "content": ""
       },
       {
         "lineNumber": 18,
@@ -505,1466 +468,157 @@
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "    public static void runDuke() throws DukeException {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static void writeToFile() throws IOException {"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        FileWriter fw \u003d new FileWriter(FILEPATH);"
+        "content": "        Scanner in \u003d new Scanner(System.in);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "        storage \u003d new Storage(FILE_PATH, DIRECTORY_PATH);"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        for (int i \u003d 0; i \u003c listSize; i++) {"
+        "content": "        try {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "            String line \u003d tasks.get(i).toString();"
+        "content": "            tasks \u003d new TaskList(storage.load());"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "            fw.write((i + 1) + \". \" + line + \"\\n\");"
+        "content": "        }"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        }"
+        "content": "        catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "            ui.showLoadingError();"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        fw.close();"
+        "content": "            tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "        String line \u003d INITIALISE_MESSAGE;"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    public static void initialiseList() throws FileNotFoundException, DukeException {"
+        "content": "        ui.printHello();"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        File f \u003d new File(FILEPATH); // create a File for the given file path"
+        "content": "        ui.runBot(in, line, tasks);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        Scanner s \u003d new Scanner(f); // create a Scanner using the File as the source"
+        "content": "        ui.printGoodbye();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        while (s.hasNext()) {"
+        "content": "        storage.save(tasks);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "            addToList(s.nextLine());"
+        "content": "    }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "wish2023"
         },
-        "content": ""
+        "content": "    public static void main(String[] args) throws DukeException, FileNotFoundException {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "    private static void addToList(String line) throws DukeException {"
+        "content": "        runDuke();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "wish2023"
         },
-        "content": "        int taskTypePosition \u003d splitCommandAndTask(line, \". [\");"
+        "content": "    }"
       },
       {
         "lineNumber": 41,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        char taskType \u003d line.charAt(taskTypePosition + 3);"
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        char statusIcon \u003d line.charAt(taskTypePosition + 6);"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        switch (taskType) {"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        case \u0027T\u0027:"
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String task \u003d line.substring(taskTypePosition + 9);"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Todo(task, statusIcon));"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        case \u0027D\u0027:"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            int byPosition \u003d splitCommandAndTask(line, \"(by\");"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String deadlineTask \u003d line.substring(taskTypePosition + 9, byPosition - 1);"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String by \u003d line.substring(byPosition + 5, line.length() - 1);"
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Deadline(deadlineTask, statusIcon, by));"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        case \u0027E\u0027:"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            int atPosition \u003d splitCommandAndTask(line, \"(at\");"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String eventTask \u003d line.substring(taskTypePosition + 9, atPosition - 1);"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String at \u003d line.substring(atPosition + 5, line.length() - 1);"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Event(eventTask, statusIcon, at));"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        default:"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void save() {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            File dir \u003d new File((DIRPATH));"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            if (!dir.isDirectory()) {"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                dir.mkdir();"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            File f \u003d new File(FILEPATH);"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            if (!f.exists()) {"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                f.createNewFile();"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            writeToFile();"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void boot() throws DukeException {"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            initialiseList();"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } catch (FileNotFoundException e) {"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            System.out.println(\"No prior list found. Time to start a new list!\");"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void addToList(Task task) {"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        listSize++;"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        tasks.add(task);"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"Okay! I have added this:\");"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.printf(\"\\t%s\\n\", task);"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.printf(\"Now you have %d task%s in the list.\\n\", listSize,"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                (listSize \u003d\u003d 1)? \"\": \"s\");"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void displayList() {"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"Here\u0027s your TODO\");"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        for (int i \u003d 0; i \u003c listSize; i++) {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            System.out.printf(\"%d.%s\\n\", i + 1, tasks.get(i));"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void markTaskAsDone(String task) {"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        int taskNumber \u003d Integer.parseInt(task);"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        tasks.get(taskNumber - 1).setDone();"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"I have marked your task as done!\");"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.printf(\"\\t%s\\n\", tasks.get(taskNumber - 1));"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void deleteTask(String task) {"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        int taskNumber \u003d Integer.parseInt(task);"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"I have deleted this task!\");"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.printf(\"\\t%s\\n\", tasks.get(taskNumber - 1));"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        tasks.remove(taskNumber - 1);"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        listSize--;"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.printf(\"Now you have %d task%s in the list.\\n\", listSize,"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                (listSize \u003d\u003d 1)? \"\": \"s\");"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void updateList(String line) throws DukeException {"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        int dividerPosition \u003d 0;"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            dividerPosition \u003d splitCommandAndTask(line, \" \");"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            System.out.println(\"Whoa! Please enter a command AND a task\");"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        String command \u003d line.substring(0, dividerPosition);"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        String task \u003d line.substring(dividerPosition + 1);"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        if (command.equals(\"done\")) {"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            markTaskAsDone(task);"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } else if (command.equals(\"todo\")) {"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Todo(task));"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } else if (command.equals((\"delete\"))) {"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            deleteTask(task);"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } else if (command.equals(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            int byPosition \u003d 0;"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                byPosition \u003d splitCommandAndTask(line, \"/by\");"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                System.out.println(\"Please follow the deadline format: deadline *task* /by *date*\");"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String deadlineTask \u003d line.substring(dividerPosition + 1, byPosition - 1);"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String by \u003d line.substring(byPosition + 4);"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Deadline(deadlineTask, by));"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } else if (command.equals(\"event\")) {"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            int atPosition \u003d 0;"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                atPosition \u003d splitCommandAndTask(line, \"/at\");"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                System.out.println(\"Please follow the event format: event *task* /at *date*\");"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String eventTask \u003d line.substring(dividerPosition + 1, atPosition - 1);"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            String date \u003d line.substring(atPosition + 4);"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            addToList(new Event(eventTask, date));"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            System.out.println(\"Whoops you may have typed a wrong command\");"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static int splitCommandAndTask(String line, String keyword) throws DukeException {"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        if (!line.contains(keyword)) {"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        return line.indexOf(keyword);"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    "
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void runBot(Scanner in, String line) throws DukeException {"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        while (!line.equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            line \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            switch (line) {"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            case \"bye\":"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            case \"list\":"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                displayList();"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                updateList(line);"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void printGoodbye() {"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"Bye see you SOON!\");"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void printHello() {"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"Hey it\u0027s your favorite chatbot buddy!\");"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        System.out.println(\"How can I assist you today?\");"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    public static void main(String[] args) throws DukeException {"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//        String logo \u003d \" ____        _        \\n\""
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//                + \"|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//                + \"| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//                + \"| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "//        System.out.println(\"Hello from\\n\" + logo);"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        String line \u003d INITIALISING;"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        boot();"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        printHello();"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        runBot(in, line);"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        printGoodbye();"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "        save();"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "wish2023"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 228,
         "author": {
           "gitId": "-"
         },
@@ -1972,8 +626,8 @@
       }
     ],
     "authorContributionMap": {
-      "-": 3,
-      "wish2023": 225
+      "-": 1,
+      "wish2023": 40
     }
   },
   {
@@ -2153,6 +807,1018 @@
     ],
     "authorContributionMap": {
       "wish2023": 19
+    }
+  },
+  {
+    "path": "src/main/java/duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static Task getTaskFromLine(String line) throws DukeException { // For file"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int taskTypePosition \u003d splitCommandAndTask(line, \". [\");"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        char taskType \u003d line.charAt(taskTypePosition + 3);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        char statusIcon \u003d line.charAt(taskTypePosition + 6);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Task task \u003d null;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        switch (taskType) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        case \u0027T\u0027:"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String todoTask \u003d line.substring(taskTypePosition + 9);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            task \u003d new Todo(todoTask, statusIcon);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        case \u0027D\u0027:"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            int byPosition \u003d splitCommandAndTask(line, \"(by\");"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String deadlineTask \u003d line.substring(taskTypePosition + 9, byPosition - 1);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String by \u003d line.substring(byPosition + 5, line.length() - 1);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            task \u003d new Deadline(deadlineTask, statusIcon, by);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        case \u0027E\u0027:"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            int atPosition \u003d splitCommandAndTask(line, \"(at\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String eventTask \u003d line.substring(taskTypePosition + 9, atPosition - 1);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String at \u003d line.substring(atPosition + 5, line.length() - 1);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            task \u003d new Event(eventTask, statusIcon, at);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return task;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static int splitCommandAndTask(String line, String keyword) throws DukeException {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        if (!line.contains(keyword)) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return line.indexOf(keyword);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static String getCommand(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int dividerPosition \u003d getDividerPosition(line);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String command \u003d line.substring(0, dividerPosition);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return command;"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static int getDividerPosition(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int dividerPosition \u003d 0;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        dividerPosition \u003d splitCommandAndTask(line, \" \");"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return dividerPosition;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static String getInstance(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int dividerPosition \u003d getDividerPosition(line);"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String instance \u003d line.substring(dividerPosition + 1);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return instance;"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    "
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static Deadline getDeadline(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int dividerPosition \u003d getDividerPosition(line);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int byPosition \u003d splitCommandAndTask(line, \"/by\");;"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String deadlineTask \u003d line.substring(dividerPosition + 1, byPosition - 1);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String by \u003d line.substring(byPosition + 4);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return new Deadline(deadlineTask, by);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static Event getEvent(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int dividerPosition \u003d getDividerPosition(line);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int atPosition \u003d splitCommandAndTask(line, \"/at\");"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String eventTask \u003d line.substring(dividerPosition + 1, atPosition - 1);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String date \u003d line.substring(atPosition + 4);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return new Event(eventTask, date);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wish2023": 81
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    private static String filePath;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    private static String directoryPath;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public Storage(String filePath, String directoryPath) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        this.filePath \u003d filePath;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        this.directoryPath \u003d directoryPath;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static ArrayList\u003cTask\u003e load() throws DukeException, FileNotFoundException {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        File file \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Scanner fileScanner \u003d new Scanner(file);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Parser parser \u003d new Parser();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        while (fileScanner.hasNext()) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            Task task \u003d parser.getTaskFromLine(fileScanner.nextLine());"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            taskList.add(task);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return taskList;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void writeToFile(TaskList taskList) throws IOException {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        FileWriter filewriter \u003d new FileWriter(filePath);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        for (int i \u003d 0; i \u003c taskList.getTaskListSize(); i++) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            String line \u003d taskList.getLine(i);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            filewriter.write((i + 1) + \". \" + line + \"\\n\");"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        filewriter.close();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void save(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            File directory \u003d new File((directoryPath));"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            if (!directory.isDirectory()) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                directory.mkdir();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            File file \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            if (!file.exists()) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                file.createNewFile();"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            writeToFile(taskList);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wish2023": 61
     }
   },
   {
@@ -2389,6 +2055,764 @@
     }
   },
   {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    private static ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e taskList) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        for (Task task: taskList) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            tasks.add(task);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void displayList() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"Here\u0027s your TODO\");"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        for (int i \u003d 0; i \u003c tasks.size(); i++) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            System.out.printf(\"%d.%s\\n\", i + 1, tasks.get(i));"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void addToList(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Parser parser \u003d new Parser();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Task task \u003d parser.getTaskFromLine(line);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static int getTaskListSize() {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return tasks.size();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void markTaskAsDone(String task) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int taskNumber \u003d Integer.parseInt(task);"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks.get(taskNumber - 1).setDone();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"I have marked your task as done!\");"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.printf(\"\\t%s\\n\", tasks.get(taskNumber - 1));"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void addToList(Task task) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"Okay! I have added this:\");"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.printf(\"\\t%s\\n\", task);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.printf(\"Now you have %d task%s in the list.\\n\", tasks.size(),"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                (tasks.size() \u003d\u003d 1) ? \"\" : \"s\");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static String getLine(int index) {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        return tasks.get(index).toString();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void deleteTask(String task) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        int taskNumber \u003d Integer.parseInt(task);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"I have deleted this task!\");"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.printf(\"\\t%s\\n\", tasks.get(taskNumber - 1));"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        tasks.remove(taskNumber - 1);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.printf(\"Now you have %d task%s in the list.\\n\", tasks.size(),"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                (tasks.size() \u003d\u003d 1)? \"\": \"s\");"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void updateTasks(String line) throws DukeException {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        Parser parser \u003d new Parser();"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String command;"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            command \u003d parser.getCommand(line);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            System.out.println(\"Whoa! Please enter a command AND a task\");"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        String instance \u003d parser.getInstance(line);"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        if (command.equals(\"done\")) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            markTaskAsDone(instance);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } else if (command.equals(\"todo\")) {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            addToList(new Todo(instance));"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } else if (command.equals((\"delete\"))) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            deleteTask(instance);"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } else if (command.equals(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                Deadline deadline \u003d parser.getDeadline(line);"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                addToList(deadline);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                System.out.println(\"Please follow the deadline format: deadline *task* /by *date*\");"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } else if (command.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                Event event \u003d parser.getEvent(line);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                addToList(event);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                System.out.println(\"Please follow the event format: event *task* /at *date*\");"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            System.out.println(\"Whoops you may have typed a wrong command\");"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wish2023": 107
+    }
+  },
+  {
     "path": "src/main/java/duke/Todo.java",
     "fileType": "java",
     "lines": [
@@ -2507,6 +2931,344 @@
     ],
     "authorContributionMap": {
       "wish2023": 16
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void printGoodbye() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"Bye see you SOON!\");"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void printHello() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"Hey it\u0027s your favorite chatbot buddy!\");"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"How can I assist you today?\");"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void runBot(Scanner in, String line, TaskList taskList) throws DukeException {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        while (!line.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            line \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            switch (line) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            case \"bye\":"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            case \"list\":"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                displayList(taskList);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            default:"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                updateList(line, taskList);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    private static void updateList(String line, TaskList taskList) throws DukeException {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        taskList.updateTasks(line);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public static void displayList(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        taskList.displayList();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    public void showLoadingError() {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "        System.out.println(\"No old tasklist found time to start fresh!\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "wish2023"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "wish2023": 47
     }
   },
   {
