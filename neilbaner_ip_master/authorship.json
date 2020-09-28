@@ -347,14 +347,14 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import com.neilbaner.duke.messages.Messages;"
+        "content": "import com.neilbaner.duke.files.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import com.neilbaner.duke.serialize.Serializer;"
+        "content": "import com.neilbaner.duke.messages.Messages;"
       },
       {
         "lineNumber": 6,
@@ -368,35 +368,35 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "import com.neilbaner.duke.ui.Commands;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import java.io.File;"
+        "content": "import com.neilbaner.duke.ui.InputParser;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import java.io.IOException;"
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 12,
@@ -438,1123 +438,346 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    private static void loadTasks() {"
+        "content": "    public static final String SAVE_FILE_PATH \u003d \"dukesave.txt\";"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        File saveFile \u003d new File(\"dukesave.txt\");"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        try {"
+        "content": "    public static void addToDo(String title) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            Scanner fs \u003d new Scanner(saveFile);"
+        "content": "        list.addTask(new ToDo(title));"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            while(fs.hasNext()) {"
+        "content": "        Messages.printAddedToDo(title);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "                String currentLine \u003d fs.nextLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "                Task currentTask \u003d Serializer.deserializeTask(currentLine);"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "                list.addTask(currentTask);"
+        "content": "    public static void addEvent(String title, String eventTime) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            }"
+        "content": "        list.addTask(new Event(title, eventTime));"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            fs.close();"
+        "content": "        Messages.printAddedEvent(title);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "    }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            System.err.println(\"Couldn\u0027t load the save file. Proceeding without loading.\");"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        } catch (DeserializerException e) {"
+        "content": "    public static void addDeadline(String title, String dueDate) {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            System.err.println(\"Some error trying to parse the save file. Proceeding without loading. \");"
+        "content": "        list.addTask(new Deadline(title, dueDate));"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        }"
+        "content": "        Messages.printAddedDeadline(title);"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    public static void markAsDone(int indexToMark) throws NumberFormatException, IndexOutOfBoundsException {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public static void printTaskList() {"
+        "content": "        list.markTaskDone(indexToMark);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printHorizontalLine();"
+        "content": "        Messages.printMarkedDone(list.getTask(indexToMark).getTitle());"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        if (list.getSize() \u003d\u003d 0) {"
+        "content": "    }"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            System.out.println(\"No tasks added yet\");"
+        "content": ""
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        }"
+        "content": "    public static void deleteTask(int indexToDelete) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        for (Task task : list.getAllTasksList()) {"
+        "content": "        String deletedTitle \u003d list.getTask(indexToDelete).toString();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            System.out.println(task.toString());"
+        "content": "        list.deleteTask(indexToDelete);"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        }"
+        "content": "        Messages.printDeleted(deletedTitle);"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printHorizontalLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public static void addToDo(String title) {"
+        "content": "        try {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        list.addTask(new ToDo(title));"
+        "content": "            Storage storage \u003d new Storage(SAVE_FILE_PATH);"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printAddedToDo(title);"
+        "content": "            storage.loadState(list);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "            Scanner k \u003d new Scanner(System.in);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "            String input;"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public static void addEvent(String title, String eventTime) {"
+        "content": "            boolean toContinue \u003d true;"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        list.addTask(new Event(title, eventTime));"
+        "content": "            Messages.printHello();"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printAddedEvent(title);"
+        "content": "            while (toContinue) {"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "                input \u003d k.nextLine();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "                try {"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public static void addDeadline(String title, String dueDate) {"
+        "content": "                    toContinue \u003d parseInput(input);"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        list.addTask(new Deadline(title, dueDate));"
+        "content": "                } catch (DukeException e) {"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printAddedDeadline(title);"
+        "content": "                    e.printErrorMessage(input);"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "                }"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public static void markAsDone(int indexToMark) throws NumberFormatException, IndexOutOfBoundsException {"
+        "content": "            storage.saveState(list);"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        list.markTaskDone(indexToMark);"
+        "content": "        } catch (DukeException e) {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        Messages.printMarkedDone(list.getTask(indexToMark).getTitle());"
+        "content": "            e.printErrorMessage(\"\");"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 65,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    public static void deleteTask(int indexToDelete) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        String deletedTitle \u003d list.getTask(indexToDelete).toString();"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        list.deleteTask(indexToDelete);"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        Messages.printDeleted(deletedTitle);"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static String getEventTime(String input) {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return input.substring(input.indexOf(\"/at\") + 4).strip();"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static String getEventTitle(String input) {"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return input.substring(6, input.indexOf(\"/at\")).strip();"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static String getDeadlineDueDate(String input) {"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return input.substring(input.indexOf(\"/by\") + 4).strip();"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static int getIndexToMark(String input) {"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return Integer.parseInt(input.substring(5)) - 1;"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static int getIndexToDelete(String input) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return Integer.parseInt(input.substring(7)) - 1;"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static String getDeadlineTitle(String input) {"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return input.substring(9, input.indexOf(\"/by\")).strip();"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static void saveState() throws IOException {"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(\"dukesave.txt\", false);"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        fw.write(Serializer.serializeTaskList(list));"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    private static boolean parseInput(String input) throws DukeException {"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        String lowerCaseInput \u003d input.toLowerCase();"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        if (lowerCaseInput.equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            Messages.printGoodBye();"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try{"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                saveState();"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }catch (IOException e) {"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                System.err.println(\"Error saving the state. Your data was not saved.\");"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            return false;"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (lowerCaseInput.equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            printTaskList();"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (lowerCaseInput.startsWith(\"done\")) {"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                int indexToMark \u003d getIndexToMark(input);"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                markAsDone(indexToMark);"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                Messages.printFormattingError();"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                throw new TaskIndexOutOfBoundsException();"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (lowerCaseInput.startsWith(\"delete\")) {"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                int indexToDelete \u003d getIndexToDelete(input);"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                deleteTask(indexToDelete);"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                Messages.printFormattingError();"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                throw new TaskIndexOutOfBoundsException();"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (lowerCaseInput.startsWith(\"todo\")) {"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            addToDo(input.substring(5));"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (lowerCaseInput.startsWith(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                String title \u003d getDeadlineTitle(input);"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                String dueDate \u003d getDeadlineDueDate(input);"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                if (dueDate.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                    throw new BlankDeadlineDateException();"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                addDeadline(title, dueDate);"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                Messages.printFormattingError();"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else if (input.startsWith(\"event\")) {"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                String title \u003d getEventTitle(input);"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                String eventTime \u003d getEventTime(input);"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                if (eventTime.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                    throw new BlankEventTimeException();"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                addEvent(title, eventTime);"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                Messages.printFormattingError();"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            throw new UnknownCommandException();"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        return true;"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        loadTasks();"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        Scanner k \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        String input;"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        boolean toContinue \u003d true;"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        Messages.printHello();"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        while (toContinue) {"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            input \u003d k.nextLine();"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                toContinue \u003d parseInput(input);"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            } catch (DukeException e) {"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "                e.printErrorMessage(input);"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "neilbaner"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 176,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 177,
+        "lineNumber": 66,
         "author": {
           "gitId": "-"
         },
@@ -1562,8 +785,73 @@
       }
     ],
     "authorContributionMap": {
-      "neilbaner": 174,
+      "neilbaner": 63,
       "-": 3
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/exceptions/BadDateFormatException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class BadDateFormatException extends DukeException {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void printErrorMessage(String command) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 8
     }
   },
   {
@@ -2025,6 +1313,71 @@
     }
   },
   {
+    "path": "src/main/java/com/neilbaner/duke/exceptions/FileSavingException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class FileSavingException extends DukeException {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void printErrorMessage(String command) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 8
+    }
+  },
+  {
     "path": "src/main/java/com/neilbaner/duke/exceptions/IncorrectFormattingException.java",
     "fileType": "java",
     "lines": [
@@ -2115,6 +1468,71 @@
     ],
     "authorContributionMap": {
       "neilbaner": 12
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/exceptions/NoSaveFileException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.exceptions;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class NoSaveFileException extends DukeException{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void printErrorMessage(String command) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 8
     }
   },
   {
@@ -2329,6 +1747,351 @@
     ],
     "authorContributionMap": {
       "neilbaner": 14
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/files/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.files;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.DeserializerException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.FileSavingException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.NoSaveFileException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.serialize.Serializer;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.task.Task;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    private String filePath;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void loadState(TaskList list) throws NoSaveFileException, DeserializerException {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        File saveFile \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            Scanner fs \u003d new Scanner(saveFile);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            while (fs.hasNext()) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                String currentLine \u003d fs.nextLine();"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                Task currentTask \u003d Serializer.deserializeTask(currentLine);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                list.addTask(currentTask);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            fs.close();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } catch (FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            throw new NoSaveFileException();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void saveState(TaskList list) throws FileSavingException{"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            FileWriter fw \u003d new FileWriter(filePath, false);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            fw.write(Serializer.serializeTaskList(list));"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            fw.close();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            throw new FileSavingException();"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public Storage(String filePath) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        this.filePath \u003d filePath;"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 48
     }
   },
   {
@@ -4115,7 +3878,7 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            serialized +\u003d ((Event) t).getEventTime() + PART_DELIMITER;"
+        "content": "            serialized +\u003d ((Event) t).getAssociatedDateString() + PART_DELIMITER;"
       },
       {
         "lineNumber": 78,
@@ -4136,7 +3899,7 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "            serialized +\u003d ((Deadline) t).getDueDate() + PART_DELIMITER;"
+        "content": "            serialized +\u003d ((Deadline) t).getAssociatedDateString() + PART_DELIMITER;"
       },
       {
         "lineNumber": 81,
@@ -4460,77 +4223,77 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    private String dueDate;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "public class Deadline extends TaskWithAssociatedDate {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public Deadline(String title, String dueDate) {"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        super(title);"
+        "content": "    public Deadline(String title, String dueDate) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        this.dueDate \u003d dueDate;"
+        "content": "        super(title, dueDate);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        setDateTime(this.associatedDateString);"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public Deadline(String title, String description, String dueDate) {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        super(title, description);"
+        "content": "    public Deadline(String title, String description, String dueDate) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        this.dueDate \u003d dueDate;"
+        "content": "        super(title, description, dueDate);"
       },
       {
         "lineNumber": 14,
@@ -4565,35 +4328,35 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return \"[D]\" + super.toString() + \", by \" + dueDate;"
+        "content": "        if(associatedDate !\u003d null) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "            return \"[D]\" + super.toString() + \", at \" + associatedDate.format(DateTimeFormatter.ofPattern(\"dd/MM\" +"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "                    \"/yyyy\"));"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public String getDueDate() {"
+        "content": "        }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return dueDate;"
+        "content": "        return \"[D]\" + super.toString() + \", at \" + associatedDateString;"
       },
       {
         "lineNumber": 23,
@@ -4637,140 +4400,140 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "public class Event extends Task {"
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    private String eventTime;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "public class Event extends TaskWithAssociatedDate {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public Event(String title, String eventTime) {"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        super(title);"
+        "content": "    public Event(String title, String eventTime) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        this.eventTime \u003d eventTime;"
+        "content": "        super(title, eventTime);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        this.associatedDateString \u003d eventTime;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public Event(String title, String description, String eventTime) {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        super(title, description);"
+        "content": "    public Event(String title, String description, String eventTime) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        this.eventTime \u003d eventTime;"
+        "content": "        super(title, description, eventTime);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        this.associatedDateString \u003d eventTime;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    @Override"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public String toString() {"
+        "content": "    @Override"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return \"[E]\" + super.toString() + \", at \" + eventTime;"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        if(associatedDate !\u003d null) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "            return \"[E]\" + super.toString() + \", at \" + associatedDate.format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\"));"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public String getEventTime() {"
+        "content": "        }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return eventTime;"
+        "content": "        return \"[E]\" + super.toString() + \", at \" + associatedDateString;"
       },
       {
         "lineNumber": 23,
@@ -5187,255 +4950,535 @@
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "public class TaskList {"
+        "content": ""
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    private ArrayList\u003cTask\u003e tasks;"
+        "content": "public class TaskList {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    private ArrayList\u003cTask\u003e tasks;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public TaskList() {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        tasks \u003d new ArrayList\u003cTask\u003e();"
+        "content": "    public TaskList() {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        tasks \u003d new ArrayList\u003cTask\u003e();"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public ArrayList\u003cTask\u003e getAllTasksList() {"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return tasks;"
+        "content": "    public ArrayList\u003cTask\u003e getAllTasksList() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        return tasks;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public void loadTasks(ArrayList\u003cTask\u003e taskList) {"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        tasks \u003d taskList;"
+        "content": "    public void loadTasks(ArrayList\u003cTask\u003e taskList) {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        tasks \u003d taskList;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public void addTask(Task t) {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        tasks.add(t);"
+        "content": "    public void addTask(Task t) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        tasks.add(t);"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public void deleteTask(int index) throws IndexOutOfBoundsException {"
+        "content": ""
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        tasks.remove(index);"
+        "content": "    public void deleteTask(int index) throws IndexOutOfBoundsException {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        tasks.remove(index);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public void markTaskDone(int index) throws IndexOutOfBoundsException {"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        tasks.get(index).setDone();"
+        "content": "    public void markTaskDone(int index) throws IndexOutOfBoundsException {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        tasks.get(index).setDone();"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public int getSize() {"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return tasks.size();"
+        "content": "    public int getSize() {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        return tasks.size();"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    public Task getTask(int index) {"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "        return tasks.get(index);"
+        "content": "    public Task getTask(int index) {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "neilbaner"
         },
-        "content": "    }"
+        "content": "        return tasks.get(index);"
       },
       {
         "lineNumber": 39,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getAllTasksBeforeList(LocalDate dateBeforeWhich) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        ArrayList\u003cTask\u003e allTasksBeforeList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (Task t : tasks) {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            if (t instanceof TaskWithAssociatedDate) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                TaskWithAssociatedDate tWithAssociatedDate \u003d (TaskWithAssociatedDate) t;"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                LocalDate dateOfCurrentTask \u003d tWithAssociatedDate.getAssociatedDate();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                if (dateOfCurrentTask.isBefore(dateBeforeWhich)) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                    allTasksBeforeList.add(t);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return allTasksBeforeList;"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getAllTasksOnList(LocalDate dateBeforeWhich) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        ArrayList\u003cTask\u003e allTasksOnList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (Task t : tasks) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            if (t instanceof TaskWithAssociatedDate) {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                TaskWithAssociatedDate tWithAssociatedDate \u003d (TaskWithAssociatedDate) t;"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                LocalDate dateOfCurrentTask \u003d tWithAssociatedDate.getAssociatedDate();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                if (dateOfCurrentTask.isEqual(dateBeforeWhich)) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                    allTasksOnList.add(t);"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return allTasksOnList;"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public ArrayList\u003cTask\u003e searchTasksResults(String searchKey) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        ArrayList\u003cTask\u003e results \u003d new ArrayList\u003cTask\u003e();"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (Task t : tasks) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            if (t.getTitle().contains(searchKey)) {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                results.add(t);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return results;"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
         "author": {
           "gitId": "neilbaner"
         },
@@ -5443,7 +5486,506 @@
       }
     ],
     "authorContributionMap": {
-      "neilbaner": 39
+      "neilbaner": 79
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/task/TaskWithAssociatedDate.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.time.DateTimeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.time.LocalDate;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.time.LocalTime;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public abstract class TaskWithAssociatedDate extends Task {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected String associatedDateString;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public LocalDate getAssociatedDate() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return associatedDate;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public LocalTime getAssociatedTime() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return associatedTime;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected LocalDate associatedDate;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected LocalTime associatedTime;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public TaskWithAssociatedDate(String title, String associatedDate) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        super(title);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        this.associatedDateString \u003d associatedDate;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        setDateTime(associatedDate);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public TaskWithAssociatedDate(String title, String description, String associatedDate) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        super(title, description);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        this.associatedDateString \u003d associatedDate;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        setDateTime(associatedDate);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected void setDateTime(String dateString) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        setDate(dateString);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        setTime(dateString);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected void setDate(String dateString) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        String[] tokens \u003d dateString.split(\" \");"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (String token : tokens) {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                associatedDate \u003d LocalDate.parse(token);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                return;"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            } catch (DateTimeException e) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                continue;"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    protected void setTime(String dateString) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        String[] tokens \u003d dateString.split(\" \");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (String token : tokens) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                associatedTime \u003d LocalTime.parse(token);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                return;"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            } catch (DateTimeException e) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                continue;"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public String getAssociatedDateString() {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return associatedDateString;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return super.toString();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 70
     }
   },
   {
@@ -5572,6 +6114,1146 @@
     ],
     "authorContributionMap": {
       "neilbaner": 17
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/ui/Commands.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class Commands {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String EVENT_AT_DELIMITER \u003d \"/at\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String DEADLINE_BY_DELIMITER \u003d \"/by\";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String DONE_COMMAND \u003d \"done\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String DELETE_COMMAND \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String FIND_COMMAND \u003d \"find\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String LIST_COMMAND \u003d \"list\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String ADD_EVENT_COMMAND \u003d \"event\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String ADD_DEADLINE_COMMAND \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String ADD_TODO_COMMAND \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String EXIT_COMMAND \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String BEFORE_COMMAND \u003d \"before\";"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static final String AT_COMMAND \u003d \"at\";"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 20
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/ui/InputParser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.IncorrectFormattingException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.time.LocalDate;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class InputParser {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static String getEventTime(String input) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return input.substring(input.indexOf(Commands.EVENT_AT_DELIMITER) + 4).strip();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static String getEventTitle(String input) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return input.substring(6, input.indexOf(Commands.EVENT_AT_DELIMITER)).strip();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static String getDeadlineDueDate(String input) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        int delimiterLength \u003d Commands.DEADLINE_BY_DELIMITER.length() + 1;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return input.substring(input.indexOf(Commands.DEADLINE_BY_DELIMITER) + delimiterLength).strip();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static int getIndexToMark(String input) throws IncorrectFormattingException {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        int beginIndex \u003d Commands.DONE_COMMAND.length() + 1;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        try{"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            return Integer.parseInt(input.substring(beginIndex)) - 1;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            throw new IncorrectFormattingException();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static int getIndexToDelete(String input) {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return Integer.parseInt(input.substring(Commands.DELETE_COMMAND.length() + 1)) - 1;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static String getDeadlineTitle(String input) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return input.substring(9, input.indexOf(Commands.DEADLINE_BY_DELIMITER)).strip();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static String getSearchKey(String input) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        int beginIndex \u003d Commands.FIND_COMMAND.length() + 1;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        return input.substring(beginIndex);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public static LocalDate getDateFromInput(String input, String command) throws IncorrectFormattingException {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String dateString \u003d input.substring(command.length() + 1);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            LocalDate inputDate \u003d LocalDate.parse(dateString);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            return inputDate;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            throw new IncorrectFormattingException();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 52
+    }
+  },
+  {
+    "path": "src/main/java/com/neilbaner/duke/ui/UserInterface.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "package com.neilbaner.duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.BlankDeadlineDateException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.BlankEventTimeException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.DukeException;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.exceptions.UnknownCommandException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.messages.Messages;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.task.Task;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import com.neilbaner.duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.time.LocalDate;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "public class UserInterface {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    TaskList taskList;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public UserInterface(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        this.taskList \u003d taskList;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    private void printTaskList() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        Messages.printHorizontalLine();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        if (taskList.getSize() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            System.out.println(\"No tasks added yet\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (Task task : taskList.getAllTasksList()) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            System.out.println(task.toString());"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        Messages.printHorizontalLine();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    private void printTaskList(ArrayList\u003cTask\u003e taskListToPrint) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        Messages.printHorizontalLine();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        if (taskListToPrint.size() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            System.out.println(\"No tasks that match. \");"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        for (Task task : taskListToPrint) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            System.out.println(task.toString());"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        Messages.printHorizontalLine();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    public void executeCommand(String command) throws DukeException {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        String lowerCaseInput \u003d command.toLowerCase();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        if (lowerCaseInput.equals(Commands.EXIT_COMMAND)) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            Messages.printGoodBye();"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.equals(Commands.LIST_COMMAND)) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            printTaskList();"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.DONE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            int indexToMark \u003d InputParser.getIndexToMark(command);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            markAsDone(indexToMark);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.DELETE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            int indexToDelete \u003d InputParser.getIndexToDelete(command);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            deleteTask(indexToDelete);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.ADD_TODO_COMMAND)) {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            addToDo(command.substring(5));"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.ADD_DEADLINE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String title \u003d InputParser.getDeadlineTitle(command);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String dueDate \u003d InputParser.getDeadlineDueDate(command);"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            if (dueDate.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                throw new BlankDeadlineDateException();"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            addDeadline(title, dueDate);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.ADD_EVENT_COMMAND)) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String title \u003d InputParser.getEventTitle(command);"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String eventTime \u003d InputParser.getEventTime(command);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            if (eventTime.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "                throw new BlankEventTimeException();"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            addEvent(title, eventTime);"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.BEFORE_COMMAND)) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            LocalDate dateInput \u003d InputParser.getDateFromInput(command, Commands.BEFORE_COMMAND);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            ArrayList\u003cTask\u003e tasksBeforeDateList \u003d list.getAllTasksBeforeList(dateInput);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            printTaskList(tasksBeforeDateList);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.AT_COMMAND)) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            LocalDate dateInput \u003d InputParser.getDateFromInput(command, Commands.AT_COMMAND);"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            ArrayList\u003cTask\u003e tasksBeforeDateList \u003d list.getAllTasksOnList(dateInput);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            printTaskList(tasksBeforeDateList);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else if (lowerCaseInput.startsWith(Commands.FIND_COMMAND)) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            String searchKey \u003d InputParser.getSearchKey(command);"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            ArrayList\u003cTask\u003e searchResults \u003d list.searchTasksResults(searchKey);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            printTaskList(searchResults);"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "            throw new UnknownCommandException();"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "neilbaner"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "neilbaner": 87
     }
   }
 ]
