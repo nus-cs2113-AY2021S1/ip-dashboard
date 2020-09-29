@@ -355,6 +355,43 @@
     }
   },
   {
+    "path": "data-folder/tasks.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "Schedule Action Planner."
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "[✘: Pending |  ✓: Done]"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "T: To do | E: Event | D: Deadline"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "\t1.[T][✓] 1"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 4
+    }
+  },
+  {
     "path": "src/main/java/duke/Duke.java",
     "fileType": "java",
     "lines": [
@@ -377,56 +414,56 @@
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import duke.common.Messages;"
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.command.ExitCommand;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import duke.task.Event;"
+        "content": "import duke.data.TaskList;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.data.exception.InvalidCommandException;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import duke.task.ToDo;"
+        "content": "import duke.parser.Parser;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "import duke.storage.FileStorage;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import java.io.File;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import java.io.FileWriter;"
+        "content": ""
       },
       {
         "lineNumber": 11,
@@ -440,294 +477,294 @@
         "author": {
           "gitId": "fanceso"
         },
-        "content": "import java.nio.charset.StandardCharsets;"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "import java.util.ArrayList;"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "import java.util.Scanner;"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "fanceso"
-        },
         "content": ""
       },
       {
-        "lineNumber": 16,
+        "lineNumber": 13,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static FileStorage storage;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public TaskList taskList;"
+      },
+      {
         "lineNumber": 17,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static final Scanner SCANNER \u003d new Scanner(System.in);"
+        "content": "    public static Ui ui;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static final String FILE_PATH_NAME \u003d System.getProperty(\"user.dir\") + \"\\\\data-folder\";"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static final String FILE_NAME \u003d FILE_PATH_NAME + \"\\\\data.txt\";"
+        "content": "    public Duke(String filePath) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static String taskContent \u003d \"\";"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static int taskCount \u003d 0;"
+        "content": "        storage \u003d new FileStorage(filePath);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static boolean loaded \u003d false;"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static boolean autoSaveMode \u003d false;"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static File file \u003d new File(FILE_NAME);"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e();"
+        "content": "        initializeDuke();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "        runProgram();"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "        exitProgram();"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static void main(String[] args) throws IOException {"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        loadFile();"
+        "content": "    private void exitProgram() {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        System.out.println(\"Data Directory located: \" + FILE_PATH_NAME);"
+        "content": "        ui.showFileLocation();"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        welcomeMessage();"
+        "content": "    }"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        while (true) {"
+        "content": ""
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "            String userCommand \u003d getUserInput();"
+        "content": "    public void initializeDuke() {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "            executeCommand(userCommand);"
+        "content": "        try {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        }"
+        "content": "            taskList \u003d new TaskList();"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    }"
+        "content": "            FileStorage.loadFile(taskList);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "        } catch (IOException | InvalidCommandException exception) {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "            ui.showInvalidFileMessage();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static void autoSave() throws IOException {"
+        "content": "        }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        String msgContent \u003d \"\";"
+        "content": "        ui.showWelcomeMessage();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        // if file does not exist, create new file"
+        "content": "    }"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        int i;"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        for (i \u003d 0; i \u003c taskCount; i++) {"
+        "content": "    public void runProgram() {"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "            msgContent +\u003d \"\\n\" + Messages.INDENT + (i + 1) + \".\" + tasks.get(i);"
+        "content": "        do {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        }"
+        "content": "            try {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        writeToFile(msgContent);"
+        "content": "                String userInput \u003d ui.getUserInput();"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    }"
+        "content": "                Command command \u003d Parser.parseCommand(userInput);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "                command.execute(taskList, storage, ui);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static void writeToFile(String textToAdd) throws IOException {"
+        "content": "            } catch (IOException | InvalidCommandException e) {"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        FileWriter fw \u003d new FileWriter(FILE_NAME, StandardCharsets.UTF_8);"
+        "content": "                System.out.println(\"Something went Wrong!\");"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        fw.write(Messages.FILE_MESSAGE + textToAdd);"
+        "content": "            }"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        fw.close();"
+        "content": "        } while (!ExitCommand.isExit());"
       },
       {
         "lineNumber": 54,
@@ -748,21 +785,21 @@
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    private static void loadFile() throws IOException {"
+        "content": "    public static void main(String[] args)  {"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "fanceso"
         },
-        "content": ""
+        "content": "        new Duke(\"data-folder/tasks.txt\").run();"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        File theDir \u003d new File(\"data-folder\");"
+        "content": "    }"
       },
       {
         "lineNumber": 59,
@@ -776,1979 +813,12 @@
         "author": {
           "gitId": "fanceso"
         },
-        "content": "        // create directory if does not exist"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (!theDir.exists()) {"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            System.out.println(\"Creating new directory: \" + theDir.getName());"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            boolean result \u003d false;"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                theDir.mkdir();"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                result \u003d true;"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            } catch (SecurityException se) {"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                System.out.println(\"Permission Denited\");"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            if (result) {"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                System.out.println(\"DIR created\");"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        String content;"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        // Skipping the first 3 lines from file"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        int lines \u003d 0;"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (file.createNewFile()) {"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            autoSaveMode \u003d true;"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            loaded \u003d true;"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            autoSaveMode \u003d false;"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            if (!loaded) {"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                //File reading from UTF-8 charset"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                Scanner s \u003d new Scanner(file, StandardCharsets.UTF_8);"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                // loading existing file once and add them into list"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                boolean completed \u003d false;"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                while (s.hasNext()) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    // ignoring the first 3 lines"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    if (lines \u003c 3 \u0026\u0026 !completed) {"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        s.nextLine();"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    } else {"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        completed \u003d true;"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        content \u003d s.nextLine();"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        int dividePoint1 \u003d content.indexOf(\".[\");"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        int dividePoint2 \u003d content.indexOf(\"] \");"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        char taskType \u003d content.charAt(dividePoint1 + 2);"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        String taskDetails \u003d content.substring(dividePoint2 + 2);"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        String taskIsDone \u003d content.substring(dividePoint1 + 5, dividePoint2);"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        String message \u003d \"\";"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        switch (taskType) {"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        case \u0027T\u0027:"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            message +\u003d \"todo \" + taskDetails;"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            break;"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        case \u0027E\u0027:"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            taskDetails \u003d taskDetails.replace(\"(at:\", \"/at\");"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            taskDetails \u003d taskDetails.replace(\")\", \"\");"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            message +\u003d \"event \" + taskDetails;"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            break;"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        case \u0027D\u0027:"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            taskDetails \u003d taskDetails.replace(\"(by:\", \"/by\");"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            taskDetails \u003d taskDetails.replace(\")\", \"\");"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            message +\u003d \"deadline \" + taskDetails;"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            break;"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        }"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        executeCommand(message);"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        int taskIndexInFile \u003d lines - 3;"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        if (taskIsDone.equals(Task.TICK)) {"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                            tasks.get(taskIndexInFile).markAsDone();"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                        }"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    lines++;"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                System.out.println(\"Loaded from previous file: \" + FILE_NAME);"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                loaded \u003d true;"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                autoSaveMode \u003d true;"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    static void UiDisplay(String content) {"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(Messages.INDENT + Messages.LINE);"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (content !\u003d null) {"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            System.out.println(Messages.INDENT + content);"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(Messages.INDENT + Messages.LINE + \"\\n\");"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void welcomeMessage() {"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(Messages.LINE);"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(\"Hello! I\u0027m duke.Duke\");"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(\"What can I do for you?\");"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.out.println(Messages.LINE);"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void addToDoTask(String taskDescription) throws InvalidCommandException {"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (taskDescription.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            throw new InvalidCommandException(\"todo-error\");"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            tasks.add(new ToDo(taskDescription));"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            addTask(taskDescription);"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void addDeadlineTask(String taskDescription) throws InvalidCommandException, StringIndexOutOfBoundsException {"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            int dateSeparator \u003d taskDescription.indexOf(\"/by\");"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String task \u003d taskDescription.substring(0, dateSeparator).trim();"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String date \u003d taskDescription.substring(dateSeparator + 3).trim();"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            if (task.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                throw new InvalidCommandException(\"deadline-error\");"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            } else if (date.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                throw new InvalidCommandException(\"deadline-date-error\");"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            tasks.add(new Deadline(task, date));"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            addTask(task);"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } catch (StringIndexOutOfBoundsException exception) {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            throw new InvalidCommandException(\"deadline-error\");"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void addEventTask(String taskDescription) throws InvalidCommandException, StringIndexOutOfBoundsException {"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            int timeSeparator \u003d taskDescription.indexOf(\"/at\");"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String task \u003d taskDescription.substring(0, timeSeparator).trim();"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String eventTime \u003d taskDescription.substring(timeSeparator + 3).trim();"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            if (task.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                throw new InvalidCommandException(\"event-error\");"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            } else if (eventTime.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                throw new InvalidCommandException(\"event-date-error\");"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            tasks.add(new Event(task, eventTime));"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            addTask(task);"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } catch (StringIndexOutOfBoundsException exception) {"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            throw new InvalidCommandException(\"event-error\");"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void addTask(String content) {"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        taskCount++;"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (loaded) {"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            UiDisplay(Messages.ADDED_MESSAGE"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    + Messages.INDENT2 + content"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    + \"\\n   Now you have \" + taskCount + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (autoSaveMode) {"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                autoSave();"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                e.printStackTrace();"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void executeCommand(String userCommand) {"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        String taskAction \u003d taskIdentify(userCommand);"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            switch (taskAction) {"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_EXIT_STRING:"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_BYE_STRING:"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                exitProgram();"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_LIST_STRING:"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                listProgram();"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_DONE_STRING:"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                if (stringIsNumeric(taskContent)) {"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    markAsDone(Integer.parseInt(taskContent));"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                } else {"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    System.out.println(\"Please enter the numeric rank of the task.\");"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_EVENT_STRING:"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                addEventTask(taskContent);"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_TODO_STRING:"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                addToDoTask(taskContent);"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_DEADLINE_STRING:"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                addDeadlineTask(taskContent);"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case Messages.COMMAND_DELETE_STRING:"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                if (stringIsNumeric(taskContent)) {"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    delete(Integer.parseInt(taskContent));"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    autoSave();"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                } else {"
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    System.out.println(\"Please enter the numeric rank of the task.\");"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                throw new InvalidCommandException(\"common\");"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } catch (InvalidCommandException exception) {"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            switch (exception.errorCode) {"
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"common\":"
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                UiDisplay(\":-( OOPS!!! I\u0027m sorry, but I don\u0027t know what that means.\");"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"todo-error\":"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"event-error\":"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"deadline-error\":"
-      },
-      {
-        "lineNumber": 251,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                UiDisplay(Messages.DESCRIPTION_ERROR_MESSAGE);"
-      },
-      {
-        "lineNumber": 252,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 253,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"deadline-date-error\":"
-      },
-      {
-        "lineNumber": 254,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            case \"event-date-error\":"
-      },
-      {
-        "lineNumber": 255,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                UiDisplay(Messages.DATE_ERROR_MESSAGE);"
-      },
-      {
-        "lineNumber": 256,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 257,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 258,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } catch (IOException exception) {"
-      },
-      {
-        "lineNumber": 259,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            UiDisplay(\":-( OOPS!!! File Format is wrong.\");"
-      },
-      {
-        "lineNumber": 260,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 261,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 262,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 263,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 264,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static String getUserInput() {"
-      },
-      {
-        "lineNumber": 265,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        return SCANNER.nextLine();"
-      },
-      {
-        "lineNumber": 266,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 267,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 268,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void exitProgram() {"
-      },
-      {
-        "lineNumber": 269,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        UiDisplay(Messages.MESSAGE_GOODBYE);"
-      },
-      {
-        "lineNumber": 270,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        System.exit(0);"
-      },
-      {
-        "lineNumber": 271,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 272,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 273,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    // Display content that has been recorded"
-      },
-      {
-        "lineNumber": 274,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void listProgram() {"
-      },
-      {
-        "lineNumber": 275,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        String listContent \u003d \"\";"
-      },
-      {
-        "lineNumber": 276,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        int i;"
-      },
-      {
-        "lineNumber": 277,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (taskCount \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 278,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            listContent \u003d \"You don\u0027t have any task in the list now.\";"
-      },
-      {
-        "lineNumber": 279,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            UiDisplay(listContent);"
-      },
-      {
-        "lineNumber": 280,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 281,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            for (i \u003d 0; i \u003c taskCount; i++) {"
-      },
-      {
-        "lineNumber": 282,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                listContent +\u003d \"\\n\" + Messages.INDENT + (i + 1) + \".\" + tasks.get(i);"
-      },
-      {
-        "lineNumber": 283,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 284,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            UiDisplay(Messages.LIST_MESSAGE + listContent);"
-      },
-      {
-        "lineNumber": 285,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 286,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 287,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 288,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static String taskIdentify(String singleLineCommand) {"
-      },
-      {
-        "lineNumber": 289,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        singleLineCommand \u003d singleLineCommand.trim();"
-      },
-      {
-        "lineNumber": 290,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        // Checking if is a single word or multiple words used command"
-      },
-      {
-        "lineNumber": 291,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (singleLineCommand.contains(\" \")) {"
-      },
-      {
-        "lineNumber": 292,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String[] splitWords \u003d singleLineCommand.split(\" \", 2);"
-      },
-      {
-        "lineNumber": 293,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            String taskName \u003d splitWords[0];"
-      },
-      {
-        "lineNumber": 294,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            taskContent \u003d splitWords[1];"
-      },
-      {
-        "lineNumber": 295,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            return taskName;"
-      },
-      {
-        "lineNumber": 296,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 297,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            taskContent \u003d \"\";"
-      },
-      {
-        "lineNumber": 298,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            return singleLineCommand;"
-      },
-      {
-        "lineNumber": 299,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 300,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 301,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 302,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void delete(int taskNumber) {"
-      },
-      {
-        "lineNumber": 303,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        int index \u003d taskNumber - 1;"
-      },
-      {
-        "lineNumber": 304,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        String messageContent;"
-      },
-      {
-        "lineNumber": 305,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if (taskNumber \u003e taskCount || taskCount \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 306,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            messageContent \u003d \"Fail to delete! You don\u0027t have any task in the list now.\";"
-      },
-      {
-        "lineNumber": 307,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 308,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            taskCount--;"
-      },
-      {
-        "lineNumber": 309,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            messageContent \u003d \"Noted. I\u0027ve removed this task: \\n\""
-      },
-      {
-        "lineNumber": 310,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    + Messages.INDENT2 + tasks.get(index)"
-      },
-      {
-        "lineNumber": 311,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "                    + \"\\n   Now you have \" + taskCount + \" tasks in the list.\";"
-      },
-      {
-        "lineNumber": 312,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            tasks.remove(index);"
-      },
-      {
-        "lineNumber": 313,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 314,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        UiDisplay(messageContent);"
-      },
-      {
-        "lineNumber": 315,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 316,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 317,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 318,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    private static void markAsDone(int inputNumber) throws IOException {"
-      },
-      {
-        "lineNumber": 319,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        int taskNumber \u003d inputNumber - 1;"
-      },
-      {
-        "lineNumber": 320,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        if ((inputNumber \u003e 0) \u0026\u0026 (taskNumber \u003c taskCount)) {"
-      },
-      {
-        "lineNumber": 321,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            tasks.get(taskNumber).markAsDone();"
-      },
-      {
-        "lineNumber": 322,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            UiDisplay(Messages.MESSAGE_WELL_DONE + Messages.INDENT + tasks.get(taskNumber).toString());"
-      },
-      {
-        "lineNumber": 323,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            autoSave();"
-      },
-      {
-        "lineNumber": 324,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 325,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            System.out.println(\"Invalid task number.\");"
-      },
-      {
-        "lineNumber": 326,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 327,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 328,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 329,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    /**"
-      },
-      {
-        "lineNumber": 330,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "     * Returns true if the given string is a number."
-      },
-      {
-        "lineNumber": 331,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "     * Reference from \"https://www.baeldung.com/java-check-string-number\""
-      },
-      {
-        "lineNumber": 332,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "     */"
-      },
-      {
-        "lineNumber": 333,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    public static boolean stringIsNumeric(String str) {"
-      },
-      {
-        "lineNumber": 334,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 335,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            Double.parseDouble(str);"
-      },
-      {
-        "lineNumber": 336,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            return true;"
-      },
-      {
-        "lineNumber": 337,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 338,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "            return false;"
-      },
-      {
-        "lineNumber": 339,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 340,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 341,
-        "author": {
-          "gitId": "fanceso"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "-": 3,
-      "fanceso": 338
+      "-": 1,
+      "fanceso": 59
     }
   },
   {
@@ -2824,6 +894,1308 @@
     }
   },
   {
+    "path": "src/main/java/duke/command/AddCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class AddCommand extends Command {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_EVENT_WORD \u003d \"event\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_DEADLINE_WORD \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_TODO_WORD \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private Task taskToAdd;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public AddCommand(Task task) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.taskToAdd \u003d task;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList taskList, FileStorage storage, Ui ui) throws IOException {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        taskList.add(taskToAdd);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (FileStorage.fileLoaded) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            storage.autoSave(taskList);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String messageContent \u003d Messages.MESSAGE_ADDED + ui.indentPrint() + taskToAdd;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            ui.showCommandResult(messageContent);"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 34
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    protected static boolean programShutdown;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Command() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        programShutdown \u003d false;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public abstract void execute(TaskList tasks, FileStorage storage, Ui ui) throws IOException;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static boolean isExit() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return programShutdown;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_DELETE_WORD \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    int indexForDeletion;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public DeleteCommand(int indexForDeletion) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.indexForDeletion \u003d indexForDeletion;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList tasks, FileStorage storage, Ui ui) throws IOException {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        Task task \u003d tasks.getTask(indexForDeletion);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        tasks.taskRemove(indexForDeletion);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        String messageContent \u003d Messages.MESSAGE_REMOVED + ui.indentPrint() + task;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        ui.showCommandResult(messageContent);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        storage.autoSave(tasks);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 30
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class DoneCommand extends Command {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"done\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private int taskIndex;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public DoneCommand(int taskIndex) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.taskIndex \u003d taskIndex;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList tasks, FileStorage storage, Ui ui) throws IOException {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        Task task \u003d tasks.getTask(taskIndex);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        tasks.markDone(taskIndex);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (FileStorage.fileLoaded) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String messageContent \u003d Messages.MESSAGE_WELL_DONE + ui.indentPrint() + task;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            ui.showCommandResult(messageContent);"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            storage.autoSave(tasks);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 32
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class ExitCommand extends Command{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_EXIT_WORD \u003d \"exit\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_BYE_WORD \u003d \"bye\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList tasks, FileStorage storage, Ui ui) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        programShutdown \u003d true;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (FileStorage.fileLoaded) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            ui.showExitMessage();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 21
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/InvalidCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class InvalidCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public final String feedbackToUser;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public InvalidCommand(String feedbackToUser) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.feedbackToUser \u003d feedbackToUser;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList tasks, FileStorage storage, Ui ui){"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        ui.showTaskList(tasks);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 20
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String COMMAND_WORD \u003d \"list\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void execute(TaskList tasks, FileStorage storage, Ui ui){"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        ui.showTaskList(tasks);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 17
+    }
+  },
+  {
     "path": "src/main/java/duke/common/Messages.java",
     "fileType": "java",
     "lines": [
@@ -2853,129 +2225,122 @@
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String LINE \u003d \"-\".repeat(Math.max(0, 59));"
+        "content": "    public static final String MESSAGE_VERSION \u003d \"Version: A-MORE OOP\";"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String INDENT \u003d \" \".repeat(Math.max(0, 3));"
+        "content": "    public static final String MESSAGE_WELCOME \u003d \"Hello! I\u0027m Duke.\\nWhat can I do for you?\";"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String INDENT2 \u003d \" \".repeat(Math.max(0, 4));"
+        "content": "    public static final String MESSAGE_GOODBYE \u003d \"Bye. Hope to see you again soon!\";"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String MESSAGE_GOODBYE \u003d \"Bye. Hope to see you again soon!\";"
+        "content": "    public static final String MESSAGE_NO_TASK \u003d \"There is no task in the list. Please add new task!\";"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String FILE_MESSAGE \u003d \"Schedule Action Planner.\\n[✘: Pending |  ✓: Done]\\nT: To do | E: Event | D: Deadline\";"
+        "content": "    public static final String MESSAGE_INVALID_COMMAND \u003d \"Invalid command format!\";"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String LIST_MESSAGE \u003d \"Here are the tasks in your list:\";"
+        "content": "    public static final String MESSAGE_INVALID_FILE \u003d \"The file used is invalid.\\n\";"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_BYE_STRING \u003d \"bye\";"
+        "content": "    public static final String MESSAGE_NUMBER_OF_TASK \u003d \"You have %d tasks in the list now.\";"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_EXIT_STRING \u003d \"exit\";"
+        "content": "    public static final String MESSAGE_INVALID_TASK_INDEX \u003d \"The task index provided is invalid\";"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_LIST_STRING \u003d \"list\";"
+        "content": "    public static final String MESSAGE_NUMERICAL_ERROR \u003d \"Please enter the correct numerical task index\";"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_DONE_STRING \u003d \"done\";"
+        "content": "    public static final String MESSAGE_FILE_INTRO \u003d \"Schedule Action Planner.\\n[✘: Pending |  ✓: Done]\\nT: To do | E: Event | D: Deadline\";"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_DELETE_STRING \u003d \"delete\";"
+        "content": "    public static final String MESSAGE_LIST_OUT \u003d \"Here are the tasks in your list:\\n\";"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_DEADLINE_STRING \u003d \"deadline\";"
+        "content": "    public static final String MESSAGE_ADDED \u003d \"Got it. I\u0027ve added this task:\\n\";"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_EVENT_STRING \u003d \"event\";"
+        "content": "    public static final String MESSAGE_REMOVED \u003d \"Roger that. I\u0027ve removed this task:\\n\";"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String COMMAND_TODO_STRING \u003d \"todo\";"
+        "content": "    public static final String MESSAGE_WELL_DONE \u003d \"Nice! I\u0027ve marked this task as done:\\n\";"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String ADDED_MESSAGE \u003d \"Got it. I\u0027ve added this task:\\n\";"
+        "content": "    public static final String MESSAGE_TASK_NOT_IN_LIST \u003d \"The task index provided is not found\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String MESSAGE_WELL_DONE \u003d \"Nice! I\u0027ve marked this task as done:\\n \";"
+        "content": "    public static final String MESSAGE_DATE_ERROR \u003d \":-( OOPS!!! The date format is wrong.\";"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "fanceso"
         },
-        "content": "    public static final String DATE_ERROR_MESSAGE \u003d  \":-( OOPS!!! The date format is wrong.\";"
+        "content": "    public static final String MESSAGE_DESCRIPTION_ERROR \u003d \":-( OOPS!!! The description cannot be empty.\";"
       },
       {
         "lineNumber": 21,
-        "author": {
-          "gitId": "fanceso"
-        },
-        "content": "    public static final String DESCRIPTION_ERROR_MESSAGE \u003d \":-( OOPS!!! The description cannot be empty.\";"
-      },
-      {
-        "lineNumber": 22,
         "author": {
           "gitId": "fanceso"
         },
@@ -2983,7 +2348,3137 @@
       }
     ],
     "authorContributionMap": {
-      "fanceso": 22
+      "fanceso": 21
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.tasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void add(Task task) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        tasks.add(task);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void taskRemove(int index) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        tasks.remove(index);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void markDone(int index) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        tasks.get(index). markAsDone();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static int getTaskListSize() {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return tasks.size();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Task getTask(int index) {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return tasks.get(index);"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 34
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/exception/InvalidCommandException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class InvalidCommandException extends Exception {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static Ui uiDisplay \u003d new Ui();"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public InvalidCommandException() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        uiDisplay.showCommandResult(Messages.MESSAGE_INVALID_COMMAND);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 13
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/exception/InvalidFileException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class InvalidFileException extends Exception {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static Ui uiDisplay \u003d new Ui();"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public InvalidFileException() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        uiDisplay.showCommandResult(Messages.MESSAGE_INVALID_FILE);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 13
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/exception/InvalidTaskIndexException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class InvalidTaskIndexException extends Exception {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static Ui uiDisplay \u003d new Ui();"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public InvalidTaskIndexException() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        uiDisplay.showCommandResult(Messages.MESSAGE_INVALID_TASK_INDEX);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/exception/InvalidValueException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class InvalidValueException extends Exception{"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public InvalidValueException(String message) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        System.out.println(Messages.MESSAGE_NUMERICAL_ERROR);"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 13
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/task/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String by;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Deadline(String description, String by) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.by \u003d by;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return String.format(\"[D]%s (by: %s)\", super.toString(), by);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 15
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/task/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String at;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Event(String description, String at) {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.at \u003d at;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return String.format(\"[E]%s (at: %s)\", super.toString(), at);"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 15
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/task/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String description;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static int taskCount \u003d 0;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public final static String TICK \u003d \"\\u2713\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public final static String CROSS \u003d \"\\u2718\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        isDone \u003d true;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "     * Gets a Unicode character representing if the duke.task.Task is done"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "     * (tick for yes, cross for no)."
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return (isDone ? \"[\" + TICK + \"]\" : \"[\" + CROSS + \"]\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return getStatusIcon() + \" \" + description;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 33
+    }
+  },
+  {
+    "path": "src/main/java/duke/data/task/ToDo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.data.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class ToDo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public ToDo(String description) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return String.format(\"[T]%s\", super.toString());"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 13
+    }
+  },
+  {
+    "path": "src/main/java/duke/parser/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.parser;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.exception.InvalidCommandException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.exception.InvalidTaskIndexException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.exception.InvalidValueException;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Deadline;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Event;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.ToDo;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static String taskContent;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static Task tasks;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static Ui ui \u003d new Ui();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static Command parseCommand(String userCommand) throws InvalidCommandException {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        Command command;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        String taskAction \u003d taskIdentify(userCommand);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        switch (taskAction) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case ExitCommand.COMMAND_EXIT_WORD:"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case ExitCommand.COMMAND_BYE_WORD:"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new ExitCommand();"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case ListCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new ListCommand();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case AddCommand.COMMAND_TODO_WORD:"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            verifyTodoTask(taskContent);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new AddCommand(tasks);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case AddCommand.COMMAND_EVENT_WORD:"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            verifyEventTask(taskContent);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new AddCommand(tasks);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case AddCommand.COMMAND_DEADLINE_WORD:"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            verifyDeadlineTask(taskContent);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new AddCommand(tasks);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case DoneCommand.COMMAND_WORD:"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                if (!stringIsNumeric(taskContent) || taskContent.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    throw new InvalidValueException(taskContent);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                } else if (Integer.parseInt(taskContent) \u003e TaskList.getTaskListSize()) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    throw new InvalidTaskIndexException();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                command \u003d new DoneCommand(Integer.parseInt(taskContent) - 1);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            } catch (InvalidValueException | InvalidTaskIndexException | IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                ui.showInvalidIndexMessage();"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                command \u003d new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        case DeleteCommand.COMMAND_DELETE_WORD:"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                if (!stringIsNumeric(taskContent) || taskContent.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    throw new InvalidValueException(taskContent);"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                } else if (Integer.parseInt(taskContent) \u003e TaskList.getTaskListSize()) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    throw new InvalidTaskIndexException();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                command \u003d new DeleteCommand(Integer.parseInt(taskContent) - 1);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            } catch (InvalidValueException | InvalidTaskIndexException | IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                ui.showInvalidIndexMessage();"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                command \u003d new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            command \u003d new InvalidCommand(Messages.MESSAGE_INVALID_COMMAND);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return command;"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    /* Checking if is a single word or multiple words used command */"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static String taskIdentify(String singleLineCommand) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        singleLineCommand \u003d singleLineCommand.trim();"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (singleLineCommand.contains(\" \")) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String[] splitWords \u003d singleLineCommand.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String taskName \u003d splitWords[0];"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            taskContent \u003d splitWords[1];"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            return taskName;"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        taskContent \u003d \"\";"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return singleLineCommand;"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "     * Verify that description of todo task is not empty"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static void verifyTodoTask(String taskDescription) throws InvalidCommandException {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (!taskDescription.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            tasks \u003d new ToDo(taskDescription);"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static void verifyEventTask(String taskDescription) throws InvalidCommandException {"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            int timeSeparator \u003d taskDescription.indexOf(\"/at\");"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String task \u003d taskDescription.substring(0, timeSeparator).trim();"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String eventTime \u003d taskDescription.substring(timeSeparator + 3).trim();"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            if (task.equals(\"\") || eventTime.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            tasks \u003d new Event(task, eventTime);"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } catch (StringIndexOutOfBoundsException exception) {"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static void verifyDeadlineTask(String taskDescription) throws InvalidCommandException {"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            int timeSeparator \u003d taskDescription.indexOf(\"/by\");"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String task \u003d taskDescription.substring(0, timeSeparator).trim();"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            String dueDate \u003d taskDescription.substring(timeSeparator + 3).trim();"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            if (task.equals(\"\") || dueDate.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            tasks \u003d new Deadline(task, dueDate);"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } catch (StringIndexOutOfBoundsException iob) {"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            throw new InvalidCommandException();"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    /* Return true if String value can be converted to integer */"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static boolean stringIsNumeric(String str) {"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            Double.parseDouble(str);"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            return true;"
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            return false;"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 138
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/FileStorage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.Duke;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.command.Command;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.exception.InvalidCommandException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.task.Task;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.parser.Parser;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.nio.charset.StandardCharsets;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class FileStorage {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static String FOLDER_FULL_PATH;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static String FILE_FULL_NAME;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static String folderName;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static File file;"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static boolean fileLoaded;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public FileStorage(String filePath) {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        int divider \u003d filePath.lastIndexOf(\"/\");"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.folderName \u003d filePath.substring(0, divider);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        FOLDER_FULL_PATH \u003d System.getProperty(\"user.dir\") + folderName;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        FILE_FULL_NAME \u003d System.getProperty(\"user.dir\") + \"\\\\\" + filePath.replace(\"/\", \"\\\\\");"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        fileLoaded \u003d false;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static void autoSave(TaskList taskList) throws IOException {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        String msgContent \u003d \"\";"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        // if file does not exist, create new file"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        int i;"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        for (i \u003d 0; i \u003c taskList.getTaskListSize(); i++) {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            msgContent +\u003d \"\\n\\t\" + (i + 1) + \".\" + taskList.getTask(i);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        writeToFile(msgContent);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private static void writeToFile(String textToAdd) throws IOException {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        FileWriter fw \u003d new FileWriter(FILE_FULL_NAME, StandardCharsets.UTF_8);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        fw.write(Messages.MESSAGE_FILE_INTRO + textToAdd);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        fw.close();"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static void loadFile(TaskList taskList) throws IOException, InvalidCommandException {"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        File theDir \u003d new File(folderName);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        file \u003d new File(FILE_FULL_NAME);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        // create directory if does not exist"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (!theDir.exists()) {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            System.out.println(\"Creating new directory: \" + theDir.getName());"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            boolean result \u003d false;"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                theDir.mkdir();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                result \u003d true;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            } catch (SecurityException se) {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                System.out.println(\"Permission Denied\");"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            if (result) {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                System.out.println(\"DIR created\");"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        String content;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        // Skipping the first 3 lines from file"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        int lines \u003d 0;"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (file.createNewFile()) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            fileLoaded \u003d true;"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            System.out.println(\"There is no record data file found\");"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            if (!fileLoaded) {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                //File reading from UTF-8 charset"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                Scanner s \u003d new Scanner(file, StandardCharsets.UTF_8);"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                Parser parser \u003d new Parser();"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                // loading existing file once and add them into list"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                boolean completed \u003d false;"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    // ignoring the first 3 lines"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    if (lines \u003c 3 \u0026\u0026 !completed) {"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        s.nextLine();"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    } else {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        completed \u003d true;"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        content \u003d s.nextLine();"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        int dividePoint1 \u003d content.indexOf(\".[\");"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        int dividePoint2 \u003d content.indexOf(\"] \");"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        char taskType \u003d content.charAt(dividePoint1 + 2);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        String taskDetails \u003d content.substring(dividePoint2 + 2);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        String taskIsDone \u003d content.substring(dividePoint1 + 5, dividePoint2);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        String taskInFile \u003d \"\";"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        switch (taskType) {"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        case \u0027T\u0027:"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskInFile +\u003d \"todo \" + taskDetails;"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            break;"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        case \u0027E\u0027:"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskDetails \u003d taskDetails.replace(\"(at:\", \"/at\");"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskDetails \u003d taskDetails.replace(\")\", \"\");"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskInFile +\u003d \"event \" + taskDetails;"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            break;"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        case \u0027D\u0027:"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskDetails \u003d taskDetails.replace(\"(by:\", \"/by\");"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskDetails \u003d taskDetails.replace(\")\", \"\");"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskInFile +\u003d \"deadline \" + taskDetails;"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            break;"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        }"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        Command command \u003d parser.parseCommand(taskInFile);"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        command.execute(taskList, Duke.storage, Duke.ui);"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        int taskIndexInFile \u003d lines - 3;"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        if (taskIsDone.equals(Task.TICK)) {"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                            taskList.markDone(taskIndexInFile);"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                        }"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                    lines++;"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                System.out.println(\"Loaded from previous file: \" + FILE_FULL_NAME);"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                fileLoaded \u003d true;"
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 132
     }
   },
   {
@@ -3552,6 +6047,673 @@
     ],
     "authorContributionMap": {
       "fanceso": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/ui/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "package duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.common.Messages;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.data.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import duke.storage.FileStorage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.io.PrintStream;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private Scanner in;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    private PrintStream out;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String LINE \u003d \"-\".repeat(Math.max(0, 59));"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public static final String INDENT \u003d \"\\t\";"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Ui() {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this(new Scanner(System.in), System.out);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public Ui(Scanner in, PrintStream out) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.in \u003d in;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        this.out \u003d out;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String getUserInput() {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.print(\"Enter command: \");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        String fullInputLine \u003d in.nextLine();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(\"[Command entered:\" + fullInputLine + \"]\");"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return fullInputLine;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_VERSION);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_WELCOME);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void drawlLine() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(LINE);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showInvalidFileMessage() {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(FileStorage.FILE_FULL_NAME);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_INVALID_FILE);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showInvalidIndexMessage() {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_TASK_NOT_IN_LIST);"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showInvalidNumeric() {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_NUMERICAL_ERROR);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showExitMessage() {"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(Messages.MESSAGE_GOODBYE);"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showCommandResult(String result) {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(result);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showTaskList(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        if (taskList.getTaskListSize() \u003e 0) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            out.print(Messages.MESSAGE_LIST_OUT);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            int i;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            for (i \u003d 0; i \u003c taskList.getTaskListSize(); i++) {"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "                out.println(INDENT + String.format(\"%d.%s\", i + 1, taskList.getTask(i)));"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            out.println(String.format(Messages.MESSAGE_NUMBER_OF_TASK,i));"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "            out.println(Messages.MESSAGE_NO_TASK);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public String indentPrint() {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        return INDENT;"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    public void showFileLocation() {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(\"Your file has been saved to:\");"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        out.println(FileStorage.FILE_FULL_NAME);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "        drawlLine();"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "fanceso"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "fanceso": 94
     }
   },
   {

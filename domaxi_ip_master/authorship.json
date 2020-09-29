@@ -1,35 +1,5 @@
 [
   {
-    "path": "data/duke.txt",
-    "fileType": "txt",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "[T][✗] this"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "[E][✗] this (at: 7pm)"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "[D][✗] that (by: 8am tomorrow)"
-      }
-    ],
-    "authorContributionMap": {
-      "domaxi": 3
-    }
-  },
-  {
     "path": "src/main/java/Duke.java",
     "fileType": "java",
     "lines": [
@@ -38,77 +8,77 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import command.Command;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import java.util.Scanner;"
+        "content": "import exceptions.DukeException;"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import java.io.File;"
+        "content": "import storage.*;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "import task.*;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import java.io.IOException;"
+        "content": "import ui.*;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "import task.*;"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "domaxi"
-        },
         "content": ""
       },
       {
-        "lineNumber": 8,
+        "lineNumber": 7,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
         "lineNumber": 9,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static final ArrayList\u003cTask\u003e userTasks \u003d new ArrayList\u003c\u003e();"
+        "content": "    private final Storage storage;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static final String line \u003d \"____________________________________________________________\";"
+        "content": "    private final TaskList tasks;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static int taskCount \u003d 0;"
+        "content": "    private final Ui ui;"
       },
       {
         "lineNumber": 12,
@@ -122,203 +92,507 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void printGreetMessage() {"
+        "content": "    public Duke(String filePath){"
       },
       {
         "lineNumber": 14,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "        String logo \u003d \" ____        _        \\n\""
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 15,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
+        "content": "        storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 16,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
+        "content": "        tasks \u003d new TaskList(storage.load());"
       },
       {
         "lineNumber": 17,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
+        "content": "    }"
       },
       {
         "lineNumber": 18,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+        "content": ""
       },
       {
         "lineNumber": 19,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"Hello from\\n\" + logo);"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "        ui.showWelcome();"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tHello! I\u0027m Duke\");"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tWhat can I do for you?\");"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "            try {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "                String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                ui.showLine(); // show the divider line (\"_______\")"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void printByeMessage() {"
+        "content": "                Command c \u003d new Command(fullCommand);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tBye. Hope to see you again soon!\");"
+        "content": "                isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "            }"
       },
       {
         "lineNumber": 30,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "            catch (DukeException e) {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                ui.printError(e.getMessage());"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void addTask(Task t) {"
+        "content": "            }"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        userTasks.add(t);"
+        "content": "            finally {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        taskCount +\u003d 1;"
+        "content": "                ui.showLine();"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "            }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void printMarkDone(int taskId) {"
+        "content": "    }"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": ""
       },
       {
         "lineNumber": 39,
         "author": {
-          "gitId": "domaxi"
+          "gitId": "-"
         },
-        "content": "        System.out.println(\"\\tNice! I\u0027ve marked this task as done: \\n\\t\" + userTasks.get(taskId).toString());"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "        new Duke(\"data/tasks.txt\").run();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 38,
+      "-": 4
+    }
+  },
+  {
+    "path": "src/main/java/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import exceptions.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import exceptions.InvalidCommandException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import storage.Storage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.Deadline;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.Event;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.Todo;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import ui.Ui;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "public class Command {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private boolean isExit;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private boolean validDeadlineEventFormat;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private final String fullCommand;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private String taskDetail;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private String taskName;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private String commandDetail;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public Command(String fullCommand) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        //makes the commands not case sensitive"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        this.fullCommand \u003d fullCommand.toLowerCase();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        this.isExit \u003d false;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void execute(TaskList taskList, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        String[] parsedCommand \u003d this.fullCommand.split(\" \", 2);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        String commandPhrase \u003d parsedCommand[0]; //command phrase is only for one worded commands"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        if (parsedCommand.length \u003e 1) {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            commandDetail \u003d parsedCommand[1];"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            if (fullCommand.contains(\"deadline\")||fullCommand.contains(\"event\")) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                try{"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                    taskName \u003d commandDetail.substring(0, commandDetail.indexOf(\"/\") - 1);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                    taskDetail \u003d commandDetail.substring(commandDetail.indexOf(\"/\") + 4);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                    validDeadlineEventFormat \u003d true;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                }catch (IndexOutOfBoundsException e){"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                    ui.printWrongDeadlineEventFormat();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 42,
@@ -332,1377 +606,1293 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void printHelpMessage() {"
+        "content": "        if (commandPhrase.equals(\"bye\")) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "            ui.printBye();"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"The command you entered is invalid\");"
+        "content": "            this.isExit \u003d true;"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"Enter one of these commands\");"
+        "content": "            storage.saveFile(taskList);"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"A. ADD A TASK\");"
+        "content": ""
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t1. Todo - Task with only the description\\n\\ttodo \u003ctask description\u003e\");"
+        "content": "        } else if (commandPhrase.equals(\"list\")) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t2. Deadline - Task with a set deadline \\n\\tdeadline \u003ctask description\u003e /by \u003cdate of completion\u003e\");"
+        "content": "            try {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t3. Event - Task with a set date\\n\\tevent \u003ctask description\u003e /at \u003cdate of event\u003e\");"
+        "content": "                ui.printList(taskList);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"B. LIST THE TASK\");"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t list\");"
+        "content": "                ui.printEmptyListNumber();"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"C. MARK THE TASK AS DONE\");"
+        "content": "            }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t done \u003ctask number\u003e\");"
+        "content": ""
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"D. DELETE THE TASK\");"
+        "content": "        } else if (commandPhrase.contains(\"deadline\")) {"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t delete \u003ctask number\u003e\");"
+        "content": "            if(validDeadlineEventFormat) {"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"E. END THE PROGRAM\");"
+        "content": "                try {"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t bye\");"
+        "content": "                    Deadline deadline \u003d new Deadline(taskName, taskDetail);"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                    taskList.addTask(deadline);"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "                    ui.printAcknowledgeMessage(deadline, taskList.getTaskListSize());"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void printNegativeTaskNumber() {"
+        "content": "                    ui.printHelp();"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                }"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tThe index must be a positive integer\");"
+        "content": "            }"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "        } else if (commandPhrase.contains(\"event\")) {"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "            if(validDeadlineEventFormat) {"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                try {"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void printExceedTaskNumber() {"
+        "content": "                    Event event \u003d new Event(taskName, taskDetail);"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                    taskList.addTask(event);"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tThe number exceeds the task number\");"
+        "content": "                    ui.printAcknowledgeMessage(event, taskList.getTaskListSize());"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "                    ui.printHelp();"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                }"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void printEmptyListNumber() {"
+        "content": "            }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "        } else if (commandPhrase.contains(\"todo\")) {"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tThere is no task in the list\");"
+        "content": "            try {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                Todo todo \u003d new Todo(commandDetail);"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "                taskList.addTask(todo);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "                ui.printAcknowledgeMessage(todo,taskList.getTaskListSize());"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void printSuccessfulSave(boolean isFileExist, boolean isDirectoryCreated, boolean isFileCreated) {"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "                ui.printHelp();"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        if (isFileExist) {"
+        "content": "            }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            System.out.println(\"\\tThe file already exist. Overwriting the file\");"
+        "content": ""
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        } else {"
+        "content": "        } else if (commandPhrase.contains(\"done\")) {"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            System.out.println(\"\\tThe file doesnt exist. Creating a new file\");"
+        "content": "            try {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            if (isDirectoryCreated \u0026\u0026 isFileCreated) {"
+        "content": "                int taskIndex \u003d Integer.parseInt(commandDetail) - 1;"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                System.out.println(\"\\tThe new directory and file has ben created successfully\");"
+        "content": "                taskList.getUserTasks(taskIndex).setDone();"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            }"
+        "content": "                ui.printDone(taskList.getUserTasks(taskIndex));"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        }"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\tThe file has been saved successfully\");"
+        "content": "                ui.printExceedTaskNumber();"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "            } catch (NumberFormatException e){"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "                ui.printWrongFormat();"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "            }"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void executeListCommand() {"
+        "content": ""
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "        } else if (commandPhrase.contains(\"delete\")) {"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"Here are the tasks in your list:\");"
+        "content": "            try {"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        if (userTasks.size() \u003d\u003d 0) {"
+        "content": "                int taskIndex \u003d Integer.parseInt(commandDetail) - 1;"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            System.out.println(\"\\tThe task is empty. Please add a task\");"
+        "content": "                taskList.deleteTask(taskIndex);"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        } else {"
+        "content": "                ui.printList(taskList);"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            for (int i \u003d 0; i \u003c userTasks.size(); i++) {"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                System.out.println(\"\\t\" + (i + 1) + \". \" + userTasks.get(i).toString());"
+        "content": "                ui.printExceedTaskNumber();"
       },
       {
         "lineNumber": 102,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            }"
+        "content": "            } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 103,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        }"
+        "content": "                ui.printWrongFormat();"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(line);"
+        "content": "            }"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 106,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "        }else if (commandPhrase.contains(\"help\")){"
       },
       {
         "lineNumber": 107,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeByeCommand() {"
+        "content": "            ui.printHelp();"
       },
       {
         "lineNumber": 108,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        printByeMessage();"
+        "content": ""
       },
       {
         "lineNumber": 109,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "        } else {"
       },
       {
         "lineNumber": 110,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "            throw new InvalidCommandException(\"Invalid Command. \\n\\tType help to show the help screen\");"
       },
       {
         "lineNumber": 111,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeDeadlineCommand(String parsedMessage) {"
+        "content": "        }"
       },
       {
         "lineNumber": 112,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        String deadlineName \u003d parsedMessage.substring(0, parsedMessage.indexOf(\"/\") - 1);"
+        "content": ""
       },
       {
         "lineNumber": 113,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        String deadlineBy \u003d parsedMessage.substring(parsedMessage.indexOf(\"/\") + 4);"
+        "content": "    }"
       },
       {
         "lineNumber": 114,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        addTask(new Deadline(deadlineName, deadlineBy));"
+        "content": ""
       },
       {
         "lineNumber": 115,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        userTasks.get(taskCount - 1).printAcknowledgeMessage();"
+        "content": "    public boolean isExit() {"
       },
       {
         "lineNumber": 116,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    }"
+        "content": "        return isExit;"
       },
       {
         "lineNumber": 117,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 118,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeEventCommand(String parsedMessage) {"
-      },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 118
+    }
+  },
+  {
+    "path": "src/main/java/exceptions/DukeException.java",
+    "fileType": "java",
+    "lines": [
       {
-        "lineNumber": 119,
+        "lineNumber": 1,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        String eventName \u003d parsedMessage.substring(0, parsedMessage.indexOf(\"/\") - 1);"
+        "content": "package exceptions;"
       },
       {
-        "lineNumber": 120,
+        "lineNumber": 2,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        String eventTime \u003d parsedMessage.substring(parsedMessage.indexOf(\"/\") + 4);"
+        "content": ""
       },
       {
-        "lineNumber": 121,
+        "lineNumber": 3,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        addTask(new Event(eventName, eventTime));"
+        "content": "public class DukeException extends Exception {"
       },
       {
-        "lineNumber": 122,
+        "lineNumber": 4,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        userTasks.get(taskCount - 1).printAcknowledgeMessage();"
+        "content": "    public DukeException(String message) {"
       },
       {
-        "lineNumber": 123,
+        "lineNumber": 5,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 6,
         "author": {
           "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 124,
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 7
+    }
+  },
+  {
+    "path": "src/main/java/exceptions/IncompleteTaskException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package exceptions;"
+      },
+      {
+        "lineNumber": 2,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 125,
+        "lineNumber": 3,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeToDoCommand(String parsedMessage) {"
+        "content": "public class IncompleteTaskException extends DukeException{"
       },
       {
-        "lineNumber": 126,
+        "lineNumber": 4,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        addTask(new Todo(parsedMessage));"
+        "content": "    public IncompleteTaskException(String message) {"
       },
       {
-        "lineNumber": 127,
+        "lineNumber": 5,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        userTasks.get(taskCount - 1).printAcknowledgeMessage();"
+        "content": "        super(message);"
       },
       {
-        "lineNumber": 128,
+        "lineNumber": 6,
         "author": {
           "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 129,
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 7
+    }
+  },
+  {
+    "path": "src/main/java/exceptions/InvalidCommandException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package exceptions;"
+      },
+      {
+        "lineNumber": 2,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 130,
+        "lineNumber": 3,
         "author": {
           "gitId": "domaxi"
         },
-        "content": ""
+        "content": "public class InvalidCommandException extends DukeException{"
       },
       {
-        "lineNumber": 131,
+        "lineNumber": 4,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeDeleteCommand (String parsedMessage){"
+        "content": "    public InvalidCommandException(String message) {"
       },
       {
-        "lineNumber": 132,
+        "lineNumber": 5,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        int taskNumber \u003d Integer.parseInt(parsedMessage);"
+        "content": "        super(message);"
       },
       {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        userTasks.remove(taskNumber -1);"
-      },
-      {
-        "lineNumber": 134,
+        "lineNumber": 6,
         "author": {
           "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 135,
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 7
+    }
+  },
+  {
+    "path": "src/main/java/storage/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package storage;"
+      },
+      {
+        "lineNumber": 2,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 136,
+        "lineNumber": 3,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    private static void executeDoneCommand(String parsedMessage) {"
+        "content": "import task.*;"
       },
       {
-        "lineNumber": 137,
+        "lineNumber": 4,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        int taskNumber \u003d Integer.parseInt(parsedMessage) - 1;"
+        "content": ""
       },
       {
-        "lineNumber": 138,
+        "lineNumber": 5,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        if (taskCount \u003d\u003d 0) {"
+        "content": "import java.io.*;"
       },
       {
-        "lineNumber": 139,
+        "lineNumber": 6,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            printEmptyListNumber();"
+        "content": "import java.util.Scanner;"
       },
       {
-        "lineNumber": 140,
+        "lineNumber": 7,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        } else if (taskNumber \u003e taskCount) {"
+        "content": ""
       },
       {
-        "lineNumber": 141,
+        "lineNumber": 8,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            printExceedTaskNumber();"
+        "content": "public class Storage {"
       },
       {
-        "lineNumber": 142,
+        "lineNumber": 9,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        } else if (taskNumber \u003c 0) {"
+        "content": "    private static String filePath_;"
       },
       {
-        "lineNumber": 143,
+        "lineNumber": 10,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            printNegativeTaskNumber();"
+        "content": "    private static String fileDirectory_;"
       },
       {
-        "lineNumber": 144,
+        "lineNumber": 11,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        } else {"
+        "content": "    private final File TaskListFile;"
       },
       {
-        "lineNumber": 145,
+        "lineNumber": 12,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            userTasks.get(taskNumber).setDone();"
+        "content": ""
       },
       {
-        "lineNumber": 146,
+        "lineNumber": 13,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            printMarkDone(taskNumber);"
+        "content": "    public Storage(String filePath) {"
       },
       {
-        "lineNumber": 147,
+        "lineNumber": 14,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        //Creates the file and the directory if it doesnt exist"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        Storage.filePath_ \u003d filePath;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        Storage.fileDirectory_ \u003d filePath.substring(0,filePath.indexOf(\"/\"));"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        TaskListFile \u003d new File(filePath_);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        File taskDirectory \u003d new File(fileDirectory_);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        if(!TaskListFile.exists()){"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                taskDirectory.mkdirs();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                TaskListFile.createNewFile();"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                e.printStackTrace();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 28,
         "author": {
           "gitId": "domaxi"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 148,
+        "lineNumber": 29,
         "author": {
           "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 149,
+        "lineNumber": 30,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 150,
+        "lineNumber": 31,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void writeFile(String fileDirectory) throws IOException {"
+        "content": "    public TaskList load() {"
       },
       {
-        "lineNumber": 151,
+        "lineNumber": 32,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        FileWriter fileWriter \u003d new FileWriter(fileDirectory);"
+        "content": "        TaskList loadedTask \u003d new TaskList();"
       },
       {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        for (Task userTask : userTasks) {"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            fileWriter.write(userTask.toString() + \"\\n\");"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        fileWriter.close();"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    private static void saveTask() {"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        String outputDirectoryName \u003d \"data\";"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        String outputFileName \u003d \"data/duke.txt\";"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        File outputDirectory \u003d new File(outputDirectoryName);"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        File outputFile \u003d new File(outputFileName);"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        boolean isFileExist;"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        boolean isCreateDirectorySuccess \u003d false, isCreateFileSuccess \u003d false;"
-      },
-      {
-        "lineNumber": 165,
+        "lineNumber": 33,
         "author": {
           "gitId": "domaxi"
         },
         "content": "        try {"
       },
       {
-        "lineNumber": 166,
+        "lineNumber": 34,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            if (!outputFile.exists()) {"
+        "content": "            Scanner taskScanner \u003d new Scanner(TaskListFile);"
       },
       {
-        "lineNumber": 167,
+        "lineNumber": 35,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                isFileExist \u003d false;"
+        "content": "            while(taskScanner.hasNext()){"
       },
       {
-        "lineNumber": 168,
+        "lineNumber": 36,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                isCreateDirectorySuccess \u003d outputDirectory.mkdir();"
+        "content": "                loadTask(taskScanner.nextLine(),loadedTask);"
       },
       {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                isCreateFileSuccess \u003d outputFile.createNewFile();"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                isFileExist \u003d true;"
-      },
-      {
-        "lineNumber": 172,
+        "lineNumber": 37,
         "author": {
           "gitId": "domaxi"
         },
         "content": "            }"
       },
       {
-        "lineNumber": 173,
+        "lineNumber": 38,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            writeFile(outputFileName);"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
-        "lineNumber": 174,
+        "lineNumber": 39,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            printSuccessfulSave(isFileExist, isCreateDirectorySuccess, isCreateFileSuccess);"
+        "content": "            e.printStackTrace();"
       },
       {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            System.out.println(e.getMessage());"
-      },
-      {
-        "lineNumber": 177,
+        "lineNumber": 40,
         "author": {
           "gitId": "domaxi"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 178,
+        "lineNumber": 41,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        return loadedTask;"
+      },
+      {
+        "lineNumber": 42,
         "author": {
           "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 179,
+        "lineNumber": 43,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 180,
+        "lineNumber": 44,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": "    private void loadTask(String taskData, TaskList loadedTask) {"
       },
       {
-        "lineNumber": 181,
+        "lineNumber": 45,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        Scanner myScanner \u003d new Scanner(System.in);"
+        "content": "        Task newTask \u003d new Task();"
       },
       {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        //greets the user with the greeting message"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        printGreetMessage();"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        while (true) {"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            //gets the input from the command line"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            String inputMessage \u003d myScanner.nextLine();"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            String[] parsedMessages \u003d inputMessage.split(\" \", 2);"
-      },
-      {
-        "lineNumber": 189,
+        "lineNumber": 46,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 190,
+        "lineNumber": 47,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            if (inputMessage.equals(\"bye\")) {"
+        "content": "        String parsedTaskData \u003d taskData.substring(7);"
       },
       {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                executeByeCommand();"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else if (inputMessage.equals(\"list\")) {"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    executeListCommand();"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 197,
+        "lineNumber": 48,
         "author": {
           "gitId": "domaxi"
         },
         "content": ""
       },
       {
-        "lineNumber": 198,
+        "lineNumber": 49,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                    printEmptyListNumber();"
+        "content": "        char taskType \u003d taskData.charAt(1);"
       },
       {
-        "lineNumber": 199,
+        "lineNumber": 50,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                }"
+        "content": "        char taskDone \u003d taskData.charAt(4);"
       },
       {
-        "lineNumber": 200,
+        "lineNumber": 51,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            } else if (inputMessage.contains(\"deadline\")) {"
+        "content": ""
       },
       {
-        "lineNumber": 201,
+        "lineNumber": 52,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                try {"
+        "content": "        if(taskType \u003d\u003d \u0027T\u0027){"
       },
       {
-        "lineNumber": 202,
+        "lineNumber": 53,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                    executeDeadlineCommand(parsedMessages[1]);"
+        "content": "            newTask \u003d new Todo(parsedTaskData);"
       },
       {
-        "lineNumber": 203,
+        "lineNumber": 54,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
+        "content": "        }else {"
       },
       {
-        "lineNumber": 204,
+        "lineNumber": 55,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                    printHelpMessage();"
+        "content": "            String taskDescription \u003d taskData.substring(7,taskData.indexOf(\"(\")-1);"
       },
       {
-        "lineNumber": 205,
+        "lineNumber": 56,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                }"
+        "content": "            String taskDetail \u003d taskData.substring(taskData.indexOf(\":\") + 2,taskData.length()-1);"
       },
       {
-        "lineNumber": 206,
+        "lineNumber": 57,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "            } else if (inputMessage.contains(\"event\")) {"
+        "content": "            if (taskType \u003d\u003d \u0027D\u0027){"
       },
       {
-        "lineNumber": 207,
+        "lineNumber": 58,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                try {"
+        "content": "                newTask \u003d new Deadline(taskDescription,taskDetail);"
       },
       {
-        "lineNumber": 208,
+        "lineNumber": 59,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                    executeEventCommand(parsedMessages[1]);"
+        "content": "            }else if (taskType \u003d\u003d \u0027E\u0027){"
       },
       {
-        "lineNumber": 209,
+        "lineNumber": 60,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
+        "content": "                newTask \u003d new Event(taskDescription, taskDetail);"
       },
       {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    printHelpMessage();"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else if (inputMessage.contains(\"todo\")) {"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    executeToDoCommand(parsedMessages[1]);"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    printHelpMessage();"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else if (inputMessage.contains(\"done\")) {"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    executeDoneCommand(parsedMessages[1]);"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    printHelpMessage();"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else if (inputMessage.contains(\"delete\")) {"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    executeDeleteCommand(parsedMessages[1]);"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    executeListCommand();"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                    printHelpMessage();"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else if (inputMessage.contains(\"save\")) {"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                saveTask();"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "                printHelpMessage();"
-      },
-      {
-        "lineNumber": 235,
+        "lineNumber": 61,
         "author": {
           "gitId": "domaxi"
         },
         "content": "            }"
       },
       {
-        "lineNumber": 236,
+        "lineNumber": 62,
         "author": {
           "gitId": "domaxi"
         },
         "content": "        }"
       },
       {
-        "lineNumber": 237,
+        "lineNumber": 63,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        if(taskDone \u003d\u003d \u0027✓\u0027){"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            newTask.setDone();"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        //loads the new task into the task."
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        loadedTask.addTask(newTask);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "domaxi"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 238,
+        "lineNumber": 70,
         "author": {
-          "gitId": "-"
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void saveFile(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            FileWriter fileWriter \u003d new FileWriter(TaskListFile);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            for (int i \u003d 0; i \u003c taskList.getTaskListSize(); i++) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                fileWriter.write(taskList.getUserTasks(i).toString() + \"\\n\");"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            fileWriter.close();"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        }catch (IOException e){"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            e.printStackTrace();"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "domaxi"
         },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "domaxi": 228,
-      "-": 10
+      "domaxi": 82
     }
   },
   {
@@ -1847,94 +2037,31 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public void printAcknowledgeMessage() {"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "        return \"[\" + this.getType() + \"]\" + \"[\" + (this.getStatus() ? \"✓\" : \"✗\") + \"] \" + this.getTaskName() + \" (by: \" + this.by + \")\";"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \");"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t[\" + this.getType() + \"]\" + \"[✗]\" + this.getTaskName() + \" (by: \" + this.by + \")\");"
+        "content": ""
       },
       {
         "lineNumber": 24,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"Now you have \" + Task.getNumTask() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"____________________________________________________________\");"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        return \"[\" + this.getType() + \"]\" + \"[\" + (this.getStatus() ? \"✓\" : \"✗\") + \"] \" + this.getTaskName() + \" (by: \" + this.by + \")\";"
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 33,
         "author": {
           "gitId": "domaxi"
         },
@@ -1942,7 +2069,7 @@
       }
     ],
     "authorContributionMap": {
-      "domaxi": 33
+      "domaxi": 24
     }
   },
   {
@@ -2080,94 +2207,31 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public void printAcknowledgeMessage() {"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "        return \"[\" + this.getType() + \"]\" + \"[\" + (this.getStatus() ? \"✓\" : \"✗\") + \"] \" + this.getTaskName() + \" (at: \" + this.time + \")\";"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \");"
+        "content": "    }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        System.out.println(\"\\t[\" + this.getType() + \"]\" + \"[✗]\" + this.getTaskName() + \" (at: \" + this.time + \")\");"
+        "content": ""
       },
       {
         "lineNumber": 23,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"Now you have \" + Task.getNumTask() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"____________________________________________________________\");"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    @Override"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        return \"[\" + this.getType() + \"]\" + \"[\" + (this.getStatus() ? \"✓\" : \"✗\") + \"] \" + this.getTaskName() + \" (at: \" + this.time + \")\";"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 32,
         "author": {
           "gitId": "domaxi"
         },
@@ -2175,7 +2239,7 @@
       }
     ],
     "authorContributionMap": {
-      "domaxi": 32
+      "domaxi": 23
     }
   },
   {
@@ -2201,7 +2265,7 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "public class Task {"
+        "content": "public class Task extends TaskList{"
       },
       {
         "lineNumber": 4,
@@ -2390,14 +2454,14 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public void setTaskName(String taskName) {"
+        "content": "    public boolean getStatus() {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        this.taskName \u003d taskName;"
+        "content": "        return isDone;"
       },
       {
         "lineNumber": 32,
@@ -2418,14 +2482,14 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public boolean getStatus() {"
+        "content": "    public void setDone() {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        return isDone;"
+        "content": "        this.isDone \u003d true;"
       },
       {
         "lineNumber": 36,
@@ -2446,14 +2510,14 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public void setDone() {"
+        "content": "    public char getType() {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "domaxi"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "        return type;"
       },
       {
         "lineNumber": 40,
@@ -2474,80 +2538,10 @@
         "author": {
           "gitId": "domaxi"
         },
-        "content": "    public char getType() {"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        return type;"
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "domaxi"
-        },
         "content": ""
       },
       {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    public void printAcknowledgeMessage() {"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"____________________________________________________________\");"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"Got it. I\u0027ve added this task: \");"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"\\t[\" + this.getType() + \"]\" + \"[✗]\" + this.getTaskName());"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"Now you have \" + numTask + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "        System.out.println(\"____________________________________________________________\");"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "domaxi"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 53,
+        "lineNumber": 43,
         "author": {
           "gitId": "domaxi"
         },
@@ -2555,7 +2549,261 @@
       }
     ],
     "authorContributionMap": {
-      "domaxi": 53
+      "domaxi": 43
+    }
+  },
+  {
+    "path": "src/main/java/task/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private static ArrayList\u003cTask\u003e userTasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public TaskList(TaskList load) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        userTasks \u003d load.getTaskList();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void addTask(Task task){"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        userTasks.add(task);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void deleteTask(int taskIndex){"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        userTasks.remove(taskIndex);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public Task getUserTasks(int taskIndex) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        return userTasks.get(taskIndex);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public int getTaskListSize(){"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        return userTasks.size();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTaskList(){"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        return userTasks;"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 35
     }
   },
   {
@@ -2712,6 +2960,750 @@
     ],
     "authorContributionMap": {
       "domaxi": 21
+    }
+  },
+  {
+    "path": "src/main/java/ui/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "package ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.Task;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private static final String RED_TEXT \u003d \"\\u001b[31m\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private static final String GREEN_TEXT \u003d \"\\u001b[32;1m\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    private static final String RESET_TEXT \u003d \"\\u001b[0m\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    Scanner textScanner;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public Ui() {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        textScanner \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void showWelcome() {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        String logo \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"Hello from\\n\" + logo);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        showLine();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tHello! I\u0027m Duke\");"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tWhat can I do for you?\");"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        showLine();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printBye() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tBye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printDone(Task task) {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tNice! I\u0027ve marked this task as done: \\n\\t\\t\" + GREEN_TEXT + task.toString() + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printHelp() {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"The command you entered is invalid\");"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"Enter one of these commands\");"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"A. ADD A TASK\");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t1. Todo - Task with only the description\\n\\t\\ttodo \u003ctask description\u003e\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t2. Deadline - Task with a set deadline \\n\\t\\tdeadline \u003ctask description\u003e /by \u003cdate of completion\u003e\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t3. Event - Task with a set date\\n\\t\\tevent \u003ctask description\u003e /at \u003cdate of event\u003e\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"B. LIST THE TASK\");"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t list\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"C. MARK THE TASK AS DONE\");"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t done \u003ctask number\u003e\");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"D. DELETE THE TASK\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t delete \u003ctask number\u003e\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"E. END THE PROGRAM\");"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t bye\");"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printExceedTaskNumber() {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(RED_TEXT + \"\\tThe number exceeds the task number\" + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printAcknowledgeMessage(Task task, int taskListSize) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tGot it. I\u0027ve added this task: \");"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(GREEN_TEXT + \"\\t\\t\" + task.toString() + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tNow you have \" + taskListSize + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printEmptyListNumber() {"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(RED_TEXT + \"\\t\\tThere is no task in the list\" + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printList(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        String listedTasks \u003d \"\";"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tHere are the tasks in your list:\");"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        if (taskList.getTaskListSize() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            printEmptyListNumber();"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            for (int i \u003d 0; i \u003c taskList.getTaskListSize(); i++) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "                listedTasks \u003d listedTasks + (GREEN_TEXT + \"\\t\\t\" + (i + 1) + \". \" + taskList.getUserTasks(i).toString() + \"\\n\" + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(listedTasks);"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void showLine() {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\");"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        return textScanner.nextLine();"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printWrongFormat() {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(RED_TEXT + \"Please enter an integer\" + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printWrongDeadlineEventFormat() {"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(RED_TEXT + \"\\tPlease enter a valid task or deadline format\" + RESET_TEXT);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tDeadline - Task with a set deadline \\n\\t\\tdeadline \u003ctask description\u003e /by \u003cdate of completion\u003e\");"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\tEvent - Task with a set date\\n\\t\\tevent \u003ctask description\u003e /at \u003cdate of event\u003e\");"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    public void printError(String message) {"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "        System.out.println(\"\\t\" + message);"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "domaxi"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "domaxi": 105
     }
   }
 ]

@@ -1,6 +1,6 @@
 [
   {
-    "path": "src/main/java/Deadline.java",
+    "path": "src/main/java/Command.java",
     "fileType": "java",
     "lines": [
       {
@@ -8,56 +8,56 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "public class Deadline extends Task{"
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    protected String by;"
+        "content": ""
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "import tasks.Task;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public Deadline(String description, String by) {"
+        "content": "import tasks.Deadline;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        super(description);"
+        "content": "import tasks.Event;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        this.by \u003d by;"
+        "content": "import tasks.Todo;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 9,
@@ -71,24 +71,507 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public String toString() {"
+        "content": "public class Command {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    }"
+        "content": "    private final String command;"
       },
       {
         "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private final String message;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private boolean isExit \u003d false;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Command (String message) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        String[] words \u003d message.split(\" \");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        command \u003d words[0];"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.message \u003d message;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public boolean getIsExit() {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return this.isExit;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void execute(ArrayList\u003cTask\u003e t, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (command.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            this.isExit \u003d true;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.printByeMessage();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.printList(t);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"done\")) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            int i \u003d Integer.parseInt(message.substring(5)) - 1;"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            t.get(i).markAsDone();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.printDoneMessage(t.get(i).getStatusIcon(), t.get(i).getDescription());"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"delete\")) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            int l \u003d Integer.parseInt(message.substring(7)) - 1;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.acknowledge(t.get(l), \"del\", t.size() - 1);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            t.remove(t.get(l));"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            t.add(new Deadline(message));"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.acknowledge(t.get(t.size()-1), \"add\", t.size());"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            t.add(new Event(message));"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.acknowledge(t.get(t.size()-1), \"add\", t.size());"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"todo\")) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            t.add(new Todo(message));"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            ui.acknowledge(t.get(t.size()-1), \"add\", t.size());"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            storage.writeToFile(t);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } catch (IOException e){"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void addReadFile(ArrayList\u003cTask\u003e t, int done) throws DukeException {"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        Task task;"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (command.equals(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            task \u003d new Deadline(message);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"event\")) {"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            task \u003d new Event(message);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (command.equals(\"todo\")) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            task \u003d new Todo(message);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            throw new DukeException();"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (done \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            task.markAsDone();"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        t.add(task);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(task);"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 82,
         "author": {
           "gitId": "jusufnathanael"
         },
@@ -96,7 +579,7 @@
       }
     ],
     "authorContributionMap": {
-      "jusufnathanael": 13
+      "jusufnathanael": 82
     }
   },
   {
@@ -122,28 +605,28 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "import java.io.File;"
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "import tasks.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "import java.io.IOException;"
+        "content": ""
       },
       {
         "lineNumber": 7,
@@ -171,140 +654,140 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public static void printLine(){"
+        "content": "    private static Ui ui;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        System.out.println(\"------------------------------------------------------\" +"
+        "content": "    private static Storage storage;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "                \"--------------------------\");"
+        "content": "    private final ArrayList\u003cTask\u003e tasks;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "    public Duke(String filePath) {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public static void greet(){"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 16,
         "author": {
-          "gitId": "-"
+          "gitId": "jusufnathanael"
         },
-        "content": "        String logo \u003d \" ____        _        \\n\""
+        "content": "        ui.printWelcomeMessage();"
       },
       {
         "lineNumber": 17,
         "author": {
-          "gitId": "-"
+          "gitId": "jusufnathanael"
         },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
+        "content": "        try {"
       },
       {
         "lineNumber": 18,
         "author": {
-          "gitId": "-"
+          "gitId": "jusufnathanael"
         },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
+        "content": "            storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 19,
         "author": {
-          "gitId": "-"
+          "gitId": "jusufnathanael"
         },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
+        "content": "        }"
       },
       {
         "lineNumber": 20,
         "author": {
-          "gitId": "-"
+          "gitId": "jusufnathanael"
         },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+        "content": "        catch (InvalidFilePathException e) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        printLine();"
+        "content": "            System.out.println(\"File does not end with .txt\");"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        System.out.println(\"Hello! I\u0027m Duke\\n\" + \"What can I do for you?\");"
+        "content": "        }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        printLine();"
+        "content": "        tasks \u003d new ArrayList\u003cTask\u003e();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    }"
+        "content": "        try {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "            storage.readFile(tasks);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public static void bye(){"
+        "content": "        }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        printLine();"
+        "content": "        catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+        "content": "            System.out.println(\"File not found\");"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        printLine();"
+        "content": "        }"
       },
       {
         "lineNumber": 30,
@@ -325,168 +808,168 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    private static int initialisation(ArrayList\u003cTask\u003e t, int index){"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        try {"
+        "content": ""
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            index \u003d readFile(\"data/data.txt\", t);"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        }"
+        "content": "        Scanner in \u003d new Scanner(System.in);"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        catch (FileNotFoundException e){"
+        "content": ""
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            System.out.println(\"File not found\");"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        }"
+        "content": "            String message \u003d in.nextLine();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        return index;"
+        "content": "            ui.printLine();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    }"
+        "content": "            try {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "                Command c \u003d new Command(message);"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    private static int readFile(String filePath, ArrayList\u003cTask\u003e t)"
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            throws FileNotFoundException {"
+        "content": "                isExit \u003d c.getIsExit();"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "            } catch (DukeException e) {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        File f \u003d new File(filePath);"
+        "content": "                System.out.println(\"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means.\");"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        Scanner s \u003d new Scanner(f); // create a Scanner using the File as the source"
+        "content": "            } catch (StringIndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        System.out.println(\"yes\");"
+        "content": "                System.out.println(\"OOPS!!! The description of a \" + message + \" cannot be empty.\");"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        int index \u003d 0;"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "                System.out.println(\"Index out of bound!\");"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        while (s.hasNext()) {"
+        "content": "            } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
+        "content": "                System.out.println(\"Wrong number format!\");"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            String temp \u003d s.nextLine();"
+        "content": "            }"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            System.out.println(temp);"
+        "content": "            ui.printLine();"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            Task newTask \u003d null;"
+        "content": "        }"
       },
       {
         "lineNumber": 56,
@@ -500,969 +983,38 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            if (temp.startsWith(\"[T]\")){"
+        "content": "    }"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "                newTask \u003d new Todo(temp.substring(7));"
+        "content": ""
       },
       {
         "lineNumber": 59,
         "author": {
-          "gitId": "jusufnathanael"
+          "gitId": "-"
         },
-        "content": "                t.add(newTask);"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "            }"
+        "content": "        new Duke(\"data/data.txt\").run();"
       },
       {
         "lineNumber": 61,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            else if (temp.startsWith(\"[E]\")){"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                newTask \u003d new Event(temp.substring(7, temp.indexOf(\" (\")),"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                        temp.substring(temp.indexOf(\"(at:\") + 5, temp.indexOf(\")\")));"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                t.add(newTask);"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            else if (temp.startsWith(\"[D]\")){"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                newTask \u003d new Deadline(temp.substring(7, temp.indexOf(\" (\")),"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                        temp.substring(temp.indexOf(\"(by:\") + 5, temp.indexOf(\")\")));"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                t.add(newTask);"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            index++;"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        return index;"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public static int addTask(ArrayList\u003cTask\u003e t, String message, int index) throws DukeException {"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // list"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        if (message.equals(\"list\")){"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            for (int i \u003d 0; i \u003c index; i++) {"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                System.out.print(i + 1 + \". \");"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                System.out.println(t.get(i));"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // mark as done"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else if (message.startsWith(\"done\")){"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            int l \u003d Integer.parseInt(message.substring(5)) - 1;"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            t.get(l).markAsDone();"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // new deadline"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else if (message.startsWith(\"deadline\")){"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            t.add(new Deadline(message.substring(9, message.indexOf(\" /\")),"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                    message.substring(message.indexOf(\"/by\") + 4)));"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            acknowledgement(t.get(index), \"add\",index+1);"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            index++;"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // new todo"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else if (message.startsWith(\"todo\")){"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            t.add(new Todo(message.substring(5)));"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            acknowledgement(t.get(index), \"add\", index+1);"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            index++;"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // new event"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else if (message.startsWith(\"event\")){"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            t.add(new Event(message.substring(6, message.indexOf(\" /\")),"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                    message.substring(message.indexOf(\"/at\") + 4)));"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            acknowledgement(t.get(index), \"add\", index+1);"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            index++;"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // delete task"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else if (message.startsWith(\"delete\")){"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            int l \u003d Integer.parseInt(message.substring(7)) - 1;"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            acknowledgement(t.get(l), \"del\", --index);"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            t.remove(t.get(l));"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // throw exception"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            throw new DukeException();"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        prepareWriteToFile(t);"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        return index;"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public static void acknowledgement(Task message, String note, int i){"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        if (note.equals(\"add\")) {"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            System.out.println(\"Got it. I\u0027ve added this task:\");"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        else {"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            System.out.println(\"Got it. I\u0027ve removed this task:\");"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        System.out.println(\"    \" + message);"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        System.out.println(\"Now you have \" + i + (i \u003d\u003d 1 ? \" task\" : \" tasks\") + \" in your list.\");"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public static void prepareWriteToFile (ArrayList\u003cTask\u003e tasks){"
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        StringBuilder message \u003d new StringBuilder();"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        for (Task t :tasks) {"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            message.append(t).append(System.lineSeparator());"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            writeToFile(\"data/data.txt\", message.toString());"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        catch (IOException e){"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public static void writeToFile(String filePath, String message) throws IOException{"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath);"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        fw.write(message);"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public static void main(String[] args) {"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        greet();"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        ArrayList\u003cTask\u003e t \u003d new ArrayList\u003c\u003e();"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        int index \u003d 0;"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        index \u003d initialisation(t, index);"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        String message \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        // main loop"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        while (!message.equals(\"bye\")){"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                index \u003d addTask(t, message, index);"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            catch (DukeException e){"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                System.out.println(\"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means.\");"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            catch (StringIndexOutOfBoundsException e){"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "                System.out.println(\"OOPS!!! The description of a \" + message + \" cannot be empty.\");"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            printLine();"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "            message \u003d in.nextLine();"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        bye();"
-      },
-      {
-        "lineNumber": 194,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 195,
+        "lineNumber": 62,
         "author": {
           "gitId": "-"
         },
@@ -1470,8 +1022,8 @@
       }
     ],
     "authorContributionMap": {
-      "jusufnathanael": 187,
-      "-": 8
+      "jusufnathanael": 58,
+      "-": 4
     }
   },
   {
@@ -1490,22 +1042,15 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "jusufnathanael": 3
+      "jusufnathanael": 2
     }
   },
   {
-    "path": "src/main/java/Event.java",
+    "path": "src/main/java/InvalidFilePathException.java",
     "fileType": "java",
     "lines": [
       {
@@ -1513,7 +1058,1051 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "public class Event extends Task {"
+        "content": "public class InvalidFilePathException extends Exception {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 2
+    }
+  },
+  {
+    "path": "src/main/java/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 2
+    }
+  },
+  {
+    "path": "src/main/java/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import tasks.Task;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static final String DIVIDER \u003d \"-------------------------------------------------------\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static String path;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static Command c;"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Storage(String filePath) throws InvalidFilePathException {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        path \u003d filePath;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (!path.endsWith(\".txt\")) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            throw new InvalidFilePathException();"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String encodeList(ArrayList\u003cTask\u003e tasks) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        StringBuilder line \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        for (Task t: tasks){"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            char type \u003d t.toString().charAt(1);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            int done \u003d t.getIsDone();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            String message \u003d t.toString().substring(7);"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            line.append(type).append(done).append(\" \").append(message).append(System.lineSeparator());"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return line.toString();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void writeToFile(ArrayList\u003cTask\u003e t) throws IOException {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        FileWriter fw \u003d new FileWriter(path);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        fw.write(encodeList(t));"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        fw.close();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String decodeLine(String message) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        StringBuilder returnMessage \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (message.startsWith(\"T\")) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            returnMessage.append(\"todo \");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (message.startsWith(\"E\")) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            returnMessage.append(\"event \");"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else if (message.startsWith(\"D\")) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            returnMessage.append(\"deadline \");"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return returnMessage.append(message.substring(3)).toString();"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void readFile(ArrayList\u003cTask\u003e t) throws FileNotFoundException {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        File f \u003d new File(path);"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        Scanner s \u003d new Scanner(f); // create a Scanner using the File as the source"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            String message \u003d s.nextLine();"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            c \u003d new Command(decodeLine(message));"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "                int done \u003d Integer.parseInt(String.valueOf(message.charAt(1)));"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "                c.addReadFile(t, done);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            catch (DukeException e){"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "                System.out.println(\"Cannot read file!\");"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(DIVIDER);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 74
+    }
+  },
+  {
+    "path": "src/main/java/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.InputStream;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.io.PrintStream;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import tasks.Task;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static final String DIVIDER \u003d \"-------------------------------------------------------\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static final String BREAK \u003d System.lineSeparator();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private static final String LOGO \u003d \" ____        _        \\n\""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private final Scanner in;"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private final PrintStream out;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Ui() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this(System.in, System.out);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Ui(InputStream in, PrintStream out) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.in \u003d new Scanner(in);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.out \u003d out;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void printLine() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(DIVIDER);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void printWelcomeMessage(){"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(LOGO + BREAK + \"Hello! I\u0027m Duke\\n\" + \"What can I do for you?\\n\" + DIVIDER);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void printByeMessage(){"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void printDoneMessage(String icon, String description) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(\"[\" + icon + \"] \" + description);"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void acknowledge(Task message, String note, int i){"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        if (note.equals(\"add\")) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            System.out.println(\"Got it. I\u0027ve added this task:\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            System.out.println(\"Got it. I\u0027ve removed this task:\");"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(\"    \" + message);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        System.out.println(\"Now you have \" + i + (i \u003d\u003d 1 ? \" task\" : \" tasks\") + \" in your list.\");"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void printList(ArrayList\u003cTask\u003e t){"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        for (int i \u003d 0; i \u003c t.size(); i++) {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            System.out.print(i + 1 + \". \");"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "            System.out.println(t.get(i));"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 66
+    }
+  },
+  {
+    "path": "src/main/java/tasks/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "package tasks;"
       },
       {
         "lineNumber": 2,
@@ -1527,7 +2116,7 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    protected String at;"
+        "content": "public class Deadline extends Task {"
       },
       {
         "lineNumber": 4,
@@ -1541,21 +2130,708 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "    public Event(String description, String at) {"
+        "content": "    protected String by;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        super(description);"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        this.at \u003d at;"
+        "content": "    public Deadline(String message) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.description \u003d message.substring(message.indexOf(\u0027 \u0027) + 1, message.indexOf(\" /\"));"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.by \u003d message.substring(message.indexOf(\"/by\") + 4);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return \"[D]\" + super.toString() + \" /by \" + by;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 16
+    }
+  },
+  {
+    "path": "src/main/java/tasks/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "package tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Event extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    protected String at;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Event(String message) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.description \u003d message.substring(message.indexOf(\u0027 \u0027) + 1, message.indexOf(\" /\"));"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.at \u003d message.substring(message.indexOf(\"/at\") + 4);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return \"[E]\" + super.toString() + \" /at \" + at;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 16
+    }
+  },
+  {
+    "path": "src/main/java/tasks/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "package tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public int getIsDone() {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return this.isDone ? 1 : 0;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return this.description;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return \"[\" + getStatusIcon() + \"] \" + description;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 32
+    }
+  },
+  {
+    "path": "src/main/java/tasks/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "package tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    private final ArrayList\u003cTask\u003e tasks;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        tasks \u003d new ArrayList\u003cTask\u003e();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void add(Task newTask){"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        tasks.add(newTask);"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void delete(int index){"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        tasks.remove(index);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public void clear() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        tasks.clear();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getList() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "jusufnathanael": 29
+    }
+  },
+  {
+    "path": "src/main/java/tasks/Todo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "package tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "public class Todo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "    public Todo(String message) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "jusufnathanael"
+        },
+        "content": "        this.description \u003d message.substring(message.indexOf(\u0027 \u0027) + 1);"
       },
       {
         "lineNumber": 8,
@@ -1583,7 +2859,7 @@
         "author": {
           "gitId": "jusufnathanael"
         },
-        "content": "        return \"[E]\" + super.toString() + \" (at: \" + at + \")\";"
+        "content": "        return \"[T]\" + super.toString();"
       },
       {
         "lineNumber": 12,
@@ -1602,255 +2878,6 @@
     ],
     "authorContributionMap": {
       "jusufnathanael": 13
-    }
-  },
-  {
-    "path": "src/main/java/Task.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "public class Task {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    protected String description;"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    protected boolean isDone;"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public Task(String description) {"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        this.description \u003d description;"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        this.isDone \u003d false;"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public String getStatusIcon() {"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public void markAsDone(){"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        this.isDone \u003d true;"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        System.out.println(\"Nice! I\u0027ve marked this task as done:\");"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        System.out.println(\"[\" + getStatusIcon() + \"] \" + this.description);"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        return \"[\" + getStatusIcon() + \"] \" + description;"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "jusufnathanael": 23
-    }
-  },
-  {
-    "path": "src/main/java/Todo.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "public class Todo extends Task {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public Todo(String description) {"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    public String toString() {"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "        return \"[T]\" + super.toString();"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "jusufnathanael"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "jusufnathanael": 10
     }
   }
 ]
