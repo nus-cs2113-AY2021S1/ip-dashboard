@@ -297,1956 +297,206 @@
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    // defining some constants"
+        "content": "    private static final String dataFilePath \u003d \"data/tasks.txt\";"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static final String INDENT \u003d \"     \";"
+        "content": "    private Storage storage;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static final String TICK \u003d \"\\u2713\";"
+        "content": "    private TaskList tasks;"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static final String CROSS \u003d \"\\u2717\";"
+        "content": "    private Ui ui;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static final String dirPath \u003d \"./data\";"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static final String dataFilePath \u003d \"./data/duke.txt\";"
+        "content": "    public Duke(String filePath) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": ""
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    // init array of Task objects"
+        "content": "        storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static ArrayList\u003cTask\u003e allTasks \u003d new ArrayList\u003c\u003e();"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": ""
+        "content": "        try {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    // initialise task file data, print welcome message"
+        "content": "            ui.printLoadingFromFile();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "    public static void initProgram() {"
+        "content": "            tasks \u003d new TaskList(storage.load()); // try loading tasks from file"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "        File fDir \u003d new File (dirPath);"
+        "content": "            ui.printLoadSuccess();"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "        File fTxt \u003d new File (dataFilePath);"
+        "content": "        } catch (FileNotFoundException e) {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": ""
+        "content": "            ui.printLoadError(); // print error msg"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "        try {"
+        "content": "            tasks \u003d new TaskList(); // give up loading from file, just init new ArrayList"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "            readFileContents(dataFilePath);"
+        "content": "        }"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "        } catch (FileNotFoundException e) {"
+        "content": "    }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "            if (!fDir.exists()) {"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "                fDir.mkdir();"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "            }"
+        "content": "        ui.printWelcomeMessage();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "            if (!fTxt.exists()) {"
+        "content": "        Parser.parseUserInput();"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "                try {"
+        "content": "        storage.shutDown();"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "                    fTxt.createNewFile();"
+        "content": "    }"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "                } catch (IOException ioException) {"
+        "content": ""
       },
       {
         "lineNumber": 38,
         "author": {
-          "gitId": "vanessa-kang"
+          "gitId": "-"
         },
-        "content": "                    System.exit(1);"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "                }"
+        "content": "        new Duke(dataFilePath).run();"
       },
       {
         "lineNumber": 40,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        System.out.println(INDENT + \"Hello! I\u0027m Duke\""
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                           + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                           + INDENT + \"What can I do for you?\");"
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // parse user input in REPL loop"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void parseUserInput() {"
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        Scanner line \u003d new Scanner(System.in);"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        String input \u003d line.nextLine();"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        String userKeyWord;"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        while(!input.toLowerCase().equals(\"bye\")) {"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String[] inputArr \u003d input.split(\" \");"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            userKeyWord \u003d inputArr[0].toLowerCase();"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            switch (userKeyWord) {"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"todo\"):"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"deadline\"):"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"event\"): {"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                addTask(inputArr);"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"delete\"): {"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    deleteTask(Integer.parseInt(inputArr[1]));"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    System.out.println(INDENT + \"Please input a number!\");"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    System.out.println(INDENT + \"Sorry, that is not a valid input!\");"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"done\"): {"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                try {"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    markTaskAsDone(Integer.parseInt(inputArr[1]));"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                } catch (ArrayIndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    System.out.println(INDENT + \"Please input a number!\");"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    System.out.println(INDENT + \"Sorry, that is not a valid input!\");"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case(\"list\"): {"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                printAllTasks();"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            default: {"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                System.out.println(INDENT + \"Oops, I don\u0027t understand! D:\");"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            input \u003d line.nextLine();"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // shut down Duke"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void shutDownProgram() {"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            writeToFile(dataFilePath);"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Shoots, an error occurred while saving your list data. :(\");"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        System.out.println(INDENT + \"Bye. Hope to see you again soon!\");"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // read previously stored task data from duke.txt file, when program first starts up"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void readFileContents(String filePath) throws FileNotFoundException {"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        FileReader fr \u003d new FileReader(filePath);"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        Scanner s \u003d new Scanner(fr);"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        while (s.hasNext()) {"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String[] taskStrArr \u003d s.nextLine().split(\"\u003e\");"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "//            for (int i \u003d 0; i \u003c taskStrArr.length; i++) {"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "//                taskStrArr[i] \u003d taskStrArr[i].trim();"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "//            }"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            // strArr[0] - type of Task (T/D/E)"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            // strArr[1] - whether task isDone (0/1)"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            // strArr[2] - task description"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            // strArr[3] - by/at (for deadline/event only)"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            Task newTask;"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            switch(taskStrArr[0]) {"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case (\"T\"): {"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Todo(taskStrArr[2]);"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case (\"D\"): {"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Deadline(taskStrArr[2], taskStrArr[3]);"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            case (\"E\"): {"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Event(taskStrArr[2], taskStrArr[3]);"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Todo(\"default\");"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            newTask.setIsDone(taskStrArr[1].equals(\"1\"));"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            allTasks.add(newTask);"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // write all task data to file, before program closes"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    private static void writeToFile(String filePath) throws IOException {"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath, false); //overwrite file content"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        for (int i \u003d 0; i \u003c allTasks.size(); i++) {"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            Task tmpTask \u003d allTasks.get(i);"
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String strToWrite \u003d \"\";"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String taskType \u003d (tmpTask instanceof Todo? \"T\" :"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    tmpTask instanceof Deadline? \"D\" : \"E\");"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String isDone \u003d (tmpTask.getIsDone()? \"1\" : \"0\");"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            if (taskType.equals(\"T\")) {"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String taskDesc \u003d tmpTask.getTask();"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                strToWrite \u003d String.join(\"\u003e\", taskType, isDone, taskDesc);"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            } else {"
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String posText \u003d \"\";"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String addInfo \u003d \"\";"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                if (taskType.equals(\"D\")) {"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    posText \u003d \" (by:\";"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    addInfo \u003d ((Deadline) tmpTask).getBy();"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                } else if (taskType.equals(\"E\")) {"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    posText \u003d \" (at:\";"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                    addInfo \u003d ((Event) tmpTask).getAt();"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                int pos \u003d tmpTask.getTask().indexOf(posText);"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String taskDesc \u003d tmpTask.getTask().substring(0, pos);"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                strToWrite \u003d String.join(\"\u003e\", taskType, isDone, taskDesc, addInfo);"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            fw.write(strToWrite + System.lineSeparator());"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // add task to allTasks"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void addTask(String[] inputArr) {"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        if (inputArr.length \u003d\u003d 1) {"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Oops, the description field cannot be empty!\");"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        Task newTask;"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        "
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        switch(inputArr[0]) {"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        case(\"todo\"): {"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, inputArr.length);"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            newTask \u003d new Todo((convertToString(descArr)));"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            break;"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        case(\"deadline\"): {"
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                int pos \u003d Arrays.asList(inputArr).indexOf(\"/by\");"
-      },
-      {
-        "lineNumber": 202,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, pos);"
-      },
-      {
-        "lineNumber": 203,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String[] byArr \u003d Arrays.copyOfRange(inputArr,pos+1,inputArr.length);"
-      },
-      {
-        "lineNumber": 204,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Deadline(convertToString(descArr),convertToString(byArr));"
-      },
-      {
-        "lineNumber": 205,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 206,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            } catch (IllegalArgumentException e) {"
-      },
-      {
-        "lineNumber": 207,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                System.out.println(INDENT + \"Sorry, you did not specify a deadline!\");"
-      },
-      {
-        "lineNumber": 208,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 209,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 210,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 211,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        case(\"event\"): {"
-      },
-      {
-        "lineNumber": 212,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            try {"
-      },
-      {
-        "lineNumber": 213,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                int pos \u003d Arrays.asList(inputArr).indexOf(\"/at\");"
-      },
-      {
-        "lineNumber": 214,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, pos);"
-      },
-      {
-        "lineNumber": 215,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                String[] atArr \u003d Arrays.copyOfRange(inputArr, pos + 1, inputArr.length);"
-      },
-      {
-        "lineNumber": 216,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                newTask \u003d new Event(convertToString(descArr), convertToString(atArr));"
-      },
-      {
-        "lineNumber": 217,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 218,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            } catch (IllegalArgumentException e) {"
-      },
-      {
-        "lineNumber": 219,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                System.out.println(INDENT + \"Sorry, you did not specify a time!\");"
-      },
-      {
-        "lineNumber": 220,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                return;"
-      },
-      {
-        "lineNumber": 221,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 222,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 223,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        default: {"
-      },
-      {
-        "lineNumber": 224,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            newTask \u003d new Task((convertToString(inputArr)));"
-      },
-      {
-        "lineNumber": 225,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 226,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 227,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        allTasks.add(newTask);"
-      },
-      {
-        "lineNumber": 228,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        printNewlyAddedTask(newTask);"
-      },
-      {
-        "lineNumber": 229,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 230,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 231,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // delete task from allTasks"
-      },
-      {
-        "lineNumber": 232,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void deleteTask(int num) {"
-      },
-      {
-        "lineNumber": 233,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 234,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            Task tmpTask \u003d allTasks.get(num - 1);"
-      },
-      {
-        "lineNumber": 235,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            allTasks.remove(num-1);"
-      },
-      {
-        "lineNumber": 236,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Noted. I\u0027ve removed this task: \""
-      },
-      {
-        "lineNumber": 237,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 238,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + INDENT + INDENT + tmpTask"
-      },
-      {
-        "lineNumber": 239,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 240,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + INDENT + \"Now you have \" + allTasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 241,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 242,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Sorry, this task does not exist!\");"
-      },
-      {
-        "lineNumber": 243,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 244,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 245,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 246,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // mark a Task as done"
-      },
-      {
-        "lineNumber": 247,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void markTaskAsDone (int num) {"
-      },
-      {
-        "lineNumber": 248,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 249,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            allTasks.get(num - 1).setIsDone(true);"
-      },
-      {
-        "lineNumber": 250,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Nice! I\u0027ve marked this task as done:\""
-      },
-      {
-        "lineNumber": 251,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 252,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                               + INDENT + \"[\" + TICK + \"] \" + allTasks.get(num - 1).getTask());"
-      },
-      {
-        "lineNumber": 253,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        } catch (IndexOutOfBoundsException e) {"
-      },
-      {
-        "lineNumber": 254,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"Sorry, this task does not exist!\");"
-      },
-      {
-        "lineNumber": 255,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 256,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 257,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 258,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // print array of Task objects"
-      },
-      {
-        "lineNumber": 259,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void printAllTasks() {"
-      },
-      {
-        "lineNumber": 260,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        if (allTasks.size() \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 261,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + \"There are currently no tasks in list!\");"
-      },
-      {
-        "lineNumber": 262,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            return;"
-      },
-      {
-        "lineNumber": 263,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 264,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        System.out.println(INDENT + \"Here are the tasks currently in your list:\");"
-      },
-      {
-        "lineNumber": 265,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        for (int i \u003d 0; i \u003c allTasks.size(); i++) {"
-      },
-      {
-        "lineNumber": 266,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "            System.out.println(INDENT + (i + 1) + \". \" + allTasks.get(i));"
-      },
-      {
-        "lineNumber": 267,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 268,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 269,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 270,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // helper function to print newly added task"
-      },
-      {
-        "lineNumber": 271,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void printNewlyAddedTask(Task task) {"
-      },
-      {
-        "lineNumber": 272,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        System.out.println(INDENT + \"Got it. I\u0027ve added this task: \""
-      },
-      {
-        "lineNumber": 273,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 274,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                + INDENT + INDENT + task"
-      },
-      {
-        "lineNumber": 275,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                + System.lineSeparator()"
-      },
-      {
-        "lineNumber": 276,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "                + INDENT + \"Now you have \" + allTasks.size() + \" tasks in the list.\");"
-      },
-      {
-        "lineNumber": 277,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 278,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 279,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // helper function to convert string array to string"
-      },
-      {
-        "lineNumber": 280,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    // not just string rep like what Arrays.toString(strArr) does"
-      },
-      {
-        "lineNumber": 281,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static String convertToString(String[] strArr) {"
-      },
-      {
-        "lineNumber": 282,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        return String.join(\" \", strArr);"
-      },
-      {
-        "lineNumber": 283,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 284,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 285,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 286,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 287,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "    public static void main(String[] args) throws IOException {"
-      },
-      {
-        "lineNumber": 288,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        initProgram();"
-      },
-      {
-        "lineNumber": 289,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        parseUserInput();"
-      },
-      {
-        "lineNumber": 290,
-        "author": {
-          "gitId": "vanessa-kang"
-        },
-        "content": "        shutDownProgram();"
-      },
-      {
-        "lineNumber": 291,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 292,
+        "lineNumber": 41,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
         "author": {
           "gitId": "-"
         },
@@ -2254,8 +504,8 @@
       }
     ],
     "authorContributionMap": {
-      "vanessa-kang": 289,
-      "-": 3
+      "vanessa-kang": 38,
+      "-": 4
     }
   },
   {
@@ -2471,6 +721,1305 @@
     }
   },
   {
+    "path": "src/main/java/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // parse user input in REPL loop"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void parseUserInput() {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        Scanner line \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        String input \u003d line.nextLine();"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        String userKeyWord;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        while(!input.toLowerCase().equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            String[] inputArr \u003d input.split(\" \");"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            userKeyWord \u003d inputArr[0].toLowerCase();"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            switch (userKeyWord) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"todo\"):"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"deadline\"):"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"event\"): {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    TaskList.addTask(inputArr);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"delete\"): {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    try {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        TaskList.deleteTask(Integer.parseInt(inputArr[1]));"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    } catch (ArrayIndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        Ui.printNoNumberWarning();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        Ui.printInvalidInputWarning();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"done\"): {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    try {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        TaskList.markTaskAsDone(Integer.parseInt(inputArr[1]));"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    } catch (ArrayIndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        Ui.printNoNumberWarning();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                        Ui.printInvalidInputWarning();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case(\"list\"): {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    Ui.printAllTasks();"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                default: {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    Ui.printInvalidInputWarning();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            input \u003d line.nextLine();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "vanessa-kang": 56
+    }
+  },
+  {
+    "path": "src/main/java/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.io.*;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    private final File taskFile;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // constructor"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public Storage(String filePath) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        taskFile \u003d new File(filePath);"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // read task data from file, return ArrayList"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public ArrayList\u003cTask\u003e load() throws FileNotFoundException {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        if (!taskFile.exists()) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            createFile();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        return loadTasksFromFile(taskFile.getPath());"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // HELPER FUNCTION"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // create data file (and associated parent dirs),"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // if they dont exist"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    private void createFile() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        File parentDir \u003d taskFile.getParentFile();"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        if (parentDir !\u003d null \u0026\u0026 !parentDir.exists()) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            parentDir.mkdirs();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            taskFile.createNewFile();"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printFileNotCreatedError();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // HELPER FUNCTION"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // read previously stored task data from duke.txt file,"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // when program first starts up"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    private ArrayList\u003cTask\u003e loadTasksFromFile(String filePath) throws FileNotFoundException {"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        ArrayList\u003cTask\u003e allTasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        FileReader fr \u003d new FileReader(filePath);"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        Scanner s \u003d new Scanner(fr);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        while (s.hasNext()) {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            String[] taskStrArr \u003d s.nextLine().split(\"\u003e\");"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            // strArr[0] - type of Task (T/D/E)"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            // strArr[1] - whether task isDone (0/1)"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            // strArr[2] - task description"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            // strArr[3] - by/at (for deadline/event only)"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Task newTask;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            switch(taskStrArr[0]) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case (\"T\"): {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Todo(taskStrArr[2]);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case (\"D\"): {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Deadline(taskStrArr[2], taskStrArr[3]);"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                case (\"E\"): {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Event(taskStrArr[2], taskStrArr[3]);"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                default:"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Todo(\"default\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            newTask.setIsDone(taskStrArr[1].equals(\"1\"));"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            allTasks.add(newTask);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        return allTasks;"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public void shutDown() {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printSavingToFile();"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            writeTasksToFile(taskFile.getPath());"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printSaveSuccess();"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            e.printStackTrace();"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printSaveError();"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        Ui.printGoodbyeMessage();"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // HELPER FUNCTION"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    private void writeTasksToFile(String filePath) throws IOException {"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        FileWriter fw \u003d new FileWriter(filePath, false); //overwrite file content"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        for (int i \u003d 0; i \u003c TaskList.allTasks.size(); i++) {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Task tmpTask \u003d TaskList.allTasks.get(i);"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            String strToWrite;"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            String taskType \u003d (tmpTask instanceof Todo? \"T\" :"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                               tmpTask instanceof Deadline? \"D\" : \"E\");"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            String isDone \u003d (tmpTask.getIsDone()? \"1\" : \"0\");"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            if (taskType.equals(\"T\")) {"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                String taskDesc \u003d tmpTask.getTask();"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                strToWrite \u003d String.join(\"\u003e\", taskType, isDone, taskDesc);"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                String posText \u003d \"\";"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                String addInfo \u003d \"\";"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                if (taskType.equals(\"D\")) {"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    posText \u003d \" (by:\";"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    addInfo \u003d ((Deadline) tmpTask).getBy();"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                } else if (taskType.equals(\"E\")) {"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    posText \u003d \" (at:\";"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    addInfo \u003d ((Event) tmpTask).getAt();"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                int pos \u003d tmpTask.getTask().indexOf(posText);"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                String taskDesc \u003d tmpTask.getTask().substring(0, pos);"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                strToWrite \u003d String.join(\"\u003e\", taskType, isDone, taskDesc, addInfo);"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            fw.write(strToWrite + System.lineSeparator());"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        fw.close();"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "vanessa-kang": 127
+    }
+  },
+  {
     "path": "src/main/java/Task.java",
     "fileType": "java",
     "lines": [
@@ -2661,7 +2210,7 @@
         "author": {
           "gitId": "vanessa-kang"
         },
-        "content": "        String symbol \u003d isDone? Duke.TICK : Duke.CROSS;"
+        "content": "        String symbol \u003d isDone? Ui.TICK : Ui.CROSS;"
       },
       {
         "lineNumber": 28,
@@ -2694,6 +2243,666 @@
     ],
     "authorContributionMap": {
       "vanessa-kang": 31
+    }
+  },
+  {
+    "path": "src/main/java/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "import java.util.Arrays;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static ArrayList\u003cTask\u003e allTasks;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        allTasks \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // overload, if storage.load() is successful"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e taskListFromFile) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        allTasks \u003d taskListFromFile;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // add task to allTasks"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void addTask(String[] inputArr) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        if (inputArr.length \u003d\u003d 1) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printEmptyDescWarning();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        Task newTask;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        switch(inputArr[0]) {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            case(\"todo\"): {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, inputArr.length);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                newTask \u003d new Todo((convertToString(descArr)));"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            case(\"deadline\"): {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                try {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    int pos \u003d Arrays.asList(inputArr).indexOf(\"/by\");"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, pos);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    String[] byArr \u003d Arrays.copyOfRange(inputArr,pos+1,inputArr.length);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Deadline(convertToString(descArr),convertToString(byArr));"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                } catch (IllegalArgumentException e) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    Ui.printNotSpecifiedWarning(\"D\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    return;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            case(\"event\"): {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                try {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    int pos \u003d Arrays.asList(inputArr).indexOf(\"/at\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    String[] descArr \u003d Arrays.copyOfRange(inputArr, 1, pos);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    String[] atArr \u003d Arrays.copyOfRange(inputArr, pos + 1, inputArr.length);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    newTask \u003d new Event(convertToString(descArr), convertToString(atArr));"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                } catch (IllegalArgumentException e) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    Ui.printNotSpecifiedWarning(\"E\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                    return;"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            default: {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                newTask \u003d new Task((convertToString(inputArr)));"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        allTasks.add(newTask);"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        Ui.printNewlyAddedTask(newTask);"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // delete task from allTasks"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void deleteTask(int num) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Task tmpTask \u003d allTasks.get(num - 1);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            allTasks.remove(num-1);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printNewlyDeletedTask(tmpTask);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printTaskDoesNotExistWarning();"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // mark a Task as done"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void markTaskAsDone (int num) {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Task tmpTask \u003d allTasks.get(num - 1);"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            tmpTask.setIsDone(true);"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printMarkedAsDoneTask(tmpTask);"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            Ui.printTaskDoesNotExistWarning();"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // HELPER FUNCTION"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // convert string array to string,"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    // not just string rep like what Arrays.toString(strArr) does"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static String convertToString(String[] strArr) {"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        return String.join(\" \", strArr);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "vanessa-kang": 93
     }
   },
   {
@@ -2808,6 +3017,813 @@
     ],
     "authorContributionMap": {
       "vanessa-kang": 15
+    }
+  },
+  {
+    "path": "src/main/java/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static final String INDENT \u003d \"     \";"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static final String TICK \u003d \"\\u2713\";"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static final String CROSS \u003d \"\\u2717\";"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    /* LOAD DATA FROM FILE */"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printLoadingFromFile() {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Loading tasks from file...\");"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printLoadSuccess() {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"List successfully loaded! :)\");"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printLoadError() {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Oops, could not load from file! :(\\n\""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + \"Creating a new empty list...\");"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printFileNotCreatedError() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Oops, could not make a new file!\");"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    /* WELCOME MESSAGE */"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Hello! I\u0027m Duke\\n\""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                           + INDENT + \"What can I do for you?\");"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    /* TASK-RELATED MESSAGES */"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printAllTasks() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        if (TaskList.allTasks.size() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            System.out.println(INDENT + \"There are currently no tasks in list!\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            return;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Here are the tasks currently in your list:\");"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        for (int i \u003d 0; i \u003c TaskList.allTasks.size(); i++) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "            System.out.println(INDENT + (i + 1) + \". \" + TaskList.allTasks.get(i));"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printNewlyAddedTask(Task task) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Got it. I\u0027ve added this task: \""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + INDENT + task"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + \"Now you have \" + TaskList.allTasks.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printNewlyDeletedTask(Task task) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Noted. I\u0027ve removed this task: \""
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + INDENT + task"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + \"Now you have \" + TaskList.allTasks.size() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printMarkedAsDoneTask(Task task) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Nice! I\u0027ve marked this task as done:\""
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + System.lineSeparator()"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "                + INDENT + \"[\" + TICK + \"] \" + task);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printEmptyDescWarning() {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Oops, the description field cannot be empty!\");"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printNotSpecifiedWarning(String taskType) {"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        String tmp \u003d (taskType.equals(\"D\") ? \"deadline\" : \"time\");"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Sorry, you did not specify a \" + tmp + \"!\");"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printNoNumberWarning() {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Please input a number!\");"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printInvalidInputWarning() {"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Sorry, that is not a valid input!\");"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printTaskDoesNotExistWarning() {"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Sorry, this task does not exist!\");"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    /* WRITE DATA TO FILE*/"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printSavingToFile() {"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Saving tasks to file...\");"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printSaveSuccess() {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Tasks successfully saved! :)\");"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printSaveError() {"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Shoots, an error occurred while saving your task data. :(\");"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    /* GOODBYE MESSAGE */"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    public static void printGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "        System.out.println(INDENT + \"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "vanessa-kang"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "vanessa-kang": 114
     }
   }
 ]
