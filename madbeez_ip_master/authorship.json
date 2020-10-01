@@ -22,7 +22,796 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "import duke.error.IllegalInputException;"
+        "content": "import duke.command.Command;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.error.DukeException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private TaskList tasks;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private Ui ui;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public Duke(String filePath) throws IOException {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        ui \u003d new Ui();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            tasks \u003d new TaskList(storage.load());"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            ui.printLoadSuccess();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } catch (FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            ui.showLoadingError();"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            tasks \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void run() {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        ui.printWelcome();"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        boolean isExit \u003d false;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        while (!isExit) {"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                String fullCommand \u003d ui.readCommand();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                ui.printLine(); // show the divider line"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                Command c \u003d Parser.parse(fullCommand);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                c.execute(tasks, ui, storage);"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                Storage.save(tasks.getTasks());"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                isExit \u003d c.isExit();"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } catch (DukeException e) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                ui.printError(e.getErrorMessage());"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } finally {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                ui.printLine();"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public static void main(String[] args) throws IOException {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        new Duke(\"tasks.txt\").run();"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "/*"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        String input;"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        printWelcomeMessage();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        // Echo loops until \"bye\" is inputted"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        while(true) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            Scanner echo \u003d new Scanner(System.in); // Scan user input"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            input \u003d echo.nextLine();"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            // Exit program if \"bye\" is inputted"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            try {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                if (input.length() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    throw new IllegalInputException();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } if (input.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    System.out.println(\"Goodbye. See you soon!\");"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    break;"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } else if (input.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    printList(taskList);"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } else if (input.contains(\"done\")) {"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    markAsDone(input, taskList);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } else if (input.contains(\"delete\")){"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    deleteTask(input, taskList);"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } else if (input.contains(\"todo\") | input.contains(\"deadline\") | input.contains(\"event\")){"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    addTask(input, taskList); // Add input as new task"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                } else {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    System.out.println(\"Please enter a valid command!\");"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                saveTasks(\"saveFile.txt\", taskList);"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } catch (IllegalInputException e) {"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                System.out.println(\"Input cannot be empty!\");"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": " */"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 83,
+      "-": 3
+    }
+  },
+  {
+    "path": "src/main/java/duke/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.error.DukeException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public static Command parse(String fullCommand) throws DukeException{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        if (fullCommand.length() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            throw new DukeException(\"Input cannot be empty!\");"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } if (fullCommand.equals(\"bye\")) {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            return new ExitCommand();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else if (fullCommand.equals(\"list\")) {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            return new ListCommand();"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else if (fullCommand.contains(\"done\")) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            return new DoneCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else if (fullCommand.contains(\"delete\")){"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            return new DeleteCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else if (fullCommand.contains(\"todo\") | fullCommand.contains(\"deadline\") | fullCommand.contains(\"event\")){"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            return new AddCommand(fullCommand);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            throw new DukeException(\"Please enter a valid command!\");"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 24
+    }
+  },
+  {
+    "path": "src/main/java/duke/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.error.DukeException;"
       },
       {
         "lineNumber": 4,
@@ -64,14 +853,14 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "import java.util.Scanner;"
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import java.io.FileNotFoundException;"
       },
       {
         "lineNumber": 11,
@@ -92,42 +881,42 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "import java.util.ArrayList;"
       },
       {
         "lineNumber": 14,
         "author": {
-          "gitId": "-"
+          "gitId": "madbeez"
         },
-        "content": "public class Duke {"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 15,
         "author": {
-          "gitId": "-"
+          "gitId": "madbeez"
         },
-        "content": "    public static void main(String[] args) {"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        String input;"
+        "content": "    public static final String DEFAULT_FILEPATH \u003d \"tasks.txt\";"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
+        "content": "    private static String filePath;"
       },
       {
         "lineNumber": 19,
@@ -141,42 +930,42 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        printWelcomeMessage();"
+        "content": "    public Storage(String filePath) throws IOException {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "        if (filePath.isEmpty()){"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        // Echo loops until \"bye\" is inputted"
+        "content": "            this.filePath \u003d DEFAULT_FILEPATH;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        while(true) {"
+        "content": "        } else{"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            Scanner echo \u003d new Scanner(System.in); // Scan user input"
+        "content": "            this.filePath \u003d filePath;"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            input \u003d echo.nextLine();"
+        "content": "        }"
       },
       {
         "lineNumber": 26,
@@ -190,217 +979,779 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            // Exit program if \"bye\" is inputted"
+        "content": "        File file \u003d new File(filePath);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            try {"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                if (input.length() \u003d\u003d 0) {"
+        "content": "        if (!file.exists()){"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    throw new IllegalInputException();"
+        "content": "            file.createNewFile();"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                } if (input.equals(\"bye\")) {"
+        "content": "        }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    System.out.println(\"Goodbye. See you soon!\");"
+        "content": "    }"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    break;"
+        "content": ""
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                } else if (input.equals(\"list\")) {"
+        "content": "    public ArrayList\u003cTask\u003e load() throws FileNotFoundException {"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    printList(taskList);"
+        "content": "        File data \u003d new File(filePath);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                } else if (input.contains(\"done\")) {"
+        "content": "        ArrayList\u003cTask\u003e taskList \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    markAsDone(input, taskList);"
+        "content": "        Scanner text \u003d new Scanner(data);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                } else if (input.contains(\"delete\")){"
+        "content": "        int index \u003d 0;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    deleteTask(input, taskList);"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                } else{"
+        "content": "        while (text.hasNext()) {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    addTask(input, taskList); // Add input as new task"
+        "content": "            String input \u003d text.nextLine();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                }"
+        "content": "            Task newTask \u003d null;"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                saveTasks(\"saveFile.txt\", taskList);"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            } catch (IllegalInputException e) {"
+        "content": ""
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                System.out.println(\"Input cannot be empty!\");"
+        "content": "            if (input.charAt(1) \u003d\u003d \u0027T\u0027){"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            }"
+        "content": "                newTask \u003d new Todo(input.substring(input.indexOf(\" \") + 1));"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    }"
+        "content": "            } else if (input.charAt(1) \u003d\u003d \u0027D\u0027){"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "                newTask \u003d new Deadline(input.substring(input.indexOf(\" \") + 1,input.indexOf(\"(\"))"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void addTask(String input, ArrayList\u003cTask\u003e taskList) {"
+        "content": "                        ,input.substring(input.indexOf(\":\") + 1,input.indexOf(\")\")));"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        try {"
+        "content": "            } else if (input.charAt(1) \u003d\u003d \u0027E\u0027){"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            if (input.contains(\"deadline\")) {"
+        "content": "                newTask \u003d new Event(input.substring(input.indexOf(\" \") + 1,input.indexOf(\"(\"))"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+        "content": "                        ,input.substring(input.indexOf(\":\") + 1,input.indexOf(\")\")));"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                taskList.add(new Deadline(input.substring(input.indexOf(\"n\") + 3, slashLocation), input.substring(slashLocation + 1)));"
+        "content": "            }"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            } else if (input.contains(\"event\")) {"
+        "content": ""
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+        "content": "            taskList.add(newTask);"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "madbeez"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            if (input.charAt(4) \u003d\u003d \u0027\\u2713\u0027){"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                newTask.markAsDone();"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return taskList;"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public static void save(ArrayList\u003cTask\u003e taskList){"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try{"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            FileWriter save \u003d new FileWriter(filePath);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            for (Task item : taskList){"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                save.write(item.toString() + System.lineSeparator());"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                save.flush();"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            save.close();"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"Something went wrong: \" + e.getMessage());"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 79
+    }
+  },
+  {
+    "path": "src/main/java/duke/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "// Stores the task list and contains operations on the task list"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class TaskList {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private ArrayList\u003cTask\u003e taskList;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public TaskList() {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.taskList \u003d new ArrayList\u003c\u003e();"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public TaskList(ArrayList\u003cTask\u003e taskList) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.taskList \u003d taskList;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public ArrayList\u003cTask\u003e getTasks() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return this.taskList;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public Task getTask(int index) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return taskList.get(index - 1);"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public int getSize() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return taskList.size();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void addTask(Task task) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        taskList.add(task);"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void removeTask(int index) {"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        taskList.remove(index - 1);"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "/*"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public static void addTask(String input, ArrayList\u003cTask\u003e taskList) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            if (input.contains(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                taskList.add(new Deadline(input.substring(input.indexOf(\"n\") + 3, slashLocation), input.substring(slashLocation + 1)));"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } else if (input.contains(\"event\")) {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "madbeez"
+        },
         "content": "                taskList.add(new Event(input.substring(input.indexOf(\"t\") + 2, slashLocation), input.substring(slashLocation + 1)));"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                taskList.add(new Todo(input.substring(input.indexOf(\" \") + 1)));"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"I\u0027ve added:\" + System.lineSeparator() + \"  \" + taskList.get(taskList.size()-1));"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            if (taskList.size() \u003e 1) {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
       },
       {
         "lineNumber": 58,
@@ -414,7 +1765,7 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                taskList.add(new Todo(input));"
+        "content": "                System.out.println(\"Now you have \" + taskList.size() + \" task in the list.\");"
       },
       {
         "lineNumber": 60,
@@ -435,513 +1786,1653 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            System.out.println(\"I\u0027ve added:\" + System.lineSeparator() + \"  \" + taskList.get(taskList.size()-1));"
+        "content": "        } catch (StringIndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "            System.out.println(\"Please put a slash in between the description and the date.\");"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            if (taskList.size() \u003e 1) {"
+        "content": "        }"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                System.out.println(\"Now you have \" + taskList.size() + \" tasks in the list.\");"
+        "content": "    }"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            } else {"
+        "content": ""
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                System.out.println(\"Now you have \" + taskList.size() + \" task in the list.\");"
+        "content": "    public static void deleteTask(String input, ArrayList\u003cTask\u003e taskList){"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            }"
+        "content": "        try {"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "            int chosenTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\")) - 1;"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        } catch (StringIndexOutOfBoundsException e) {"
+        "content": "            System.out.println(\"Understood. I\u0027ve removed this task:\" + System.lineSeparator() + \"  \""
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            System.out.println(\"Please put a slash in between the description and the date.\");"
+        "content": "                    + taskList.get(chosenTask) + System.lineSeparator() + \"Now you have \" + (taskList.size() - 1)"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        }"
+        "content": "                    + \" tasks in the list.\");"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    }"
+        "content": "            taskList.remove(taskList.get(chosenTask));"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "        } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void deleteTask(String input, ArrayList\u003cTask\u003e taskList){"
+        "content": "            System.out.println(\"You must enter the number of the task you want to delete.\");"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        try {"
+        "content": "        }"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            int chosenTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\")) - 1;"
+        "content": "    }"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            System.out.println(\"Understood. I\u0027ve removed this task:\" + System.lineSeparator() + \"  \""
+        "content": ""
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    + taskList.get(chosenTask) + System.lineSeparator() + \"Now you have \" + (taskList.size() - 1)"
+        "content": "    public static void markAsDone(String input, ArrayList\u003cTask\u003e taskList) {"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "                    + \" tasks in the list.\");"
+        "content": "        // The number of the task that is done"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            taskList.remove(taskList.get(chosenTask));"
+        "content": "        try {"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        } catch (NumberFormatException e) {"
+        "content": "            int doneTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\")) - 1;"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            System.out.println(\"You must enter the number of the task you want to delete.\");"
+        "content": "            taskList.get(doneTask).markAsDone();"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        }"
+        "content": "            System.out.println(\"Nice! I\u0027ve marked this task as done:\" + System.lineSeparator() + \"  \" + taskList.get(doneTask));"
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    }"
+        "content": "        } catch (NumberFormatException e) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "madbeez"
         },
-        "content": ""
+        "content": "            System.out.println(\"You must enter the number of the task you want to mark as done.\");"
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void markAsDone(String input, ArrayList\u003cTask\u003e taskList) {"
+        "content": "        }"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        // The number of the task that is done"
+        "content": "    }"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        try {"
+        "content": "    */"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            int doneTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\")) - 1;"
-      },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 90
+    }
+  },
+  {
+    "path": "src/main/java/duke/Ui.java",
+    "fileType": "java",
+    "lines": [
       {
-        "lineNumber": 91,
+        "lineNumber": 1,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "            taskList.get(doneTask).markAsDone();"
+        "content": "package duke;"
       },
       {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            System.out.println(\"Nice! I\u0027ve marked this task as done:\" + System.lineSeparator() + \"  \" + taskList.get(doneTask));"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        } catch (NumberFormatException e) {"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            System.out.println(\"You must enter the number of the task you want to mark as done.\");"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 97,
+        "lineNumber": 2,
         "author": {
           "gitId": "madbeez"
         },
         "content": ""
       },
       {
-        "lineNumber": 98,
+        "lineNumber": 3,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void printList(ArrayList\u003cTask\u003e taskList) {"
+        "content": "import duke.task.Task;"
       },
       {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        if (taskList.size() \u003d\u003d 0) {"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            System.out.println(\"The list is empty.\");"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            for (Task item: taskList) {"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                System.out.println((taskList.indexOf(item) + 1) + \".\" + item);"
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 107,
+        "lineNumber": 4,
         "author": {
           "gitId": "madbeez"
         },
         "content": ""
       },
       {
-        "lineNumber": 108,
+        "lineNumber": 5,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void printWelcomeMessage() {"
+        "content": "import java.util.ArrayList;"
       },
       {
-        "lineNumber": 109,
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class Ui {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void printWelcome(){"
+      },
+      {
+        "lineNumber": 10,
         "author": {
           "gitId": "madbeez"
         },
         "content": "        System.out.println(\"Hi! My name is Duke!\\n\" + \"How can I help you?\");"
       },
       {
-        "lineNumber": 110,
+        "lineNumber": 11,
         "author": {
           "gitId": "madbeez"
-        },
-        "content": "        /*String logo \u003d \" ____        _        \\n\""
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                + \"|  _ \\\\ _   _| | _____ \\n\""
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                + \"| | | | | | | |/ / _ \\\\\\n\""
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                + \"| |_| | |_| |   \u003c  __/\\n\""
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\";"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        System.out.println(\"Hello from\\n\" + logo);"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        */"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 118,
+        "lineNumber": 12,
         "author": {
           "gitId": "madbeez"
         },
         "content": ""
       },
       {
-        "lineNumber": 119,
+        "lineNumber": 13,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    // Saves the current list of tasks to a text file"
+        "content": "    public static void printGoodbye(){"
       },
       {
-        "lineNumber": 120,
+        "lineNumber": 14,
         "author": {
           "gitId": "madbeez"
         },
-        "content": "    private static void saveTasks(String filePath, ArrayList\u003cTask\u003e taskList){"
+        "content": "        System.out.println(\"Goodbye! See you soon!\");"
       },
       {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        try{"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        FileWriter save \u003d new FileWriter(filePath);"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            for (Task item : taskList){"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                save.write(item.toString() + System.lineSeparator());"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "                save.flush();"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "            save.close();"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        System.out.println(\"Something went wrong: \" + e.getMessage());"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        } catch (NullPointerException e) {"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "madbeez"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 132,
+        "lineNumber": 15,
         "author": {
           "gitId": "madbeez"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 133,
+        "lineNumber": 16,
         "author": {
-          "gitId": "-"
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void printLine(){"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        System.out.println(\"________________________________________\");"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void printList(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        int index \u003d 1;"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        if (taskList.getSize() \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"The list is empty.\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            for (Task item : taskList.getTasks()) {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                System.out.println(index++ + \".\" + item);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public String readCommand(){"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        Scanner echo \u003d new Scanner(System.in); // Scan user input"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        String input \u003d echo.nextLine();"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return input;"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void printLoadSuccess(){"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        System.out.println(\"Save file loaded successfully.\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void printError(String errorMessage){"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        System.out.println(errorMessage);"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void showLoadingError() {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        System.out.println(\"Error loading from filepath.\");"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "madbeez"
         },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "madbeez": 129,
-      "-": 4
+      "madbeez": 51
     }
   },
   {
-    "path": "src/main/java/duke/error/IllegalInputException.java",
+    "path": "src/main/java/duke/command/AddCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Todo;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class AddCommand extends Command{"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private String input;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public AddCommand(String fullCommand){"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.input \u003d fullCommand;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList taskList, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            if (input.contains(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                taskList.addTask(new Deadline(input.substring(input.indexOf(\"n\") + 3, slashLocation), input.substring(slashLocation + 1)));"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } else if (input.contains(\"event\")) {"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                int slashLocation \u003d input.indexOf(\"/\");"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                taskList.addTask(new Event(input.substring(input.indexOf(\"t\") + 2, slashLocation), input.substring(slashLocation + 1)));"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                taskList.addTask(new Todo(input.substring(input.indexOf(\" \") + 1)));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"I\u0027ve added:\" + System.lineSeparator() + \"  \" + taskList.getTask(taskList.getSize()));"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            if (taskList.getSize() \u003e 1) {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                System.out.println(\"Now you have \" + taskList.getSize() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                System.out.println(\"Now you have \" + taskList.getSize() + \" task in the list.\");"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } catch (StringIndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"Please enter your input in the correct format.\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 44
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class Command {"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private boolean isExit;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public Command() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.isExit \u003d false;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public boolean isExit(){"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return this.isExit;"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void setExit(){"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.isExit \u003d true;"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 26
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class DeleteCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private String input;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public DeleteCommand(String fullCommand){"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.input \u003d fullCommand;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList taskList, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            int chosenTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\"));"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"Understood. I\u0027ve removed this task:\" + System.lineSeparator() + \"  \""
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "                    + taskList.getTask(chosenTask));"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            taskList.removeTask(chosenTask);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"Now you have \" + (taskList.getSize()) + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"You must enter the number of the task you want to delete.\");"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 26
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DoneCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class DoneCommand extends Command{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private String input;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public DoneCommand(String fullCommand){"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.input \u003d fullCommand;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList taskList, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            int doneTask \u003d Integer.parseInt(input.replaceAll(\"[^0-9]\", \"\")) - 1;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            taskList.getTask(doneTask).markAsDone();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"Nice! I\u0027ve marked this task as done:\" + System.lineSeparator() + \"  \" + taskList.getTask(doneTask));"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "            System.out.println(\"You must enter the number of the task you want to mark as done.\");"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 24
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ExitCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class ExitCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        Ui.printGoodbye();"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        setExit();"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "import duke.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "public class ListCommand extends Command{"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        ui.printList(tasks);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 12
+    }
+  },
+  {
+    "path": "src/main/java/duke/error/DukeException.java",
     "fileType": "java",
     "lines": [
       {
@@ -956,10 +3447,66 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "public class IllegalInputException extends Exception {"
+        "content": "public class DukeException extends Exception {"
       },
       {
         "lineNumber": 3,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    private String errorMessage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public DukeException(String errorMessage){"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        this.errorMessage \u003d errorMessage;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    public String getErrorMessage() {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "        return errorMessage;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
         "author": {
           "gitId": "madbeez"
         },
@@ -967,7 +3514,7 @@
       }
     ],
     "authorContributionMap": {
-      "madbeez": 3
+      "madbeez": 11
     }
   },
   {
@@ -1177,7 +3724,7 @@
         "author": {
           "gitId": "madbeez"
         },
-        "content": "        return \"[E]\" + super.toString() + \"(at: \" + at + \")\";"
+        "content": "        return \"[E]\" + super.toString() + \"(at:\" + at + \")\";"
       },
       {
         "lineNumber": 13,
@@ -1445,6 +3992,29 @@
     ],
     "authorContributionMap": {
       "madbeez": 10
+    }
+  },
+  {
+    "path": "tasks.txt",
+    "fileType": "txt",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "[D][✘] help (by:12)"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "madbeez"
+        },
+        "content": "[E][✘] bear (at:12)"
+      }
+    ],
+    "authorContributionMap": {
+      "madbeez": 2
     }
   },
   {

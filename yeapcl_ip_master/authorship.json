@@ -8,32 +8,39 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "T | 1 | read book"
+        "content": "T | ✓ | read book"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "D | 0 | return book | June 6th"
+        "content": "D | ✘ | return book | June 6th"
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "E | 0 | project meeting | Aug 6th 2-4pm"
+        "content": "E | ✓ | project meeting | Aug 6th 2-4pm"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "T | 1 | join sports club"
+        "content": "T | ✘ | join sports club"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "D | ✘ | submit homework | next Friday 2359hours"
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 4
+      "yeapcl": 5
     }
   },
   {
@@ -59,42 +66,42 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.exception.DukeException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.Event;"
+        "content": "import duke.parser.Parser;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.Task;"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.ToDo;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "import duke.command.Command;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 9,
@@ -105,31 +112,31 @@
       },
       {
         "lineNumber": 10,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 11,
         "author": {
           "gitId": "-"
         },
         "content": "public class Duke {"
       },
       {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static final String horizontalLine \u003d \"____________________________________________________________\\n\";"
+        "content": "    private TaskList tasks;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static final ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003cTask\u003e();"
+        "content": "    private final Ui ui;"
       },
       {
         "lineNumber": 14,
@@ -143,119 +150,119 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static void main(String[] args) throws DukeException {"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        printGreetings();"
+        "content": "    /**"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        execute();"
+        "content": "     * Creates a new Duke object based on the given file path. Duke will load/write from/to"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "     * the text file in the specified path."
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "     *"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "     * @param filePath relative location of the folder and text file."
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static void makeTextBorder(String text) {"
+        "content": "     */"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        System.out.print(horizontalLine + text + System.lineSeparator() + horizontalLine);"
+        "content": "    public Duke(String filePath) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        ui \u003d new Ui();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        try {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    private static void printGreetings() {"
+        "content": "            storage \u003d new Storage(filePath);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        String greet \u003d \"Hello! I\u0027m Duke, your personal task assistant!\\nWhat can I do for you today?\";"
+        "content": "            tasks \u003d new TaskList(storage.load());"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        makeTextBorder(greet);"
+        "content": "        } catch (DukeException e) {"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "            ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "            tasks \u003d new TaskList();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    private static void execute() throws DukeException {"
+        "content": "        }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        FileIO io \u003d new FileIO();"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
@@ -269,457 +276,184 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        while (true) {"
+        "content": "    /**"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            InputParser parsedInput \u003d new InputParser();"
+        "content": "     * run Duke task assistant until it terminates"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            try {"
+        "content": "     */"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                switch (parsedInput.command) {"
+        "content": "    public void run() {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                case \"bye\":"
+        "content": "        ui.showWelcome();"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    String farewellMessage \u003d \"Bye. Hope to see you again soon!\";"
+        "content": "        boolean isExit \u003d false;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    makeTextBorder(farewellMessage);"
+        "content": "        while (!isExit) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    FileIO.saveTasksList();"
+        "content": "            try {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    return;"
+        "content": "                String fullCommand \u003d ui.readCommand();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    // Fallthrough"
+        "content": "                ui.showLine(); // show the divider line (\"_______\")"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                case \"todo\":"
+        "content": "                Command c \u003d Parser.parse(fullCommand);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    tasks.add(new ToDo(parsedInput.commandDescription));"
+        "content": "                c.execute(tasks, ui, storage);"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    Task.getTaskTracker(tasks.get(Task.taskNumber));"
+        "content": "                isExit \u003d c.isExit();"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    break;"
+        "content": "            } catch (DukeException e) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                case \"deadline\":"
+        "content": "                ui.showError(e.getMessage());"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    tasks.add(new Deadline(parsedInput.taskDescription.trim(), parsedInput.slashDescription.trim()));"
+        "content": "            } finally {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    Deadline.getTaskTracker(tasks.get(Deadline.taskNumber));"
+        "content": "                ui.showLine();"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    break;"
+        "content": "            }"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                case \"event\":"
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    tasks.add(new Event(parsedInput.taskDescription.trim(), parsedInput.slashDescription.trim()));"
+        "content": "    }"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    Event.getTaskTracker(tasks.get(Event.taskNumber));"
+        "content": ""
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    break;"
+        "content": "    public static void main(String[] args) {"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                case \"list\":"
+        "content": "        new Duke(\"data/duke.txt\").run();"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    System.out.println(horizontalLine + \"Here are the tasks in your list: \");"
+        "content": "    }"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "                    int i \u003d 1;"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    for (Task str : tasks) {"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        System.out.println(i + \".\" + str);"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        i++;"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    System.out.println(horizontalLine);"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                case \"done\":"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int doneIndex \u003d Integer.parseInt(parsedInput.commandDescription);"
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    if (doneIndex \u003e tasks.size() || doneIndex \u003c 0) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        throw new DukeException(DukeException.ExceptionType.INDEX_OUT_OF_BOUND);"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    } else {"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        tasks.get(doneIndex - 1).markAsDone();"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    System.out.println(horizontalLine + \"Nice! I\u0027ve marked this task as done:\");"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    System.out.println(\"[\" + tasks.get(doneIndex - 1).getStatusIcon() + \"] \" + tasks.get(doneIndex - 1).getDescription() + \"\\n\" + horizontalLine);"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                case \"delete\":"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int deleteIndex \u003d Integer.parseInt(parsedInput.commandDescription) - 1;"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    if (deleteIndex \u003e tasks.size() || deleteIndex \u003c 0) {"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        throw new DukeException(DukeException.ExceptionType.INDEX_OUT_OF_BOUND);"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    } else {"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        System.out.println(horizontalLine + \"Noted. I have removed this task:\\n\" + tasks.get(deleteIndex) + \"\\n\");"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        tasks.remove(deleteIndex);"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        Task.taskNumber--;"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                        System.out.println(\"Now you have \" + tasks.size() + \" tasks in the list.\\n\" + horizontalLine);"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    }"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                default:"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    throw new DukeException(DukeException.ExceptionType.INVALID_INPUT);"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            } catch (ArrayIndexOutOfBoundsException exception) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                throw new DukeException(DukeException.ExceptionType.INDEX_OUT_OF_BOUND);"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "yeapcl"
-        },
         "content": "}"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 95,
+      "yeapcl": 56,
       "-": 1
     }
   },
   {
-    "path": "src/main/java/duke/DukeException.java",
+    "path": "src/main/java/duke/command/ByeCommand.java",
     "fileType": "java",
     "lines": [
       {
@@ -727,7 +461,7 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "package duke;"
+        "content": "package duke.command;"
       },
       {
         "lineNumber": 2,
@@ -741,56 +475,191 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "public class DukeException extends Exception{"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected enum ExceptionType {"
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        INVALID_INPUT(\"\\u2639 OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\\n\"),"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        EMPTY_DESCRIPTION(\"\\u2639 OOPS!!! The description of a task cannot be empty.\\n\"),"
+        "content": "public class ByeCommand extends Command {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        INDEX_OUT_OF_BOUND(\"\\u2639 OOPS!!! No such task is found!\\n\"),"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        FILE_NOT_FOUND(\"duke.txt not found in data/duke.txt, please check again!\\n\"),"
+        "content": "    public ByeCommand() {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        FOLDER_NOT_FOUND(\"The folder ./data/ is not found, please check again!\\n\");"
+        "content": "        super(null);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        isExit \u003d true;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.showBye();"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 18
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/Command.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public abstract class Command {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    protected String input;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    protected boolean isExit \u003d false;"
       },
       {
         "lineNumber": 11,
@@ -804,129 +673,66 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        private String error;"
+        "content": "    public Command(String input) {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        private String horizontalLine \u003d \"____________________________________________________________\\n\";"
+        "content": "        this.input \u003d input;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        ExceptionType(String error) {"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            this.error \u003d error;"
+        "content": "    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    public boolean isExit() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        @Override"
+        "content": "        return isExit;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        public String toString() {"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            return \"\\n\" + horizontalLine + error + horizontalLine;"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    public DukeException(ExceptionType error) {"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        super(error.toString());"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 30,
         "author": {
           "gitId": "yeapcl"
         },
@@ -934,11 +740,11 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 30
+      "yeapcl": 21
     }
   },
   {
-    "path": "src/main/java/duke/FileIO.java",
+    "path": "src/main/java/duke/command/DeadlineCommand.java",
     "fileType": "java",
     "lines": [
       {
@@ -946,7 +752,7 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "package duke;"
+        "content": "package duke.command;"
       },
       {
         "lineNumber": 2,
@@ -960,14 +766,184 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.Deadline;"
+        "content": "import duke.exception.DukeException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.Event;"
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class DeadlineCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public DeadlineCommand(String input) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(input);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        String[] parsedInputs \u003d input.split(\" /by \", 2);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        Deadline newTask \u003d new Deadline(parsedInputs[0], parsedInputs[1]);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        tasks.addTask(newTask);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.printDeadline(tasks, newTask);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        storage.write(tasks);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/DeleteCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
@@ -981,948 +957,122 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.task.ToDo;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.io.File;"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": "public class DeleteCommand extends Command {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.nio.file.Path;"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.nio.file.Paths;"
+        "content": "    public DeleteCommand(String information) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "        super(information);"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.util.Scanner;"
+        "content": "    }"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.io.FileWriter;"
+        "content": ""
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.io.IOException;"
+        "content": "    @Override"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.nio.file.Files;"
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        int index \u003d Integer.parseInt(input);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "public class FileIO {"
+        "content": "        Task removedTask \u003d tasks.getTask(index);"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        tasks.deleteTask(index);"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected static ArrayList\u003cString\u003e list \u003d new ArrayList\u003cString\u003e();"
+        "content": "        ui.printDelete(tasks, removedTask);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected static String taskType, isDoneString, taskDescription;"
+        "content": "        storage.write(tasks);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected static boolean isDone;"
+        "content": "    }"
       },
       {
         "lineNumber": 23,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    protected static String[] taskDescriptionDetails;"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    protected static final String DATA_PATH \u003d \"data/duke.txt\";"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    Path path \u003d Paths.get(\"./data/\");"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    Duke duke \u003d new Duke();"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    public FileIO() throws DukeException {"
-      },
-      {
-        "lineNumber": 30,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 31,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        if (!Files.exists(path)) {"
-      },
-      {
-        "lineNumber": 32,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            throw new DukeException(DukeException.ExceptionType.FOLDER_NOT_FOUND);"
-      },
-      {
-        "lineNumber": 33,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 34,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 35,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 36,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            readFileContents();"
-      },
-      {
-        "lineNumber": 37,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        } catch (FileNotFoundException e) {"
-      },
-      {
-        "lineNumber": 38,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            throw new DukeException(DukeException.ExceptionType.FILE_NOT_FOUND);"
-      },
-      {
-        "lineNumber": 39,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 40,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 41,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 42,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    private static void printFileContents() throws FileNotFoundException {"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        File f \u003d new File(DATA_PATH);"
-      },
-      {
-        "lineNumber": 44,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        Scanner s \u003d new Scanner(f);"
-      },
-      {
-        "lineNumber": 45,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        while (s.hasNext()) {"
-      },
-      {
-        "lineNumber": 46,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            System.out.println(s.nextLine());"
-      },
-      {
-        "lineNumber": 47,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 48,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 49,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 50,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    private static void readFileContents() throws FileNotFoundException {"
-      },
-      {
-        "lineNumber": 51,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        File f \u003d new File(DATA_PATH);"
-      },
-      {
-        "lineNumber": 52,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 53,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        Scanner s \u003d new Scanner(f);"
-      },
-      {
-        "lineNumber": 55,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        while (s.hasNextLine()) {"
-      },
-      {
-        "lineNumber": 56,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            list.add(s.nextLine());"
-      },
-      {
-        "lineNumber": 57,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 58,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        System.out.println(\"duke.txt detected; Loading previous data...\");"
-      },
-      {
-        "lineNumber": 59,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        System.out.println(\"Data loaded. You can access your previous saved tasks by using the command \u0027list\u0027\");"
-      },
-      {
-        "lineNumber": 60,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        System.out.println(\"____________________________________________________________\\n\");"
-      },
-      {
-        "lineNumber": 61,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        parseFromFile();"
-      },
-      {
-        "lineNumber": 62,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 63,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 64,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    private static void parseFromFile() {"
-      },
-      {
-        "lineNumber": 65,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 66,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        for (String arr : list) {"
-      },
-      {
-        "lineNumber": 67,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            taskType \u003d arr.substring(0,1);"
-      },
-      {
-        "lineNumber": 68,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            isDoneString \u003d arr.substring(4, 5);"
-      },
-      {
-        "lineNumber": 69,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            isDone \u003d isDoneString.equals(\"1\");"
-      },
-      {
-        "lineNumber": 70,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            taskDescription \u003d arr.substring(8);"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            switch (taskType) {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            case \"T\":"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Duke.tasks.add(new ToDo(taskDescription, isDone));"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Task.getTaskTracker(Duke.tasks.get(Task.taskNumber), true);"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            case \"D\":"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                taskDescriptionDetails \u003d taskDescription.split(\"\\\\|\",2);"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Duke.tasks.add(new Deadline(taskDescriptionDetails[0].trim(), taskDescriptionDetails[1].trim(), isDone));"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Deadline.getTaskTracker(Duke.tasks.get(Deadline.taskNumber), true);"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            case \"E\":"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                taskDescriptionDetails \u003d taskDescription.split(\"\\\\|\",2);"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Duke.tasks.add(new Event(taskDescriptionDetails[0].trim(), taskDescriptionDetails[1].trim(), isDone));"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                Deadline.getTaskTracker(Duke.tasks.get(Event.taskNumber), true);"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    public static void saveTasksList() throws DukeException {"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        File saveFile \u003d new File(DATA_PATH);"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        boolean fileExists \u003d saveFile.exists();"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            if (!fileExists) {"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                saveFile.getParentFile().mkdirs();"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                saveFile.createNewFile();"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        } catch (IOException exception) {"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            throw new DukeException(DukeException.ExceptionType.FOLDER_NOT_FOUND);"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        try {"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            FileWriter fw \u003d new FileWriter(DATA_PATH);"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            for (Task readArrayList : Duke.tasks) {"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                String taskType \u003d readArrayList.toString().substring(1, 2);"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                String checkIsDone, finalString, taskDetailBy, taskDetailAt;"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                if (readArrayList.getStatusIcon().equals(\"\\u2713\")) {"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    checkIsDone \u003d \"1\";"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                } else {"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    checkIsDone \u003d \"0\";"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                if (taskType.equals(\"D\")) {"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int count1 \u003d readArrayList.toString().lastIndexOf(\"by: \") + 4;"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int count2 \u003d readArrayList.toString().indexOf(\")\");"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    taskDetailBy \u003d readArrayList.toString().substring(count1, count2);"
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    finalString \u003d taskType + \" | \" + checkIsDone + \" | \" + readArrayList.getDescription() + \" | \" + taskDetailBy;"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                } else if (taskType.equals(\"E\")) {"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int count1 \u003d readArrayList.toString().lastIndexOf(\"at: \") + 4;"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    int count2 \u003d readArrayList.toString().indexOf(\")\");"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    taskDetailAt \u003d readArrayList.toString().substring(count1, count2);"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    finalString \u003d taskType + \" | \" + checkIsDone + \" | \" + readArrayList.getDescription() + \" | \" + taskDetailAt;"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                } else {"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                    finalString \u003d taskType + \" | \" + checkIsDone + \" | \" + readArrayList.getDescription();"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "                fw.write(finalString + System.lineSeparator());"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            fw.close();"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        } catch (IOException exception) {"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "            throw new DukeException(DukeException.ExceptionType.FOLDER_NOT_FOUND);"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "yeapcl"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 141,
         "author": {
           "gitId": "yeapcl"
         },
@@ -1930,11 +1080,11 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 141
+      "yeapcl": 23
     }
   },
   {
-    "path": "src/main/java/duke/InputParser.java",
+    "path": "src/main/java/duke/command/DoneCommand.java",
     "fileType": "java",
     "lines": [
       {
@@ -1942,98 +1092,1006 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "package duke;"
+        "content": "package duke.command;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "import duke.exception.DukeException;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "public class InputParser {"
+        "content": "import duke.storage.Storage;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected String input;"
+        "content": "import duke.task.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected String command, commandDescription, taskDescription, slashDescription;"
+        "content": "import duke.task.TaskList;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "import duke.ui.Ui;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public InputParser() throws DukeException {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        String[] strings;"
+        "content": "public class DoneCommand extends Command {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        String userInput \u003d in.nextLine().trim();"
+        "content": "    public DoneCommand(String information) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        checkCommandValidity(userInput);"
+        "content": "        super(information);"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        strings \u003d userInput.split(\" \", 2);"
+        "content": "    }"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        command \u003d strings[0].toLowerCase();"
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        int index \u003d Integer.parseInt(input);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        Task completedTask \u003d tasks.getTask(index);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (!completedTask.isDone()) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            completedTask.markAsDone();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"That task was already done!\");"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.printDone(completedTask);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        storage.write(tasks);"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 27
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/EventCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class EventCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public EventCommand(String input) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(input);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        String[] parsedInputs \u003d input.split(\" /at \", 2);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        Event newTask \u003d new Event(parsedInputs[0], parsedInputs[1]);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        tasks.addTask(newTask);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.printEvent(tasks, newTask);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        storage.write(tasks);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 23
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/FindCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class FindCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public FindCommand(String keyword) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(keyword);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        TaskList tasksFound \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        for (Task t : tasks.getTaskList()) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            if (t.getDescription().contains(input)) {"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                tasksFound.addTask(t);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.printFind(tasksFound, input);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 25
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/ListCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class ListCommand extends Command {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public ListCommand() {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(null);"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage){"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            ui.printList(tasks);"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 17
+    }
+  },
+  {
+    "path": "src/main/java/duke/command/TodoCommand.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.command;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.storage.Storage;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.ToDo;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.ui.Ui;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class TodoCommand extends Command {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public TodoCommand(String input) {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(input);"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ToDo newTask \u003d new ToDo(input);"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        tasks.addTask(newTask);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ui.printToDo(tasks, newTask);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        storage.write(tasks);"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 22
+    }
+  },
+  {
+    "path": "src/main/java/duke/exception/DukeException.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.exception;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class DukeException extends Exception {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public DukeException(String message) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        super(message);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 8
+    }
+  },
+  {
+    "path": "src/main/java/duke/parser/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.parser;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.command.*;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_TODO \u003d \"todo\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_DEADLINE \u003d \"deadline\";"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_EVENT \u003d \"event\";"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_LIST \u003d \"list\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_DONE \u003d \"done\";"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_DELETE \u003d \"delete\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_FIND \u003d \"find\";"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static final String COMMAND_BYE \u003d \"bye\";"
       },
       {
         "lineNumber": 15,
@@ -2047,164 +2105,563 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        boolean isSlashExpected \u003d userInput.startsWith(\"deadline\") || userInput.startsWith(\"event\");"
+        "content": "    public static Command parse(String input) throws DukeException {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        boolean isSingleWordCommand \u003d userInput.startsWith(\"bye\") || userInput.startsWith(\"list\");"
+        "content": "        String[] parsedInputs \u003d input.split(\" \", 2);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        switch (parsedInputs[0]) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        if (isSlashExpected) {"
+        "content": "        case COMMAND_TODO:"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            strings \u003d userInput.split(\" \", 2);"
+        "content": "            checkTodoValidity(parsedInputs);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            strings \u003d strings[1].split(\"/\");"
+        "content": "            return new TodoCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            taskDescription \u003d strings[0];"
+        "content": "        case COMMAND_DEADLINE:"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            slashDescription \u003d strings[1].substring(3);"
+        "content": "            checkDeadlineValidity(parsedInputs);"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        } else if (userInput.contains(\" \")) {"
+        "content": "            return new DeadlineCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            strings \u003d userInput.split(\" \", 2);"
+        "content": "        case COMMAND_EVENT:"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            commandDescription \u003d strings[1];"
+        "content": "            checkEventValidity(parsedInputs);"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        } else if (isSingleWordCommand) {"
+        "content": "            return new EventCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            command \u003d userInput;"
+        "content": "        case COMMAND_LIST:"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        } else {"
+        "content": "            return new ListCommand();"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            throw new DukeException(DukeException.ExceptionType.EMPTY_DESCRIPTION);"
+        "content": "        case COMMAND_DONE:"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        }"
+        "content": "            checkTaskIndexValidity(parsedInputs);"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "            return new DoneCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        case COMMAND_DELETE:"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    private void checkCommandValidity(String string) throws DukeException {"
+        "content": "            checkTaskIndexValidity(parsedInputs);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        if (string \u003d\u003d null || string.isEmpty() || string.isBlank()) {"
+        "content": "            return new DeleteCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "            throw new DukeException(DukeException.ExceptionType.EMPTY_DESCRIPTION);"
+        "content": "        case COMMAND_FIND:"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        }"
+        "content": "            verifyFind(parsedInputs);"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "            return new FindCommand(parsedInputs[1]);"
       },
       {
         "lineNumber": 39,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        case COMMAND_BYE:"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            return new ByeCommand();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Sorry! I don\u0027t know what that means :-(\");"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static void checkTaskIndexValidity(String[] input) throws DukeException {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            Integer.parseInt(input[1]);"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } catch (NumberFormatException e) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Please enter the task number you want to mark as done!\");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } catch (IndexOutOfBoundsException e) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"You\u0027ve entered an invalid task number!\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static void checkTodoValidity(String[] input) throws DukeException {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input.length \u003c 2) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"There is no description in your todo command!\");"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static void checkDeadlineValidity(String[] input) throws DukeException {"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input.length \u003c 2) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"There is no description in your deadline command!\");"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else if (!input[1].contains(\"/by\")) {"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"A deadline task requires a \u0027/by\u0027 to indicate time frame!\");"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        int byPosition \u003d input[1].indexOf(\"/by\");"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input[1].substring(0, byPosition).isBlank()) {"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"There is no description in your deadline command!\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else if (input[1].substring(byPosition + 3).isBlank()) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Please indicate time frame!\");"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static void checkEventValidity(String[] input) throws DukeException {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input.length \u003c 2) {"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"There is no description in your event command!\");"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else if (!input[1].contains(\"/at\")) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"An event task requires an \u0027/at\u0027 to indicate location!\");"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        int atPosition \u003d input[1].indexOf(\"/at\");"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input[1].substring(0, atPosition).isBlank()) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"There is no description in your event command!\");"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else if (input[1].substring(atPosition + 3).isBlank()) {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"An event task requires an \u0027/at\u0027 to indicate location!\");"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private static void verifyFind(String[] input) throws DukeException {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (input.length \u003c 2) {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Search description is empty\");"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
         "author": {
           "gitId": "yeapcl"
         },
@@ -2212,7 +2669,786 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 39
+      "yeapcl": 96
+    }
+  },
+  {
+    "path": "src/main/java/duke/storage/Storage.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.storage;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.*;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.io.FileNotFoundException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.io.FileWriter;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class Storage {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private final String FILE_PATH;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public static final int MAX_SIZE \u003d 100;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public Storage(String FILE_PATH) throws DukeException {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        this.FILE_PATH \u003d FILE_PATH;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        initialise();"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private void initialise() throws DukeException {"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        File storageFile \u003d new File(FILE_PATH);"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        File storageFolder \u003d new File(storageFile.getParent());"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (storageFolder.exists() \u0026\u0026 storageFolder.isDirectory()) {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"Data folder found! Finding duke.txt...\");"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"Data folder not found! Creating one...\");"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            if (!storageFolder.mkdir()) {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                throw new DukeException(\"Attempt to create a data folder failed.\");"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            if (storageFile.createNewFile()) {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                System.out.println(\"No existing duke.txt found! Creating one...\");"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                System.out.println(\"Existing duke.txt found. Loading previously saved task list...\");"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Attempt to create duke.txt failed.\");"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } finally {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"Previous task list loaded successfully\");"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public ArrayList\u003cTask\u003e load() throws DukeException {"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        Scanner reader;"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            reader \u003d new Scanner(new File(FILE_PATH));"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } catch (FileNotFoundException e) {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Attempt to read duke.txt failed.\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d new ArrayList\u003c\u003e(MAX_SIZE);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        while (reader.hasNextLine()) {"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            loadTask(reader, tasks);"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return tasks;"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private void loadTask(Scanner reader, ArrayList\u003cTask\u003e storageTasks) throws DukeException {"
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        Task task;"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        String[] parsedLines \u003d reader.nextLine().split(\"\\\\|\");"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        for (int i \u003d 0; i \u003c parsedLines.length; i++) {"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            parsedLines[i] \u003d parsedLines[i].trim();"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        switch (parsedLines[0]) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        case \"T\":"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            task \u003d new ToDo(parsedLines[2]);"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        case \"D\":"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            task \u003d new Deadline(parsedLines[2], parsedLines[3]);"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        case \"E\":"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            task \u003d new Event(parsedLines[2], parsedLines[3]);"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            break;"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        default:"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Existing task list format is corrupted. Please check again.\");"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (parsedLines[1].equals(\"\\u2713\")) {"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            task.markAsDone();"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        storageTasks.add(task);"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void write(TaskList taskList) throws DukeException {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        ArrayList\u003cTask\u003e tasks \u003d taskList.getTaskList();"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            FileWriter fw \u003d new FileWriter(new File(FILE_PATH));"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            writeTask(fw, tasks);"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            fw.close();"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            throw new DukeException(\"Attempt to write to duke.txt failed.\");"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private void writeTask(FileWriter fw, ArrayList\u003cTask\u003e tasks) throws IOException {"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        for (Task t : tasks) {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            fw.write(t.getTaskType() + \" | \" + t.getStatusIcon() + \" | \" + t.getDescription());"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            switch (t.getTaskType()) {"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            case \"D\":"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                fw.write(\" | \" + ((Deadline) t).getBy());"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            case \"E\":"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                fw.write(\" | \" + ((Event) t).getAt());"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            fw.append(\"\\n\");"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 110
     }
   },
   {
@@ -2252,7 +3488,7 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected String by;"
+        "content": "    public String by;"
       },
       {
         "lineNumber": 6,
@@ -2266,7 +3502,7 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Deadline(String description, String by) {"
+        "content": "    public Deadline(String description, String by){"
       },
       {
         "lineNumber": 8,
@@ -2287,87 +3523,80 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        setTaskType(\"D\");"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Deadline(String description, String by, boolean isDone) {"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        super(description);"
+        "content": "    public String getBy() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.by \u003d by;"
+        "content": "        return by;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d isDone;"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String toString() {"
+        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return \"[D]\" + super.toString() + \" (by: \" + by + \")\";"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "yeapcl"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 22,
+        "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
@@ -2375,7 +3604,7 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 22
+      "yeapcl": 21
     }
   },
   {
@@ -2429,7 +3658,7 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Event(String description, String at) {"
+        "content": "    public Event(String description, String at){"
       },
       {
         "lineNumber": 8,
@@ -2450,87 +3679,80 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        setTaskType(\"E\");"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Event(String description, String at, boolean isDone) {"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        super(description);"
+        "content": "    public String getAt() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.at \u003d at;"
+        "content": "        return at;"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d isDone;"
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    @Override"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    @Override"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String toString() {"
+        "content": "        return \"[E]\" + super.toString() + \" (at: \" + at + \")\";"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return \"[E]\" + super.toString() + \" (at: \" + at + \")\";"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "yeapcl"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 22,
+        "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
@@ -2538,7 +3760,7 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 22
+      "yeapcl": 21
     }
   },
   {
@@ -2557,28 +3779,28 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "import duke.Duke;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "public abstract class Task {"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "public class Task {"
+        "content": "    protected String description;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    protected String description;"
+        "content": "    protected String taskType;"
       },
       {
         "lineNumber": 6,
@@ -2592,7 +3814,310 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static int taskNumber \u003d 0;"
+        "content": ""
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void setTaskType(String taskType) {"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        this.taskType \u003d taskType;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return description;"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String getTaskType() {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return taskType;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public boolean isDone() {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return isDone;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void markAsDone() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return \"[\" + getStatusIcon() + \"] \" + this.description;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 42
+    }
+  },
+  {
+    "path": "src/main/java/duke/task/TaskList.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.task;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.exception.DukeException;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import java.util.ArrayList;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "public class TaskList {"
       },
       {
         "lineNumber": 8,
@@ -2606,203 +4131,203 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Task(String description) {"
+        "content": "    public static final int MAX_SIZE \u003d 100;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.description \u003d description;"
+        "content": "    private final ArrayList\u003cTask\u003e tasks;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "    public TaskList() {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        this.tasks \u003d new ArrayList\u003c\u003e(MAX_SIZE);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public Task(String description, boolean isDone) {"
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.description \u003d description;"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d isDone;"
+        "content": "    public TaskList(ArrayList\u003cTask\u003e tasks) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        this.tasks \u003d new ArrayList\u003c\u003e(tasks);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+        "content": "    public void addTask(Task task) {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        tasks.add(task);"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String getDescription() {"
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return description;"
+        "content": "    public void deleteTask(int index) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        tasks.remove(index - 1);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public void markAsDone() {"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "    public ArrayList\u003cTask\u003e getTaskList() {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "        return tasks;"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static void getTaskTracker(Task item) {"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        Duke.makeTextBorder(\"Got it. I\u0027ve added this task:\\n\" + item.toString() + \"\\nNow you have \" + (taskNumber + 1) + \" tasks in the list.\");"
+        "content": "    public Task getTask(int index) throws DukeException {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        taskNumber++;"
+        "content": "        try {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "            return tasks.get(index - 1);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": "        } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public static void getTaskTracker(Task item, boolean isFromFile) {"
+        "content": "            throw new DukeException(\"Invalid task number! Type \u0027list\u0027 to get an overview of your tasks.\");"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        taskNumber++;"
+        "content": "        }"
       },
       {
         "lineNumber": 38,
@@ -2823,31 +4348,24 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    @Override"
+        "content": "    public int getTotalTaskCount() {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String toString() {"
+        "content": "        return tasks.size();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return \"[\" + getStatusIcon() + \"] \" + this.description;"
-      },
-      {
-        "lineNumber": 43,
-        "author": {
-          "gitId": "yeapcl"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 44,
+        "lineNumber": 43,
         "author": {
           "gitId": "yeapcl"
         },
@@ -2855,7 +4373,7 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 44
+      "yeapcl": 43
     }
   },
   {
@@ -2909,7 +4427,114 @@
         "author": {
           "gitId": "yeapcl"
         },
+        "content": "        setTaskType(\"T\");"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "yeapcl"
+        },
         "content": "    }"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    @Override"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String toString() {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return \"[T]\" + super.toString();"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "yeapcl": 14
+    }
+  },
+  {
+    "path": "src/main/java/duke/ui/Ui.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "package duke.ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Deadline;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Event;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.Task;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.TaskList;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "import duke.task.ToDo;"
       },
       {
         "lineNumber": 8,
@@ -2923,66 +4548,815 @@
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public ToDo(String description, boolean isDone) {"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        super(description);"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        this.isDone \u003d isDone;"
+        "content": "/**"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": " * Make sense of user\u0027s inputs and print relevant messages to the user."
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": ""
+        "content": " */"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    @Override"
+        "content": "public class Ui {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    public String toString() {"
+        "content": "    private static final String MESSAGE_LINE \u003d \"____________________________________________________________\";"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "        return \"[T]\" + super.toString();"
+        "content": "    private static final String MESSAGE_GREETINGS \u003d \"\\nHello! I\u0027m Duke, your personal task assistant!\\n\" +"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "yeapcl"
         },
-        "content": "    }"
+        "content": "            \"What can I do for you today?\\n\";"
       },
       {
         "lineNumber": 18,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    private final Scanner scanner \u003d new Scanner(System.in);"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints a horizontal divider line"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void showLine() {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(MESSAGE_LINE);"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Reads user inputs."
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @return String the inputs provided by users, where leading and trailing spaces are trimmed."
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public String readCommand() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        return scanner.nextLine().trim();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints welcome message"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void showWelcome() {"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(MESSAGE_LINE + MESSAGE_GREETINGS + MESSAGE_LINE);"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints out all tasks saved in the array list."
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param taskList the array list to print"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printList(TaskList taskList) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (taskList.getTotalTaskCount() \u003e 0) {"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"Here are the tasks in your list: \");"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            int i \u003d 1;"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            for (Task t : taskList.getTaskList()) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                System.out.println(i + \". \" + t);"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                i++;"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"There is no task in the list! Consider adding one?\");"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printToDo(TaskList taskList, ToDo task) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Got it! I\u0027ve added the following to-do in the list:\\n\" + task);"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Now now have \" + taskList.getTotalTaskCount() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printDeadline(TaskList taskList, Deadline task) {"
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Got it! I\u0027ve added the following deadline in the list:\\n\" + task);"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Now now have \" + taskList.getTotalTaskCount() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printEvent(TaskList taskList, Event task) {"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Got it! I\u0027ve added the following event in the list:\\n\" + task);"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Now now have \" + taskList.getTotalTaskCount() + \" tasks in the list.\");"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printDone(Task task) {"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Nice! I have marked this task as done:\\n\" + task);"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Print to inform the user that the selected task has been deleted"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param taskList the task array list"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param task the task that has been deleted"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printDelete(TaskList taskList, Task task) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Noted. I have removed this task:\\n\" + task);"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Now you have \" + taskList.getTotalTaskCount() + \" tasks in this list.\");"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints all result(s) that matches the search keyword"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param taskList the array list that contains the keyword"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param keyword the word that the user searches"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void printFind(TaskList taskList, String keyword) {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        if (taskList.getTotalTaskCount() \u003e 0) {"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"Here are the task(s) in your list that matches the keyword \\\"\" + keyword + \"\\\":\");"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            int i \u003d 1;"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            for (Task t : taskList.getTaskList()) {"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                System.out.println(i + \". \" + t);"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "                i++;"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "            System.out.println(\"No task contains the keyword \\\"\" + keyword + \"\\\".\");"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints farewell message"
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void showBye() {"
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"Bye. Hope to see you again soon!\");"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * Prints error message."
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     * @param message the error message to be printed"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    public void showError(String message) {"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "        System.out.println(\"\\u2639 OOPS!!! \" + message);"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "yeapcl"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 125,
         "author": {
           "gitId": "yeapcl"
         },
@@ -2990,7 +5364,7 @@
       }
     ],
     "authorContributionMap": {
-      "yeapcl": 18
+      "yeapcl": 125
     }
   }
 ]

@@ -1390,77 +1390,77 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     * @return flag indicating which task was created"
+        "content": "     */"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     */"
+        "content": ""
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void execute(String inputTask, ArrayList\u003cTask\u003e list) throws EmptyDeadline, EmptyEvent, EmptyToDo, UnknownCommand, DateTimeException {"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static int execute(String inputTask, ArrayList\u003cTask\u003e list) throws EmptyDeadline, EmptyEvent, EmptyToDo, UnknownCommand, DateTimeException {"
+        "content": "        final int TODO_REMOVAL \u003d 5;"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        int taskFlag; // to differentiate between each task, thus different exception"
+        "content": "        final int DEADLINE_REMOVAL \u003d 9;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        final int TODO_REMOVAL \u003d 5;"
+        "content": "        final int EVENT_REMOVAL \u003d 6;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        final int DEADLINE_REMOVAL \u003d 9;"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        final int EVENT_REMOVAL \u003d 6;"
+        "content": "        String taskName;"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "        String dueDate;"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        String taskName;"
+        "content": ""
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        String dueDate;"
+        "content": "        DateTimeFormatter dateTimeFormatter \u003d DateTimeFormatter.ofPattern(\"d-MM-yyyy HHmm\");"
       },
       {
         "lineNumber": 44,
@@ -1474,7 +1474,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        DateTimeFormatter dateTimeFormatter \u003d DateTimeFormatter.ofPattern(\"d-MM-yyyy HHmm\");"
+        "content": "        Parser.emptyTaskChecker(inputTask.trim());"
       },
       {
         "lineNumber": 46,
@@ -1488,220 +1488,171 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "        if (inputTask.contains(\"todo\")) {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        if (inputTask.contains(\"todo\")) {"
+        "content": "            taskName \u003d inputTask.substring(TODO_REMOVAL);"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskFlag \u003d 1;"
+        "content": "            Todo newTask \u003d new Todo(taskName);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskName \u003d inputTask.substring(TODO_REMOVAL);"
+        "content": "            TaskList.addedList(list, newTask, 1);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Parser.emptyChecker(taskName, taskFlag);"
+        "content": ""
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Todo newTask \u003d new Todo(taskName);"
+        "content": "        } else if (inputTask.contains(\"deadline\")) {"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            TaskList.addedList(list, newTask, 1);"
+        "content": "            Parser.missingFormatChecker(inputTask);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "            taskName \u003d inputTask.substring(DEADLINE_REMOVAL, inputTask.indexOf(\"/\") - 1);"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        } else if (inputTask.contains(\"deadline\")) {"
+        "content": "            dueDate \u003d inputTask.substring(inputTask.indexOf(\"/by\") + 4).stripLeading().stripTrailing();"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskFlag \u003d 2;"
+        "content": "            LocalDateTime deadlineDate \u003d LocalDateTime.parse(dueDate, dateTimeFormatter);"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskName \u003d inputTask.substring(DEADLINE_REMOVAL, inputTask.indexOf(\"/\") - 1);"
+        "content": "            Deadline newTask \u003d new Deadline(taskName, deadlineDate);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Parser.emptyChecker(taskName, taskFlag);"
+        "content": "            TaskList.addedList(list, newTask, 1);"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            dueDate \u003d inputTask.substring(inputTask.indexOf(\"/by\") + 4).stripLeading().stripTrailing();"
+        "content": ""
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            LocalDateTime deadlineDate \u003d LocalDateTime.parse(dueDate,dateTimeFormatter);"
+        "content": "        } else if (inputTask.contains(\"event\")) {"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Deadline newTask \u003d new Deadline(taskName, deadlineDate);"
+        "content": "            Parser.missingFormatChecker(inputTask);"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            TaskList.addedList(list, newTask, 1);"
+        "content": "            taskName \u003d inputTask.substring(EVENT_REMOVAL, inputTask.indexOf(\"/\") - 1);"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "            dueDate \u003d inputTask.substring(inputTask.indexOf(\"/at\") + 4).stripLeading().stripTrailing();"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        } else if (inputTask.contains(\"event\")) {"
+        "content": "            LocalDateTime eventDate \u003d LocalDateTime.parse(dueDate, dateTimeFormatter);"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskFlag \u003d 3;"
+        "content": "            Event newTask \u003d new Event(taskName, eventDate);"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            taskName \u003d inputTask.substring(EVENT_REMOVAL, inputTask.indexOf(\"/\") - 1);"
+        "content": "            TaskList.addedList(list, newTask, 1);"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Parser.emptyChecker(taskName, taskFlag);"
+        "content": "        } else {"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            dueDate \u003d inputTask.substring(inputTask.indexOf(\"/at\") + 4).stripLeading().stripTrailing();"
+        "content": "            throw new UnknownCommand();"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            LocalDateTime eventDate \u003d LocalDateTime.parse(dueDate,dateTimeFormatter);"
+        "content": "        }"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            Event newTask \u003d new Event(taskName, eventDate);"
-      },
-      {
-        "lineNumber": 71,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "            TaskList.addedList(list, newTask, 1);"
-      },
-      {
-        "lineNumber": 72,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 73,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "            throw new UnknownCommand();"
-      },
-      {
-        "lineNumber": 74,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 75,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "        return taskFlag;"
-      },
-      {
-        "lineNumber": 76,
-        "author": {
-          "gitId": "tobiasceg"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 78,
+        "lineNumber": 71,
         "author": {
           "gitId": "tobiasceg"
         },
@@ -1709,7 +1660,7 @@
       }
     ],
     "authorContributionMap": {
-      "tobiasceg": 78
+      "tobiasceg": 71
     }
   },
   {
@@ -1777,7 +1728,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void printLine(){"
+        "content": "    public static void printLine() {"
       },
       {
         "lineNumber": 10,
@@ -2294,14 +2245,14 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        for (Task i:list){"
+        "content": "        for (Task i : list){"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            if (i.toString().contains(searchWord)){"
+        "content": "            if (i.toString().contains(searchWord)) {"
       },
       {
         "lineNumber": 19,
@@ -2646,353 +2597,290 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        // Array of the Task class objects"
+        "content": "        ArrayList\u003cTask\u003e list \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        ArrayList\u003cTask\u003e list \u003d new ArrayList\u003c\u003e();"
+        "content": ""
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "        Storage.loadStorage(dukeFile, dukeLocation, list);"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        int taskFlag \u003d 0; // Flag to see which command triggers the exception StringIndexOut...."
+        "content": ""
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "        while (true) {"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        Storage.loadStorage(dukeFile, dukeLocation, list);"
+        "content": "            reply \u003d scan.nextLine();"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "            try {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        while (true) {"
+        "content": "                if (reply.equals(\"bye\")) {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            reply \u003d scan.nextLine();"
+        "content": "                    Ui.outroMessage();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            try {"
+        "content": "                    break;"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                if (reply.equals(\"bye\")) {"
+        "content": "                } else if (reply.equals(\"list\")) {"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    Ui.outroMessage();"
+        "content": "                    TaskList.printList(list);"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    break;"
+        "content": "                } else if (reply.contains(\"done\")) {"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                } else if (reply.equals(\"list\")){"
+        "content": "                    DoneCommand.execute(reply, list);"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    TaskList.printList(list);"
+        "content": "                } else if (reply.contains(\"delete\")) {"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                } else if (reply.contains(\"done\")) {"
+        "content": "                    DeleteCommand.execute(reply, list);"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    DoneCommand.execute(reply,list);"
+        "content": "                }else if (reply.contains(\"find\")) {"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                } else if (reply.contains(\"delete\")) {"
+        "content": "                    FindCommand.execute(reply, list);"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    DeleteCommand.execute(reply, list);"
+        "content": "                } else {"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                }else if (reply.contains(\"find\")){"
+        "content": "                    AddCommand.execute(reply, list);"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    FindCommand.execute(reply,list);"
+        "content": "                }"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                } else {"
+        "content": "                Storage.storageWriteToTextFile(dukeLocation,list);"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    taskFlag \u003d AddCommand.execute(reply,list);"
+        "content": "            } catch ( UnknownCommand e) {"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                }"
+        "content": "                Ui.unknownMessage();"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                Storage.storageWriteToTextFile(dukeLocation,list);"
+        "content": "            } catch ( EmptyToDo e) {"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            } catch ( UnknownCommand e) { // don\u0027t understand the command"
+        "content": "                Ui.emptyToDoMessage();"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                Ui.unknownMessage();"
+        "content": "            } catch ( EmptyEvent e) {"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            } catch ( EmptyToDo e) { // spacing"
+        "content": "                Ui.emptyEventMessage();"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                Ui.emptyToDoMessage();"
+        "content": "            } catch ( EmptyDeadline e) {"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            } catch ( EmptyEvent e) { // spacing"
+        "content": "                Ui.emptyDeadlineMessage();"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                Ui.emptyEventMessage();"
+        "content": "            } catch (IOException e) {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            } catch ( EmptyDeadline e) { // spacing"
+        "content": "                Ui.printMissingFileMessage();"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                Ui.emptyDeadlineMessage();"
+        "content": "            } catch (DateTimeException e) {"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            } catch ( StringIndexOutOfBoundsException e ) { // no spacing"
+        "content": "                Ui.incorrectDateFormat();"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                if (taskFlag \u003d\u003d 1){"
+        "content": "            } catch (IndexOutOfBoundsException e) {"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    Ui.emptyToDoMessage();"
+        "content": "                Ui.outsideIndexMessage();"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                }else if (taskFlag \u003d\u003d 2){"
+        "content": "            }"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                    Ui.emptyDeadlineMessage();"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "                }else if (taskFlag \u003d\u003d 3){"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "                    Ui.emptyEventMessage();"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "            } catch (IOException e) {"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "                Ui.printMissingFileMessage();"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "            } catch (DateTimeException e){"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "                Ui.incorrectDateFormat();"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "tobiasceg"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "tobiasceg"
-        },
         "content": "        }"
       },
       {
-        "lineNumber": 89,
+        "lineNumber": 80,
         "author": {
           "gitId": "-"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 90,
+        "lineNumber": 81,
         "author": {
           "gitId": "tobiasceg"
         },
         "content": ""
       },
       {
-        "lineNumber": 91,
+        "lineNumber": 82,
         "author": {
           "gitId": "-"
         },
         "content": "}"
       },
       {
-        "lineNumber": 92,
+        "lineNumber": 83,
         "author": {
           "gitId": "tobiasceg"
         },
@@ -3000,7 +2888,7 @@
       }
     ],
     "authorContributionMap": {
-      "tobiasceg": 89,
+      "tobiasceg": 80,
       "-": 3
     }
   },
@@ -3291,143 +3179,234 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "import exceptions.UnknownCommand;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "/**"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": " * Parser deals with making sense of the user\u0027s input command"
+        "content": "/**"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": " */"
+        "content": " * Parser deals with making sense of the user\u0027s input command"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "public abstract class Parser {"
+        "content": " */"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    /**"
+        "content": "public abstract class Parser {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     * Checks if the task to be input is empty"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     *"
+        "content": "    /**"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     * @param taskName task input by user"
+        "content": "     * Checks if task is empty"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     * @param taskFlag to differentiate which error message to display"
+        "content": "     *"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "     */"
+        "content": "     * @param inputCommand user input command"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void emptyChecker(String taskName,int taskFlag) throws EmptyToDo, EmptyDeadline, EmptyEvent {"
+        "content": "     */"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        if (taskName.equals(\"\") \u0026\u0026 taskFlag \u003d\u003d 1){"
+        "content": "    public static void emptyTaskChecker(String inputCommand) throws EmptyToDo, EmptyDeadline, EmptyEvent {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            throw new EmptyToDo();"
+        "content": "        switch (inputCommand) {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        }else if ( taskName.equals(\"\") \u0026\u0026 taskFlag \u003d\u003d 2){"
+        "content": "        case \"todo\":"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            throw new EmptyDeadline();"
+        "content": "            throw new EmptyToDo();"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        } else if ( taskName.equals(\"\") \u0026\u0026 taskFlag \u003d\u003d 3 ){"
+        "content": "        case \"deadline\":"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            throw new EmptyEvent();"
+        "content": "            throw new EmptyDeadline();"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        }"
+        "content": "        case \"event\":"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    }"
+        "content": "            throw new EmptyEvent();"
       },
       {
         "lineNumber": 26,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    /**"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "     * Checks if deadline or event commands have the correct format"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "     *"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "     * @param inputCommand user input command"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "     */"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    public static void missingFormatChecker(String inputCommand) throws UnknownCommand {"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        if ( !(inputCommand.contains(\"/at\") || inputCommand.contains(\"/by\")) ){"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "            throw new UnknownCommand();"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
         "author": {
           "gitId": "tobiasceg"
         },
@@ -3435,7 +3414,7 @@
       }
     ],
     "authorContributionMap": {
-      "tobiasceg": 26
+      "tobiasceg": 39
     }
   },
   {
@@ -3895,7 +3874,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                        dueDateEvent \u003d LocalDateTime.parse(DUE_DATE,dateTimeFormatter);"
+        "content": "                        dueDateEvent \u003d LocalDateTime.parse(DUE_DATE, dateTimeFormatter);"
       },
       {
         "lineNumber": 66,
@@ -3951,7 +3930,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                        dueDateDeadline \u003d LocalDateTime.parse(DUE_DATE,dateTimeFormatter);"
+        "content": "                        dueDateDeadline \u003d LocalDateTime.parse(DUE_DATE, dateTimeFormatter);"
       },
       {
         "lineNumber": 74,
@@ -4133,7 +4112,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void storageWriteToTextFile(Path dukeLocation,ArrayList\u003cTask\u003e list) throws IOException {"
+        "content": "    public static void storageWriteToTextFile(Path dukeLocation, ArrayList\u003cTask\u003e list) throws IOException {"
       },
       {
         "lineNumber": 100,
@@ -5000,7 +4979,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public String toString(){"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 40,
@@ -5063,7 +5042,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public void markAsDone(int rebootFlag){"
+        "content": "    public void markAsDone(int rebootFlag) {"
       },
       {
         "lineNumber": 49,
@@ -5077,7 +5056,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        if (!isDone){   //checking if isDone is false?"
+        "content": "        if (!isDone) {   //checking if isDone is false?"
       },
       {
         "lineNumber": 51,
@@ -5091,7 +5070,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            if ( rebootFlag \u003d\u003d 1) {"
+        "content": "            if ( rebootFlag \u003d\u003d 1 ) {"
       },
       {
         "lineNumber": 53,
@@ -5387,7 +5366,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "            System.out.println( (list.indexOf(i)+1) + \".\" + i.toString());"
+        "content": "            System.out.println( (list.indexOf(i)+1) + \".\" + i.toString() );"
       },
       {
         "lineNumber": 23,
@@ -5471,7 +5450,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void addedList(ArrayList\u003cTask\u003e list, Task newTask,int rebootFlag) {"
+        "content": "    public static void addedList(ArrayList\u003cTask\u003e list, Task newTask, int rebootFlag) {"
       },
       {
         "lineNumber": 35,
@@ -5562,7 +5541,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void added(Task addedTask,int listCounter){"
+        "content": "    public static void added(Task addedTask, int listCounter){"
       },
       {
         "lineNumber": 48,
@@ -5667,7 +5646,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void printDelete(Task deletedTask,int listCounter) {"
+        "content": "    public static void printDelete(Task deletedTask, int listCounter) {"
       },
       {
         "lineNumber": 63,
@@ -5723,7 +5702,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void printLine(){"
+        "content": "    public static void printLine() {"
       },
       {
         "lineNumber": 71,
@@ -6084,77 +6063,77 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void outroMessage() {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void outroMessage() {"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\" Bye. Hope to see you again soon!\");"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\" Bye. Hope to see you again soon!\");"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void introMessage() {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void introMessage(){"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\" Hello! I\u0027m Duke the list bot\\n\" +"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\" Hello! I\u0027m Duke the list bot\\n\" +"
+        "content": "                \" Please list down your plans for today...\\n\" +"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "                \" Please list down your plans for today...\\n\" +"
+        "content": "                \"For the command list, please refer to the User Guide!\\n\" +"
       },
       {
         "lineNumber": 21,
@@ -6196,7 +6175,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void printLine(){"
+        "content": "    public static void printLine() {"
       },
       {
         "lineNumber": 27,
@@ -6224,126 +6203,126 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void printMissingFileMessage() {"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void printMissingFileMessage() {"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\"The File is missing\");"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\"The File is missing\");"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void emptyToDoMessage() {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void emptyToDoMessage() {"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\" ☹ OOPS!!! The description of a todo cannot be empty.\");"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\" ☹ OOPS!!! The description of a todo cannot be empty.\");"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void emptyEventMessage() {"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void emptyEventMessage() {"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\" ☹ OOPS!!! The description of a event cannot be empty.\");"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\" ☹ OOPS!!! The description of a event cannot be empty.\");"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 48,
@@ -6392,28 +6371,28 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": ""
+        "content": "    public static void unknownMessage() {"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "    public static void unknownMessage() {"
+        "content": "        printLine();"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        printLine();"
+        "content": "        System.out.println(\" ☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means\\n\" +"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\" ☹ OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\");"
+        "content": "                \"Please check the format of the previous input code\");"
       },
       {
         "lineNumber": 58,
@@ -6455,7 +6434,7 @@
         "author": {
           "gitId": "tobiasceg"
         },
-        "content": "        System.out.println(\"Incorrect Date or DateTime input detected!\" +"
+        "content": "        System.out.println(\"Incorrect DateTime input detected! Please check if input the relevant format for deadline or event\\n\" +"
       },
       {
         "lineNumber": 64,
@@ -6483,11 +6462,53 @@
         "author": {
           "gitId": "tobiasceg"
         },
+        "content": ""
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    public static void outsideIndexMessage() {"
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        System.out.println(\"Missing Index given, please check the list index again\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "        printLine();"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "tobiasceg"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "tobiasceg"
+        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "tobiasceg": 67
+      "tobiasceg": 73
     }
   },
   {

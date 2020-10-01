@@ -1,6 +1,6 @@
 [
   {
-    "path": "src/main/java/Deadline.java",
+    "path": "src/main/java/Commands/Commands.java",
     "fileType": "java",
     "lines": [
       {
@@ -8,7 +8,7 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "package Commands;"
       },
       {
         "lineNumber": 2,
@@ -22,52 +22,360 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Deadline(String description) {"
+        "content": "import Data.Storage;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        super(description);"
+        "content": "import Data.TaskList;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "import Parser.Parser;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import Tasks.Deadline;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "import Tasks.Event;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"[D]\";"
+        "content": "import Tasks.Todo;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "import Ui.Messages;"
       },
       {
         "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Commands {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void addTask(String description, String type, TaskList list) throws IOException {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        switch (type){"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            case (\"todo\"):"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToList(new Todo(description));"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToFile(new Todo(description));"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            case (\"event\") :"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToList(new Event(description));"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToFile(new Event(description));"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            case (\"deadline\") :"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToList(new Deadline(description));"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                list.addToFile(new Deadline(description));"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        Messages.printAddedTask(list.get(list.size() - 1), list.size());"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void updateIfTaskIsDone(String input, int index, TaskList list) throws IOException {"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            list.get(checkedIntIndex - 1).updateIsDone();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        Storage.overWriteFile(list);"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        Messages.printTaskMarkedDone(list, checkedIntIndex);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void removeTask(TaskList list, String input, int index) throws IOException {"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printRemovedTask(list, checkedIntIndex);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            list.remove(checkedIntIndex - 1);"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        Storage.overWriteFile(list);"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 54,
         "author": {
           "gitId": "joelngyx"
         },
@@ -75,11 +383,11 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 10
+      "joelngyx": 54
     }
   },
   {
-    "path": "src/main/java/Duke.java",
+    "path": "src/main/java/Data/Storage.java",
     "fileType": "java",
     "lines": [
       {
@@ -87,175 +395,175 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.FileNotFoundException;"
+        "content": "package Data;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.util.ArrayList;"
+        "content": "import Tasks.Deadline;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.File;"
+        "content": "import Tasks.Event;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.IOException;"
+        "content": "import Tasks.Task;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.FileWriter;"
+        "content": "import Tasks.Todo;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import Ui.Messages;"
       },
       {
         "lineNumber": 8,
         "author": {
-          "gitId": "-"
+          "gitId": "joelngyx"
         },
-        "content": "public class Duke {"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import java.io.File;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void main(String[] args) throws IOException {"
+        "content": "import java.io.FileWriter;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        File duke \u003d new File(\"duke.txt\");"
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        duke.createNewFile();"
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"full path: \" + duke.getAbsolutePath());"
+        "content": ""
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"file exists?: \" + duke.exists());"
+        "content": "public class Storage {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"is Directory?: \" + duke.isDirectory());"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"Hello from\\n\" + Messages.WELCOME_MESSAGE);"
+        "content": "    protected String filePath;"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        addingTasksToList(duke);"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public Storage(String filePath){"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        this.filePath \u003d filePath;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    //Processes"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void addingTasksToList(File duke) throws IOException {"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        Scanner in \u003d new Scanner(System.in);"
+        "content": "    public void getFile() throws IOException {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        ArrayList\u003cTask\u003e list \u003d new ArrayList\u003c\u003e();"
+        "content": "        File duke \u003d new File(\"duke.txt\");"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int index \u003d load(\"duke.txt\", list);"
+        "content": "        duke.createNewFile();"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String input \u003d in.nextLine();"
+        "content": "    }"
       },
       {
         "lineNumber": 26,
@@ -269,189 +577,189 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        while((!input.equals(\"bye\")) \u0026\u0026 (!input.equals(\"Bye\")) \u0026\u0026 (index \u003c 100)){"
+        "content": "    public static void appendToFile(Task input) throws IOException{"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(input.equals(\"list\") || input.equals(\"List\")){"
+        "content": "        FileWriter fw \u003d new FileWriter(\"duke.txt\" ,true);"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printTaskList(list);"
+        "content": "        fw.write(Messages.printToFile(input));"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "        fw.close();"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            else if(input.contains(\"done\") || input.contains(\"Done\")){"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                updateIfTaskIsDone(input, index, list);"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "    public static void overWriteFile(TaskList list) throws IOException {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            else if(input.contains(\"delete\") || input.contains(\"Delete\")){"
+        "content": "        int i \u003d 0;"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                removeTask(list, input, index);"
+        "content": "        FileWriter fw \u003d new FileWriter(\"duke.txt\", false);"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                index --;"
+        "content": "        while (i \u003c list.size()){"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                overWriteFile(\"duke.txt\", list);"
+        "content": "            fw.write(Messages.printToFile(list.get(i)));"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "            i++;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            else{"
+        "content": "        }"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                addATask(list, index, input);"
+        "content": "        fw.close();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                if(!getTaskType(input).equals(\"Error\")) {"
+        "content": "    }"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    index++;"
+        "content": ""
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                }"
+        "content": "    public void load (TaskList list) throws IOException {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "        //This function populates the list with saved data on duke.txt"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            input \u003d in.nextLine();"
+        "content": "        Scanner sc \u003d new Scanner(new File(filePath));"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "        int i \u003d 0;"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        //overWriteFile(\"duke.txt\", list);"
+        "content": "        while (sc.hasNextLine()) {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(Messages.BYE_MESSAGE);"
+        "content": "            String task \u003d sc.nextLine();"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "            char type \u003d task.charAt(1);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "            //System.out.println(type);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void addATask (ArrayList\u003cTask\u003e list, int index, String input) throws IOException {"
+        "content": "            char status \u003d task.charAt(4);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String type \u003d getTaskType(input);"
+        "content": "            //System.out.println(status);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if(type !\u003d \"Error\") {"
+        "content": "            String description \u003d task.substring(6);"
       },
       {
         "lineNumber": 54,
@@ -465,1038 +773,162 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"Todo\"):"
+        "content": "                case (\u0027T\u0027):"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.add(new Todo(input.replace(\"todo\", \"\")));"
+        "content": "                    list.addToList(new Todo(description));"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "                    break;"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"Deadline\"):"
+        "content": "                case (\u0027E\u0027):"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.add(new Deadline(input.replace(\"deadline\", \"\")."
+        "content": "                    list.addToList(new Event(description));"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                        replace(\"/\", \"(\") + \")\"));"
+        "content": "                    break;"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "                case (\u0027D\u0027):"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"Event\"):"
+        "content": "                    list.addToList(new Deadline(description));"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.add(new Event(input.replace(\"event\", \"\")."
+        "content": "                    break;"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                            replace(\"/\", \"(\") + \")\"));"
+        "content": "            }"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "            switch (status) {"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "                case (\u0027\\u2713\u0027):"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            appendToFile(\"duke.txt\", list.get(index), true);"
+        "content": "                    list.get(i).updateIsDone();"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            Messages.printAddedTask(list.get(index), index);"
+        "content": "                    break;"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else {"
+        "content": "                case (\u0027\\u2718\u0027):"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            String errorType \u003d DukeExceptions.checkErrorType(input);"
+        "content": "                    list.get(i).markNotDone();"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            switch(errorType){"
+        "content": "                    break;"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"Todo_Empty_Input\"):"
+        "content": "            }"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printError_EmptyInput(\"todo\");"
+        "content": "            i++;"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "        }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"Event_Empty_Input\"):"
+        "content": "    }"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printError_EmptyInput(\"event\");"
-      },
-      {
-        "lineNumber": 77,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 78,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            case (\"Deadline_Empty_Input\"):"
-      },
-      {
-        "lineNumber": 79,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                Messages.printError_EmptyInput(\"deadline\");"
-      },
-      {
-        "lineNumber": 80,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 81,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            case (\"Deadline_Lack_Slash\"):"
-      },
-      {
-        "lineNumber": 82,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                Messages.printError_LackSlash(\"deadline\");"
-      },
-      {
-        "lineNumber": 83,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            case (\"Event_Lack_Slash\"):"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                Messages.printError_LackSlash(\"event\");"
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                break;"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            default:"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                Messages.printAddingTaskError();"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static void updateIfTaskIsDone(String input, int index, ArrayList\u003cTask\u003e list) throws IOException {"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
-      },
-      {
-        "lineNumber": 96,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
-      },
-      {
-        "lineNumber": 97,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0){"
-      },
-      {
-        "lineNumber": 98,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            list.get(checkedIntIndex - 1).updateIsDone();"
-      },
-      {
-        "lineNumber": 99,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 100,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        Messages.printTaskMarkedDone(list, checkedIntIndex);"
-      },
-      {
-        "lineNumber": 101,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        overWriteFile(\"duke.txt\", list);"
-      },
-      {
-        "lineNumber": 102,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 103,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 104,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static String getTaskType(String s){"
-      },
-      {
-        "lineNumber": 105,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        //Types can be Todo, Deadline or Event"
-      },
-      {
-        "lineNumber": 106,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        boolean isTodo \u003d checkTaskType(s, \"todo\");"
-      },
-      {
-        "lineNumber": 107,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        boolean isDeadline \u003d checkTaskType(s, \"deadline\");"
-      },
-      {
-        "lineNumber": 108,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        boolean isEvent \u003d checkTaskType(s, \"event\");"
-      },
-      {
-        "lineNumber": 109,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(isTodo){"
-      },
-      {
-        "lineNumber": 110,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            return \"Todo\";"
-      },
-      {
-        "lineNumber": 111,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        } else if (isDeadline){"
-      },
-      {
-        "lineNumber": 112,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            return \"Deadline\";"
-      },
-      {
-        "lineNumber": 113,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        } else if (isEvent){"
-      },
-      {
-        "lineNumber": 114,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            return \"Event\";"
-      },
-      {
-        "lineNumber": 115,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 116,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            return \"Error\";"
-      },
-      {
-        "lineNumber": 117,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 118,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 119,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 120,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static boolean checkTaskType(String s, String type) {"
-      },
-      {
-        "lineNumber": 121,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        String temp \u003d s.replace(type, \"\");"
-      },
-      {
-        "lineNumber": 122,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        temp \u003d temp.replace(\"/\", \"\");"
-      },
-      {
-        "lineNumber": 123,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if (s.contains(\"todo\")) {"
-      },
-      {
-        "lineNumber": 124,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            if(!temp.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 125,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return s.contains(type);"
-      },
-      {
-        "lineNumber": 126,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 127,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 128,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(s.contains(\"event\") || s.contains(\"deadline\")){"
-      },
-      {
-        "lineNumber": 129,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            if(s.contains(\"/\")) {"
-      },
-      {
-        "lineNumber": 130,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                if(!temp.equals(\"\")){"
-      },
-      {
-        "lineNumber": 131,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    return s.contains(type);"
-      },
-      {
-        "lineNumber": 132,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                }"
-      },
-      {
-        "lineNumber": 133,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 134,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 135,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        return false;"
-      },
-      {
-        "lineNumber": 136,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 137,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 138,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static void removeTask(ArrayList\u003cTask\u003e list, String input, int index) throws IOException {"
-      },
-      {
-        "lineNumber": 139,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
-      },
-      {
-        "lineNumber": 140,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
-      },
-      {
-        "lineNumber": 141,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0){"
-      },
-      {
-        "lineNumber": 142,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            Messages.printRemovedTask(list, checkedIntIndex);"
-      },
-      {
-        "lineNumber": 143,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            list.remove(checkedIntIndex - 1);"
-      },
-      {
-        "lineNumber": 144,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 145,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 146,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 147,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    //FILE I/O"
-      },
-      {
-        "lineNumber": 148,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static void appendToFile(String filePath, Task input, boolean mode) throws IOException {"
-      },
-      {
-        "lineNumber": 149,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath, mode);"
-      },
-      {
-        "lineNumber": 150,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        fw.write(Messages.printToFile(input));"
-      },
-      {
-        "lineNumber": 151,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 152,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 153,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 154,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static void overWriteFile(String filePath, ArrayList \u003cTask\u003e list) throws IOException {"
-      },
-      {
-        "lineNumber": 155,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        int i \u003d 0;"
-      },
-      {
-        "lineNumber": 156,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        FileWriter fw \u003d new FileWriter(filePath, false);"
-      },
-      {
-        "lineNumber": 157,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        while (i \u003c list.size()){"
-      },
-      {
-        "lineNumber": 158,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "           fw.write(Messages.printToFile(list.get(i)));"
-      },
-      {
-        "lineNumber": 159,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "           i++;"
-      },
-      {
-        "lineNumber": 160,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 161,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        fw.close();"
-      },
-      {
-        "lineNumber": 162,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 163,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 164,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static int load (String filePath, ArrayList\u003cTask\u003e list) throws FileNotFoundException {"
-      },
-      {
-        "lineNumber": 165,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        //This function populates the list with saved data on duke.txt"
-      },
-      {
-        "lineNumber": 166,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        Scanner sc \u003d new Scanner(new File(filePath));"
-      },
-      {
-        "lineNumber": 167,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        int i \u003d 0;"
-      },
-      {
-        "lineNumber": 168,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        while (sc.hasNextLine()) {"
-      },
-      {
-        "lineNumber": 169,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            String task \u003d sc.nextLine();"
-      },
-      {
-        "lineNumber": 170,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            char type \u003d task.charAt(1);"
-      },
-      {
-        "lineNumber": 171,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            //System.out.println(type);"
-      },
-      {
-        "lineNumber": 172,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            char status \u003d task.charAt(4);"
-      },
-      {
-        "lineNumber": 173,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            //System.out.println(status);"
-      },
-      {
-        "lineNumber": 174,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            String description \u003d task.substring(6);"
-      },
-      {
-        "lineNumber": 175,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            switch (type) {"
-      },
-      {
-        "lineNumber": 176,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                case (\u0027T\u0027):"
-      },
-      {
-        "lineNumber": 177,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    list.add(new Todo(description));"
-      },
-      {
-        "lineNumber": 178,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 179,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                case (\u0027E\u0027):"
-      },
-      {
-        "lineNumber": 180,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    list.add(new Event(description));"
-      },
-      {
-        "lineNumber": 181,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 182,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                case (\u0027D\u0027):"
-      },
-      {
-        "lineNumber": 183,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    list.add(new Deadline(description));"
-      },
-      {
-        "lineNumber": 184,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 185,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 186,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            switch (status) {"
-      },
-      {
-        "lineNumber": 187,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                case (\u0027\\u2713\u0027):"
-      },
-      {
-        "lineNumber": 188,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    list.get(i).isDone \u003d true;"
-      },
-      {
-        "lineNumber": 189,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 190,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                case (\u0027\\u2718\u0027):"
-      },
-      {
-        "lineNumber": 191,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    list.get(i).isDone \u003d false;"
-      },
-      {
-        "lineNumber": 192,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                    break;"
-      },
-      {
-        "lineNumber": 193,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 194,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            i++;"
-      },
-      {
-        "lineNumber": 195,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 196,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        return i;"
-      },
-      {
-        "lineNumber": 197,
-        "author": {
-          "gitId": "-"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 198,
-        "author": {
-          "gitId": "-"
-        },
         "content": "}"
-      },
-      {
-        "lineNumber": 199,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 200,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "// Git test"
-      },
-      {
-        "lineNumber": 201,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "// Git test2"
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 197,
-      "-": 4
+      "joelngyx": 76
     }
   },
   {
-    "path": "src/main/java/DukeExceptions.java",
+    "path": "src/main/java/Data/TaskList.java",
     "fileType": "java",
     "lines": [
       {
@@ -1504,219 +936,7 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class DukeExceptions {"
-      },
-      {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static String checkErrorType(String s){"
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        String temp \u003d s.replace(\"todo\", \"\");"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        temp \u003d temp.replace(\"deadline\", \"\");"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        temp \u003d temp.replace(\"event\", \"\");"
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        temp \u003d temp.replace(\"/\", \"\");"
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        temp \u003d temp.replace(\" \", \"\");"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(s.contains(\"todo\")){"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            if(temp.equals(\"\")){"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return \"Todo_Empty_Input\";"
-      },
-      {
-        "lineNumber": 11,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 12,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 13,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(s.contains(\"event\")){"
-      },
-      {
-        "lineNumber": 14,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            if(!s.contains(\"/\")){"
-      },
-      {
-        "lineNumber": 15,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return \"Event_Lacks_Slash\";"
-      },
-      {
-        "lineNumber": 16,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            } else if(temp.equals(\"\")){"
-      },
-      {
-        "lineNumber": 17,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return \"Event_Empty_Input\";"
-      },
-      {
-        "lineNumber": 18,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 19,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 20,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if(s.contains(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 21,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            if (!s.contains(\"/\")) {"
-      },
-      {
-        "lineNumber": 22,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return \"Deadline_Lacks_Slash\";"
-      },
-      {
-        "lineNumber": 23,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            } else if (temp.equals(\"\")) {"
-      },
-      {
-        "lineNumber": 24,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "                return \"Deadline_Empty_Input\";"
-      },
-      {
-        "lineNumber": 25,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            }"
-      },
-      {
-        "lineNumber": 26,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 27,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        return \"Error\";"
-      },
-      {
-        "lineNumber": 28,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 29,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "joelngyx": 29
-    }
-  },
-  {
-    "path": "src/main/java/Event.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "public class Event extends Task{"
+        "content": "package Data;"
       },
       {
         "lineNumber": 2,
@@ -1730,345 +950,266 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Event(String description) {"
+        "content": "import Tasks.Task;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        super(description);"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 6,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 7,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public String getTaskIcon(){"
-      },
-      {
-        "lineNumber": 8,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        return \"[E]\";"
-      },
-      {
-        "lineNumber": 9,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 10,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "joelngyx": 10
-    }
-  },
-  {
-    "path": "src/main/java/Messages.java",
-    "fileType": "java",
-    "lines": [
-      {
-        "lineNumber": 1,
         "author": {
           "gitId": "joelngyx"
         },
         "content": "import java.util.ArrayList;"
       },
       {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "public class Messages {"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static final String MARGINS \u003d \"____________________________________________________________\\n\";"
-      },
-      {
-        "lineNumber": 5,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 6,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static final String BYE_MESSAGE \u003d \"\""
-      },
-      {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + MARGINS + \"Bye. Hope to see you again soon!\\n\" + MARGINS;"
+        "content": ""
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "public class TaskList {"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static final String WELCOME_MESSAGE \u003d \"\""
+        "content": ""
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+        "content": "    // Used to instantiates an ArrayList of Tasks"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+        "content": "    // Contains methods to be called by commands"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+        "content": "    // Namely,"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\""
+        "content": "    // 1) Adding tasks"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + MARGINS"
+        "content": "    // 2) Listing tasks in the Data.TaskList"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"Hello! I\u0027m Duke\\n\""
+        "content": "    // 3) Updating isDone for tasks"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + \"What can I do for you?\\n\""
+        "content": "    // 4) Removing tasks"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            + MARGINS;"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    private final ArrayList\u003cTask\u003e taskList;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printRemovedTask (ArrayList\u003cTask\u003e list, int checkedIntIndex){"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"\""
+        "content": "    public TaskList() {"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + MARGINS"
+        "content": "        taskList \u003d new ArrayList\u003c\u003e();"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"Noted. I\u0027ve removed this task:\\n\""
+        "content": "    }"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"  \" + list.get(checkedIntIndex - 1).getTaskIcon() + \"[\""
+        "content": ""
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + list.get(checkedIntIndex - 1).getStatusIcon() + \"]\""
+        "content": "    public void addToList(Task task) throws IOException {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + list.get(checkedIntIndex - 1).description + \"\\n\""
+        "content": "        taskList.add(task);"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"Now you have \" + (list.size() - 1) + \" tasks in the list.\\n\""
+        "content": "    }"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + MARGINS"
+        "content": ""
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        );"
+        "content": "    public void addToFile(Task task) throws IOException {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        Storage.appendToFile(task);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printTaskMarkedDone (ArrayList\u003cTask\u003e list, int checkedIntIndex){"
+        "content": ""
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"\""
+        "content": "    public Task get(int i) {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + MARGINS"
+        "content": "        return taskList.get(i);"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"Nice! I\u0027ve marked this task as done:\\n\""
+        "content": "    }"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"  \" + list.get(checkedIntIndex - 1).getTaskIcon() + \"[\""
+        "content": ""
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + list.get(checkedIntIndex - 1).getStatusIcon() + \"]\""
+        "content": "    public int size(){"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + list.get(checkedIntIndex - 1).description + \"\\n\""
+        "content": "        return taskList.size();"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + MARGINS"
+        "content": "    }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        );"
+        "content": ""
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public String contentsOfTaskList() {"
       },
       {
         "lineNumber": 41,
@@ -2082,14 +1223,2080 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printAddingTaskError(){"
+        "content": "        int count \u003d 0;"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(MARGINS + \"Please enter a valid input\\n\" + MARGINS);"
+        "content": "        StringBuilder sb \u003d new StringBuilder();"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        sb.append(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        while(count \u003c taskList.size()){"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            sb.append(\"\\n\").append(count + 1).append(\".\").append(taskList.get(count)."
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    getTaskIcon()).append(\u0027[\u0027).append(taskList.get(count).getStatusIcon())."
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    append(\"]\").append(taskList.get(count).getDescription());"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            count++;"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        sb.append(\"\\n\");"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        sb.append(\"____________________________________________________________\");"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return sb.toString();"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void remove(int i) {"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        taskList.remove(i);"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 60
+    }
+  },
+  {
+    "path": "src/main/java/Duke.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Data.Storage;"
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Parser.Parser;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Ui.Messages;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Ui.TextUi;"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.util.Scanner;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.io.File;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "-"
+        },
+        "content": "public class Duke {"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    private Storage storage;"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    private TextUi ui;"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    private TaskList list;"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public Duke(String filePath) {"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        ui \u003d new TextUi();"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        storage \u003d new Storage(filePath);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        list \u003d new TaskList();"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        try {"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            storage.load(list);"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } catch (IOException e) {"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            ui.showToUser(e.toString());"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    private void start() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.ui \u003d new TextUi();"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        ui.showWelcomeMessage();"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    private void exit() {"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        ui.showGoodbyeMessage();"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.exit(0);"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void run() throws IOException {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        start();"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        storage.getFile();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String input;"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        do{"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            input \u003d ui.getInput();"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Parser.parseCommand(input, list);"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } while (!input.contains(\"bye\"));"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        exit();"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void main (String[] args) throws IOException {"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        new Duke(\"duke.txt\").run();"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 52,
+      "-": 1
+    }
+  },
+  {
+    "path": "src/main/java/Parser/Parser.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Parser;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Commands.Commands;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Data.TaskList;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Ui.Messages;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import java.io.IOException;"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Parser {"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    // The Parser.Parser Class contains methods that interprets"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    // the User\u0027s inputs and prepares the corresponding"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    // commands"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static int getIndex(String input, String type) {"
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String temp \u003d input.replace(type, \"\").replace(\" \", \"\");"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(temp.replaceAll(\"[0-9]\", \"\").isEmpty()) {"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return Integer.parseInt(temp);"
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return (-1);"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void parseCommand(String input, TaskList list) throws IOException {"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        // This method figures out what type of command the"
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        // input is to evoke"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int index;"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.print(list.size() + \"\\n\");"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int numberOfTasks \u003d list.size();"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String temp \u003d input.toLowerCase();"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(temp.equals(\"list\")){"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            System.out.println(list.contentsOfTaskList());"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if(temp.contains(\"done\")){"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            index \u003d getIndex(input,\"done\");"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks + 1)){"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printGeneralError();"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Commands.updateIfTaskIsDone(input, index, list);"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if(temp.contains(\"delete\")){"
+      },
+      {
+        "lineNumber": 45,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            index \u003d getIndex(input,\"delete\");"
+      },
+      {
+        "lineNumber": 46,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks)){"
+      },
+      {
+        "lineNumber": 47,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printGeneralError();"
+      },
+      {
+        "lineNumber": 48,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 49,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Commands.removeTask(list, input, index);"
+      },
+      {
+        "lineNumber": 50,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 51,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if (temp.contains(\"todo\") || temp.contains(\"event\") || temp.contains(\"deadline\")) {"
+      },
+      {
+        "lineNumber": 52,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(!getTaskType(input).equals(\"Error\")) {"
+      },
+      {
+        "lineNumber": 53,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                System.out.println(getDescription(getTaskType(input), input));"
+      },
+      {
+        "lineNumber": 54,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Commands.addTask(getDescription(getTaskType(temp), input), getTaskType(input), list);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 56,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 57,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printGeneralError();"
+      },
+      {
+        "lineNumber": 58,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 59,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 60,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 61,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static String getDescription(String type, String input) {"
+      },
+      {
+        "lineNumber": 62,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String temp \u003d input.toLowerCase();"
+      },
+      {
+        "lineNumber": 63,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int lastIndex \u003d temp.lastIndexOf(type);"
+      },
+      {
+        "lineNumber": 64,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return input.substring(lastIndex);"
+      },
+      {
+        "lineNumber": 65,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 66,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 67,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static String getTaskType(String s){"
+      },
+      {
+        "lineNumber": 68,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 69,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isTodo \u003d checkForErrors(s, \"todo\");"
+      },
+      {
+        "lineNumber": 70,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isDeadline \u003d checkForErrors(s, \"deadline\");"
+      },
+      {
+        "lineNumber": 71,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isEvent \u003d checkForErrors(s, \"event\");"
+      },
+      {
+        "lineNumber": 72,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(isTodo){"
+      },
+      {
+        "lineNumber": 73,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"todo\";"
+      },
+      {
+        "lineNumber": 74,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if (isDeadline){"
+      },
+      {
+        "lineNumber": 75,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"deadline\";"
+      },
+      {
+        "lineNumber": 76,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if (isEvent){"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"event\";"
+      },
+      {
+        "lineNumber": 78,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 79,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"Error\";"
+      },
+      {
+        "lineNumber": 80,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 81,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 82,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 83,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static boolean checkForErrors(String s, String type) {"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String temp \u003d s.replace(type, \"\").replace(\" \",\"\");"
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        temp \u003d temp.replace(\"/\", \"\");"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if (s.contains(\"todo\")) {"
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(!temp.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                return s.contains(type);"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printErrorEmptyInput(s);"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 93,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(s.contains(\"event\") || s.contains(\"deadline\")){"
+      },
+      {
+        "lineNumber": 94,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(s.contains(\"/\")) {"
+      },
+      {
+        "lineNumber": 95,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                if(!temp.equals(\"\")){"
+      },
+      {
+        "lineNumber": 96,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    return s.contains(type);"
+      },
+      {
+        "lineNumber": 97,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                } else {"
+      },
+      {
+        "lineNumber": 98,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    Messages.printErrorEmptyInput(s);"
+      },
+      {
+        "lineNumber": 99,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 100,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 101,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printErrorWrongSlash(s);"
+      },
+      {
+        "lineNumber": 102,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 103,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 104,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 105,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 106,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 106
+    }
+  },
+  {
+    "path": "src/main/java/Tasks/Deadline.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Deadline extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public Deadline(String description) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getTaskIcon(){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"[D]\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 12
+    }
+  },
+  {
+    "path": "src/main/java/Tasks/Event.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Event extends Task{"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public Event(String description) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getTaskIcon(){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"[E]\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 12
+    }
+  },
+  {
+    "path": "src/main/java/Tasks/Task.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    protected String description;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    protected boolean isDone;"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public Task(String description) {"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.description \u003d description;"
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getStatusIcon() {"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void updateIsDone(){"
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.isDone \u003d true;"
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void markNotDone() {"
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getTaskIcon(){"
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"Error\";"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return this.description;"
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 31
+    }
+  },
+  {
+    "path": "src/main/java/Tasks/Todo.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Tasks;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Todo extends Task {"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public Todo(String description) {"
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        super(description);"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getTaskIcon(){"
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"[T]\";"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "}"
+      }
+    ],
+    "authorContributionMap": {
+      "joelngyx": 12
+    }
+  },
+  {
+    "path": "src/main/java/Ui/Messages.java",
+    "fileType": "java",
+    "lines": [
+      {
+        "lineNumber": 1,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "package Ui;"
+      },
+      {
+        "lineNumber": 2,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 3,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Data.TaskList;"
+      },
+      {
+        "lineNumber": 4,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "import Tasks.Task;"
+      },
+      {
+        "lineNumber": 5,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 6,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "public class Messages {"
+      },
+      {
+        "lineNumber": 7,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static final String MARGINS \u003d \"____________________________________________________________\\n\";"
+      },
+      {
+        "lineNumber": 8,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 9,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static final String BYE_MESSAGE \u003d \"\""
+      },
+      {
+        "lineNumber": 10,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + MARGINS + \"Bye. Hope to see you again soon!\\n\" + MARGINS;"
+      },
+      {
+        "lineNumber": 11,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static final String WELCOME_MESSAGE \u003d \"\""
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + MARGINS"
+      },
+      {
+        "lineNumber": 14,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"|  _ \\\\ _   _| | _____ \\n\""
+      },
+      {
+        "lineNumber": 15,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"| | | | | | | |/ / _ \\\\\\n\""
+      },
+      {
+        "lineNumber": 16,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"| |_| | |_| |   \u003c  __/\\n\""
+      },
+      {
+        "lineNumber": 17,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"|____/ \\\\__,_|_|\\\\_\\\\___|\\n\""
+      },
+      {
+        "lineNumber": 18,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + MARGINS"
+      },
+      {
+        "lineNumber": 19,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"Welcome to Duke!\\n\""
+      },
+      {
+        "lineNumber": 20,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + \"Otherwise known as Joel\u0027s CS2113T iP\\n\""
+      },
+      {
+        "lineNumber": 21,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            + MARGINS;"
+      },
+      {
+        "lineNumber": 22,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 23,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void printRemovedTask (TaskList list, int checkedIntIndex){"
+      },
+      {
+        "lineNumber": 24,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(\"\""
+      },
+      {
+        "lineNumber": 25,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + MARGINS"
+      },
+      {
+        "lineNumber": 26,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + \"Noted. I\u0027ve removed this task:\\n\""
+      },
+      {
+        "lineNumber": 27,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + \"  \" + list.get(checkedIntIndex - 1).getTaskIcon() + \"[\""
+      },
+      {
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + list.get(checkedIntIndex - 1).getStatusIcon() + \"]\""
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + list.get(checkedIntIndex - 1).getDescription() + \"\\n\""
+      },
+      {
+        "lineNumber": 30,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + \"Now you have \" + (list.size() - 1) + \" tasks in the list.\\n\""
+      },
+      {
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + MARGINS"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        );"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void printTaskMarkedDone (TaskList list, int checkedIntIndex){"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(\"\""
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + MARGINS"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + \"Nice! I\u0027ve marked this task as done:\\n\""
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + \"  \" + list.get(checkedIntIndex - 1).getTaskIcon() + \"[\""
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + list.get(checkedIntIndex - 1).getStatusIcon() + \"]\""
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + list.get(checkedIntIndex - 1).getDescription() + \"\\n\""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                + MARGINS"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        );"
       },
       {
         "lineNumber": 44,
@@ -2110,7 +3317,7 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printAddedTask(Task input, int index){"
+        "content": "    public static void printAddedTask(Tasks.Task input, int index){"
       },
       {
         "lineNumber": 47,
@@ -2166,14 +3373,14 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + input.getStatusIcon() + \"]\" + input.description"
+        "content": "                + input.getStatusIcon() + \"]\" + input.getDescription()"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + \"\\nNow you have \" + (index + 1) + \" \" + task + \" in the list.\\n\""
+        "content": "                + \"\\nNow you have \" + (index) + \" \" + task + \" in the list.\\n\""
       },
       {
         "lineNumber": 56,
@@ -2229,14 +3436,14 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                + input.getStatusIcon() + \"]\" + input.description + \"\\n\""
+        "content": "                + input.getStatusIcon() + \"]\" + input.getDescription() + \"\\n\");"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        );"
+        "content": "    }"
       },
       {
         "lineNumber": 65,
@@ -2250,218 +3457,134 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public static void printErrorEmptyInput(String s){"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        System.out.println(MARGINS + \"Tasks of type \" + s + \" cannot be empty\\n\" + MARGINS);"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printTaskList(ArrayList\u003cTask\u003e list){"
+        "content": "    }"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int count \u003d 0;"
+        "content": ""
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": "    public static void printErrorWrongSlash(String s){"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        while(count \u003c list.size()){"
+        "content": "        System.out.println(MARGINS + \"Hint\" + \": \" + \"Please indicate the\");"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            System.out.println(\"\""
+        "content": "        if (s.equals(\"deadline\")) {"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    + (count + 1) + \".\" + list.get(count).getTaskIcon() + \u0027[\u0027"
+        "content": "            System.out.println(\"deadline\");"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    + list.get(count).getStatusIcon() + \"]\""
+        "content": "        } else {"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    + list.get(count).description"
+        "content": "            System.out.println(\"duration\");"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            );"
+        "content": "        }"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            count ++;"
+        "content": "        System.out.println(\"of the task with a \u0027/\u0027\\n\" + MARGINS);"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "    }"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"____________________________________________________________\");"
+        "content": ""
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public static void printGeneralError() {"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        System.out.println(MARGINS + \"Please enter a valid input\\n\" + MARGINS);"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printError_EmptyInput(String s){"
+        "content": "    }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(MARGINS + \"Tasks of type \" + s + \" cannot be empty\\n\" + MARGINS);"
-      },
-      {
-        "lineNumber": 84,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 85,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 86,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public static void printError_LackSlash(String s){"
-      },
-      {
-        "lineNumber": 87,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        System.out.println(MARGINS + \"Please indicate the\");"
-      },
-      {
-        "lineNumber": 88,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        if (s.equals(\"deadline\")) {"
-      },
-      {
-        "lineNumber": 89,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            System.out.println(\"deadline\");"
-      },
-      {
-        "lineNumber": 90,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        } else {"
-      },
-      {
-        "lineNumber": 91,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "            System.out.println(\"duration\");"
-      },
-      {
-        "lineNumber": 92,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        }"
-      },
-      {
-        "lineNumber": 93,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        System.out.println(\"of the task with a \u0027/\u0027\\n\" + MARGINS);"
-      },
-      {
-        "lineNumber": 94,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    }"
-      },
-      {
-        "lineNumber": 95,
-        "author": {
-          "gitId": "joelngyx"
-        },
         "content": "}"
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 95
+      "joelngyx": 83
     }
   },
   {
-    "path": "src/main/java/Task.java",
+    "path": "src/main/java/Ui/TextUi.java",
     "fileType": "java",
     "lines": [
       {
@@ -2469,229 +3592,276 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Task {"
+        "content": "package Ui;"
       },
       {
         "lineNumber": 2,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    protected String description;"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    protected boolean isDone;"
+        "content": "import java.io.InputStream;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static int numberOfTasks \u003d 0;"
+        "content": "import java.io.PrintStream;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import java.util.Scanner;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Task(String description) {"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.description \u003d description;"
+        "content": "public class TextUi {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": ""
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    private final Scanner in;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    private final PrintStream out;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": ""
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+        "content": "    public TextUi() {"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        this(System.in, System.out);"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public void updateIsDone(){"
+        "content": ""
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "    public TextUi(InputStream in, PrintStream out) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        this.in \u003d new Scanner(in);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        this.out \u003d out;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"Error\";"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public String getInput() {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "}"
-      }
-    ],
-    "authorContributionMap": {
-      "joelngyx": 22
-    }
-  },
-  {
-    "path": "src/main/java/Todo.java",
-    "fileType": "java",
-    "lines": [
+        "content": "        out.print(\"Enter an input!\\n\");"
+      },
       {
-        "lineNumber": 1,
+        "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Todo extends Task {"
+        "content": "        return in.nextLine();"
       },
       {
-        "lineNumber": 2,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": ""
-      },
-      {
-        "lineNumber": 3,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "    public Todo(String description) {"
-      },
-      {
-        "lineNumber": 4,
-        "author": {
-          "gitId": "joelngyx"
-        },
-        "content": "        super(description);"
-      },
-      {
-        "lineNumber": 5,
+        "lineNumber": 24,
         "author": {
           "gitId": "joelngyx"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 6,
+        "lineNumber": 25,
         "author": {
           "gitId": "joelngyx"
         },
         "content": ""
       },
       {
-        "lineNumber": 7,
+        "lineNumber": 26,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "    public void showToUser(String... message) {"
       },
       {
-        "lineNumber": 8,
+        "lineNumber": 27,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"[T]\";"
+        "content": "        for (String m : message) {"
       },
       {
-        "lineNumber": 9,
+        "lineNumber": 28,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            out.println(Messages.MARGINS + message + Messages.MARGINS);"
+      },
+      {
+        "lineNumber": 29,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
         "content": "    }"
       },
       {
-        "lineNumber": 10,
+        "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void showWelcomeMessage() {"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        out.print(Messages.WELCOME_MESSAGE);"
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void showGoodbyeMessage() {"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        out.print(Messages.BYE_MESSAGE);"
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 40,
         "author": {
           "gitId": "joelngyx"
         },
@@ -2699,7 +3869,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 10
+      "joelngyx": 40
     }
   }
 ]
