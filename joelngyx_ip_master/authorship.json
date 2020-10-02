@@ -36,35 +36,35 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import Parser.Parser;"
+        "content": "import Tasks.Deadline;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import Tasks.Deadline;"
+        "content": "import Tasks.Event;"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import Tasks.Event;"
+        "content": "import Tasks.Todo;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import Tasks.Todo;"
+        "content": "import Ui.Messages;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import Ui.Messages;"
+        "content": ""
       },
       {
         "lineNumber": 10,
@@ -78,21 +78,21 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.File;"
+        "content": "import java.io.IOException;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.io.IOException;"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "import java.util.Scanner;"
+        "content": ""
       },
       {
         "lineNumber": 14,
@@ -120,262 +120,276 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void addTask(String description, String type, TaskList list) throws IOException {"
+        "content": "    public static void addTodoTask(String description, TaskList list) throws IOException {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        switch (type){"
+        "content": "        list.addToList(new Todo(description));"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"todo\"):"
+        "content": "        list.addToFile(new Todo(description));"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToList(new Todo(description));"
+        "content": "        Messages.printAddedTask(list.get(list.size() - 1), list.size());"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToFile(new Todo(description));"
+        "content": "    }"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"event\") :"
+        "content": "    public static void addEventOrDeadlineTask (String description, String type, TaskList list, LocalDate date) throws IOException {"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToList(new Event(description));"
+        "content": "        switch(type) {"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToFile(new Event(description));"
+        "content": "        case (\"event\"):"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "            list.addToList(new Event(description, date));"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            case (\"deadline\") :"
+        "content": "            list.addToFile(new Event(description, date));"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToList(new Deadline(description));"
+        "content": "            break;"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                list.addToFile(new Deadline(description));"
+        "content": "        case (\"deadline\"):"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                break;"
+        "content": "            list.addToList(new Deadline(description, date));"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "            list.addToFile(new Deadline(description, date));"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        Messages.printAddedTask(list.get(list.size() - 1), list.size());"
+        "content": "            break;"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        Messages.printAddedTask(list.get(list.size() - 1), list.size());"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void updateIfTaskIsDone(String input, int index, TaskList list) throws IOException {"
+        "content": "    }"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
+        "content": "    public static void updateIfTaskIsDone(String input, int index, TaskList list) throws IOException {"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
+        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            list.get(checkedIntIndex - 1).updateIsDone();"
+        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        Storage.overWriteFile(list);"
+        "content": "            list.get(checkedIntIndex - 1).updateIsDone();"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        Messages.printTaskMarkedDone(list, checkedIntIndex);"
+        "content": "        }"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        Storage.overWriteFile(list);"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        Messages.printTaskMarkedDone(list, checkedIntIndex);"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void removeTask(TaskList list, String input, int index) throws IOException {"
+        "content": "    }"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
+        "content": ""
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
+        "content": "    public static void removeTask(TaskList list, String input, int index) throws IOException {"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
+        "content": "        String checkedStrIndex \u003d input.replaceAll(\"[^0-9]\", \"\");"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            Messages.printRemovedTask(list, checkedIntIndex);"
+        "content": "        int checkedIntIndex \u003d Integer.parseInt(checkedStrIndex);"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            list.remove(checkedIntIndex - 1);"
+        "content": "        if (checkedIntIndex \u003c\u003d index + 1 \u0026\u0026 checkedIntIndex \u003e 0) {"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "            Messages.printRemovedTask(list, checkedIntIndex);"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        Storage.overWriteFile(list);"
+        "content": "            list.remove(checkedIntIndex - 1);"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        }"
       },
       {
         "lineNumber": 54,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        Storage.overWriteFile(list);"
+      },
+      {
+        "lineNumber": 55,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 56,
         "author": {
           "gitId": "joelngyx"
         },
@@ -383,7 +397,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 54
+      "joelngyx": 56
     }
   },
   {
@@ -801,122 +815,136 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    list.addToList(new Event(description));"
+        "content": "                    list.addToList(new Event(Parser.Parser.getDescription(\"event\", description),"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    break;"
+        "content": "                            Parser.Parser.getDate(description)));"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                case (\u0027D\u0027):"
+        "content": "                    break;"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    list.addToList(new Deadline(description));"
+        "content": "                case (\u0027D\u0027):"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    break;"
+        "content": "                    list.addToList(new Deadline(Parser.Parser.getDescription(\"deadline\", description),"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "                            Parser.Parser.getDate(description)));"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            switch (status) {"
+        "content": "                    break;"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                case (\u0027\\u2713\u0027):"
+        "content": "            }"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    list.get(i).updateIsDone();"
+        "content": "            switch (status) {"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    break;"
+        "content": "                case (\u0027\\u2713\u0027):"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                case (\u0027\\u2718\u0027):"
+        "content": "                    list.get(i).updateIsDone();"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    list.get(i).markNotDone();"
+        "content": "                    break;"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    break;"
+        "content": "                case (\u0027\\u2718\u0027):"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "                    list.get(i).markNotDone();"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            i++;"
+        "content": "                    break;"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "            }"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "            i++;"
       },
       {
         "lineNumber": 76,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 77,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 78,
         "author": {
           "gitId": "joelngyx"
         },
@@ -924,7 +952,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 76
+      "joelngyx": 78
     }
   },
   {
@@ -1795,42 +1823,42 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Parser {"
+        "content": "import java.time.LocalDateTime;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "import java.time.format.DateTimeFormatter;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    // The Parser.Parser Class contains methods that interprets"
+        "content": "import java.util.Objects;"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    // the User\u0027s inputs and prepares the corresponding"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    // commands"
+        "content": "public class Parser {"
       },
       {
         "lineNumber": 14,
@@ -1844,63 +1872,63 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static int getIndex(String input, String type) {"
+        "content": "    // The Parser Class contains methods that interprets"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    // the User\u0027s inputs and prepares the corresponding commands"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String temp \u003d input.replace(type, \"\").replace(\" \", \"\");"
+        "content": ""
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if(temp.replaceAll(\"[0-9]\", \"\").isEmpty()) {"
+        "content": "    public static String REGEX \u003d \"\\\\d+\";"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return Integer.parseInt(temp);"
+        "content": ""
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return (-1);"
+        "content": "    public static int getIndex(String input, String type) {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": ""
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        // Returns the index provided in a DELETE or DONE command"
       },
       {
         "lineNumber": 24,
@@ -1914,63 +1942,63 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void parseCommand(String input, TaskList list) throws IOException {"
+        "content": "        String temp \u003d input.replace(type, \"\").replace(\" \", \"\");"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        if(temp.replaceAll(REGEX, \"\").isEmpty()) {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        // This method figures out what type of command the"
+        "content": "            return Integer.parseInt(temp);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        // input is to evoke"
+        "content": "        } else {"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "            return (-1);"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int index;"
+        "content": "        }"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.print(list.size() + \"\\n\");"
+        "content": "    }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int numberOfTasks \u003d list.size();"
+        "content": ""
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String temp \u003d input.toLowerCase();"
+        "content": "    public static void parseCommand(String input, TaskList list) throws IOException {"
       },
       {
         "lineNumber": 34,
@@ -1984,469 +2012,469 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if(temp.equals(\"list\")){"
+        "content": "        // Figures out what type of command the input is to evoke"
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            System.out.println(list.contentsOfTaskList());"
+        "content": ""
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else if(temp.contains(\"done\")){"
+        "content": "        int index;"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            index \u003d getIndex(input,\"done\");"
+        "content": "        LocalDate date;"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks + 1)){"
+        "content": "        int numberOfTasks \u003d list.size();"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printGeneralError();"
+        "content": "        input \u003d input.toLowerCase();"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            } else {"
+        "content": ""
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Commands.updateIfTaskIsDone(input, index, list);"
+        "content": "        if(input.equals(\"list\")){"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "            System.out.println(list.contentsOfTaskList());"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else if(temp.contains(\"delete\")){"
+        "content": "        }"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            index \u003d getIndex(input,\"delete\");"
+        "content": "        else if(input.contains(\"done\")){"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks)){"
+        "content": "            index \u003d getIndex(input,\"done\");"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printGeneralError();"
+        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks + 1)){"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            } else {"
+        "content": "                Messages.printGeneralError();"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Commands.removeTask(list, input, index);"
+        "content": "            } else {"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "                Commands.updateIfTaskIsDone(input, index, list);"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else if (temp.contains(\"todo\") || temp.contains(\"event\") || temp.contains(\"deadline\")) {"
+        "content": "            }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(!getTaskType(input).equals(\"Error\")) {"
+        "content": "        }"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                System.out.println(getDescription(getTaskType(input), input));"
+        "content": "        else if(input.contains(\"delete\")){"
       },
       {
         "lineNumber": 54,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Commands.addTask(getDescription(getTaskType(temp), input), getTaskType(input), list);"
+        "content": "            index \u003d getIndex(input,\"delete\");"
       },
       {
         "lineNumber": 55,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "            if(index \u003c 1 || index \u003e (numberOfTasks)){"
       },
       {
         "lineNumber": 56,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else {"
+        "content": "                Messages.printGeneralError();"
       },
       {
         "lineNumber": 57,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            Messages.printGeneralError();"
+        "content": "            } else {"
       },
       {
         "lineNumber": 58,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "                Commands.removeTask(list, input, index);"
       },
       {
         "lineNumber": 59,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "            }"
       },
       {
         "lineNumber": 60,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 61,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static String getDescription(String type, String input) {"
+        "content": "        else if (input.contains(\"todo\")) {"
       },
       {
         "lineNumber": 62,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String temp \u003d input.toLowerCase();"
+        "content": "            if(!getTaskType(input).equals(\"Error\")) {"
       },
       {
         "lineNumber": 63,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        int lastIndex \u003d temp.lastIndexOf(type);"
+        "content": "                System.out.println(getDescription(getTaskType(input), input));"
       },
       {
         "lineNumber": 64,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return input.substring(lastIndex);"
+        "content": "                Commands.addTodoTask(getDescription(getTaskType(input), input), list);"
       },
       {
         "lineNumber": 65,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "            }"
       },
       {
         "lineNumber": 66,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 67,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static String getTaskType(String s){"
+        "content": "        else if (input.contains(\"event\") || input.contains(\"deadline\")){"
       },
       {
         "lineNumber": 68,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "            if(!getTaskType(input).equals(\"Error\")) {"
       },
       {
         "lineNumber": 69,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        boolean isTodo \u003d checkForErrors(s, \"todo\");"
+        "content": "                date \u003d getDate(input);"
       },
       {
         "lineNumber": 70,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        boolean isDeadline \u003d checkForErrors(s, \"deadline\");"
+        "content": "                if(date \u003d\u003d null){"
       },
       {
         "lineNumber": 71,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        boolean isEvent \u003d checkForErrors(s, \"event\");"
+        "content": "                    Messages.printDateInputError();"
       },
       {
         "lineNumber": 72,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if(isTodo){"
+        "content": "                }"
       },
       {
         "lineNumber": 73,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return \"todo\";"
+        "content": "                else {"
       },
       {
         "lineNumber": 74,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else if (isDeadline){"
+        "content": "                    System.out.print(date.format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\")));"
       },
       {
         "lineNumber": 75,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return \"deadline\";"
+        "content": "                    Commands.addEventOrDeadlineTask(getDescription(getTaskType(input), input),"
       },
       {
         "lineNumber": 76,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else if (isEvent){"
+        "content": "                            getTaskType(input), list, date);"
       },
       {
         "lineNumber": 77,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return \"event\";"
+        "content": "                }"
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        } else {"
+        "content": "            }"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            return \"Error\";"
+        "content": "        }"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "        else {"
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "            Messages.printGeneralError();"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        }"
       },
       {
         "lineNumber": 83,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static boolean checkForErrors(String s, String type) {"
+        "content": "    }"
       },
       {
         "lineNumber": 84,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        String temp \u003d s.replace(type, \"\").replace(\" \",\"\");"
+        "content": ""
       },
       {
         "lineNumber": 85,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        temp \u003d temp.replace(\"/\", \"\");"
+        "content": "    public static String getDescription(String type, String input) {"
       },
       {
         "lineNumber": 86,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if (s.contains(\"todo\")) {"
+        "content": ""
       },
       {
         "lineNumber": 87,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(!temp.equals(\"\")) {"
+        "content": "        String ch;"
       },
       {
         "lineNumber": 88,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                return s.contains(type);"
+        "content": "        int lastIndex \u003d input.lastIndexOf(type);"
       },
       {
         "lineNumber": 89,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            } else {"
+        "content": "        if(type.equals(\"deadline\") || type.equals(\"event\")){"
       },
       {
         "lineNumber": 90,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printErrorEmptyInput(s);"
+        "content": "            int positionOfFirstSlash \u003d input.indexOf(\"[/,(]\");"
       },
       {
         "lineNumber": 91,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            }"
+        "content": "            int positionOfSecondSlash \u003d input.indexOf(\"/\", positionOfFirstSlash + 1);"
       },
       {
         "lineNumber": 92,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "            if(positionOfSecondSlash \u003e 2){"
       },
       {
         "lineNumber": 93,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        if(s.contains(\"event\") || s.contains(\"deadline\")){"
+        "content": "                ch \u003d String.valueOf(input.charAt(positionOfSecondSlash - 2));"
       },
       {
         "lineNumber": 94,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            if(s.contains(\"/\")) {"
+        "content": "            }"
       },
       {
         "lineNumber": 95,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                if(!temp.equals(\"\")){"
+        "content": "            else {"
       },
       {
         "lineNumber": 96,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    return s.contains(type);"
+        "content": "                return \"SOMETHING WRONG\";"
       },
       {
         "lineNumber": 97,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                } else {"
+        "content": "            }"
       },
       {
         "lineNumber": 98,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                    Messages.printErrorEmptyInput(s);"
+        "content": "            if(ch.matches(REGEX)){"
       },
       {
         "lineNumber": 99,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                }"
+        "content": "                return (input.substring(lastIndex, positionOfSecondSlash - 2).replace(\"/\", \"(\")"
       },
       {
         "lineNumber": 100,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "            } else {"
+        "content": "                        + getDate(input).format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\"))"
       },
       {
         "lineNumber": 101,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "                Messages.printErrorWrongSlash(s);"
+        "content": "                        + \")\");"
       },
       {
         "lineNumber": 102,
@@ -2460,24 +2488,1067 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        }"
+        "content": "            else{"
       },
       {
         "lineNumber": 104,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return false;"
+        "content": "                return (input.substring(lastIndex, positionOfSecondSlash - 1).replace(\"/\", \"(\")"
       },
       {
         "lineNumber": 105,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "                        + getDate(input).format(DateTimeFormatter.ofPattern(\"dd/MM/yyyy\"))"
       },
       {
         "lineNumber": 106,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                        + \")\");"
+      },
+      {
+        "lineNumber": 107,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 108,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 109,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return input.substring(lastIndex);"
+      },
+      {
+        "lineNumber": 110,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 111,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 112,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static String getTaskType(String s){"
+      },
+      {
+        "lineNumber": 113,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 114,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isTodo \u003d checkForGeneralErrors(s, \"todo\");"
+      },
+      {
+        "lineNumber": 115,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isDeadline \u003d checkForGeneralErrors(s, \"deadline\");"
+      },
+      {
+        "lineNumber": 116,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        boolean isEvent \u003d checkForGeneralErrors(s, \"event\");"
+      },
+      {
+        "lineNumber": 117,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(isTodo){"
+      },
+      {
+        "lineNumber": 118,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"todo\";"
+      },
+      {
+        "lineNumber": 119,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if (isDeadline){"
+      },
+      {
+        "lineNumber": 120,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"deadline\";"
+      },
+      {
+        "lineNumber": 121,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else if (isEvent){"
+      },
+      {
+        "lineNumber": 122,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"event\";"
+      },
+      {
+        "lineNumber": 123,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        } else {"
+      },
+      {
+        "lineNumber": 124,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return \"Error\";"
+      },
+      {
+        "lineNumber": 125,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 126,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 127,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 128,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static boolean checkForGeneralErrors(String s, String type) {"
+      },
+      {
+        "lineNumber": 129,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 130,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        String temp \u003d s.replace(type, \"\").replace(\" \",\"\");"
+      },
+      {
+        "lineNumber": 131,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        temp \u003d temp.replace(\"/\", \"\");"
+      },
+      {
+        "lineNumber": 132,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 133,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if (s.contains(\"todo\")) {"
+      },
+      {
+        "lineNumber": 134,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(!temp.equals(\"\")) {"
+      },
+      {
+        "lineNumber": 135,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                return s.contains(type);"
+      },
+      {
+        "lineNumber": 136,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 137,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printErrorEmptyInput(s);"
+      },
+      {
+        "lineNumber": 138,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 139,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 140,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(s.contains(\"event\") || s.contains(\"deadline\")){"
+      },
+      {
+        "lineNumber": 141,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(s.contains(\"/\")) {"
+      },
+      {
+        "lineNumber": 142,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                if(!temp.equals(\"\")){"
+      },
+      {
+        "lineNumber": 143,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    return s.contains(type);"
+      },
+      {
+        "lineNumber": 144,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                } else {"
+      },
+      {
+        "lineNumber": 145,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                    Messages.printErrorEmptyInput(s);"
+      },
+      {
+        "lineNumber": 146,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                }"
+      },
+      {
+        "lineNumber": 147,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            } else {"
+      },
+      {
+        "lineNumber": 148,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                Messages.printErrorWrongSlash(s);"
+      },
+      {
+        "lineNumber": 149,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 150,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 151,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return false;"
+      },
+      {
+        "lineNumber": 152,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 153,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 154,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static LocalDate getDate(String s) {"
+      },
+      {
+        "lineNumber": 155,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 156,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int day;"
+      },
+      {
+        "lineNumber": 157,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int month;"
+      },
+      {
+        "lineNumber": 158,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int year;"
+      },
+      {
+        "lineNumber": 159,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 160,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        LocalDate date;"
+      },
+      {
+        "lineNumber": 161,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 162,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        // Expects input in the form TYPE + description + /by dd/mm/yyyy + time"
+      },
+      {
+        "lineNumber": 163,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 164,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        s \u003d s.replace(\" \", \"\");"
+      },
+      {
+        "lineNumber": 165,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        s +\u003d \" \";"
+      },
+      {
+        "lineNumber": 166,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        char[] ch \u003d s.toCharArray();"
+      },
+      {
+        "lineNumber": 167,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(s);"
+      },
+      {
+        "lineNumber": 168,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 169,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        // Get the positions of the \u0027/\u0027 characters"
+      },
+      {
+        "lineNumber": 170,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 171,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int count \u003d 0;"
+      },
+      {
+        "lineNumber": 172,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        int[] indexArray \u003d new int[4];"
+      },
+      {
+        "lineNumber": 173,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 174,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        for(int i \u003d 0; i \u003c ch.length; i ++){"
+      },
+      {
+        "lineNumber": 175,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(ch[i] \u003d\u003d \u0027/\u0027 || ch[i] \u003d\u003d \u0027(\u0027){"
+      },
+      {
+        "lineNumber": 176,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                indexArray[count] \u003d i;"
+      },
+      {
+        "lineNumber": 177,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                count ++;"
+      },
+      {
+        "lineNumber": 178,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                System.out.println(\"count:\" + count);"
+      },
+      {
+        "lineNumber": 179,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 180,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            if(count \u003e 3){"
+      },
+      {
+        "lineNumber": 181,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                System.out.println(\"TOO MANY \u0027/\u0027\");"
+      },
+      {
+        "lineNumber": 182,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                break;"
+      },
+      {
+        "lineNumber": 183,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            }"
+      },
+      {
+        "lineNumber": 184,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 185,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 186,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(count \u003c 2){"
+      },
+      {
+        "lineNumber": 187,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            System.out.println(\"INVALID\");"
+      },
+      {
+        "lineNumber": 188,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 189,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 190,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 191,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        for(int i \u003d 0; i \u003c 3; i ++){"
+      },
+      {
+        "lineNumber": 192,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            System.out.println(indexArray[i]);"
+      },
+      {
+        "lineNumber": 193,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 194,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 195,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        // To handle Null Exception Error"
+      },
+      {
+        "lineNumber": 196,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 197,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(!(((indexArray[1] - indexArray[0]) \u003e\u003d 1) \u0026\u0026 ((indexArray[2] - indexArray[1]) \u003e 1)"
+      },
+      {
+        "lineNumber": 198,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                \u0026\u0026 ((ch.length - indexArray[2]) \u003e\u003d 4))){"
+      },
+      {
+        "lineNumber": 199,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printDateInputError();"
+      },
+      {
+        "lineNumber": 200,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 201,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 202,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 203,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        day \u003d getPartOfDate(indexArray[1] -2, indexArray[1], s);"
+      },
+      {
+        "lineNumber": 204,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(checkForDateError(day, 31)){"
+      },
+      {
+        "lineNumber": 205,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printDateComponentError(\"day\");"
+      },
+      {
+        "lineNumber": 206,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 207,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 208,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 209,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        month \u003d getPartOfDate(indexArray[2] -2, indexArray[2], s);"
+      },
+      {
+        "lineNumber": 210,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(checkForDateError(month, 12)){"
+      },
+      {
+        "lineNumber": 211,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            System.out.println(month);"
+      },
+      {
+        "lineNumber": 212,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printDateComponentError(\"month\");"
+      },
+      {
+        "lineNumber": 213,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 214,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 215,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 216,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        year \u003d getPartOfDate(indexArray[2] + 1, indexArray[2] + 5, s);"
+      },
+      {
+        "lineNumber": 217,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(checkForDateError(year, 9999)){"
+      },
+      {
+        "lineNumber": 218,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            Messages.printDateComponentError(\"year\");"
+      },
+      {
+        "lineNumber": 219,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return null;"
+      },
+      {
+        "lineNumber": 220,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 221,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 222,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        date \u003d LocalDate.of(year, month, day);"
+      },
+      {
+        "lineNumber": 223,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return date;"
+      },
+      {
+        "lineNumber": 224,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 225,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 226,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static int getPartOfDate (int start, int end, String input) {"
+      },
+      {
+        "lineNumber": 227,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 228,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(\"GETTING PART OF DATE\");"
+      },
+      {
+        "lineNumber": 229,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(\"DEBUG \" + input.substring(start, end));"
+      },
+      {
+        "lineNumber": 230,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(input.substring(start, end).matches(REGEX)){"
+      },
+      {
+        "lineNumber": 231,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return Integer.parseInt(input.substring(start, end));"
+      },
+      {
+        "lineNumber": 232,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 233,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        else if (input.substring(start + 1, end).matches(REGEX)){"
+      },
+      {
+        "lineNumber": 234,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return Integer.parseInt(input.substring(start + 1, end));"
+      },
+      {
+        "lineNumber": 235,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 236,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        else {"
+      },
+      {
+        "lineNumber": 237,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return -1;"
+      },
+      {
+        "lineNumber": 238,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 239,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 240,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 241,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static boolean checkForDateError (int dateComponent, int i) {"
+      },
+      {
+        "lineNumber": 242,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        if(dateComponent \u003e i) {"
+      },
+      {
+        "lineNumber": 243,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return true;"
+      },
+      {
+        "lineNumber": 244,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 245,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        else if (dateComponent \u003d\u003d 0) {"
+      },
+      {
+        "lineNumber": 246,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return true;"
+      },
+      {
+        "lineNumber": 247,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 248,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        else if (dateComponent \u003d\u003d -1) {"
+      },
+      {
+        "lineNumber": 249,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return true;"
+      },
+      {
+        "lineNumber": 250,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 251,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        else {"
+      },
+      {
+        "lineNumber": 252,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "            return false;"
+      },
+      {
+        "lineNumber": 253,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        }"
+      },
+      {
+        "lineNumber": 254,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 255,
         "author": {
           "gitId": "joelngyx"
         },
@@ -2485,7 +3556,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 106
+      "joelngyx": 255
     }
   },
   {
@@ -2511,7 +3582,7 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Deadline extends Task {"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
@@ -2525,52 +3596,66 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Deadline(String description) {"
+        "content": "public class Deadline extends Task {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        super(description);"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public Deadline(String description, LocalDate date) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        super(description, date);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "    }"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"[D]\";"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public String getTaskIcon(){"
       },
       {
         "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"[D]\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
         "author": {
           "gitId": "joelngyx"
         },
@@ -2578,7 +3663,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 12
+      "joelngyx": 14
     }
   },
   {
@@ -2604,7 +3689,7 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Event extends Task{"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
@@ -2618,52 +3703,66 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Event(String description) {"
+        "content": "public class Event extends Task{"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        super(description);"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public Event(String description, LocalDate date) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        super(description, date);"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "    }"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"[E]\";"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public String getTaskIcon(){"
       },
       {
         "lineNumber": 12,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"[E]\";"
+      },
+      {
+        "lineNumber": 13,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 14,
         "author": {
           "gitId": "joelngyx"
         },
@@ -2671,7 +3770,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 12
+      "joelngyx": 14
     }
   },
   {
@@ -2697,21 +3796,21 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "public class Task {"
+        "content": "import java.time.LocalDate;"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    protected String description;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    protected boolean isDone;"
+        "content": "public class Task {"
       },
       {
         "lineNumber": 6,
@@ -2725,49 +3824,49 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public Task(String description) {"
+        "content": "    protected LocalDate date;"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.description \u003d description;"
+        "content": "    protected String description;"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": "    protected boolean isDone;"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": ""
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    public Task(String description) {"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": "        this.description \u003d description;"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
+        "content": "        this.isDone \u003d false;"
       },
       {
         "lineNumber": 14,
@@ -2788,108 +3887,206 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public void updateIsDone(){"
+        "content": "    public Task(String description, LocalDate date) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "        this.description \u003d description;"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        this.isDone \u003d false;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        this.date \u003d date;"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public void markNotDone() {"
+        "content": "    }"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public String getStatusIcon() {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        return (isDone ? \"\\u2713\" : \"\\u2718\"); //return tick or X symbols"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getTaskIcon(){"
+        "content": "    }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return \"Error\";"
+        "content": ""
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public void updateIsDone(){"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "        this.isDone \u003d true;"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public String getDescription() {"
+        "content": "    }"
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        return this.description;"
+        "content": ""
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "    public void markNotDone() {"
       },
       {
         "lineNumber": 31,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.isDone \u003d false;"
+      },
+      {
+        "lineNumber": 32,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 33,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 34,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getTaskIcon(){"
+      },
+      {
+        "lineNumber": 35,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return \"Error\";"
+      },
+      {
+        "lineNumber": 36,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 37,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 38,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public String getDescription() {"
+      },
+      {
+        "lineNumber": 39,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        return this.description;"
+      },
+      {
+        "lineNumber": 40,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 41,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 42,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public void addDate(LocalDate x) {"
+      },
+      {
+        "lineNumber": 43,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        this.date \u003d x;"
+      },
+      {
+        "lineNumber": 44,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 45,
         "author": {
           "gitId": "joelngyx"
         },
@@ -2897,7 +4094,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 31
+      "joelngyx": 45
     }
   },
   {
@@ -3534,45 +4731,115 @@
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(\"of the task with a \u0027/\u0027\\n\" + MARGINS);"
+        "content": "        System.out.println(\"of the task with 3 \u0027/\u0027 characters\\n\""
       },
       {
         "lineNumber": 78,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "                + \"e.g. deadline return book /by 2/12/2019\\n\" + MARGINS);"
       },
       {
         "lineNumber": 79,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 80,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    public static void printGeneralError() {"
+        "content": ""
       },
       {
         "lineNumber": 81,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "        System.out.println(MARGINS + \"Please enter a valid input\\n\" + MARGINS);"
+        "content": "    public static void printGeneralError() {"
       },
       {
         "lineNumber": 82,
         "author": {
           "gitId": "joelngyx"
         },
-        "content": "    }"
+        "content": "        System.out.println(MARGINS + \"Please enter a valid input\\n\" + MARGINS);"
       },
       {
         "lineNumber": 83,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 84,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 85,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void printDateInputError() {"
+      },
+      {
+        "lineNumber": 86,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(MARGINS + \"Please enter dates in the form \u0027dd/MM/yyyy\u0027\\n\""
+      },
+      {
+        "lineNumber": 87,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "                +  \"e.g. deadline return book /by 2/12/2019\\n\" + MARGINS);"
+      },
+      {
+        "lineNumber": 88,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 89,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 90,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    public static void printDateComponentError (String s) {"
+      },
+      {
+        "lineNumber": 91,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "        System.out.println(\"Enter a valid \" + s + \"\\n\");"
+      },
+      {
+        "lineNumber": 92,
+        "author": {
+          "gitId": "joelngyx"
+        },
+        "content": "    }"
+      },
+      {
+        "lineNumber": 93,
         "author": {
           "gitId": "joelngyx"
         },
@@ -3580,7 +4847,7 @@
       }
     ],
     "authorContributionMap": {
-      "joelngyx": 83
+      "joelngyx": 93
     }
   },
   {
