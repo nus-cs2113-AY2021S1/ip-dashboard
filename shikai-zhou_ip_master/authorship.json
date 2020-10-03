@@ -1477,360 +1477,353 @@
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "import java.io.IOException;"
+        "content": ""
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "public class Parser {"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "public class Parser {"
+        "content": "    public boolean parse (String input, TaskList tasks) {"
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public boolean parse (String input, TaskList tasks) {"
+        "content": "        // parses the user input"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        // parses the user input"
+        "content": "        Ui ui \u003d new Ui();"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        Ui ui \u003d new Ui();"
+        "content": "        try {"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        try {"
+        "content": "            if (input.equals(\"bye\")) {"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            if (input.equals(\"bye\")) {"
+        "content": "                ui.exit(tasks);"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                ui.exit(tasks);"
+        "content": "                tasks.writeToFile(\"data/tasks.txt\");"
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                tasks.writeToFile(\"data/tasks.txt\");"
+        "content": "                return true;"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                return true;"
+        "content": "            } else if (input.equals(\"list\")) {"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.equals(\"list\")) {"
+        "content": "                tasks.list();"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                tasks.list();"
+        "content": "            } else if (input.matches(\"done(.*)\")) {"
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.matches(\"done(.*)\")) {"
+        "content": "                tasks.markDone(input);"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                tasks.markDone(input);"
+        "content": "            } else if (input.matches(\"todo.*\")||input.startsWith(\"[T]\")) {"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.matches(\"todo.*\")||input.startsWith(\"[T]\")) {"
+        "content": "                try {"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                try {"
+        "content": "                    tasks.addTodo(input);"
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    tasks.addTodo(input);"
+        "content": ""
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "                } catch (EmptyDescriptionException e) {"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                } catch (EmptyDescriptionException e) {"
+        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
+        "content": "                }"
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                }"
+        "content": "            } else if (input.matches(\"deadline.*\")||input.startsWith(\"[D]\")) {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.matches(\"deadline.*\")||input.startsWith(\"[D]\")) {"
+        "content": "                try {"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                try {"
+        "content": "                    tasks.addDeadline(input);"
       },
       {
         "lineNumber": 28,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    tasks.addDeadline(input);"
+        "content": ""
       },
       {
         "lineNumber": 29,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "                } catch (EmptyDescriptionException e) {"
       },
       {
         "lineNumber": 30,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                } catch (EmptyDescriptionException e) {"
+        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
       },
       {
         "lineNumber": 31,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
+        "content": "                }"
       },
       {
         "lineNumber": 32,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                }"
+        "content": "            } else if (input.matches(\"event.*\")||input.startsWith(\"[E]\")) {"
       },
       {
         "lineNumber": 33,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.matches(\"event.*\")||input.startsWith(\"[E]\")) {"
+        "content": "                try {"
       },
       {
         "lineNumber": 34,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                try {"
+        "content": "                    tasks.addEvent(input);"
       },
       {
         "lineNumber": 35,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    tasks.addEvent(input);"
+        "content": ""
       },
       {
         "lineNumber": 36,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "                } catch (EmptyDescriptionException e) {"
       },
       {
         "lineNumber": 37,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                } catch (EmptyDescriptionException e) {"
+        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
       },
       {
         "lineNumber": 38,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                    System.out.println(\"OOPS!!! The description of a tasks cannot be empty.\");"
+        "content": "                }"
       },
       {
         "lineNumber": 39,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                }"
+        "content": "            } else if (input.matches(\"delete.*\")) {"
       },
       {
         "lineNumber": 40,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.matches(\"delete.*\")) {"
+        "content": "                tasks.deleteTask(input);"
       },
       {
         "lineNumber": 41,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                tasks.deleteTask(input);"
+        "content": "            } else if (input.startsWith(\"find\")) {"
       },
       {
         "lineNumber": 42,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.startsWith(\"find\")) {"
+        "content": "                tasks.findTask(input);"
       },
       {
         "lineNumber": 43,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                tasks.findTask(input);"
+        "content": "            } else if (input.startsWith(\"help\")) {"
       },
       {
         "lineNumber": 44,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else if (input.startsWith(\"help\")) {"
+        "content": "                ui.help();"
       },
       {
         "lineNumber": 45,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                ui.help();"
+        "content": "            } else {"
       },
       {
         "lineNumber": 46,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            } else {"
+        "content": "                throw new UnkownCommandException();"
       },
       {
         "lineNumber": 47,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "                throw new UnkownCommandException();"
+        "content": "            }"
       },
       {
         "lineNumber": 48,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            }"
+        "content": "        } catch (UnkownCommandException e) {"
       },
       {
         "lineNumber": 49,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        } catch (UnkownCommandException e) {"
+        "content": "            System.out.println(\"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\");"
       },
       {
         "lineNumber": 50,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            System.out.println(\"OOPS!!! I\u0027m sorry, but I don\u0027t know what that means :-(\");"
+        "content": "            ui.help();"
       },
       {
         "lineNumber": 51,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "            ui.help();"
+        "content": "        }"
       },
       {
         "lineNumber": 52,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        }"
+        "content": "        return false;"
       },
       {
         "lineNumber": 53,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        return false;"
-      },
-      {
-        "lineNumber": 54,
-        "author": {
-          "gitId": "shikai-zhou"
-        },
         "content": "    }"
       },
       {
-        "lineNumber": 55,
+        "lineNumber": 54,
         "author": {
           "gitId": "shikai-zhou"
         },
@@ -1838,7 +1831,7 @@
       }
     ],
     "authorContributionMap": {
-      "shikai-zhou": 55
+      "shikai-zhou": 54
     }
   },
   {
@@ -4237,185 +4230,192 @@
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "public class Task {"
+        "content": ""
       },
       {
         "lineNumber": 3,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    protected String description;"
+        "content": "public class Task {"
       },
       {
         "lineNumber": 4,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    protected boolean isDone;"
+        "content": "    protected String description;"
       },
       {
         "lineNumber": 5,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    protected boolean isDone;"
       },
       {
         "lineNumber": 6,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public Task(String description) {"
+        "content": ""
       },
       {
         "lineNumber": 7,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        //constructor"
+        "content": "    public Task(String description) {"
       },
       {
         "lineNumber": 8,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        this.description \u003d description.trim();"
+        "content": "        //constructor"
       },
       {
         "lineNumber": 9,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        this.isDone \u003d false;"
+        "content": "        this.description \u003d description.trim();"
       },
       {
         "lineNumber": 10,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    }"
+        "content": "        this.isDone \u003d false;"
       },
       {
         "lineNumber": 11,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 12,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public String getStatusIcon() {"
+        "content": ""
       },
       {
         "lineNumber": 13,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        return (isDone ? \"Y\" : \"N\"); //return Y or N symbols"
+        "content": "    public String getStatusIcon() {"
       },
       {
         "lineNumber": 14,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    }"
+        "content": "        return (isDone ? \"Y\" : \"N\"); //return Y or N symbols"
       },
       {
         "lineNumber": 15,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 16,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public String getDescription() {"
+        "content": ""
       },
       {
         "lineNumber": 17,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        return description;"
+        "content": "    public String getDescription() {"
       },
       {
         "lineNumber": 18,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    }"
+        "content": "        return description;"
       },
       {
         "lineNumber": 19,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 20,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public void setAsDone() {"
+        "content": ""
       },
       {
         "lineNumber": 21,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        this.isDone \u003d true;"
+        "content": "    public void setAsDone() {"
       },
       {
         "lineNumber": 22,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    }"
+        "content": "        this.isDone \u003d true;"
       },
       {
         "lineNumber": 23,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 24,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    public String toString() {"
+        "content": ""
       },
       {
         "lineNumber": 25,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "        return \"[\"+this.getStatusIcon()+\"] \"+this.getDescription();"
+        "content": "    public String toString() {"
       },
       {
         "lineNumber": 26,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": "    }"
+        "content": "        return \"[\"+this.getStatusIcon()+\"] \"+this.getDescription();"
       },
       {
         "lineNumber": 27,
         "author": {
           "gitId": "shikai-zhou"
         },
-        "content": ""
+        "content": "    }"
       },
       {
         "lineNumber": 28,
+        "author": {
+          "gitId": "shikai-zhou"
+        },
+        "content": ""
+      },
+      {
+        "lineNumber": 29,
         "author": {
           "gitId": "shikai-zhou"
         },
@@ -4423,7 +4423,7 @@
       }
     ],
     "authorContributionMap": {
-      "shikai-zhou": 28
+      "shikai-zhou": 29
     }
   },
   {
